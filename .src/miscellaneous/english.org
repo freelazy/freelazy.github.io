@@ -13,6 +13,8 @@
 - documentation: document/docs, 文档
 - Template: 模板
 - prevent: 阻止
+- Cookie: 饼干
+- Session: 会话
 
 * 简单单词
 

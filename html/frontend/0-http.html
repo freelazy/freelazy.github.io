@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>HTTP</title>
-<meta name="author" content="悟饭" />
+<meta name="author" content="1a2y" />
 <meta name="generator" content="Org Mode" />
 <link rel='stylesheet' href='/html/asset/common.css?3344' />
 <link rel='stylesheet' href='/yaoliuyao/html/asset/common.css?3344' />
@@ -47,7 +47,24 @@ HTTP (超文本传输协议) 是一个简单的请求-响应协议，它通常�
 HTTP 是无状态的:
 </p>
 <ul class="org-ul">
-<li></li>
+<li>任何请求都是独立的，无法区分。服务器不记录状态</li>
+<li>优点: 简单；高效；健壮；适用性广</li>
+<li>但是，我们通常的业务请求，需要是有状态的</li>
+<li>因此，需要基于这种无状态进行状态的维护:
+<ul class="org-ul">
+<li>Url 重写 (把所有需要保存的状态，都通过 url 的方式进行传递)</li>
+<li>Cookie 机制 (把所有需要保存的状态，通过 http head 进行传递。浏览器会自动处理)</li>
+</ul></li>
+<li>基于 Cookie 的方式，进行频繁的数据传递，有若干缺点：
+<ul class="org-ul">
+<li>不是那么安全</li>
+<li>传递数据量大的话，影响效率</li>
+<li>Cookie 中保存的东西是基于字符串的，不是基于类型的</li>
+<li>浏览器本身对 Cookie 的大小是有限制的</li>
+</ul></li>
+<li>在状态保证中，最核心的问题是区分各个请求。所以最重要保存、传递的数据是【身份凭证】。
+而其他跟这个【身份】相关的数据，都可以让服务器自行处理。
+这时，就出现了 Session 的概念。</li>
 </ul>
 </div>
 </section>
@@ -74,7 +91,7 @@ HTTP 是无状态的:
 </section>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: 悟饭</p>
+<p class="author">Author: 1a2y</p>
 <p class="date">Created: 2022-09-22</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
