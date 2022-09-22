@@ -1,0 +1,5562 @@
+#+TITLE: 一万行代码
+
+
+
+* 分数录入工具
+
+ScoreRecord:
+- sr["xm"] = 23.5
+- Console.Write(sr["xh"])
+- sr.Print()
+- sr.Export()
+
+加入交互。
+
+** 参考答案
+
+#+begin_src cs -n
+  namespace ScoreRecorder
+  {
+      class Program
+      {
+          static void Main(string[] args)
+          {
+              var sr = new ScoreRecorder();
+              sr.Startup();
+          }
+      }
+  
+      class ScoreRecorder
+      {
+          private readonly Dictionary<string, double> _scores = new(); // 数据源，核心
+  
+          public double? this[string name]
+          {
+              get
+              {
+                  if (_scores.ContainsKey(name))
+                  {
+                      return _scores[name];
+                  }
+  
+                  return null;
+              }
+              set
+              {
+                  if (value == null) // 如果 sr[x] = null, 那么当作删除
+                  {
+                      _scores.Remove(name);
+                  }
+                  else if (value > 100 || value <0) // 不合法的输入
+                  {
+                      throw new Exception("分数必须是 0 ~ 100 之间");
+                  }
+                  else // 添加
+                  {
+                      _scores[name] = (double)value;
+                  }
+              }
+          }
+  
+          public void Print(string name)
+          {
+              Console.WriteLine();
+              double? score = this[name];
+              Console.WriteLine(score == null ? $"{name} 的成绩不存在" : $"{name}: {score}");
+          }
+  
+          public void PrintAll()
+          {
+              Console.WriteLine();
+  
+              if (_scores.Count == 0)
+              {
+                  Console.WriteLine("当前不存在任何成绩，请先录入。");
+                  return;
+              }
+  
+              foreach (var score in _scores)
+              {
+                  Console.WriteLine($"{score.Key} 的成绩为: {score.Value}");
+              }
+          }
+  
+          public void Export(string path)
+          {
+              var sb = new StringBuilder();
+              foreach (var score in _scores)
+              {
+                  sb.Append($"\n\n{score.Key} -- {score.Value}\n");
+              }
+  
+              File.WriteAllText(path, sb.ToString());
+          }
+  
+          // 交互方法
+          public void Record()
+          {
+              Console.Write("姓名: ");
+              string name = Console.ReadLine();
+  
+              if (_scores.ContainsKey(name))
+              {
+                  Console.WriteLine($"已经存在 {name} 的成绩，为 {this[name]}");
+                  return;
+              }
+  
+              Console.Write("成绩: ");
+              if (double.TryParse(Console.ReadLine(), out double score)
+                  && score <= 100 && score >= 0)
+              {
+                  this[name] = score;
+              }
+              else
+              {
+                  Console.WriteLine("输入格式有误，分数必须是 0 ~ 100 之间的数字");
+              }
+          }
+  
+          public void RecordLoop()
+          {
+              while (true)
+              {
+                  Record();
+  
+                  Console.ForegroundColor = ConsoleColor.Gray;
+                  Console.Write("按任意键输入下一个成绩，按 N/Q 退出...");
+                  Console.ResetColor();
+  
+                  var key = Console.ReadKey();
+                  if (key.Key == ConsoleKey.N || key.Key == ConsoleKey.Q)
+                  {
+                      return;
+                  }
+                  Console.WriteLine();
+              }
+          }
+  
+          public void Query()
+          {
+              Console.Write("请输入您要查询的学生的姓名: ");
+              Print(Console.ReadLine());
+          }
+  
+          public void ExportTo()
+          {
+              Console.Write("请输入您要导出的路径: ");
+              Export(Console.ReadLine());
+          }
+  
+          public void PrintMenu()
+          {
+              Console.ForegroundColor = ConsoleColor.DarkBlue;
+              Console.WriteLine("\n\n=-= 欢迎来到这里 =-=\n");
+              Console.WriteLine("1. 录入 2. 查询 3. 打印所有 4. 导出到文件\n\n");
+              Console.ResetColor();
+          }
+  
+          public void Startup()
+          {
+              while (true)
+              {
+                  PrintMenu();
+  
+                  var key = Console.ReadKey();
+                  Console.WriteLine();
+  
+                  switch (key.Key)
+                  {
+                      case ConsoleKey.D1:
+                          RecordLoop();
+                          break;
+                      case ConsoleKey.D2:
+                          Query();
+                          break;
+                      case ConsoleKey.D3:
+                          PrintAll();
+                          break;
+                      case ConsoleKey.D4:
+                          ExportTo();
+                          break;
+                      case ConsoleKey.Q:
+                          return;
+                      default:
+                          Console.WriteLine("输入有误....");
+                          break;
+                  }
+              }
+          }
+      }
+  }
+#+end_src
+
+** 新的要求
+
+在上面的思路基础上，按如下逻辑重新实现:
+1. 创建一个 Excel 表格，在里面初始化好所有需要录入分数的学生名单
+2. 创建项目，编写逻辑，然后构建。使用如下:
+   - 如果执行 ~程序 all~ 那么将显式所有学生
+   - 如果执行 ~程序 done~ 那么将显式所有录完成绩的学生信息
+   - 如果执行 ~程序 todo~ 那么将显式所有未录成绩的学生信息
+   - 如果执行 ~程序 update 学生~ 将会更新某个学生的成绩。当这个学生成绩不存在，提示错误。如果这个学生以录入成绩，给出提醒是否覆盖。
+     更新的结果要保存进 Excel
+
+Excel 大体结构:
+| id | Name     | Score |
+|----+----------+-------|
+|  1 | zhangsan |    22 |
+|  2 | lisi     |       |
+|  3 | wangwu   |       |
+
+*** 示例代码
+
+#+begin_src csharp -n
+  class Program
+  {
+      static void Main(string[] args)
+      {
+          var sc2 = new ScoreRecorder2();
+          if (args[0] == "all")
+          {
+              sc2.PrintAll();
+          }
+          else if (args[0] == "todo")
+          {
+              sc2.PrintTodo();
+          }
+          else if (args[0] == "done")
+          {
+              sc2.PrintDone();
+          }
+          else if (args[0] == "update")
+          {
+              var name = args[1];
+              var scoreString = args[2];
+  
+              var score = double.Parse(scoreString);
+              Console.WriteLine($"{name}/{score}");
+              sc2.Update(name, score);
+          }
+          else
+          {
+              Console.WriteLine("使用的语法为： xxx update/all/done/todo");
+          }
+      }
+  }
+  
+  class ScoreRecorder2
+  {
+      public string Path { get; set; }= @"e:\chengji.xls";
+  
+      // Core
+  
+      public List<(int rn, string name, double? score)> ReadAll()
+      {
+          List<(int, string, double?)> scores = new();
+  
+          WithExcel(sheet =>
+          {
+              for (var i = 1; i <= sheet.LastRowNum; i++)
+              {
+                  var row = sheet.GetRow(i);
+                  var name = row.GetCell(0).StringCellValue;
+                  var scoreCell = row.GetCell(1);
+                  scores.Add((i, name, scoreCell?.NumericCellValue));
+              }
+          });
+  
+          return scores;
+      }
+  
+      public (int rn, string name, double? score)? Read(string name)
+      {
+          (int, string, double?)? ss = null;
+  
+          WithExcel(sheet =>
+          {
+              for (var i = 1; i <= sheet.LastRowNum; i++)
+              {
+                  var row = sheet.GetRow(i);
+                  if (name != row.GetCell(0).StringCellValue) continue;
+                  var scoreCell = row.GetCell(1);
+                  ss = (i, name, scoreCell?.NumericCellValue);
+              }
+          });
+  
+          return ss;
+      }
+  
+      public void WriteScore(int rn, int cn, double score)
+      {
+          WithExcel(sheet =>
+          {
+              var row = sheet.GetRow(rn);
+              var cell = row.GetCell(cn) ?? row.CreateCell(1);
+              cell.SetCellValue(score);
+          }, true);
+      }
+  
+      // Helper
+  
+      private void WithExcel(Action<ISheet> act, bool write = false)
+      {
+          using var file = File.OpenRead(Path);
+          var xls = new HSSFWorkbook(file);
+          var sheet = xls.GetSheetAt(0);
+  
+          act(sheet);
+  
+          if (write)
+          {
+              using var sw = File.OpenWrite(Path);
+              xls.Write(sw);
+          }
+  
+          xls.Close();
+      }
+  
+      // Interactive
+  
+      public void PrintAll()
+      {
+          foreach (var s in ReadAll())
+          {
+              if (s.score.HasValue)
+              {
+                  Console.WriteLine($"{s.name} 的成绩为 {s.score}");
+              }
+              else
+              {
+                  Console.WriteLine($"{s.name} 的成绩不存在");
+              }
+          }
+      }
+  
+      public void PrintDone()
+      {
+          foreach (var s in ReadAll())
+          {
+              if (s.score.HasValue)
+              {
+                  Console.WriteLine($"{s.name} 的成绩为 {s.score}");
+              }
+          }
+      }
+  
+      public void PrintTodo()
+      {
+          foreach (var s in ReadAll())
+          {
+              if (!s.score.HasValue)
+              {
+                  Console.WriteLine($"{s.name} 没有成绩");
+              }
+          }
+      }
+  
+      public void Update(string name, double score)
+      {
+          var info = Read(name);
+  
+          if (info == null)
+          {
+              Console.WriteLine("学生不存在");
+              return;
+          }
+  
+          if (info.Value.score.HasValue)
+          {
+              Console.Write($"学生的成绩已经存在 ({info.Value.name} : {info.Value.score})，是否覆盖 (Y)? ");
+              if (Console.ReadKey().Key != ConsoleKey.Y) return;
+          }
+  
+          WriteScore(info.Value.rn, 1, score);
+      }
+  }
+#+end_src
+
+*** 另一个版本
+
+稍微简化了一些。
+
+#+ATTR_HTML: :width 300px
+[[file:img/score-record.png]]
+
+
+#+begin_src csharp -n
+  class Program
+  {
+      static void Main(string[] args)
+      {
+          var sc3 = new ScoreRecorder3();
+          if (args[0] == "all")
+          {
+              sc3.PrintAll();
+          }
+          else if (args[0] == "todo")
+          {
+              sc3.PrintTodo();
+          }
+          else if (args[0] == "done")
+          {
+              sc3.PrintDone();
+          }
+          else if (args[0] == "update")
+          {
+              var name = args[1];
+              var scoreString = args[2];
+  
+              var score = double.Parse(scoreString);
+              Console.WriteLine($"{name}/{score}");
+              sc3.Update(name, score);
+          }
+          else
+          {
+              Console.WriteLine("使用的语法为： xxx update/all/done/todo");
+          }
+      }
+  }
+  
+  class ScoreRecorder3
+  {
+      public string Path { get; set; }= @"e:\chengji.xls";
+  
+      // Core
+  
+      public Dictionary<string, (int rn, string name, double? score)> ReadAll()
+      {
+          Dictionary<string, (int, string, double?)> scores = new();
+  
+          WithExcel(sheet =>
+          {
+              for (var i = 1; i <= sheet.LastRowNum; i++)
+              {
+                  var row = sheet.GetRow(i);
+                  var name = row.GetCell(0).StringCellValue;
+                  var scoreCell = row.GetCell(1);
+                  scores[name] = (i, name, scoreCell?.NumericCellValue);
+              }
+          });
+  
+          return scores;
+      }
+  
+      public void WriteScore(int rn, int cn, double score)
+      {
+          WithExcel(sheet =>
+          {
+              var row = sheet.GetRow(rn);
+              var cell = row.GetCell(cn) ?? row.CreateCell(1);
+              cell.SetCellValue(score);
+          }, true);
+      }
+  
+      // Helper
+  
+      private void WithExcel(Action<ISheet> act, bool write = false)
+      {
+          using var file = File.OpenRead(Path);
+          var xls = new HSSFWorkbook(file);
+          var sheet = xls.GetSheetAt(0);
+  
+          act(sheet);
+  
+          if (write)
+          {
+              using var sw = File.OpenWrite(Path);
+              xls.Write(sw);
+          }
+  
+          xls.Close();
+      }
+  
+      // Interactive
+  
+      public void PrintAll()
+      {
+          foreach (var s in ReadAll().Values)
+          {
+              if (s.score.HasValue)
+              {
+                  Console.WriteLine($"{s.name} 的成绩为 {s.score}");
+              }
+              else
+              {
+                  Console.WriteLine($"{s.name} 的成绩不存在");
+              }
+          }
+      }
+  
+      public void PrintDone()
+      {
+          foreach (var s in ReadAll().Values)
+          {
+              if (s.score.HasValue)
+              {
+                  Console.WriteLine($"{s.name} 的成绩为 {s.score}");
+              }
+          }
+      }
+  
+      public void PrintTodo()
+      {
+          foreach (var s in ReadAll().Values)
+          {
+              if (!s.score.HasValue)
+              {
+                  Console.WriteLine($"{s.name} 没有成绩");
+              }
+          }
+      }
+  
+      public void Update(string name, double score)
+      {
+          if(!ReadAll().TryGetValue(name, out var info))
+          {
+              Console.WriteLine("学生不存在");
+              return;
+          }
+  
+          if (info.score.HasValue)
+          {
+              Console.Write($"学生的成绩已经存在 ({info.name} : {info.score})，是否覆盖 (Y)? ");
+              if (Console.ReadKey().Key != ConsoleKey.Y) return;
+          }
+  
+          WriteScore(info.rn, 1, score);
+      }
+  }
+#+end_src
+
+*** 补充
+
+#+begin_src csharp
+  // ??
+  var cell = row.GetCell(cn) ?? row.CreateCell(1);
+  // ----
+  var cell = row.GetCell(cn);
+  if (cell == null)
+  {
+      cell = row.CreateCell(1);
+  }
+  
+  // ?.
+  scores[name] = (i, name, scoreCell?.NumericCellValue);
+  // ----  
+  scores[name] = (i, name, scoreCell != null ? scoreCell.NumericCellValue : (double?) null);
+#+end_src
+
+*** Question and Answer
+
+#+begin_src csharp
+  public Dictionary<string, (int rn, string name, double? score)> ReadAll() 
+  {
+      Dictionary<string, (int, string, double?)> scores = new();
+  
+      // 1. 声明委托类型
+      // public delegate void Action(ISheet obj);
+              
+      // 2. 实例化
+      Action<ISheet> act = sheet => // 隐式转换
+          {
+              for (var i = 1; i <= sheet.LastRowNum; i++)
+              {
+                  var row = sheet.GetRow(i);
+                  var name = row.GetCell(0).StringCellValue;
+                  var scoreCell = row.GetCell(1);
+                  scores[name] = (i, name, scoreCell?.NumericCellValue);
+              }
+          };
+              
+      // 3. 使用
+      WithExcel(act);
+  
+      return scores;
+  }
+#+end_src
+
+#+begin_src csharp
+  public Dictionary<string, (int rn, string name, double? score)> ReadAll()
+  {
+      Dictionary<string, (int, string, double?)> scores = new();
+    
+      WithExcel(sheet => // 在 C# 中可以通过这种方式，传递逻辑/方法
+      {
+          for (var i = 1; i <= sheet.LastRowNum; i++)
+          {
+              var row = sheet.GetRow(i);
+              var name = row.GetCell(0).StringCellValue;
+              var scoreCell = row.GetCell(1);
+              scores[name] = (i, name, scoreCell?.NumericCellValue);
+          }
+      });
+    
+      return scores;
+  }
+    
+#+end_src
+
+* 过滤字符串 (委托使用)
+
+实现功能，将某个字符串的一些符合条件的字符，咔嚓掉。
+
+** 基本实现
+
+#+begin_src cs
+  class Program
+  {
+      static void Main(string[] args)
+      {
+          // 将某个字符串的一些符合条件的字符，咔嚓掉
+          string aaa = "hello, world, where 是 你";
+  
+          // a-z 之外的字符，干掉
+          string s1 = GuolvZifuChuan(aaa, new Rule(RuleAZ));
+          string s11 = GuolvZifuChuan(aaa, RuleAZ);
+  
+          // 所有的空格，干掉 (匿名委托)
+          string s2 = GuolvZifuChuan(aaa, delegate(char c) { return c != ' ';});
+  
+          // 所有的 o 干掉 (表达式语法)
+          string s3 = GuolvZifuChuan(aaa, c => c != 'o');
+      }
+  
+      static string GuolvZifuChuan(string input, Rule rule)
+      {
+          string s = "";
+          foreach (var c in input)
+          {
+              if (rule(c))
+              {
+                  s += c;
+              }
+          }
+  
+          return s;
+      }
+  
+      static bool RuleAZ(char c)
+      {
+          return c >= 'a' && c <= 'z';
+  
+          //if (c >= 'a' && c <= 'z')
+          //    return true;
+          //else
+          //    return false;
+      }
+  }
+#+end_src
+
+** 使用扩展机制为类添加功能
+
+#+begin_src cs
+  class Program
+  {
+      static void Main(string[] args)
+      {
+          // 将某个字符串的一些符合条件的字符，咔嚓掉
+          string aaa = "hello, world, where 是 你";
+  
+          // a-z 之外的字符，干掉
+          //string s1 = GuolvZifuChuan(aaa, new Rule(RuleAZ));
+          string s11 = aaa.GoLv(RuleAZ);
+  
+          // 所有的空格，干掉 (匿名委托)
+          string s2 = aaa.GoLv(delegate(char c) { return c != ' ';});
+  
+          // 所有的 o 干掉 (表达式语法)
+          string s3 = aaa.GoLv(c => c != 'o');
+  
+          Console.WriteLine(aaa.Where(RuleAZ).ToArray());
+      }
+  
+      static bool RuleAZ(char c)
+      {
+          return c >= 'a' && c <= 'z';
+          //if (c >= 'a' && c <= 'z') return true; else return false;
+      }
+  }
+  
+  public static class SuibianQigemingzi
+  {
+      public static string GoLv(this string input, Func<char, bool> rule)
+      {
+          string s = "";
+          foreach (var c in input)
+          {
+              if (rule(c))
+              {
+                  s += c;
+              }
+          }
+  
+          return s;
+      }
+  }
+#+end_src
+
+* 语音点名系统
+
+仿照我们上课点名的流程，创作一个工具，用于自动语音点名。
+
+具体的产品逻辑，本着实用、简单的原则，自己思考并设计。
+
+一些建议:
+- 将人员名单保存到一个外部 txt 文本文件中 (其实，保存在 Excel 中，可以实现更灵活更强劲的功能)
+- 学会将最后的程序导出 (publish) 为一个单独的 exe 文件
+- 正常过程: 产品设计 -> 功能划分 -> 编码细节。使用 *面向对象、结构化编程* 的基本思路
+- 大胆去实现，不要怕失败，不要怕。唯手熟尔
+
+** 参考实现
+
+#+begin_src cs -n
+  namespace TeachAssist
+  {
+      class Program
+      {
+          static void Main(string[] args)
+          {
+              var ta = new TeachAssist();
+              ta.Start();
+          }
+      }
+  
+      class TeachAssist
+      {
+          public string Path { get; set; } = "E:\\aaa.txt";
+  
+          public void Start()
+          {
+              Menu();
+              Dispatch();
+          }
+  
+          public void Menu()
+          {
+              Console.Write(@"
+  ==== 教学辅助 ====
+  
+  1. 语音点名
+  2. 提问抽查
+  3. 设置名单路径 ({0})
+  
+  请按相应数字进入相应功能。
+  
+  PRESS KEY CONTINUE.
+  ", Path);
+          }
+  
+          public void Dispatch()
+          {
+              var key = Console.ReadKey().Key;
+              Console.Clear();
+              switch (key)
+              {
+                  case ConsoleKey.D1:
+                      new Rollcall().StartRoll(Path);
+                      break;
+                  case ConsoleKey.D2:
+                      break;
+                  case ConsoleKey.D3:
+                      Menu();
+                      break;
+                  default:
+                      Environment.Exit(1);
+                      break;
+              }
+          }
+      }
+  
+      // 1. 读取名单
+      // 2. 遍历名单
+      // 3. 点名某人 (屏幕/语音/键盘输入)
+      // 4. 输出结果
+      class Rollcall
+      {
+          public string[] Names { get; set; }
+          public string[] Absents { get; set; } = {};
+  
+          public void StartRoll(string path)
+          {
+              LoadNames(path);
+              RollNames();
+              Report();
+          }
+  
+          public void RollNames()
+          {
+              foreach (var name in Names)
+              {
+                  bool repeat = false;
+  
+                  do
+                  {
+                      Call(name);
+  
+                      switch (Console.ReadKey().Key)
+                      {
+                          case ConsoleKey.R:
+                              repeat = true;
+                              break;
+                          case ConsoleKey.B:
+                              repeat = false;
+                              string[] arr = new string[Absents.Length + 1];
+                              for (var i = 0; i < Absents.Length; i++)
+                              {
+                                  arr[i] = Absents[i];
+                              }
+                              arr[Absents.Length] = name;
+                              Absents = arr;
+                              break;
+                          default:
+                              repeat = false;
+                              break;
+                      }
+                  } while (repeat);
+  
+                  Console.WriteLine();
+  
+              }
+          }
+  
+          public void LoadNames(string file)
+          {
+              // 首先，读取
+              string[] names = File.ReadAllLines(file);
+              // 其次，过滤 (不能为空，不能以 - 开始) Linq
+              Names = names.Where(name => !string.IsNullOrEmpty(name) && name[0] != '-').ToArray();
+          }
+  
+          public void Call(string name)
+          {
+              Console.ForegroundColor = ConsoleColor.DarkBlue;
+              Console.Write(name);
+              Console.ResetColor();
+              Speak(name);
+          }
+  
+          public void Speak(string content)
+          {
+              var speechSynthesizer = new SpeechSynthesizer();
+              speechSynthesizer.Speak(content);
+          }
+  
+          public void Report()
+          {
+              Console.WriteLine();
+              Console.WriteLine($"总共有 {Names.Length} 人，未到的有 {Absents.Length} 人");
+              Console.WriteLine();
+              if (Absents.Length == 0)
+              {
+                  Console.ForegroundColor = ConsoleColor.Green;
+                  Console.WriteLine("全都到啦!");
+                  Console.ResetColor();
+              }
+              else
+              {
+                  Console.ForegroundColor = ConsoleColor.Red;
+                  Console.WriteLine("缺席的名单为:\n");
+                  Console.ResetColor();
+                  foreach (var n in Absents)
+                  {
+                      Console.WriteLine($" - {n}");
+                  }
+              }
+          }
+      }
+  }
+#+end_src
+
+循环的另外一种写法:
+#+begin_src cs
+  public void RollNames()
+  {
+      foreach (var name in Names)
+      {
+          while (true)
+          {
+              Call(name);
+  
+              var key = Console.ReadKey();
+              if (key.Key == ConsoleKey.B)
+              {
+                  string[] arr = new string[Absents.Length + 1];
+                  for (var i = 0; i < Absents.Length; i++)
+                  {
+                      arr[i] = Absents[i];
+                  }
+  
+                  arr[Absents.Length] = name;
+                  Absents = arr;
+                  break;
+              }
+              else if (key.Key == ConsoleKey.R)
+              {
+              }
+              else
+              {
+                  break;
+              }
+          }
+  
+          Console.WriteLine();
+      }
+  }
+#+end_src
+
+** 进阶实现
+
+使用 Excel 代替 Txt 文本，存储名单信息。
+并且将点名的结果，保存进 Excel 中。
+
+* 加密、解密 (rot13)
+** 分析
+
+解析问题，大事化小:
+1. 需要完成一个方法 (最终目的):
+   : string Rot13(string str);
+2. 为了完成上一个方法。需要: 如何为某个字符，找到对应位置 (rot13) 的字符:
+   : char CharAfter13 (char c);
+3. 为了进行字符的转换，需要准备知识: 类型的转换 (char / byte)
+
+根据分析，初步代码:
+#+begin_src csx
+  fgevat f = "uryyb, jbeyq, Ubj ner Lbh. Ubj Qb Lbh qb.";
+  Pbafbyr.JevgrYvar(Ebg13(f));
+  Pbafbyr.JevgrYvar(Ebg13(Ebg13(f)));
+  
+  fgngvp fgevat Ebg13 (fgevat fge)
+  {
+      erghea fge;
+  }
+  fgngvp pune EbgPune (pune p)
+  {
+      erghea p;
+  }
+#+end_src
+
+** 实现
+
+#+NAME: aaa
+#+begin_src csx :results pp
+  pynff Cebtenz
+  {
+      fgngvp ibvq Znva(fgevat[] netf)
+      {
+          vs (netf.Yratgu == 0)
+          {
+              // 交互输入输出
+              juvyr (gehr)
+              {
+                  Pbafbyr.Jevgr("请输入要加密(解密)的内容: ");
+                  fgevat vachg = Pbafbyr.ErnqYvar();
+                  fgevat erfhyg = EbgFgevat(vachg);
+                  Pbafbyr.JevgrYvar($"加密的结果: {erfhyg}\a");
+              }
+          }
+          ryfr vs (netf.Yratgu == 1 && netf[0].Fhofgevat(netf[0].YnfgVaqrkBs(".") + 1) == "gkg")
+          {
+              // 加密文件
+              EbgSvyr(netf[0]);
+          }
+          ryfr
+          {
+              // 将参数作为文本处理
+              FgevatOhvyqre fo = arj FgevatOhvyqre();
+              sbernpu (ine f va netf)
+              {
+                  fo.Nccraq(f).Nccraq(" ");
+              }
+  
+              fgevat e = EbgFgevat(fo.GbFgevat());
+              Pbafbyr.JevgrYvar($"翻译的结果是: {e}");
+          }
+      }
+  
+      fgngvp pune EbgPune(pune p)
+      {
+          // 如果是 n-m N-M 之外的，那么原样返回
+          // 如果 n-m +13 之后的字符
+          // 如果 N-M +13 之后的字符
+          olgr pbqr = (olgr)p;
+          vs (p >= 'n' && p <= 'm')
+          {
+              erghea (pune)(pbqr + 13 > 122 ? pbqr - 13 : pbqr + 13);
+          }
+  
+          vs (p >= 'N' && p <= 'M')
+          {
+              erghea (pune)(pbqr + 13 > 90 ? pbqr - 13 : pbqr + 13);
+          }
+  
+          erghea p;
+      }
+      
+      fgngvp fgevat EbgFgevat(fgevat fge)
+      {
+          FgevatOhvyqre fo = arj FgevatOhvyqre();
+          sbernpu (pune p va fge)
+          {
+              fo.Nccraq(EbgPune(p));
+          }
+          erghea fo.GbFgevat();
+      }
+  
+      fgngvp ibvq EbgSvyr(fgevat cngu)
+      {
+          fgevat pbagrag = Svyr.ErnqNyyGrkg(cngu);
+          fgevat erfhyg = EbgFgevat(pbagrag);
+          Svyr.JevgrNyyGrkg(cngu, erfhyg);
+      }
+  
+      fgngvp ibvq EbgQverpgbel(fgevat qve)
+      {
+      }
+  }
+#+end_src
+
+: uryyb, jbeyq, Ubj ner Lbh. Ubj Qb Lbh qb.
+: hello, world, How are You. How Do You do.
+
+** 落地
+
+讨论:
+- 编译输出程序 rot13.exe
+- 执行 rot13: 通过 Readline 提醒用户输入，用户敲回车后，打印加密后的内容
+- 执行 rot13 [一段文本] ，敲回车之后，打印加密之后的内容
+- 执行 rot13 后的结果保存到系统的粘贴板中
+- 执行 rot13 文件地址，对文件进行加密
+
+小结:
+- 输出程序，比如名字为 rot13
+- 如果直接调用，会提醒用户进行输入，用户输入之后，会将加密玩的内容打印到屏幕上。然后继续提醒:
+  : rot13
+- 如果输入的时候，带参数，参数是一个普通的文本的话，那么会直接将加密完的内容打印到屏幕上，结束:
+  : rot13 hello world how    are
+- 如果输入的时候，带参数，是一个文件路径，那么将文件的内容进行加密:
+  : rot13 d:\aaa.txt
+
+** 导出并使用
+
+- 使用 VS 带的发布 (publish) 功能
+- 注意，需要将 *发布为单独文件* 选中
+- 使用时，直接调用路径就可以了:
+  : E:\rot13.exe 参数
+
+为了方便使用:
+1. 将 rot13.exe 的文件夹，添加到 Path 环境变量中
+   : cmd
+   : $ rot13
+2. 可以将加密的命令添加到注册表，从而方便使用。比如，将下面语句保存为 .reg 格式，然后双击导入:
+   #+begin_src conf
+     Windows Registry Editor Version 5.00
+     
+     [HKEY_LOCAL_MACHINE\SOFTWARE\Classes\txtfile\shell\ROT13]
+     
+     [HKEY_LOCAL_MACHINE\SOFTWARE\Classes\txtfile\shell\ROT13\command]
+     @="\"E:\\wodechengxu\\rot13.exe\" \"%1\""
+   #+end_src
+
+* 游戏祖玛
+** 游戏描述
+
+实现游戏祖玛!
+- 核心是一个 *字符串* 代码的所谓祖玛
+- 若干方法，都围绕这个字符串:
+- 初始化这个随机字符串的方法
+- 绘制这个字符串到屏幕上的方法
+- 不停让字符串增加长度的任务方法
+- 通过 ReadLine 交互将某个字符插入到这个字符串的方法
+- 每次有字符插入到字符串之后，进行消除相同字符的方法
+- 每次有字符插入到字符串之后，根据长度判断游戏是否结束的方法
+
+除了这个叫祖玛的字符串，类中还可以具备其他状态:
+- 比如定义祖玛字符串所需要用到的所有字符
+- 比如定义祖玛自增长的时间间隔
+- 比如记录游戏开始的时间
+- 比如用户名字、分数等个性化数据
+
+因此，我们需要的，至少是两个类:
+- 祖玛类型，封装了祖玛字符串和其行为
+- 游戏主循环，用来调用祖玛并将其行为有效展示出来
+
+** 预备知识
+*** 如何避免 ReadLine 阻塞
+
+不完美，但是足够简单的方法:
+#+begin_src csharp
+  while (true)
+  {
+      Console.WriteLine("...");
+      Thread.Sleep(500);
+      if (Console.KeyAvailable) // 用户有没有敲键盘
+      {
+          var a = Console.ReadLine(); // 等待用户输入点啥
+          Console.WriteLine("您的输入是: " + a);
+      }
+  }
+#+end_src
+
+使用多线程(多任务) 的方式进行实现:
+#+begin_src csharp
+  // System.Threading.Tasks;
+  
+  string a = null;
+  
+  Task.Run(() =>
+  {
+      while (true)
+      {
+          a = Console.ReadLine(); // 等待用户输入点啥
+          Console.WriteLine("您的输入是: " + a);
+      }
+  });
+  
+  Task.Run(() =>
+  {
+      Thread.Sleep(5000);
+      Console.WriteLine(",,,");
+  });
+  
+  // 主线程
+  while (true)
+  {
+      Console.WriteLine("...");
+      Thread.Sleep(500);
+  }
+  
+#+end_src
+
+*** Console 的定点输出
+
+#+begin_src csharp
+  Console.Clear();
+  
+  for (int i = 0; i < 15; i++)
+  {
+      Console.ForegroundColor = ConsoleColor.DarkGray;
+      Console.SetCursorPosition(0, i);
+      Console.Write("{0,3}", i + 1);
+      Console.ForegroundColor = ConsoleColor.Black;
+  }
+  
+  Console.SetCursorPosition(10, 5);
+  Console.WriteLine("hello, world");
+  
+  Console.SetCursorPosition(4, 10);
+  Console.Write("请输入您的留言: ");
+  Console.ReadLine();
+#+end_src
+
+*** 随机字符串的生成逻辑
+
+#+begin_src csharp
+  var r = new Random();
+  
+  string a = "oO0iL1lI";
+  
+  StringBuilder sb = new StringBuilder();
+  for (int i = 0; i < 5; i++)
+  {
+      sb.Append(a[r.Next(a.Length - 1)]);
+  }
+  
+  Console.WriteLine(sb.ToString());
+#+end_src
+
+*** 消除字符串的基本逻辑
+
+#+begin_src csharp
+  public void xiaochu()
+  {
+      Console.Clear();
+      Console.WriteLine(x);
+      for (int i = 0; i < x.Length - 2; i++)
+      {
+          if (x[i] == x[i + 1] && x[i] == x[i + 2])
+          {
+              Console.ForegroundColor = ConsoleColor.Magenta;
+              Console.SetCursorPosition(i, 0);
+              Console.Write(x.ToString().Substring(i, 3));
+              Console.ResetColor();
+  
+              Thread.Sleep(800);
+              Console.SetCursorPosition(i, 0);
+              Console.Write("   ");
+              x.Remove(i, 3);
+  
+              Thread.Sleep(200);
+              xiaochu();
+          }
+      }
+  }
+#+end_src
+
+** 分析
+
+- 显示一排小猪 (初始化若干个、会定时加入若干个小猪、随着用户交互小猪加入队伍)
+- // 显示其他游戏相关信息 (时间、分数、消除多少个....)
+- 提醒用户: 当前你分配到的是一个什么样的随机小猪，您想让它到哪儿
+
+---------------------
+
+结构化:
+#+begin_example
+string pigs;
+void InitPigs(int len);
+void JiaruPig();
+void FirePig(char c, int position);
+void CleanPigs();
+void PrintPigs();
+#+end_example
+
+** 程序概览
+
+#+begin_src cs
+  // 核心属性
+  public string Pigs { get; set; }
+  public int State { get; private set; } = 0;
+  
+  // 私有状态
+  private string pigSource = "ABCDE";
+  private int initLen = 6;
+  private int finalLen = 20;
+  private char currentPig = '0';
+  private string currentInput = String.Empty;
+  
+  // 核心方法
+  char GetOneRandomPig();
+  void InitPigs(int len);
+  void JiaruPig();
+  void FirePig(char c, int position);
+  void CleanPigs();
+  void PrintPigs();
+  
+  // 交互逻辑
+  void InitConsole();
+  void Play();
+  void Check();
+  
+  // 交互接口
+  public void InitGame();
+  public void MainLoop();
+#+end_src
+
+** Code Example
+
+注意: @@html: <span style="color: red; font-size: 1.5em">解题方法千万种，这里的代码仅作参考。要尊重你自己的思考</span>@@ !
+
+#+begin_src cs
+  using System;
+  using System.Media;
+  using System.Text;
+  using System.Threading;
+  
+  class Zuma
+  {
+      public string Pigs { get; set; }            // 核心数据、核心状态
+      public int State { get; private set; } = 0; // 游戏是否结束的标志
+  
+      private string pigSource = "ABCDE";
+      private int initLen = 3;
+      private int finalLen = 15;
+      private char currentPig = '0';
+      private string currentInput = String.Empty;
+      private SoundPlayer player = new SoundPlayer();
+  
+      // 核心的方法
+  
+      char GetOneRandomPig()
+      {
+          // 字符串下标访问
+          Random random = new Random();
+          int xiabiao = random.Next(pigSource.Length);
+          char pig = pigSource[xiabiao];
+          return pig;
+      }
+  
+      void InitPigs(int len)
+      {
+          // 字符串的拼接
+          StringBuilder sb = new StringBuilder();
+          for (int i = 0; i < len; i++)
+          {
+              char pig = GetOneRandomPig();
+              sb.Append(pig);
+          }
+  
+          Pigs = sb.ToString();
+      }
+  
+      void JiaruPig()
+      {
+          // + 进行字符串的拼接
+          char pig = GetOneRandomPig();
+          Pigs = pig + Pigs;
+  
+          Check();
+      }
+  
+      void FirePig(char c, int position)
+      {
+          // 字符串的 Insert。注意字符串的不可变性
+          if (position < Pigs.Length && position >= 0)
+          {
+              Pigs = Pigs.Insert(position, c.ToString());
+          }
+  
+          Console.Beep(400, 333);
+      }
+  
+      void CleanPigs()
+      {
+          // 子字符串的获取
+          // 生成多个相同字符的字符串
+          // API: Remove 使用
+          for (int i = 0; i < Pigs.Length - 2; i++)
+          {
+              for (int len = Pigs.Length - i; len >= 3; len--)
+              {
+                  if (Pigs.Substring(i, len) == "".PadLeft(len, Pigs[i]))
+                  {
+                      Pigs = Pigs.Remove(i, len);
+                      CleanPigs();
+                  }
+              }
+          }
+  
+          Check();
+      }
+  
+      void PrintPig(char c)
+      {
+          Console.ForegroundColor = c switch
+          {
+              'A' => ConsoleColor.Red,
+              'B' => ConsoleColor.Yellow,
+              'C' => ConsoleColor.Green,
+              'D' => ConsoleColor.Blue,
+              _ => ConsoleColor.Black
+          };
+          Console.Write('○');
+          Console.ResetColor();
+      }
+  
+      void PrintPigs()
+      {
+          Console.SetCursorPosition(1, 1);
+          for (int i = 0; i < Pigs.Length; i++)
+          {
+              PrintPig(Pigs[i]);
+          }
+          Console.Write("{0,50}\n", ' '); // 使用空格覆盖掉原来有的多余字符
+          Console.SetCursorPosition(1, 5);
+      }
+  
+      // 游戏的交互逻辑
+  
+      void InitConsole()
+      {
+          Console.Clear();
+          Console.CursorVisible = false;
+          for (int i = 0; i < 5; i++)
+          {
+              Console.SetCursorPosition(i * 8, 0);
+              Console.ForegroundColor = ConsoleColor.DarkGray;
+              Console.Write(" " + (i + 1));
+              Console.ResetColor();
+          }
+      }
+  
+      void InitBGMusic()
+      {
+          player.SoundLocation = "e:/Audio/mysterygobrrrrr.wav";
+          player.PlayLooping();
+      }
+  
+      void ResetGame()
+      {
+          State = 0;
+          currentPig = '0';
+          currentInput = string.Empty;
+          player.Dispose();
+      }
+  
+      void PrintCurrentInput()
+      {
+          Console.SetCursorPosition(35, 3);
+          Console.Write(currentInput);
+          Console.Write("    ");
+      }
+  
+      void Play()
+      {
+          if (currentPig == '0')
+          {
+              currentPig = GetOneRandomPig();
+              Console.SetCursorPosition(1, 3);
+              Console.Write("当前小猪 ");
+              PrintPig(currentPig);
+              Console.Write(" 输入位置发射: ");
+          }
+          if (Console.KeyAvailable)
+          {
+              var key = Console.ReadKey(); // 不堵塞
+              if (key.Key == ConsoleKey.D0
+                  || key.Key == ConsoleKey.D1
+                  || key.Key == ConsoleKey.D2
+                  || key.Key == ConsoleKey.D3
+                  || key.Key == ConsoleKey.D4
+                  || key.Key == ConsoleKey.D5
+                  || key.Key == ConsoleKey.D6
+                  || key.Key == ConsoleKey.D7
+                  || key.Key == ConsoleKey.D8
+                  || key.Key == ConsoleKey.D9
+              )
+              {
+                  currentInput += key.KeyChar;
+                  PrintCurrentInput();
+              }
+              else if (key.Key == ConsoleKey.Backspace)
+              {
+                  if (!string.IsNullOrEmpty(currentInput))
+                  {
+                      currentInput = currentInput.Substring(0, currentInput.Length - 1);
+                      PrintCurrentInput();
+                  }
+              }
+              else if (key.Key == ConsoleKey.Spacebar)
+              {
+                  player.Stop();
+                  Console.ReadKey();
+                  player.PlayLooping();
+              }
+              else if (key.Key == ConsoleKey.Enter)
+              {
+                  if (!string.IsNullOrWhiteSpace(currentInput))
+                  {
+                      int index = int.Parse(currentInput);
+                      FirePig(currentPig, index - 1);
+                      CleanPigs();
+                      currentPig = '0';
+                      currentInput = String.Empty;
+  
+                      PrintCurrentInput();
+                  }
+              }
+          }
+      }
+  
+      void Check()
+      {
+          if (Pigs.Length == 0)
+          {
+              State = 1;
+          }
+          else if (Pigs.Length >= finalLen)
+          {
+              State = -1;
+          }
+      }
+  
+      public void InitGame()
+      {
+          ResetGame();
+          InitConsole();
+          InitPigs(initLen);
+          InitBGMusic();
+      }
+  
+      public void MainLoop()
+      {
+          int i = 0;
+          while (State == 0)
+          {
+              i = i > 10 ? 0 : i + 1; // flag
+  
+              if (i == 0)
+              {
+                  JiaruPig();
+              }
+  
+              Play();
+  
+              PrintPigs();
+              Thread.Sleep(100);
+          }
+  
+          player.Stop();
+  
+          Console.SetCursorPosition(1, 3);
+          Console.Write("{0,50}", ' ');
+          Console.SetCursorPosition(1, 3);
+  
+          if (State == 1)
+          {
+              Console.WriteLine("成功了.");
+          }
+          else if (State == -1)
+          {
+              Console.WriteLine("勇士，请您不要放弃!");
+          }
+  
+          Console.WriteLine("\n 点击 Y 再来一次，或按任意键退出。");
+          if (Console.ReadKey().Key == ConsoleKey.Y)
+          {
+              InitGame();
+              MainLoop();
+          }
+      }
+  }
+  
+  class Program
+  {
+      static void Main()
+      {
+          var zuma = new Zuma();
+          zuma.InitGame();
+          zuma.MainLoop();
+      }
+  }
+#+end_src
+
+** 其他
+
+做一只有颜色的猪
+#+begin_src cs
+  void PrintPig(char c)
+  {
+      ConsoleColor color;
+      switch (c)
+      {
+          case 'A':
+              color = ConsoleColor.Red;
+              break;
+          case 'B':
+              color = ConsoleColor.Yellow;
+              break;
+          case 'C':
+              color = ConsoleColor.Green;
+              break;
+          case 'D':
+              color = ConsoleColor.Blue;
+              break;
+          default:
+              color = ConsoleColor.Black;
+              break;
+      }
+  
+      Console.ForegroundColor = color;
+      Console.Write('○');
+      Console.ResetColor();
+  }
+  
+  void PrintPigs()
+  {
+      Console.SetCursorPosition(1, 1);
+      for (int i = 0; i < Pigs.Length; i++)
+      {
+          PrintPig(Pigs[i]);
+      }
+      Console.Write("                                   ");
+      Console.WriteLine();
+  }
+#+end_src
+
+Read/阻塞:
+#+begin_src csharp
+  Console.WriteLine("hello"); // 输出
+  if (Console.KeyAvailable)
+  {
+      //string s = Console.ReadLine(); // 用户输入
+      var c = Console.ReadKey();
+  }
+  Console.WriteLine("world"); // 输出
+#+end_src
+
+零宽度空格 (0x200b):
+#+begin_src cs
+  string a = "​​​​​​";
+  string b = "";
+  string c = string.Empty;
+  Console.WriteLine($"{a.Length}/{b.Length}/{c.Length}  {a == b}/{b == c}");
+#+end_src
+
+** 小结
+
+通过这个游戏，达到的目的:
+- 熟悉字符串的 API 调用
+- 了解游戏的基本开发逻辑
+
+包含的知识点:
+- 字符串的基本操作
+- 随机字符串生成的技巧
+- 控制台的基本 API，尤其如何获取用户输入
+- 播放音乐
+- *递归方法* 的使用
+
+可以扩展的点:
+- 如何去使用 *异步任务*
+- 如何去启用 *定时任务*
+
+* 导出为 Excel 的总结
+** Repeat Yourself
+
+电费:
+#+begin_src csharp -n
+  public void ExportToExcel(string fileName)
+  {
+      IWorkbook workbook;
+      ISheet sheet;
+
+      if (File.Exists(fileName)) // 如果文件存在，那么打开使用它
+      {
+          Console.WriteLine("开始打开...");
+          using var sr = File.OpenRead(fileName);
+          workbook = new HSSFWorkbook(sr);
+          sheet = workbook.GetSheetAt(0);
+      }
+      else // 如果文件不存在，创建并使用它
+      {
+          Console.WriteLine("开始创建...");
+          workbook = new HSSFWorkbook();
+          sheet = workbook.CreateSheet();
+
+          Console.WriteLine("初始化头部...");
+          var heads = new[] { "月份", "度数", "一档费用", "二挡费用", "三档费用", "总费用" };
+          var headRow = sheet.CreateRow(0);
+          for (int i = 0; i < heads.Length; i++)
+          {
+              headRow.CreateCell(i).SetCellValue(heads[i]);
+          }
+      }
+
+      // 插入数据
+      Console.WriteLine("开始插入...");
+      var values = new[] { _month, _used, Lv1Cost, Lv2Cost, Lv3Cost, Bill };
+      var row = sheet.CreateRow(sheet.LastRowNum + 1);
+      for (int i = 0; i < values.Length; i++)
+      {
+          row.CreateCell(i).SetCellValue(values[i]);
+      }
+
+      // 保存 Excel
+      Console.WriteLine("开始保存...");
+      using FileStream sw = File.OpenWrite(fileName);
+      workbook.Write(sw);
+
+      Console.WriteLine("导出成功!");
+  }
+#+end_src
+
+个税:
+#+begin_src csharp -n
+  public void ExportToExcel2()
+  {
+      var fileName = @"D:\xxxx.xls";
+      IWorkbook workbook;
+      ISheet sheet;
+      if (File.Exists(fileName))
+      {
+          using var sr = File.OpenRead(fileName);
+          workbook = new HSSFWorkbook(sr);
+          sheet = workbook.GetSheetAt(0);
+      }
+      else
+      {
+          workbook = new HSSFWorkbook();
+          sheet = workbook.CreateSheet();
+
+          var head = new[] { "税前收入", "应交税", "税后收入" };
+          var headRow = sheet.CreateRow(0);
+          for(int i = 0; i < head.Length; i++)
+          {
+              headRow.CreateCell(i).SetCellValue(head[i]);
+          }
+      }
+
+      var heads = new[] { Money, Tax, Money - Tax };
+      var row = sheet.CreateRow(sheet.LastRowNum + 1);
+      for (int i = 0; i < heads.Length; i++)
+      {
+          row.CreateCell(i).SetCellValue(heads[i]);
+      }
+
+      using var sw = File.OpenWrite(fileName);
+      workbook.Write(sw);
+  }
+#+end_src
+
+小费:
+#+begin_src csharp -n
+  public void ExcelExcel()
+  {
+      var fileName = @"D:\eee.xls";
+      IWorkbook workbook;
+      ISheet sheet;
+      if (File.Exists(fileName))
+      {
+          using var sr = File.OpenRead(fileName);
+          workbook = new HSSFWorkbook(sr);
+          sheet = workbook.GetSheetAt(0);
+      }
+      else
+      {
+          workbook = new HSSFWorkbook();
+          sheet = workbook.CreateSheet();
+
+          var headValues = new[] { "账单总额", "小费数额", "小费税率", "账单实付" };
+          var head = sheet.CreateRow(0);
+          for (int i = 0; i < headValues.Length; i++)
+          {
+              head.CreateCell(i).SetCellValue(headValues[i]);
+          }
+      }
+      var row1Values = new[] { Bill, Tip, RATE, Bill + Tip };
+      var row1 = sheet.CreateRow(sheet.LastRowNum + 1);
+      for (int i = 0; i < row1Values.Length; i++)
+      {
+          row1.CreateCell(i).SetCellValue(row1Values[i]);
+      }
+      using var sw = File.OpenWrite(fileName);
+      workbook.Write(sw);
+  }
+#+end_src
+
+** 当逻辑在不同方法中 Repeat，将其 *分离* 为单独的方法
+
+分离的目的，是为了共享，是为了复用。是为了减少代码量，减小创作成本。
+
+#+begin_src csharp -n
+  class TipCalc
+  {
+      // ...
+
+      // 分离出来的逻辑
+      public IWorkbook OpenOrCreateWorkbook(string fileName)
+      {
+          if (File.Exists(fileName))
+          {
+              Console.WriteLine("文件存在，现在开始打开...");
+              using var sr = File.OpenRead(fileName);
+              return new HSSFWorkbook(sr);
+          }
+          else
+          {
+              Console.WriteLine("文件不存在，现在开始创建新的 WOrkbook 对象");
+              var workbook = new HSSFWorkbook();
+              workbook.CreateSheet();
+              return workbook;
+          }
+      }
+      public void SaveAndCloseWorkbook(IWorkbook workbook, string fileName)
+      {
+          Console.WriteLine("开始保存...");
+          try
+          {
+              using var sw = File.OpenWrite(fileName);
+              workbook.Write(sw);
+          }
+          catch
+          {
+              Console.WriteLine("保存出错");
+          }
+          finally
+          {
+              workbook.Close();
+          }
+      }
+      public void CreateRowForSheet(ISheet sheet, int rownum, string[] data)
+      {
+          Console.Write("开始插入数据行...");
+          var row = sheet.CreateRow(rownum);
+
+          for (int i = 0; i < data.Length; i++)
+          {
+              Console.Write($"{i}  ");
+              row.CreateCell(i).SetCellValue(data[i]);
+          }
+          Console.WriteLine();
+      }
+
+      // 可以清爽地调用
+      public void Export1(string fileName)
+      {
+          IWorkbook workbook = OpenOrCreateWorkbook(fileName);
+          ISheet sheet = workbook.GetSheetAt(0);
+
+          // 头
+          if (sheet.LastRowNum == 0) { CreateRowForSheet(sheet, 0, new[] { "账单总额", "小费数额", "小费税率", "账单实付" }); }
+
+          // 数据
+          var data = new[] { Bill, Tip, RATE, Bill + Tip };
+          CreateRowForSheet(sheet, sheet.LastRowNum + 1, (from i in data select i.ToString()).ToArray());
+
+          // 保存
+          SaveAndCloseWorkbook(workbook, fileName);
+      }
+      public void Export2(string fileName)
+      {
+          IWorkbook workbook = OpenOrCreateWorkbook(fileName);
+          ISheet sheet = workbook.GetSheetAt(0);
+
+          if (sheet.LastRowNum == 0)
+              CreateRowForSheet(sheet, 0, new[] { "Bill", "Fee", "Payment" });
+          CreateRowForSheet(sheet, sheet.LastRowNum + 1, (from i in (new[] { Bill, Tip, Bill + Tip }) select i.ToString()).ToArray());
+          SaveAndCloseWorkbook(workbook, fileName);
+      }
+  }
+#+end_src
+
+** 当方法在不同类中 Repeat
+*** 在类中 Repeat Yourself
+
+#+begin_src csharp -n
+  class TipCalc
+  {
+      public TipCalc(double bill)
+      {
+          Bill = bill;
+      }
+
+      const double RATE = 0.18;
+
+      public double Bill { get; private set; }
+      public double Tip
+      {
+          get { return Bill * RATE; }
+      }
+
+      public void Print()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"账单总额: {Bill,10:C}");
+          Console.WriteLine($"小费数额: {Tip,10:C} ({RATE:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"账单实付: {Bill + Tip,10:C}");
+      }
+
+      public void PrintFantasy()
+      {
+          Console.WriteLine();
+          while (true)
+          {
+              ConsoleKeyInfo key = Console.ReadKey(true);
+              if (key.Key == ConsoleKey.D1)
+              {
+                  Console.WriteLine("您输入了一个 1");
+              }
+              else if (key.Key == ConsoleKey.S)
+              {
+                  Console.Beep();
+              }
+              else if (key.KeyChar == 'd')
+              {
+                  Console.Beep(600, 200);
+              }
+              else if (key.KeyChar == 'f')
+              {
+                  Console.Beep(200, 200);
+              }
+              else if (key.Key == ConsoleKey.Enter)
+              {
+                  break;
+              }
+              else
+              {
+                  Console.WriteLine($"{key}, keyChar: {key.KeyChar}, key: {key.Key}");
+              }
+          }
+      }
+
+      public IWorkbook OpenOrCreateWorkbook(string fileName)
+      {
+          if (File.Exists(fileName))
+          {
+              Console.WriteLine("文件存在，现在开始打开...");
+              using var sr = File.OpenRead(fileName);
+              return new HSSFWorkbook(sr);
+          }
+          else
+          {
+              Console.WriteLine("文件不存在，现在开始创建新的 WOrkbook 对象");
+              var workbook = new HSSFWorkbook();
+              workbook.CreateSheet();
+              return workbook;
+          }
+      }
+
+      public void SaveAndCloseWorkbook(IWorkbook workbook, string fileName)
+      {
+          Console.WriteLine("开始保存...");
+          try
+          {
+              using var sw = File.OpenWrite(fileName);
+              workbook.Write(sw);
+          }
+          catch
+          {
+              Console.WriteLine("保存出错");
+          }
+          finally
+          {
+              workbook.Close();
+          }
+      }
+
+      public void CreateRowForSheet(ISheet sheet, int rownum, string[] data)
+      {
+          Console.Write("开始插入数据行...");
+          var row = sheet.CreateRow(rownum);
+
+          for (int i = 0; i < data.Length; i++)
+          {
+              Console.Write($"{i}  ");
+              row.CreateCell(i).SetCellValue(data[i]);
+          }
+          Console.WriteLine();
+      }
+
+      public void ExcelExcel(string fileName)
+      {
+          IWorkbook workbook = OpenOrCreateWorkbook(fileName);
+          ISheet sheet = workbook.GetSheetAt(0);
+
+          // 头
+          if (sheet.LastRowNum == 0)
+          {
+              CreateRowForSheet(sheet, 0, new[] { "账单总额", "小费数额", "小费税率", "账单实付" });
+          }
+
+          // 数据
+          var data = new[] { Bill, Tip, RATE, Bill + Tip };
+          CreateRowForSheet(sheet, sheet.LastRowNum + 1, (from i in data select i.ToString()).ToArray());
+
+          // 保存
+          SaveAndCloseWorkbook(workbook, fileName);
+      }
+  }
+
+  class TaxCalc
+  {
+      public TaxCalc(double m)
+      {
+          Money = m;
+      }
+
+      private double _money; // 用来承载后面的数据，税前收入
+      private static readonly double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+
+      public double Money
+      {
+          get => _money; // xxxx.Money
+          set                    // xxxx.Money = 3333;
+          {
+              if (value < 0)
+              {
+                  Console.WriteLine("\n参数输入格式不正确！");
+                  Environment.Exit(0);
+              }
+              _money = value;
+              CalculateTax();
+          }
+      }
+      public double Rate { get; private set; }
+      public double Tax { get; private set; }
+
+      public void CalculateTax()
+      {
+          if (Money <= 5000)
+          {
+              Rate = 0;
+              Tax = 0;
+          }
+          else if (Money < 10000)
+          {
+              Rate = rates[0];
+              Tax = (Money - 5000) * Rate;
+          }
+          else if (Money < 20000)
+          {
+              Rate = rates[1];
+              Tax = (Money - 10000) * Rate + 5000 * rates[0];
+          }
+          else if (Money < 100000)
+          {
+              Rate = rates[2];
+              Tax = (Money - 20000) * Rate + 10000 * rates[1] + 5000 * rates[0];
+          }
+          else
+          {
+              Rate = rates[3];
+              Tax = (Money - 100000) * Rate + 80000 * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+          }
+      }
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {Money,10:C}");
+          Console.WriteLine($"应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {Money - Tax,10:C}");
+      }
+      public void ExportToExcel()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"Excle输出税前收入: {Money,10:C}");
+          Console.WriteLine($"Excle输出应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"Excle输出税后收入: {Money - Tax,10:C}");
+      }
+      public static void ShowRates()
+      {
+          foreach (double r in rates)
+          {
+              Console.WriteLine($"- {r}");
+          }
+      }
+
+      public void ExportToExcel2(string fileName)
+      {
+          IWorkbook workbook = OpenOrCreateWorkbook(fileName);
+          ISheet sheet = workbook.GetSheetAt(0);
+
+          if (sheet.LastRowNum == 0)
+          {
+              var head = new[] { "税前收入", "应交税", "税后收入" };
+              CreateRowForSheet(sheet, 0, head);
+          }
+
+          var heads = new[] { Money.ToString(), Tax.ToString(), (Money - Tax).ToString() };
+          CreateRowForSheet(sheet, 0, heads);
+
+          SaveAndCloseWorkbook(workbook, fileName);
+      }
+
+
+      public IWorkbook OpenOrCreateWorkbook(string fileName)
+      {
+          if (File.Exists(fileName))
+          {
+              Console.WriteLine("文件存在，现在开始打开...");
+              using var sr = File.OpenRead(fileName);
+              return new HSSFWorkbook(sr);
+          }
+          else
+          {
+              Console.WriteLine("文件不存在，现在开始创建新的 WOrkbook 对象");
+              var workbook = new HSSFWorkbook();
+              workbook.CreateSheet();
+              return workbook;
+          }
+      }
+
+      public void SaveAndCloseWorkbook(IWorkbook workbook, string fileName)
+      {
+          Console.WriteLine("开始保存...");
+          try
+          {
+              using var sw = File.OpenWrite(fileName);
+              workbook.Write(sw);
+          }
+          catch
+          {
+              Console.WriteLine("保存出错");
+          }
+          finally
+          {
+              workbook.Close();
+          }
+      }
+
+      public void CreateRowForSheet(ISheet sheet, int rownum, string[] data)
+      {
+          Console.Write("开始插入数据行...");
+          var row = sheet.CreateRow(rownum);
+
+          for (int i = 0; i < data.Length; i++)
+          {
+              Console.Write($"{i}  ");
+              row.CreateCell(i).SetCellValue(data[i]);
+          }
+          Console.WriteLine();
+      }
+
+  }
+
+  class ElectricBillCalc
+  {
+      // 基准数据
+      public static readonly int[] SummerLevels = { 260, 600 };
+      public static readonly int[] WinterLevels = { 200, 400 };
+      public static readonly double[] Rates = { 0.600, 0.650, 0.900 };
+
+      // 需要知道的数据
+      private int _month;
+      private double _used;
+
+      // 需要计算出来的数据
+      private double[] lvUsed;
+      public double Lv1Cost { get => lvUsed[0] * Rates[0]; }
+      public double Lv2Cost { get => lvUsed[1] * Rates[1]; }
+      public double Lv3Cost { get => lvUsed[2] * Rates[2]; }
+      public double Bill { get => Lv1Cost + Lv2Cost + Lv3Cost; }
+
+      public void SetMonthAndUsed(int month, double used)
+      {
+          if (month < 1 || month > 12 || used < 0) QuitWithReason("参数输入错误");
+          (_month, _used) = (month, used);
+          CalculateLvUsed();
+      }
+
+      void CalculateLvUsed()
+      {
+          (int p1, int p2) = IsSummer() ? (SummerLevels[0], SummerLevels[1]) : (WinterLevels[0], WinterLevels[1]);
+
+          if (_used <= p1)
+          {
+              lvUsed = new[] { _used, 0, 0 };
+          }
+          else if (_used <= p2)
+          {
+              lvUsed = new[] { p1, _used - p1, 0 };
+          }
+          else
+          {
+              lvUsed = new[] { p1, p2 - p1, _used - p2 };
+          }
+      }
+
+      bool IsSummer() => _month >= 5 && _month <= 10;
+
+      static void QuitWithReason(string reason)
+      {
+          Console.WriteLine(reason);
+          Environment.Exit(0);
+      }
+
+      public void PrintFantasy()
+      {
+          PrintToConsole();
+          while (true)
+          {
+              ConsoleKeyInfo key = Console.ReadKey();
+              Console.Clear();
+
+              if (key.Key == ConsoleKey.D1)
+              {
+                  PrintToConsole(ConsoleColor.Red);
+              }
+              else if (key.Key == ConsoleKey.D2)
+              {
+                  PrintToConsole(ConsoleColor.Green);
+              }
+              else if (key.Key == ConsoleKey.D3)
+              {
+                  PrintToConsole(ConsoleColor.Yellow);
+              }
+              else if (key.Key == ConsoleKey.Enter)
+              {
+                  int i = 0;
+                  while (true)
+                  {
+                      ConsoleColor[] colors = new[] { ConsoleColor.Red, ConsoleColor.Green, ConsoleColor.Blue };
+                      i = (i + 1) % colors.Length;
+                      if (i == 1)
+                      {
+                          Console.Beep(90, 50);
+                      }
+                      else
+                      {
+                          Console.Beep(40, 50);
+                      }
+                      Console.Clear();
+                      PrintToConsole(colors[i]);
+                      Thread.Sleep(300);
+                  }
+              }
+              else
+              {
+                  PrintToConsole();
+              }
+          }
+      }
+
+      public void PrintToConsole(ConsoleColor color)
+      {
+          Console.ForegroundColor = color;
+          PrintToConsole();
+          Console.ResetColor();
+      }
+
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"{_month} 月的用电量是: {_used} KWh");
+          Console.WriteLine($"第一档电费: {Lv1Cost,10:C}");
+          Console.WriteLine($"第二档电费: {Lv2Cost,10:C}");
+          Console.WriteLine($"第三档电费: {Lv3Cost,10:C}");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"总计: {Bill,10:C} ");
+      }
+
+      public void ExportToExcel(string fileName)
+      {
+          IWorkbook workbook = OpenOrCreateWorkbook(fileName);
+          ISheet sheet = workbook.GetSheetAt(0);
+
+          if (sheet.LastRowNum == 0)
+          {
+              var heads = new[] { "月份", "度数", "一档费用", "二挡费用", "三档费用", "总费用" };
+              CreateRowForSheet(sheet, 0, heads);
+          }
+
+          var values = new[] { _month.ToString(), _used.ToString(), Lv1Cost.ToString(), Lv2Cost.ToString(), Lv3Cost.ToString(), Bill.ToString() };
+          CreateRowForSheet(sheet, 0, values);
+
+          SaveAndCloseWorkbook(workbook, fileName);
+      }
+
+      public IWorkbook OpenOrCreateWorkbook(string fileName)
+      {
+          if (File.Exists(fileName))
+          {
+              Console.WriteLine("文件存在，现在开始打开...");
+              using var sr = File.OpenRead(fileName);
+              return new HSSFWorkbook(sr);
+          }
+          else
+          {
+              Console.WriteLine("文件不存在，现在开始创建新的 WOrkbook 对象");
+              var workbook = new HSSFWorkbook();
+              workbook.CreateSheet();
+              return workbook;
+          }
+      }
+
+      public void SaveAndCloseWorkbook(IWorkbook workbook, string fileName)
+      {
+          Console.WriteLine("开始保存...");
+          try
+          {
+              using var sw = File.OpenWrite(fileName);
+              workbook.Write(sw);
+          }
+          catch
+          {
+              Console.WriteLine("保存出错");
+          }
+          finally
+          {
+              workbook.Close();
+          }
+      }
+
+      public void CreateRowForSheet(ISheet sheet, int rownum, string[] data)
+      {
+          Console.Write("开始插入数据行...");
+          var row = sheet.CreateRow(rownum);
+
+          for (int i = 0; i < data.Length; i++)
+          {
+              Console.Write($"{i}  ");
+              row.CreateCell(i).SetCellValue(data[i]);
+          }
+          Console.WriteLine();
+      }
+  }
+#+end_src
+
+*** 首先将重复的方法 *分离* 到单独的类中
+
+#+begin_src csharp -n
+  class ExcelHelper
+  {
+      public bool isShowMessage = true;
+
+      public IWorkbook OpenOrCreateWorkbook(string fileName)
+      {
+          if (File.Exists(fileName))
+          {
+              if (isShowMessage)
+              {
+                  Console.WriteLine("文件存在，现在开始打开...");
+              }
+              using var sr = File.OpenRead(fileName);
+              return new HSSFWorkbook(sr);
+          }
+          else
+          {
+              Console.WriteLine("文件不存在，现在开始创建新的 WOrkbook 对象");
+              var workbook = new HSSFWorkbook();
+              workbook.CreateSheet();
+              return workbook;
+          }
+      }
+
+      public void SaveAndCloseWorkbook(IWorkbook workbook, string fileName)
+      {
+          Console.WriteLine("开始保存...");
+          try
+          {
+              using var sw = File.OpenWrite(fileName);
+              workbook.Write(sw);
+          }
+          catch
+          {
+              Console.WriteLine("保存出错");
+          }
+          finally
+          {
+              workbook.Close();
+          }
+      }
+
+      public void CreateRowForSheet(ISheet sheet, int rownum, string[] data)
+      {
+          Console.Write("开始插入数据行...");
+          var row = sheet.CreateRow(rownum);
+
+          for (int i = 0; i < data.Length; i++)
+          {
+              Console.Write($"{i}  ");
+              row.CreateCell(i).SetCellValue(data[i]);
+          }
+          Console.WriteLine();
+      }
+  }
+#+end_src
+
+*** 然后可以 *组合*
+
+#+begin_src csharp -n
+  namespace X
+  {
+      class ExcelHelper
+      {
+          public bool isShowMessage = true;
+
+          public IWorkbook OpenOrCreateWorkbook(string fileName)
+          {
+              if (File.Exists(fileName))
+              {
+                  if (isShowMessage)
+                  {
+                      Console.WriteLine("文件存在，现在开始打开...");
+                  }
+                  using var sr = File.OpenRead(fileName);
+                  return new HSSFWorkbook(sr);
+              }
+              else
+              {
+                  Console.WriteLine("文件不存在，现在开始创建新的 WOrkbook 对象");
+                  var workbook = new HSSFWorkbook();
+                  workbook.CreateSheet();
+                  return workbook;
+              }
+          }
+
+          public void SaveAndCloseWorkbook(IWorkbook workbook, string fileName)
+          {
+              Console.WriteLine("开始保存...");
+              try
+              {
+                  using var sw = File.OpenWrite(fileName);
+                  workbook.Write(sw);
+              }
+              catch
+              {
+                  Console.WriteLine("保存出错");
+              }
+              finally
+              {
+                  workbook.Close();
+              }
+          }
+
+          public void CreateRowForSheet(ISheet sheet, int rownum, string[] data)
+          {
+              Console.Write("开始插入数据行...");
+              var row = sheet.CreateRow(rownum);
+
+              for (int i = 0; i < data.Length; i++)
+              {
+                  Console.Write($"{i}  ");
+                  row.CreateCell(i).SetCellValue(data[i]);
+              }
+              Console.WriteLine();
+          }
+      }
+
+      class TipCalc
+      {
+          ExcelHelper helper = new ExcelHelper();
+
+          // ...
+
+          public void ExcelExcel(string fileName)
+          {
+              IWorkbook workbook = helper.OpenOrCreateWorkbook(fileName);
+              ISheet sheet = workbook.GetSheetAt(0);
+
+              // 头
+              if (sheet.LastRowNum == 0)
+              {
+                  helper.CreateRowForSheet(sheet, 0, new[] { "账单总额", "小费数额", "小费税率", "账单实付" });
+              }
+
+              // 数据
+              var data = new[] { Bill, Tip, RATE, Bill + Tip };
+              helper.CreateRowForSheet(sheet, sheet.LastRowNum + 1, (from i in data select i.ToString()).ToArray());
+
+              // 保存
+              helper.SaveAndCloseWorkbook(workbook, fileName);
+          }
+      }
+
+      class TaxCalc
+      {
+          ExcelHelper helper = new ExcelHelper();
+
+          // ...
+
+          public void ExportToExcel2(string fileName)
+          {
+              IWorkbook workbook = helper.OpenOrCreateWorkbook(fileName);
+              ISheet sheet = workbook.GetSheetAt(0);
+
+              if (sheet.LastRowNum == 0)
+              {
+                  var head = new[] { "税前收入", "应交税", "税后收入" };
+                  helper.CreateRowForSheet(sheet, 0, head);
+              }
+
+              var heads = new[] { Money.ToString(), Tax.ToString(), (Money - Tax).ToString() };
+              helper.CreateRowForSheet(sheet, 0, heads);
+
+              helper.SaveAndCloseWorkbook(workbook, fileName);
+          }
+      }
+
+      class ElectricBillCalc
+      {
+          ExcelHelper helper = new ExcelHelper();
+
+          // ...
+
+          public void ExportToExcel(string fileName)
+          {
+              IWorkbook workbook = helper.OpenOrCreateWorkbook(fileName);
+              ISheet sheet = workbook.GetSheetAt(0);
+
+              if (sheet.LastRowNum == 0)
+              {
+                  var heads = new[] { "月份", "度数", "一档费用", "二挡费用", "三档费用", "总费用" };
+                  helper.CreateRowForSheet(sheet, 0, heads);
+              }
+
+              var values = new[] { _month.ToString(), _used.ToString(), Lv1Cost.ToString(), Lv2Cost.ToString(), Lv3Cost.ToString(), Bill.ToString() };
+              helper.CreateRowForSheet(sheet, sheet.LastRowNum + 1, values);
+
+              helper.SaveAndCloseWorkbook(workbook, fileName);
+          }
+      }
+  }
+#+end_src
+
+*** 或者可以 *继承*
+
+#+begin_src csharp -n
+  namespace Y
+  {
+      class ExcelHelper
+      {
+          public bool isShowMessage = true;
+
+          public IWorkbook OpenOrCreateWorkbook(string fileName)
+          {
+              if (File.Exists(fileName))
+              {
+                  if (isShowMessage)
+                  {
+                      Console.WriteLine("文件存在，现在开始打开...");
+                  }
+                  using var sr = File.OpenRead(fileName);
+                  return new HSSFWorkbook(sr);
+              }
+              else
+              {
+                  Console.WriteLine("文件不存在，现在开始创建新的 WOrkbook 对象");
+                  var workbook = new HSSFWorkbook();
+                  workbook.CreateSheet();
+                  return workbook;
+              }
+          }
+
+          public void SaveAndCloseWorkbook(IWorkbook workbook, string fileName)
+          {
+              Console.WriteLine("开始保存...");
+              try
+              {
+                  using var sw = File.OpenWrite(fileName);
+                  workbook.Write(sw);
+              }
+              catch
+              {
+                  Console.WriteLine("保存出错");
+              }
+              finally
+              {
+                  workbook.Close();
+              }
+          }
+
+          public void CreateRowForSheet(ISheet sheet, int rownum, string[] data)
+          {
+              Console.Write("开始插入数据行...");
+              var row = sheet.CreateRow(rownum);
+
+              for (int i = 0; i < data.Length; i++)
+              {
+                  Console.Write($"{i}  ");
+                  row.CreateCell(i).SetCellValue(data[i]);
+              }
+              Console.WriteLine();
+          }
+      }
+
+      class TipCalc : ExcelHelper
+      {
+          // ...
+          public void ExcelExcel(string fileName)
+          {
+              IWorkbook workbook = OpenOrCreateWorkbook(fileName);
+              ISheet sheet = workbook.GetSheetAt(0);
+
+              // 头
+              if (sheet.LastRowNum == 0)
+              {
+                  CreateRowForSheet(sheet, 0, new[] { "账单总额", "小费数额", "小费税率", "账单实付" });
+              }
+
+              // 数据
+              var data = new[] { Bill, Tip, RATE, Bill + Tip };
+              CreateRowForSheet(sheet, sheet.LastRowNum + 1, (from i in data select i.ToString()).ToArray());
+
+              // 保存
+              SaveAndCloseWorkbook(workbook, fileName);
+          }
+      }
+
+      class TaxCalc : ExcelHelper
+      {
+          // ...
+          public void ExportToExcel2(string fileName)
+          {
+              IWorkbook workbook = OpenOrCreateWorkbook(fileName);
+              ISheet sheet = workbook.GetSheetAt(0);
+
+              if (sheet.LastRowNum == 0)
+              {
+                  var head = new[] { "税前收入", "应交税", "税后收入" };
+                  CreateRowForSheet(sheet, 0, head);
+              }
+
+              var heads = new[] { Money.ToString(), Tax.ToString(), (Money - Tax).ToString() };
+              CreateRowForSheet(sheet, 0, heads);
+
+              SaveAndCloseWorkbook(workbook, fileName);
+          }
+      }
+
+      class ElectricBillCalc : ExcelHelper
+      {
+          // ...
+          public void ExportToExcel(string fileName)
+          {
+              IWorkbook workbook = OpenOrCreateWorkbook(fileName);
+              ISheet sheet = workbook.GetSheetAt(0);
+
+              if (sheet.LastRowNum == 0)
+              {
+                  var heads = new[] { "月份", "度数", "一档费用", "二挡费用", "三档费用", "总费用" };
+                  CreateRowForSheet(sheet, 0, heads);
+              }
+
+              var values = new[] { _month.ToString(), _used.ToString(), Lv1Cost.ToString(), Lv2Cost.ToString(), Lv3Cost.ToString(), Bill.ToString() };
+              CreateRowForSheet(sheet, sheet.LastRowNum + 1, values);
+
+              SaveAndCloseWorkbook(workbook, fileName);
+          }
+      }
+  }
+#+end_src
+
+** 更进一步的 DRY
+
+- 上述代码中的 ExportToExcel 等方法，在整个结构上还是雷同的，还有进一步进行 *分离* 的空间
+- 将重复的逻辑分离出去，基本的步骤是 (1) 抽出为某个类的某个方法 (2) 通过组合或继承的方式进行使用
+
+*** 使用 *组合* 方式实现
+
+#+begin_src csharp -n
+  namespace X
+  {
+      class ExcelHelper
+      {
+          public bool isShowMessage = true;
+
+          public IWorkbook OpenOrCreateWorkbook(string fileName)
+          {
+              if (File.Exists(fileName))
+              {
+                  if (isShowMessage)
+                  {
+                      Console.WriteLine("文件存在，现在开始打开...");
+                  }
+                  using var sr = File.OpenRead(fileName);
+                  return new HSSFWorkbook(sr);
+              }
+              else
+              {
+                  Console.WriteLine("文件不存在，现在开始创建新的 WOrkbook 对象");
+                  var workbook = new HSSFWorkbook();
+                  workbook.CreateSheet();
+                  return workbook;
+              }
+          }
+
+          public void SaveAndCloseWorkbook(IWorkbook workbook, string fileName)
+          {
+              Console.WriteLine("开始保存...");
+              try
+              {
+                  using var sw = File.OpenWrite(fileName);
+                  workbook.Write(sw);
+              }
+              catch
+              {
+                  Console.WriteLine("保存出错");
+              }
+              finally
+              {
+                  workbook.Close();
+              }
+          }
+
+          public void CreateRowForSheet(ISheet sheet, int rownum, string[] data)
+          {
+              Console.Write("开始插入数据行...");
+              var row = sheet.CreateRow(rownum);
+
+              for (int i = 0; i < data.Length; i++)
+              {
+                  Console.Write($"{i}  ");
+                  row.CreateCell(i).SetCellValue(data[i]);
+              }
+              Console.WriteLine();
+          }
+
+          public void ExportToExcel(string fileName, string[] heads, string[] values)
+          {
+              IWorkbook workbook = OpenOrCreateWorkbook(fileName);
+              ISheet sheet = workbook.GetSheetAt(0);
+
+              // 头
+              if (sheet.LastRowNum == 0)
+              {
+                  CreateRowForSheet(sheet, 0, heads);
+              }
+
+              // 数据
+              CreateRowForSheet(sheet, sheet.LastRowNum + 1, values);
+
+              // 保存
+              SaveAndCloseWorkbook(workbook, fileName);
+          }
+      }
+
+      class TipCalc
+      {
+          ExcelHelper helper = new ExcelHelper();
+
+          // ...
+        
+          public void ExcelExcel(string fileName)
+          {
+              helper.ExportToExcel(fileName,
+                  new[] {"账单总额", "小费数额", "小费税率", "账单实付"},
+                  new[] {Bill.ToString(), Tip.ToString(), RATE.ToString(), (Bill + Tip).ToString()}
+              );
+          }
+      }
+
+      class TaxCalc
+      {
+          ExcelHelper helper = new ExcelHelper();
+
+          // ...
+
+          public void ExportToExcel2(string fileName)
+          {
+              helper.ExportToExcel(fileName,
+                  new[] { "税前收入", "应交税", "税后收入" },
+                  new[] { Money.ToString(), Tax.ToString(), (Money - Tax).ToString() }
+              );
+          }
+      }
+
+      class ElectricBillCalc
+      {
+          ExcelHelper helper = new ExcelHelper();
+
+          // ...
+
+          public void ExportToExcel(string fileName)
+          {
+              helper.ExportToExcel(fileName,
+                  new[] { "月份", "度数", "一档费用", "二挡费用", "三档费用", "总费用" },
+                  new[] { _month.ToString(), _used.ToString(), Lv1Cost.ToString(), Lv2Cost.ToString(), Lv3Cost.ToString(), Bill.ToString() }
+              );
+          }
+      }
+  }
+#+end_src
+
+*** 使用 *继承* 方式实现 (你的是我的)
+
+这是最简单，最基本的方式。跟组合的方式很像。
+
+#+begin_src csharp -n
+  class TipCalc : ExcelHelper
+  {
+      public void ExcelExcel(string fileName)
+      {
+          ExportToExcelCommon(fileName,
+              new[] {"账单总额", "小费数额", "小费税率", "账单实付"},
+              new[] {Bill.ToString(), Tip.ToString(), RATE.ToString(), (Bill + Tip).ToString()}
+          );
+      }
+  }
+#+end_src
+
+*** 使用 *继承* 方式实现 (公共的字段)
+
+充分利用继承的特性，将不同的部分抽出为字段:
+- 优点是: 简单直接
+- 缺点是: 非常不灵活，不实用。易出错
+
+#+begin_src csharp -n
+  class ExcelHelper
+  {
+      // ...
+
+      public string[] heads;
+      public string[] values;
+
+      public void ExportToExcel(string fileName)
+      {
+          IWorkbook workbook = OpenOrCreateWorkbook(fileName);
+          ISheet sheet = workbook.GetSheetAt(0);
+          if (sheet.LastRowNum == 0)
+          {
+              CreateRowForSheet(sheet, 0, heads);
+          }
+          CreateRowForSheet(sheet, sheet.LastRowNum + 1, values);
+          SaveAndCloseWorkbook(workbook, fileName);
+      }
+  }
+
+  class TipCalc : ExcelHelper
+  {
+      public TipCalc(double bill)
+      {
+          Bill = bill;
+          heads = new[] { "工资" };
+          values = new[] { Tip.ToString() };
+      }
+      // ...
+  }
+#+end_src
+
+
+图解:
+
+#+ATTR_HTML: :width 400px
+[[file:img/inherit-1.png]]
+
+*** 使用 *继承* 方式实现 (化虚为实)
+
+使用虚方法 (virtual/override)，让父类能访问派生类的方法。
+
+#+begin_src csharp -n
+  class ExcelHelper
+  {
+      // ...
+
+      public virtual string[] GetHeads()
+      {
+          return null;
+      }
+
+      public virtual string[] GetValues()
+      {
+          return null;
+      }
+
+      public void ExportToExcel(string fileName)
+      {
+          IWorkbook workbook = OpenOrCreateWorkbook(fileName);
+          ISheet sheet = workbook.GetSheetAt(0);
+          if (sheet.LastRowNum == 0)
+          {
+              CreateRowForSheet(sheet, 0, GetHeads());
+          }
+          CreateRowForSheet(sheet, sheet.LastRowNum + 1, GetValues());
+          SaveAndCloseWorkbook(workbook, fileName);
+      }
+  }
+  class TipCalc : ExcelHelper
+  {
+      // ...
+
+      override string[] GetHeads() => new[] { "账单", "费率", "小费", "应付" };
+      override string[] GetValues() => new[] { Bill.ToString(), RATE.ToString(), Tip.ToString(), (Bill + Tip).ToString() };
+  }
+#+end_src
+
+*** 使用 *继承* 方式实现 (进击的继承)
+
+#+begin_src csharp -n
+  class ExcelHelper
+  {
+      public bool isShowMessage = true;
+
+      public IWorkbook OpenOrCreateWorkbook(string fileName)
+      {
+          if (File.Exists(fileName))
+          {
+              if (isShowMessage)
+              {
+                  Console.WriteLine("文件存在，现在开始打开...");
+              }
+              using var sr = File.OpenRead(fileName);
+              return new HSSFWorkbook(sr);
+          }
+          else
+          {
+              Console.WriteLine("文件不存在，现在开始创建新的 WOrkbook 对象");
+              var workbook = new HSSFWorkbook();
+              workbook.CreateSheet();
+              return workbook;
+          }
+      }
+
+      public void SaveAndCloseWorkbook(IWorkbook workbook, string fileName)
+      {
+          Console.WriteLine("开始保存...");
+          try
+          {
+              using var sw = File.OpenWrite(fileName);
+              workbook.Write(sw);
+          }
+          catch
+          {
+              Console.WriteLine("保存出错");
+          }
+          finally
+          {
+              workbook.Close();
+          }
+      }
+
+      public IRow CreateRowForSheet(ISheet sheet, int rownum, string[] data)
+      {
+          Console.Write("开始插入数据行...");
+          var row = sheet.CreateRow(rownum);
+
+          for (int i = 0; i < data.Length; i++)
+          {
+              Console.Write($"{i}  ");
+              row.CreateCell(i).SetCellValue(data[i]);
+          }
+          Console.WriteLine();
+
+          return row;
+      }
+
+      public void SetStyleForRow(IRow row, ICellStyle style)
+      {
+          for (int i = 0; i < row.LastCellNum; i++)
+          {
+              var cell = row.GetCell(i);
+              cell.CellStyle = style;
+          }
+      }
+
+      // public virtual string[] GetValues() { return null; }
+      public virtual string[] GetHeads() => null;
+      public virtual string[] GetValues() => null;
+      public virtual IRow ExportToHead(ISheet sheet) => CreateRowForSheet(sheet, 0, GetHeads());
+      public virtual IRow ExportToBody(ISheet sheet) => CreateRowForSheet(sheet, sheet.LastRowNum + 1, GetValues());
+
+      public virtual void ExportToExcel(string fileName)
+      {
+          IWorkbook workbook = OpenOrCreateWorkbook(fileName);
+          ISheet sheet = workbook.GetSheetAt(0);
+          if (sheet.LastRowNum == 0)
+          {
+              ExportToHead(sheet);
+          }
+          ExportToBody(sheet);
+          SaveAndCloseWorkbook(workbook, fileName);
+      }
+  }
+#+end_src
+
+#+begin_src csharp -n 67
+  class TipCalc : ExcelHelper
+  {
+    // ...
+      public override string[] GetHeads() => new[] { "账单", "费率", "小费", "应付" };
+      public override string[] GetValues() => new[] { Bill.ToString(), RATE.ToString(), Tip.ToString(), (Bill + Tip).ToString() };
+
+      public override IRow ExportToHead(ISheet sheet)
+      {
+          var row = base.ExportToHead(sheet); 
+          //var row = CreateRowForSheet(sheet, 0, GetHeads());
+          var style = sheet.Workbook.CreateCellStyle();
+          style.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.Green.Index;
+          style.FillPattern = FillPattern.Diamonds;
+          SetStyleForRow(row, style);
+          return row;
+      }
+  }
+#+end_src
+
+** 珠联璧合: 组合 + 继承
+
+#+ATTR_HTML: :width 400
+[[file:img/calcs-1.png]]
+
+
+*** ConsoleHelper
+
+#+begin_src csharp -n
+  using System;
+
+  namespace Nfit161
+  {
+      class ConsoleHelper
+      {
+          public static void QuitWithReason(string reason)
+          {
+              Console.WriteLine(reason);
+              Environment.Exit(0);
+          }
+
+          public static void Write(string text, ConsoleColor color)
+          {
+              Console.ForegroundColor = color;
+              Console.Write(text);
+              Console.ResetColor();
+          }
+
+          public static void WriteLine(string text, ConsoleColor color)
+          {
+              Write(text, color);
+              Console.WriteLine();
+          }
+      }
+  }
+#+end_src
+
+*** ExcelHelper
+
+#+begin_src csharp -n
+  using System;
+  using System.IO;
+  using NPOI.HSSF.UserModel;
+  using NPOI.SS.UserModel;
+
+  namespace Nfit161
+  {
+      class ExcelHelper
+      {
+          public bool IsShowMessage = true;
+
+          public IWorkbook OpenOrCreate(string fileName)
+          {
+              if (File.Exists(fileName))
+              {
+                  if (IsShowMessage)
+                  {
+                      Console.WriteLine("文件存在，现在开始打开...");
+                  }
+                  using var sr = File.OpenRead(fileName);
+                  return new HSSFWorkbook(sr);
+              }
+              else
+              {
+                  Console.WriteLine("文件不存在，现在开始创建新的 Workbook 对象");
+                  var workbook = new HSSFWorkbook();
+                  workbook.CreateSheet();
+                  return workbook;
+              }
+          }
+
+          public void SaveAndClose(IWorkbook workbook, string fileName)
+          {
+              Console.WriteLine("开始保存...");
+              try
+              {
+                  using var sw = File.OpenWrite(fileName);
+                  workbook.Write(sw);
+              }
+              catch
+              {
+                  Console.WriteLine("保存出错");
+              }
+              finally
+              {
+                  workbook.Close();
+              }
+          }
+
+          public void InsertRow(string[] data, ISheet sheet, int? rownum = null)
+          {
+              Console.Write("开始插入数据行...");
+              var row = sheet.CreateRow(rownum ?? sheet.LastRowNum + 1);
+
+              for (var i = 0; i < data.Length; i++)
+              {
+                  Console.Write($"{i}  ");
+                  row.CreateCell(i).SetCellValue(data[i]);
+              }
+              Console.WriteLine();
+          }
+
+          public void SetStyleForRow(IRow row, ICellStyle style)
+          {
+              for (var i = 0; i < row.LastCellNum; i++)
+              {
+                  var cell = row.GetCell(i);
+                  cell.CellStyle = style;
+              }
+          }
+      }
+  }
+#+end_src
+
+*** Calculator
+
+#+begin_src csharp -n
+  using System;
+  using System.Threading;
+  using NPOI.SS.UserModel;
+
+  namespace Nfit161
+  {
+      class Calculator
+      {
+          public ExcelHelper ExcelHelper = new ExcelHelper();
+
+          public virtual void ExportToBody(ISheet sheet)
+          {
+          }
+
+          public virtual void ExportToExcel(string fileName)
+          {
+              IWorkbook workbook = ExcelHelper.OpenOrCreate(fileName);
+              ISheet sheet = workbook.GetSheetAt(0);
+
+              // 插入
+              ExportToBody(sheet);
+
+              // 保存
+              ExcelHelper.SaveAndClose(workbook, fileName);
+          }
+      }
+
+      class TipCalc : Calculator
+      {
+          public TipCalc(double bill) => Bill = bill;
+
+          const double RATE = 0.18;
+          public double Bill { get; private set; }
+          public double Tip => Bill * RATE;
+
+          public void Print()
+          {
+              Console.WriteLine();
+              Console.WriteLine($"账单总额: {Bill,10:C}");
+              Console.WriteLine($"小费数额: {Tip,10:C} ({RATE:P1})");
+              Console.WriteLine("".PadRight(30, '┈'));
+              Console.WriteLine($"账单实付: {Bill + Tip,10:C}");
+          }
+
+          public void PrintFantasy()
+          {
+              Console.WriteLine();
+              while (true)
+              {
+                  var key = Console.ReadKey(true);
+                  if (key.Key == ConsoleKey.D1)
+                  {
+                      Console.WriteLine("您输入了一个 1");
+                  }
+                  else if (key.Key == ConsoleKey.S)
+                  {
+                      Console.Beep();
+                  }
+                  else if (key.KeyChar == 'd')
+                  {
+                      Console.Beep(600, 200);
+                  }
+                  else if (key.KeyChar == 'f')
+                  {
+                      Console.Beep(200, 200);
+                  }
+                  else if (key.Key == ConsoleKey.Enter)
+                  {
+                      break;
+                  }
+                  else
+                  {
+                      Console.WriteLine($"{key}, keyChar: {key.KeyChar}, key: {key.Key}");
+                  }
+              }
+          }
+
+          public override void ExportToBody(ISheet sheet)
+          {
+              if (sheet.LastRowNum == 0)
+                  ExcelHelper.InsertRow(new[] { "账单", "费率", "小费", "应付" }, sheet, 0);
+
+              ExcelHelper.InsertRow(new[] { Bill.ToString(), RATE.ToString(), Tip.ToString(), (Bill + Tip).ToString() }, sheet);
+          }
+      }
+
+      class TaxCalc : Calculator
+      {
+          public TaxCalc(double m) => Money = m;
+
+          private double _money; // 用来承载后面的数据，税前收入
+          private static readonly double[] Rates = { 0.03, 0.05, 0.2, 0.45 };
+
+          public double Money
+          {
+              get => _money;
+              set
+              {
+                  if (value < 0)
+                      ConsoleHelper.QuitWithReason("参数输入格式不正确！");
+                  _money = value;
+                  CalculateTax();
+              }
+          }
+          public double Rate { get; private set; }
+          public double Tax { get; private set; }
+
+          public void CalculateTax()
+          {
+              switch (Money)
+              {
+                  case <= 5000:
+                      Rate = 0;
+                      Tax = 0;
+                      break;
+                  case < 10000:
+                      Rate = Rates[0];
+                      Tax = (Money - 5000) * Rate;
+                      break;
+                  case < 20000:
+                      Rate = Rates[1];
+                      Tax = (Money - 10000) * Rate + 5000 * Rates[0];
+                      break;
+                  case < 100000:
+                      Rate = Rates[2];
+                      Tax = (Money - 20000) * Rate + 10000 * Rates[1] + 5000 * Rates[0];
+                      break;
+                  default:
+                      Rate = Rates[3];
+                      Tax = (Money - 100000) * Rate + 80000 * Rates[2] + 10000 * Rates[1] + 5000 * Rates[0];
+                      break;
+              }
+          }
+
+          public void PrintToConsole()
+          {
+              Console.WriteLine();
+              Console.WriteLine($"税前收入: {Money,10:C}");
+              Console.WriteLine($"应付税收: {Tax,10:C} ({Rate:P1})");
+              Console.WriteLine("".PadRight(30, '┈'));
+              Console.WriteLine($"税后收入: {Money - Tax,10:C}");
+          }
+
+          public override void ExportToBody(ISheet sheet)
+          {
+              if (sheet.LastRowNum == 0)
+                  ExcelHelper.InsertRow(new[] { "税前收入", "税率", "税额", "税后收入" }, sheet, 0);
+
+              ExcelHelper.InsertRow(new[] { Money.ToString(), Rate.ToString(), Tax.ToString(), (Money + Tax).ToString() }, sheet);
+          }
+      }
+
+      class ElectricBillCalc : Calculator
+      {
+          // 基准数据
+          public static readonly int[] SummerLevels = { 260, 600 };
+          public static readonly int[] WinterLevels = { 200, 400 };
+          public static readonly double[] Rates = { 0.600, 0.650, 0.900 };
+
+          // 需要知道的数据
+          private int _month;
+          private double _used;
+
+          // 需要计算出来的数据
+          private double[] _lvUsed;
+
+          public double Lv1Cost => _lvUsed[0] * Rates[0];
+          public double Lv2Cost => _lvUsed[1] * Rates[1];
+          public double Lv3Cost => _lvUsed[2] * Rates[2];
+          public double Bill => Lv1Cost + Lv2Cost + Lv3Cost;
+
+          public void SetMonthAndUsed(int month, double used)
+          {
+              if (month < 1 || month > 12 || used < 0)
+                  ConsoleHelper.QuitWithReason("参数输入错误");
+              (_month, _used) = (month, used);
+              CalculateLvUsed();
+          }
+
+          void CalculateLvUsed()
+          {
+              (int p1, int p2) = IsSummer() ? (SummerLevels[0], SummerLevels[1]) : (WinterLevels[0], WinterLevels[1]);
+
+              if (_used <= p1)
+              {
+                  _lvUsed = new[] { _used, 0, 0 };
+              }
+              else if (_used <= p2)
+              {
+                  _lvUsed = new[] { p1, _used - p1, 0 };
+              }
+              else
+              {
+                  _lvUsed = new[] { p1, p2 - p1, _used - p2 };
+              }
+          }
+
+          bool IsSummer() => _month >= 5 && _month <= 10;
+
+          public void PrintFantasy()
+          {
+              PrintToConsole();
+              while (true)
+              {
+                  var key = Console.ReadKey();
+                  Console.Clear();
+
+                  switch (key.Key)
+                  {
+                      case ConsoleKey.D1:
+                          PrintToConsole(ConsoleColor.Red);
+                          break;
+                      case ConsoleKey.D2:
+                          PrintToConsole(ConsoleColor.Green);
+                          break;
+                      case ConsoleKey.D3:
+                          PrintToConsole(ConsoleColor.Yellow);
+                          break;
+                      case ConsoleKey.Enter:
+                          {
+                              var i = 0;
+                              while (true)
+                              {
+                                  ConsoleColor[] colors = new[] { ConsoleColor.Red, ConsoleColor.Green, ConsoleColor.Blue };
+                                  i = (i + 1) % colors.Length;
+                                  if (i == 1)
+                                      Console.Beep(90, 50);
+                                  else
+                                      Console.Beep(40, 50);
+                                  Console.Clear();
+                                  PrintToConsole(colors[i]);
+                                  Thread.Sleep(300);
+                              }
+                          }
+                      default:
+                          PrintToConsole();
+                          break;
+                  }
+              }
+          }
+
+          public void PrintToConsole(ConsoleColor color)
+          {
+              Console.ForegroundColor = color;
+              PrintToConsole();
+              Console.ResetColor();
+          }
+
+          public void PrintToConsole()
+          {
+              Console.WriteLine();
+              Console.WriteLine($"{_month} 月的用电量是: {_used} KWh");
+              Console.WriteLine($"第一档电费: {Lv1Cost,10:C}");
+              Console.WriteLine($"第二档电费: {Lv2Cost,10:C}");
+              Console.WriteLine($"第三档电费: {Lv3Cost,10:C}");
+              Console.WriteLine("".PadRight(30, '┈'));
+              Console.WriteLine($"总计: {Bill,10:C} ");
+          }
+
+          public override void ExportToBody(ISheet sheet)
+          {
+              if (sheet.LastRowNum == 0)
+                  ExcelHelper.InsertRow(new[] { "月", "量", "费用" }, sheet, 0);
+
+              ExcelHelper.InsertRow(new[] { _month.ToString(), _used.ToString(), Bill.ToString() }, sheet);
+          }
+      }
+  }
+#+end_src
+
+*** Main
+
+#+begin_src csharp
+  using System;
+  using Nfit161;
+
+  class Program
+  {
+      static void Main(string[] args)
+      {
+          //double bill;
+          //if (args.Length != 1 || !double.TryParse(args[0], out bill))
+          //{
+          //    Console.WriteLine("您的输入有误，正确的调用方法是:\nTaxCalculator 税前收入");
+          //    return;
+          //}
+
+          //var ec = new Y.TipCalc(2000);
+          //ec.ExportToExcel(@"e:\33333333333.xls");
+
+          //var ed = new Y.ElectricBillCalc();
+          //ed.SetMonthAndUsed(3, 24000);
+          //ed.ExportToExcel(@"e:\44444444444.xls");
+
+          Console.WriteLine("hello");
+          ConsoleHelper.WriteLine("cccccccccccccccooolor", ConsoleColor.DarkMagenta);
+          Console.WriteLine("world");
+      }
+  }
+#+end_src
+
+** 不仅有权利还有义务，强制的规则: 抽象方法
+
+#+begin_src csharp -n
+  abstract class Calculator
+  {
+      public ExcelHelper ExcelHelper = new ExcelHelper();
+
+      public virtual void ExportToBody(ISheet sheet) {}
+
+      public virtual void ExportToExcel(string fileName)
+      {
+          IWorkbook workbook = ExcelHelper.OpenOrCreate(fileName);
+          ISheet sheet = workbook.GetSheetAt(0);
+          ExportToBody(sheet);
+          ExcelHelper.SaveAndClose(workbook, fileName);
+      }
+
+      // 子类必须要实现这些方法!
+      public abstract void PrintToConsole();
+      public abstract void Help();
+  }
+#+end_src
+
+** 有了接口，就有了 +工业+ 标准，就有了分工和协作
+
+#+begin_src csharp -n
+  using System;
+  using System.Threading;
+  using NPOI.SS.UserModel;
+
+  namespace Nfit161
+  {
+      // 架构级别
+
+      interface IHelpable
+      {
+          void Help();
+      }
+
+      interface ICalculator : IHelpable
+      {
+          void PrintToConsole();
+          void ExportToExcel(string fileName);
+      }
+
+      // 大佬级别
+
+      abstract class CalculatorBase : ICalculator
+      {
+          public abstract void Help();
+          public abstract void PrintToConsole();
+
+          protected ExcelHelper ExcelHelper = new ExcelHelper();
+
+          public virtual void ExportToExcel(string fileName)
+          {
+              IWorkbook workbook = ExcelHelper.OpenOrCreate(fileName);
+              ISheet sheet = workbook.GetSheetAt(0);
+              ExportToBody(sheet);
+              ExcelHelper.SaveAndClose(workbook, fileName);
+          }
+
+          protected virtual void ExportToBody(ISheet sheet)
+          {
+              Console.WriteLine("在这里没做任何事，子类可以选项性重写此方法");
+          }
+      }
+
+      // 搬砖级别
+
+      class TipCalculator : CalculatorBase
+      {
+          public TipCalculator(double bill) => Bill = bill;
+
+          const double RATE = 0.18;
+          public double Bill { get; private set; }
+          public double Tip => Bill * RATE;
+
+          public override void Help()
+          {
+              Console.WriteLine("这是一个消费计算器，其使用方式为 ...");
+          }
+
+          public override void PrintToConsole()
+          {
+              Console.WriteLine();
+              Console.WriteLine($"账单总额: {Bill,10:C}");
+              Console.WriteLine($"小费数额: {Tip,10:C} ({RATE:P1})");
+              Console.WriteLine("".PadRight(30, '┈'));
+              Console.WriteLine($"账单实付: {Bill + Tip,10:C}");
+          }
+
+          protected override void ExportToBody(ISheet sheet)
+          {
+              if (sheet.LastRowNum == 0)
+                  ExcelHelper.InsertRow(new[] { "账单", "费率", "小费", "应付" }, sheet, 0);
+              ExcelHelper.InsertRow(new[] { Bill.ToString(), RATE.ToString(), Tip.ToString(), (Bill + Tip).ToString() }, sheet);
+          }
+      }
+
+      class TaxCalculator : CalculatorBase
+      {
+          public override void Help()
+          {
+          }
+
+          public override void PrintToConsole()
+          {
+          }
+
+          protected override void ExportToBody(ISheet sheet)
+          {
+          }
+      }
+
+      class ElectricBillCalculator : CalculatorBase
+      {
+          public override void Help()
+          {
+          }
+
+          public override void PrintToConsole()
+          {
+          }
+
+          protected override void ExportToBody(ISheet sheet)
+          {
+          }
+      }
+
+      // 测试级别
+
+      class CalculatorTest
+      {
+          public void Test1()
+          {
+              var calcs = new ICalculator[] {new TipCalculator(2222), new ElectricBillCalculator(), new TaxCalculator()};
+
+              foreach (var c in calcs)
+              {
+                  c.Help();
+                  c.PrintToConsole();
+                  c.ExportToExcel("xxx");
+              }
+          }
+      }
+  }
+#+end_src
+
+* 阶梯电费计算
+** 第一种解决方案
+
+这种方式由第三小组提供:
+#+begin_src csharp -n
+  class 电费计算
+  {
+      // 需要知道的数据
+      private int _月份;
+      private double _电数;
+
+      // 需要计算出来的数据
+      public double 第一档电费 { get; private set; }
+      public double 第二档电费 { get; private set; }
+      public double 第三档电费 { get; private set; }
+      public double 总电费 { get; private set; }
+
+      // 基准数据
+      public static readonly double[] 档费 = new double[] { 0.600, 0.650, 0.900 };
+
+      public int 月份
+      {
+          get { return _月份; }
+          set
+          {
+              if (value < 1 || value > 12)
+              {
+                  Console.WriteLine("参数输入错误。");
+                  Environment.Exit(0);
+              }
+              _月份 = value;
+              计算电费();
+          }
+      }
+
+      public double 电数
+      {
+          get { return _电数; }
+          set
+          {
+              if (value < 0)
+              {
+                  Console.WriteLine("参数输入错误。");
+                  Environment.Exit(0);
+              }
+              _电数 = value;
+              计算电费();
+          }
+      }
+
+      public void 计算电费()
+      {
+          if (_月份 >= 5 && _月份 <= 10)
+          {
+              if (_电数 <= 260)
+              {
+                  第一档电费 = _电数 * 档费[0];
+                  第二档电费 = 0;
+                  第三档电费 = 0;
+              }
+              else if (_电数 <= 600)
+              {
+                  第一档电费 = 260 * 档费[0];
+                  第二档电费 = (_电数 - 260) * (档费[1]);
+                  第三档电费 = 0;
+              }
+              else if (_电数 > 600)
+              {
+                  第一档电费 = 260 * 档费[0];
+                  第二档电费 = (600 - 260) * (档费[1]);
+                  第三档电费 = (_电数 - 600) * (档费[2]);
+              }
+          }
+          else
+          {
+              if (_电数 > 0 && _电数 <= 200)
+              {
+                  第一档电费 = _电数 * 档费[0];
+                  第二档电费 = 0;
+                  第三档电费 = 0;
+              }
+              else if (_电数 > 200 && _电数 <= 400)
+              {
+                  第一档电费 = 200 * 档费[0];
+                  第二档电费 = (_电数 - 200) * (档费[1]);
+                  第三档电费 = 0;
+              }
+              else if (_电数 > 400)
+              {
+                  第一档电费 = 200 * 档费[0];
+                  第二档电费 = (400 - 200) * (档费[1]);
+                  第三档电费 = (_电数 - 400) * (档费[2]);
+              }
+          }
+          总电费 = 第一档电费 + 第二档电费 + 第三档电费;
+      }
+
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"{_月份} 月的用电量是: {_电数} KWh");
+          Console.WriteLine($"第一档电费: { 第一档电费,10:C}");
+          Console.WriteLine($"第二档电费: { 第二档电费,10:C}");
+          Console.WriteLine($"第三档电费: { 第三档电费,10:C}");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"总计: { 总电费,10:C} ");
+      }
+  }
+#+end_src
+
+** 第一种方案的优化版
+
+经过集思广益，整个班级一起修改，在上述的版本上进行优化:
+- 减少了代码的冗余，让代码更清晰
+- 将档位等数据提取为字段，方便管理和维护
+
+代码如下:
+#+begin_src csharp -n 
+  class 电费计算
+  {
+      // 需要知道的数据
+      private int _月份;
+      private double _电数;
+
+      // 需要计算出来的数据
+      public double 第一档电费 { get; private set; }
+      public double 第二档电费 { get; private set; }
+      public double 第三档电费 { get; private set; }
+      public double 总电费 { get => 第一档电费 + 第二档电费 + 第三档电费; }
+
+      // 基准数据
+      public static readonly int[] 夏季档位 = new int[] { 260, 600 };
+      public static readonly int[] 冬季档位 = new int[] { 200, 400 };
+      public static readonly double[] 档费 = new double[] { 0.600, 0.650, 0.900 };
+
+      public void 月和电(int 月, double 电)
+      {
+          if (月 < 1 || 月 > 12 || 电 < 0)
+          {
+              Console.WriteLine("参数输入错误。");
+              Environment.Exit(0);
+          }
+          _月份 = 月;
+          _电数 = 电;
+          计算电费();
+      }
+
+      public void 计算电费()
+      {
+          int p1 = 是夏季() ? 夏季档位[0] : 冬季档位[0];
+          int p2 = 是夏季() ? 夏季档位[1] : 冬季档位[1];
+
+          if (_电数 < p1)
+          {
+              第一档电费 = _电数 * 档费[0];
+              第二档电费 = 0;
+              第三档电费 = 0;
+          }
+          else if (_电数 < p2)
+          {
+              第一档电费 = p1 * 档费[0];
+              第二档电费 = (_电数 - p1) * 档费[1];
+              第三档电费 = 0;
+          }
+          else
+          {
+              第一档电费 = p1 * 档费[0];
+              第二档电费 = (p2 - p1) * 档费[1];
+              第三档电费 = (_电数 - p2) * 档费[2];
+          }
+      }
+
+      public bool 是夏季()
+      {
+          return _月份 >= 5 && _月份 <= 10;
+      }
+
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"{_月份} 月的用电量是: {_电数} KWh");
+          Console.WriteLine($"第一档电费: { 第一档电费,10:C}");
+          Console.WriteLine($"第二档电费: { 第二档电费,10:C}");
+          Console.WriteLine($"第三档电费: { 第三档电费,10:C}");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"总计: { 总电费,10:C} ");
+      }
+  }
+#+end_src
+
+** 第二种方案
+
+基于阶梯度数，应该更加合理:
+
+#+begin_src csharp -n
+  class ElectricBillCal
+  {
+      // 基准数据
+      public static readonly int[] 夏季档位 = new int[] { 260, 600 };
+      public static readonly int[] 冬季档位 = new int[] { 200, 400 };
+      public static readonly double[] 档费 = new double[] { 0.600, 0.650, 0.900 };
+
+      // 需要知道的数据
+      private int _月份;
+      private double _电数;
+
+      // 需要计算出来的数据
+      private double[] _阶梯度数;
+      public double 第一档电费 { get => _阶梯度数[0] * 档费[0]; }
+      public double 第二档电费 { get => _阶梯度数[1] * 档费[1]; }
+      public double 第三档电费 { get => _阶梯度数[2] * 档费[2]; }
+      public double 总电费 { get => 第一档电费 + 第二档电费 + 第三档电费; }
+
+      public void 设置月份和电数(int 月, double 数)
+      {
+          if (月 < 1 || 月 > 12 || 数 < 0) 抱怨并退出("参数输入错误");
+          (_月份, _电数) = (月, 数);
+          计算阶梯度数();
+      }
+
+      void 计算阶梯度数()
+      {
+          (int p1, int p2) = 夏天否() ? (夏季档位[0], 夏季档位[1]) : (冬季档位[0], 冬季档位[1]);
+
+          if (_电数 <= p1)
+          {
+              _阶梯度数 = new double[] { _电数, 0, 0 };
+          }
+          else if (_电数 <= p2)
+          {
+              _阶梯度数 = new double[] { p1, _电数 - p1, 0 };
+          }
+          else
+          {
+              _阶梯度数 = new double[] { p1, p2 - p1, _电数 - p2 };
+          }
+      }
+
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"{_月份} 月的用电量是: {_电数} KWh");
+          Console.WriteLine($"第一档电费: {第一档电费,10:C}");
+          Console.WriteLine($"第二档电费: {第二档电费,10:C}");
+          Console.WriteLine($"第三档电费: {第三档电费,10:C}");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"总计: {总电费,10:C} ");
+      }
+
+      bool 夏天否() => _月份 >= 5 && _月份 <= 10;
+
+      static void 抱怨并退出(string 抱怨内容)
+      {
+          Console.WriteLine(抱怨内容);
+          Environment.Exit(0);
+      }
+  }
+#+end_src
+
+** 第二种方案的英文变量版本
+
+用英文进行命名，还是比较主流和正规的。需要的只是简单的英文而已，写多了就熟了:
+
+#+begin_src csharp -n
+  class ElectricBillCalc
+  {
+      // 基准数据
+      public static readonly int[] SummerLevels = { 260, 600 };
+      public static readonly int[] WinterLevels = { 200, 400 };
+      public static readonly double[] Rates = { 0.600, 0.650, 0.900 };
+
+      // 需要知道的数据
+      private int _month;
+      private double _used;
+
+      // 需要计算出来的数据
+      private double[] lvUsed;
+      public double Lv1Cost { get => lvUsed[0] * Rates[0]; }
+      public double Lv2Cost { get => lvUsed[1] * Rates[1]; }
+      public double Lv3Cost { get => lvUsed[2] * Rates[2]; }
+      public double Bill { get => Lv1Cost + Lv2Cost + Lv3Cost; }
+
+      public void SetMonthAndUsed(int month, double used)
+      {
+          if (month < 1 || month > 12 || used < 0) QuitWithReason("参数输入错误");
+          (_month, _used) = (month, used);
+          CalculateLvUsed();
+      }
+
+      void CalculateLvUsed()
+      {
+          (int p1, int p2) = IsSummer() ? (SummerLevels[0], SummerLevels[1]) : (WinterLevels[0], WinterLevels[1]);
+
+          if (_used <= p1)
+          {
+              lvUsed = new [] { _used, 0, 0 };
+          }
+          else if (_used <= p2)
+          {
+              lvUsed = new [] { p1, _used - p1, 0 };
+          }
+          else
+          {
+              lvUsed = new [] { p1, p2 - p1, _used - p2 };
+          }
+      }
+
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"{_month} 月的用电量是: {_used} KWh");
+          Console.WriteLine($"第一档电费: {Lv1Cost,10:C}");
+          Console.WriteLine($"第二档电费: {Lv2Cost,10:C}");
+          Console.WriteLine($"第三档电费: {Lv3Cost,10:C}");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"总计: {Bill,10:C} ");
+      }
+
+      public void ExportToExcel()
+      {
+          // todo
+      }
+
+      bool IsSummer() => _month >= 5 && _month <= 10;
+
+      static void QuitWithReason(string reason)
+      {
+          Console.WriteLine(reason);
+          Environment.Exit(0);
+      }
+  }
+#+end_src
+
+** 学习怎么使用别人的封装 (Console)
+
+#+begin_quote
+完成 ElectricBillCalc 中杀马特版本的 Print:
+- 1: 红色
+- 2: 绿色
+- 3: 黄色
+- q: 或 esc 退出
+- 回车: 每秒变一种颜色，适当增加声音效果 (beep)
+- 其他: 原来的颜色
+#+end_quote
+
+- 首先理清楚思路，明白自己要做什么，不要着急写代码
+- 碰到不会不懂的，要及时求助别人或度姨
+- 解决问题过程中，一定要总结与反思 (带脑子)
+- 问题解决了，笔记也要整理好 (温故知新，多练习)
+
+#+begin_src csharp -n 210
+  public void PrintFantasy()
+  {
+      PrintToConsole();
+      while(true)
+      {
+          ConsoleKeyInfo key = Console.ReadKey();
+          Console.Clear();
+          if (key.Key == ConsoleKey.D1)
+          {
+              PrintToConsole(ConsoleColor.Red);
+          }
+          else if (key.Key == ConsoleKey.D2)
+          {
+              PrintToConsole(ConsoleColor.Green);
+          }
+          else if (key.Key == ConsoleKey.D3)
+          {
+              PrintToConsole(ConsoleColor.Yellow);
+          }
+          else if(key.Key == ConsoleKey.Enter)
+          {
+              int i = 0;
+              while (true)
+              {
+                  ConsoleColor[] colors = new[] { ConsoleColor.Red, ConsoleColor.Green, ConsoleColor.Blue };
+                  Console.Clear();
+                  i = (i + 1) % colors.Length;
+                  if (i == 1)
+                  {
+                      Console.Beep(90, 50);
+                  }
+                  else
+                  {
+                      Console.Beep(40, 50);
+                  }
+                  PrintToConsole(colors[i]);
+                  Thread.Sleep(300);
+              }
+          }
+          else
+          {
+              PrintToConsole();
+          }
+      }
+  }
+
+  public void PrintToConsole(ConsoleColor color)
+  {
+      Console.ForegroundColor = color;
+      PrintToConsole();
+      Console.ResetColor();
+  }
+#+end_src
+
+** 学习怎么使用别人的封装 (ExportToExcel)
+
+C# 操纵 Excel 的方法:
+- 内置的 Interop 包，需要安装 Office 后才可以使用
+- 开源独立的 NPOI 包，需要在 NuGet 中下载并引入到项目
+
+使用 NPOI 进行数据导出的示例:
+#+begin_src csharp -n
+  public void ExportToExcel()
+  {
+      var book = new HSSFWorkbook();    // 工作簿
+      var sheet1 = book.CreateSheet("信息表");   // 工作表
+      var sheet2 = book.CreateSheet("信息表2");  // 工作表
+
+      // 数据和样式
+
+      var row1Values = new[] { "月份", "度数", "一档费用", "二挡费用", "三档费用", "总费用" };
+      var row2Values = new[] { _month, _used, Lv1Cost, Lv2Cost, Lv3Cost, Bill };
+
+      var style1 = book.CreateCellStyle(); // 对象，封装了样式方面的数据
+      style1.BottomBorderColor = NPOI.HSSF.Util.HSSFColor.Red.Index;
+      style1.BorderBottom = BorderStyle.Double;
+      style1.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.Yellow.Index;
+      style1.FillPattern = FillPattern.SolidForeground;
+      style1.Alignment = HorizontalAlignment.Center;
+      style1.VerticalAlignment = VerticalAlignment.Center;
+
+      var style2 = book.CreateCellStyle();
+      style2.CloneStyleFrom(style1);
+      style2.FillPattern = FillPattern.NoFill;
+
+      // 创建行
+
+      var row1 = sheet1.CreateRow(0);
+      var row2 = sheet1.CreateRow(1);
+
+      row1.Height = 700;
+      row2.Height = 500;
+
+      // 头部行
+
+      for (int i = 0; i < row1Values.Length; i++)
+      {
+          var cell1 = row1.CreateCell(i);
+          cell1.SetCellValue(row1Values[i]);
+          cell1.CellStyle = style1;
+      }
+
+      // 数据行
+
+      for (int i = 0; i < row2Values.Length; i++)
+      { 
+          var cell2 = row2.CreateCell(i);
+          cell2.SetCellValue(row2Values[i]);
+          cell2.CellStyle = style2;
+      }
+
+      // 保存
+
+      Console.WriteLine("开始导出...");
+      var fileName = $"D:\\test.xls";
+      try
+      {
+          using var file = new FileStream(fileName, FileMode.Create);
+          book.Write(file);
+      }
+      catch (Exception e)
+      {
+          Console.WriteLine($"文件保存失败，请重试。\n失败的原因: {e.Message}");
+      }
+      book.Close();
+  }
+#+end_src
+
+注意:
+- 资源类变量 (文件等)，用完之后，一定记得要释放 (Close)。为了确保释放成功，应该将释放语句放到 finally 块中
+- 可以使用 ~using~ 语法糖简化释放
+- 实现相关功能，需要先有思路，后有代码。不要着急写代码，先搞明白自己要做的事情是什么，要怎么去做
+- 有了思路，却写不出来代码的根本原因是，写的少，对语法不熟悉。解决方案: 多练
+
+** 优化 ExportToExcel 为直接使用已存在的文件
+
+- 如果 Excel 文件存在，直接使用
+- 如果 Excel 不存在，先创建并初始化，再使用
+- 点击查看思路 ([[file:img/exporttoexcel-1.png][图片]])
+
+提示:
+- 务必要确保资源被合理释放 (~using~) !!!
+- ~File.Exists~ 用来判断文件存不存在
+- ~File.OpenRead/OpenWrite~ 用来打开文件，分别用作读和写。是简化的写法
+
+#+begin_src csharp -n
+  public void ExportToExcel3()
+  {
+      var fileName = @"e:\xxxxx.xls";
+
+      IWorkbook workbook;
+      ISheet sheet;
+
+      if (File.Exists(fileName)) // 如果文件存在，那么打开使用它
+      {
+          Console.WriteLine("开始打开...");
+          using var sr = File.OpenRead(fileName);
+          workbook = new HSSFWorkbook(sr);
+          sheet = workbook.GetSheetAt(0);
+      }
+      else // 如果文件不存在，创建并使用它
+      {
+          Console.WriteLine("开始创建...");
+          workbook = new HSSFWorkbook();
+          sheet = workbook.CreateSheet();
+
+          Console.WriteLine("初始化头部...");
+          var heads = new[] { "月份", "度数", "一档费用", "二挡费用", "三档费用", "总费用" };
+          var headRow = sheet.CreateRow(0);
+          for (int i = 0; i < heads.Length; i++)
+          {
+              headRow.CreateCell(i).SetCellValue(heads[i]);
+          }
+      }
+
+      // 插入数据
+      Console.WriteLine("开始插入...");
+      var values = new[] { _month, _used, Lv1Cost, Lv2Cost, Lv3Cost, Bill };
+      var row = sheet.CreateRow(sheet.LastRowNum + 1);
+      for (int i = 0; i < values.Length; i++)
+      {
+          row.CreateCell(i).SetCellValue(values[i]);
+      }
+
+      // 保存 Excel
+      Console.WriteLine("开始保存...");
+      using var sw = File.OpenWrite(fileName);
+      workbook.Write(sw);
+
+      Console.WriteLine("导出成功!");
+  }
+#+end_src
+
+#+begin_src csharp -n
+  static void Main()
+  {
+      while (true)
+      {
+          Console.Write("请输入月份: ");
+          int yue = int.Parse(Console.ReadLine());
+
+          Console.Write("请输入用电量: ");
+          double liang = double.Parse(Console.ReadLine());
+
+          // 使用自己的封装
+          var ec = new ElectricBillCalc();
+          ec.SetMonthAndUsed(yue, liang);
+          ec.ExportToExcel3();
+      }
+  }
+#+end_src
+
+* 个税计算器 (简化版) [[id:6c800397-9525-4a5d-b857-4356fb81f85c][源]]
+** 原始版本，*顺序* 执行
+
+这是第二小组提供的代码:
+
+#+begin_src csharp -n
+  using System;
+
+  namespace Tax
+  {
+      class Program
+      {
+          static void Main(string[] args)
+          {
+              double a = 0.03;
+              double b = 0.05;
+              double c = 0.2;
+              double d = 0.45;
+              double n;
+              if (args.Length != 1 || !double.TryParse(args[0], out n))
+              {
+                  Console.WriteLine("去输入正确的格式：Tax 税前收入");
+                  return;
+              }
+              else if (n < 5000)
+              {
+                  double tax1 = n;
+                  Console.WriteLine($"税前收入：{n,10:c}");
+                  Console.WriteLine($"应交税/税率：{0,10:c}({0:p})");
+                  Console.WriteLine("".PadRight(30, '-'));
+                  Console.WriteLine($"实发工资：{n:c}");
+              }
+              else if (n < 10000)
+              {
+                  double tax2 = (n - 5000) * a;
+                  Console.WriteLine($"税前收入：{n, 10:c}");
+                  Console.WriteLine($"应交税/税率：{tax2,10:c}({a:p})");
+                  Console.WriteLine("".PadRight(30, '-'));
+                  Console.WriteLine($"实发工资：{n - tax2:c}");
+              }
+              else if (n < 20000)
+              {
+                  double tax3 = (n - 10000) * b + 5000 * a;
+                  Console.WriteLine($"税前收入：{n,10:c}");
+                  Console.WriteLine($"应交税/税率：{tax3,10:c}({b:p})");
+                  Console.WriteLine("".PadRight(30, '-'));
+                  Console.WriteLine($"实发工资：{n - tax3:c}");
+              }
+              else if (n < 100000)
+              {
+                  double tax4 = (n - 20000) * c + 10000 * b + 5000 * a;
+                  Console.WriteLine($"税前收入：{n,10:c}");
+                  Console.WriteLine($"应交税/税率：{tax4,10:c}({c:p})");
+                  Console.WriteLine("".PadRight(30, '-'));
+                  Console.WriteLine($"实发工资：{n - tax4:c}");
+              }
+
+              else if (n > 100000)
+              {
+                  double tax6 = (n - 100000) * d + 80000 * c + 10000 * b + 5000 * a;
+                  Console.WriteLine($"税前收入：{n,   10:c}");
+                  Console.WriteLine($"应交税/税率：{tax6,10:c}({d:p})");
+                  Console.WriteLine("".PadRight(30, '-'));
+                  Console.WriteLine($"实发工资：{n - tax6:c}");
+              }
+          }
+      }
+  }
+#+end_src
+
+** 原始版本的批注
+
+#+begin_src csharp
+  namespace Tax
+  {
+      class Program
+      {
+          static void Main(string[] args)
+          {
+              // 变量的命名不要太随意!
+              double a = 0.03;
+              double b = 0.05;
+              double c = 0.2;
+              double d = 0.45;
+
+              double n; // 税前收入
+
+              if (args.Length != 1 || !double.TryParse(args[0], out n))
+              {
+                  Console.WriteLine("去输入正确的格式：Tax 应发工资");
+                  return;
+              }
+              // else 没有必要
+              else if (n < 5000)
+              {
+                  double tax1 = n; // 此变量的意义? 代码混淆
+                  Console.WriteLine($"应发工资：{n,10:c}");
+                  Console.WriteLine($"应交税/税率：{0,10:c}({0:p})");
+                  Console.WriteLine("".PadRight(30, '-'));
+                  Console.WriteLine($"实发工资：{n:c}");
+              }
+              else if (n < 10000) // 隐藏意思 1w > n >= 5k
+              {
+                  double tax2 = (n - 5000) * a; // 读到这里，才知晓 a 表示税率
+                  Console.WriteLine($"应发工资：{n,10:c}");
+                  Console.WriteLine($"应交税/税率：{tax2,10:c}({a:p})");
+                  Console.WriteLine("".PadRight(30, '-'));
+                  Console.WriteLine($"实发工资：{n - tax2:c}");
+              }
+              else if (n < 20000)
+              {
+                  // 一定要善于模仿、山寨、抄袭，总之 C-c/C-v
+                  // 模仿并不可耻，可耻的是，长年累月，没有任何进步
+                  double tax3 = (n - 10000) * b + 5000 * a;
+                  Console.WriteLine($"应发工资：{n,10:c}");
+                  Console.WriteLine($"应交税/税率：{tax3,10:c}({b:p})");
+                  Console.WriteLine("".PadRight(30, '-'));
+                  Console.WriteLine($"实发工资：{n - tax3:c}");
+              }
+              else if (n < 100000)
+              {
+                  double tax4 = (n - 20000) * c + 10000 * b + 5000 * a;
+                  Console.WriteLine($"应发工资：{n,10:c}");
+                  Console.WriteLine($"应交税/税率：{tax4,10:c}({c:p})");
+                  Console.WriteLine("".PadRight(30, '-'));
+                  Console.WriteLine($"实发工资：{n - tax4:c}");
+              }
+              else if (n > 100000)
+              {
+                  // 冗余代码太多了，没必要的冗余会导致:
+                  // - 开发起来，花费时间太多
+                  // - 阅读起来，不是那么友好
+                  // - 维护起来，越来越麻烦 (shi山)
+                  double tax6 = (n - 100000) * d + 80000 * c + 10000 * b + 5000 * a;
+                  Console.WriteLine($"应发工资：{n,10:c}");
+                  Console.WriteLine($"应交税/税率：{tax6,10:c}({d:p})");
+                  Console.WriteLine("".PadRight(30, '-'));
+                  Console.WriteLine($"实发工资：{n - tax6:c}");
+              }
+          }
+      }
+  }
+#+end_src
+
+** 第四组优化版
+
+#+begin_src csharp
+  using System;
+
+  // 命名要规范 ≠ 命名必须使用英文
+  // 没必要因为英文失去了编程的信心
+  // 如果能力可以，使用英文是推荐的，但是如果有些吃力，拼音也可以啊
+  // 意思是: 如果能穿品牌出去自然好，但是没钱的话，干干净净也不丢人
+
+  // 写代码，最重要的是有思路，也就是知道自己要做什么
+  // 我们要做的事情是: 计算税后收入
+  // - 第一步，接收税前收入的金额
+  // - 第二步，按照 [ 税收 = 税前收入 * 恰当的税率 ] 的方式计算税率
+  // - 第三步，通过 [ 税后收入 = 税前收入 - 税收 ] 的方式计算税后收入
+  // - 最后，花样输出
+
+  namespace Tax
+  {
+      class Program
+      {
+          static void Main(string[] args)
+          {
+              double slv;   //税率
+              double ynsk;  //应纳税款
+              double gongzi; //工资
+
+              if (args.Length != 1 || !double.TryParse(args[0], out gongzi))
+              {
+                  Console.WriteLine("去输入正确的格式：Tax 税前收入");
+                  return;
+              }
+
+              if (gongzi < 10000)
+              {
+                  slv = 0.03;
+                  ynsk = (gongzi - 5000) * slv;
+              }
+              else if (gongzi < 20000)
+              {
+                  slv = 0.05;
+                  ynsk = (gongzi - 5000) * slv;
+              }
+              else if (gongzi < 100000)
+              {
+                  slv = 0.2;
+                  ynsk = (gongzi - 5000) * slv;
+              }
+              else
+              {
+                  slv = 0.45;
+                  ynsk = (gongzi - 5000) * slv;
+              }
+
+              Console.WriteLine();
+              Console.WriteLine($"税前收入：{gongzi,5:c}");
+              Console.WriteLine($"应交税/税率：{ynsk,5:c}({slv:p})");
+              Console.WriteLine("".PadRight(30, '-'));
+              Console.WriteLine($"税后工资：{ gongzi - ynsk,5:c}");
+          }
+      }
+  }
+
+#+end_src
+
+** *分离* 计算跟输出，优化代码结构
+
+[[file:img/tax-cal.png]]
+
+
+** 通过 *方法* 对逻辑进行提取
+
+将某些代码块单独 *分离* 出来，并用一个名字代表，这就是所谓的方法。
+在原先执行代码块的地方，使用这个名字代替，这就是方法调用。
+通过这种方法调用方式，将程序变成了结构式的了，方便了重用和维护。
+
+#+begin_src csharp
+  using System;
+
+  namespace Tax
+  {
+      class Program
+      {
+          static void Main(string[] args)
+          {
+              // 1. 接收参数
+              double money;
+              if (args.Length != 1 || !double.TryParse(args[0], out money))
+              {
+                  Console.WriteLine("您的输入有误，正确的调用方法是:\nTaxCalculator 税前收入");
+                  return;
+              }
+
+              // 2. 按照接收的参数进行计算
+              double[] result = CalculateTax(money);
+
+              // 3. 对结果进行输出
+              PrintToConsole(money, result[0], result[1]);
+
+          }
+          static double[] CalculateTax(double money)
+          {
+              double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+              double rate, tax;
+              if (money <= 5000)
+              {
+                  rate = 0;
+                  tax = 0;
+              }
+              else if (money < 10000)
+              {
+                  rate = rates[0];
+                  tax = (money - 5000) * rate;
+              }
+              else if (money < 20000)
+              {
+                  rate = rates[1];
+                  tax = (money - 10000) * rate + 5000 * rates[0];
+              }
+              else if (money < 100000)
+              {
+                  rate = rates[2];
+                  tax = (money - 20000) * rate + 10000 * rates[1] + 5000 * rates[0];
+              }
+              else
+              {
+                  rate = rates[3];
+                  tax = (money - 100000) * rate + 80000 * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+              }
+              return new double[] { rate, tax };
+          }
+          static void PrintToConsole(double money, double rate, double tax)
+          {
+              Console.WriteLine();
+              Console.WriteLine($"税前收入: {money,10:C}");
+              Console.WriteLine($"应付税收: {tax,10:C} ({rate:P1})");
+              Console.WriteLine("".PadRight(30, '┈'));
+              Console.WriteLine($"税后收入: {money - tax,10:C}");
+          }
+      }
+  }
+#+end_src
+
+** 通过 *类* 对代码逻辑进行进一步分离
+
+方法越来越多，需要按照功能进行分门别类。这样就更具备组织性了。
+
+#+begin_src csharp
+  using System;
+
+  class Program
+  {
+      static void Main(string[] args)
+      {
+          // 1. 接收参数
+          double money;
+          if (args.Length != 1 || !double.TryParse(args[0], out money))
+          {
+              Console.WriteLine("您的输入有误，正确的调用方法是:\nTaxCalculator 税前收入");
+              return;
+          }
+
+          // 税收的计算
+          double[] result = TaxCal.CalculateTax(money);
+          TaxCal.PrintToConsole(money, result[0], result[1]);
+          TaxCal.ExportToExcel(money, result[0], result[1]);
+      }
+  }
+
+  class TaxCal
+  {
+      static public double[] CalculateTax(double money)
+      {
+          double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+          double rate, tax;
+          if (money <= 5000)
+          {
+              rate = 0;
+              tax = 0;
+          }
+          else if (money < 10000)
+          {
+              rate = rates[0];
+              tax = (money - 5000) * rate;
+          }
+          else if (money < 20000)
+          {
+              rate = rates[1];
+              tax = (money - 10000) * rate + 5000 * rates[0];
+          }
+          else if (money < 100000)
+          {
+              rate = rates[2];
+              tax = (money - 20000) * rate + 10000 * rates[1] + 5000 * rates[0];
+          }
+          else
+          {
+              rate = rates[3];
+              tax = (money - 100000) * rate + 80000 * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+          }
+          return new double[] {rate, tax};
+      }
+      static public void PrintToConsole(double money, double rate, double tax)
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {money,10:C}");
+          Console.WriteLine($"应付税收: {tax,10:C} ({rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {money - tax,10:C}");
+      }
+      static public void ExportToExcel(double money, double rate, double tax)
+      {
+          Console.WriteLine();
+          Console.WriteLine($"Excel输出税前收入: {money,10:C}");
+          Console.WriteLine($"Excel输出应付税收: {tax,10:C} ({rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"Excel输出税后收入: {money - tax,10:C}");
+      }
+  }
+
+  class TipCalculator { ... }
+  class PowerFeeCalculator { ... }
+#+end_src
+
+** 让类中的各个方法，能 *共享数据*
+
+在类中定义变量缓存每次方法调用的中间结果，下一个方法调用也可以直接使用这些缓存的结果。
+这样，方法调用间就产生了关联，调用的时候不需要传递那么多参数。
+
+#+begin_src csharp
+  using System;
+
+  class Program
+  {
+      static void Main(string[] args)
+      {
+          // 1. 接收参数
+          double money;
+          if (args.Length != 1 || !double.TryParse(args[0], out money))
+          {
+              Console.WriteLine("您的输入有误，正确的调用方法是:\nTaxCalculator 税前收入");
+              return;
+          }
+
+          // 税收的计算
+          TaxCal.money = money;
+          TaxCal.CalculateTax();
+          TaxCal.PrintToConsole();
+          TaxCal.ExportToExcel();
+
+          TaxCal.money = 23232;
+          TaxCal.CalculateTax();
+          TaxCal.PrintToConsole();
+      }
+  }
+
+  class TaxCal
+  {
+      static public double money;
+      static private double rate;
+      static private double tax;
+
+      static public void CalculateTax()
+      {
+          double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+          //double rate, tax;
+          if (money <= 5000)
+          {
+              rate = 0;
+              tax = 0;
+          }
+          else if (money < 10000)
+          {
+              rate = rates[0];
+              tax = (money - 5000) * rate;
+          }
+          else if (money < 20000)
+          {
+              rate = rates[1];
+              tax = (money - 10000) * rate + 5000 * rates[0];
+          }
+          else if (money < 100000)
+          {
+              rate = rates[2];
+              tax = (money - 20000) * rate + 10000 * rates[1] + 5000 * rates[0];
+          }
+          else
+          {
+              rate = rates[3];
+              tax = (money - 100000) * rate + 80000 * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+          }
+      }
+      static public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {money,10:C}");
+          Console.WriteLine($"应付税收: {tax,10:C} ({rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {money - tax,10:C}");
+      }
+      static public void ExportToExcel()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"Excel输出税前收入: {money,10:C}");
+          Console.WriteLine($"Excel输出应付税收: {tax,10:C} ({rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"Excel输出税后收入: {money - tax,10:C}");
+      }
+  }
+#+end_src
+
+** 引入 *对象* 保证调用的数据安全
+
+引入独立的存储空间，将方法共享的数据进行隔离:
+
+#+ATTR_HTML: :width 400
+[[file:img/tax-cal3.png]]
+
+#+begin_src csharp
+  using System;
+
+  class Program
+  {
+      static void Main(string[] args)
+      {
+          // 1. 接收参数
+          double money;
+          if (args.Length != 1 || !double.TryParse(args[0], out money))
+          {
+              Console.WriteLine("您的输入有误，正确的调用方法是:\nTaxCalculator 税前收入");
+              return;
+          }
+
+          TaxCal tc1 = new TaxCal();
+          tc1.money = money;
+          tc1.CalculateTax();
+          tc1.PrintToConsole();
+
+          TaxCal tc2 = new TaxCal();
+          tc2.money = 33333;
+          tc2.CalculateTax();
+          tc2.ExportToExcel();
+
+          tc1.ExportToExcel();
+      }
+  }
+
+  class TaxCal
+  {
+      public double money;
+      private double rate;
+      private double tax;
+
+      public void CalculateTax()
+      {
+          double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+          if (money <= 5000)
+          {
+              rate = 0;
+              tax = 0;
+          }
+          else if (money < 10000)
+          {
+              rate = rates[0];
+              tax = (money - 5000) * rate;
+          }
+          else if (money < 20000)
+          {
+              rate = rates[1];
+              tax = (money - 10000) * rate + 5000 * rates[0];
+          }
+          else if (money < 100000)
+          {
+              rate = rates[2];
+              tax = (money - 20000) * rate + 10000 * rates[1] + 5000 * rates[0];
+          }
+          else
+          {
+              rate = rates[3];
+              tax = (money - 100000) * rate + 80000 * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+          }
+      }
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {money,10:C}");
+          Console.WriteLine($"应付税收: {tax,10:C} ({rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {money - tax,10:C}");
+      }
+      public void ExportToExcel()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"Excel输出税前收入: {money,10:C}");
+          Console.WriteLine($"Excel输出应付税收: {tax,10:C} ({rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"Excel输出税后收入: {money - tax,10:C}");
+      }
+  }
+#+end_src
+
+** 通过 [private Field + public Method] 的方式，*保护数据* 安全
+
+面向对象的数据的封装 (数据的安全):
+- 对象是按照类的模板创建的包含了若干数据的一段存储空间
+- 后续的方法调用都是基于对象的这片存储空间的
+- 因此，我们需要通过一定手段对对象里的数据进行相关的访问保护
+- 通用手段是提供了 private/public/protected 访问权限修饰符
+  + 如果修饰为 private 的话，那么字段的数据从外部是禁止访问的 (不读、不写)
+  + 如果修饰为 public 的话，那么字段的数据从外部是可以无限制访问的 (读、写)
+  + 默认的修饰符为 private，也就是如果不添加任何修饰符的话，默认是不读、不写
+- 当然，有时候，我们需要对一些数据或方法有特殊的要求，比如只读或只写:
+  + 只读: 1) 将字段设置为 private 2) 创建一个 public 的方法，这个方法能够间接返回字段的值
+  + 只写: 1) 将字段设置为 private 2) 创建一个 public 的方法，在这个方法中可以为字段赋值
+  + 可控的读跟写: 1) 将字段设为 private 2) 创建两个方法，一个用来读 (Get)，一个用来写 (Set)
+
+#+ATTR_HTML: :width 400
+[[file:img/tax-cal2.png]]
+
+
+于是，上述的这种模式，*private 字段 + public 方法*，成为了一种标准的编程实践:
+
+#+begin_src csharp
+  using System;
+
+  class Program
+  {
+      static void Main(string[] args)
+      {
+          double money;
+          if (args.Length != 1 || !double.TryParse(args[0], out money))
+          {
+              Console.WriteLine("您的输入有误，正确的调用方法是:\nTaxCalculator 税前收入");
+              return;
+          }
+
+          TaxCal tc1 = new TaxCal();
+          tc1.SetMoney(8000);
+          Console.WriteLine(tc1.GetMoney());
+
+          tc1.PrintToConsole();
+          tc1.ExportToExcel();
+          tc1.SetMoney(333333333);
+          Console.WriteLine(">>> {0}", tc1.GetRate());
+      }
+  }
+
+  class TaxCal
+  {
+      private double Money;
+      private double Rate;
+      private double Tax;
+
+      public double GetMoney()
+      {
+          return Money;
+      }
+      public void SetMoney(double duoshao)
+      {
+          if (duoshao < 0)
+          {
+              Console.WriteLine("\n参数输入格式不正确！");
+              Environment.Exit(0);
+          }
+          Money = duoshao;
+      }
+      public double GetTax()
+      {
+          CalculateTax();
+          return Tax;
+      }
+      public double GetRate()
+      {
+          CalculateTax();
+          return Rate;
+      }
+
+      public void CalculateTax()
+      {
+          double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+          if (Money <= 5000)
+          {
+              Rate = 0;
+              Tax = 0;
+          }
+          else if (Money < 10000)
+          {
+              Rate = rates[0];
+              Tax = (Money - 5000) * Rate;
+          }
+          else if (Money < 20000)
+          {
+              Rate = rates[1];
+              Tax = (Money - 10000) * Rate + 5000 * rates[0];
+          }
+          else if (Money < 100000)
+          {
+              Rate = rates[2];
+              Tax = (Money - 20000) * Rate + 10000 * rates[1] + 5000 * rates[0];
+          }
+          else
+          {
+              Rate = rates[3];
+              Tax = (Money - 100000) * Rate + 80000 * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+          }
+      }
+      public void PrintToConsole()
+      {
+          CalculateTax();
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {Money,10:C}");
+          Console.WriteLine($"应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {Money - Tax,10:C}");
+      }
+      public void ExportToExcel()
+      {
+          CalculateTax();
+          Console.WriteLine();
+          Console.WriteLine($"Excel输出税前收入: {Money,10:C}");
+          Console.WriteLine($"Excel输出应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"Excel输出税后收入: {Money - Tax,10:C}");
+      }
+  }
+#+end_src
+
+** 减少代码冗余，*Lazy* and *Eager*
+
+#+begin_src csharp
+  class Program
+  {
+      static void Main(string[] args)
+      {
+          double money;
+          if (args.Length != 1 || !double.TryParse(args[0], out money))
+          {
+              Console.WriteLine("您的输入有误，正确的调用方法是:\nTaxCalculator 税前收入");
+              return;
+          }
+
+          TaxCal tc1 = new TaxCal();
+          tc1.SetMoney(money);
+          Console.WriteLine(tc1.GetTax());
+          tc1.PrintToConsole();
+      }
+  }
+#+end_src
+
+#+begin_src csharp
+  class TaxCal
+  {
+      private double Money;
+      private double Rate;
+      private double Tax;
+
+      public double GetMoney()
+      {
+          return Money;
+      }
+      public void SetMoney(double duoshao)
+      {
+          if (duoshao < 0)
+          {
+              Console.WriteLine("\n参数输入格式不正确！");
+              Environment.Exit(0);
+          }
+          Money = duoshao;
+          CalculateTax(); // 更新对象中的 Tax 和 Rate
+      }
+      public double GetRate()
+      {
+          return Rate;
+      }
+      public double GetTax()
+      {
+          return Tax;
+      }
+
+      public void CalculateTax()
+      {
+          double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+          if (Money <= 5000)
+          {
+              Rate = 0;
+              Tax = 0;
+          }
+          else if (Money < 10000)
+          {
+              Rate = rates[0];
+              Tax = (Money - 5000) * Rate;
+          }
+          else if (Money < 20000)
+          {
+              Rate = rates[1];
+              Tax = (Money - 10000) * Rate + 5000 * rates[0];
+          }
+          else if (Money < 100000)
+          {
+              Rate = rates[2];
+              Tax = (Money - 20000) * Rate + 10000 * rates[1] + 5000 * rates[0];
+          }
+          else
+          {
+              Rate = rates[3];
+              Tax = (Money - 100000) * Rate + 80000 * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+          }
+      }
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {Money,10:C}");
+          Console.WriteLine($"应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {Money - Tax,10:C}");
+      }
+      public void ExportToExcel()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"Excel输出税前收入: {Money,10:C}");
+          Console.WriteLine($"Excel输出应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"Excel输出税后收入: {Money - Tax,10:C}");
+      }
+  }
+#+end_src
+
+#+begin_src csharp
+  class TaxCalLazy
+  {
+      private double Money;
+
+      public double GetMoney()
+      {
+          return Money;
+      }
+      public void SetMoney(double duoshao)
+      {
+          if (duoshao < 0)
+          {
+              Console.WriteLine("\n参数输入格式不正确！");
+              Environment.Exit(0);
+          }
+          Money = duoshao;
+      }
+
+      public double GetTax()
+      {
+          double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+          if (Money <= 5000)
+          {
+              return 0;
+          }
+          else if (Money < 10000)
+          {
+              return (Money - 5000) * rates[0];
+          }
+          else if (Money < 20000)
+          {
+              return (Money - 10000) * rates[1] + 5000 * rates[0];
+          }
+          else if (Money < 100000)
+          {
+              return (Money - 20000) * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+          }
+          else
+          {
+              return (Money - 100000) * rates[3] + 80000 * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+          }
+      }
+      public double GetRate()
+      {
+          double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+          if (Money <= 5000)
+          {
+              return 0;
+          }
+          else if (Money < 10000)
+          {
+              return rates[0];
+          }
+          else if (Money < 20000)
+          {
+              return rates[1];
+          }
+          else if (Money < 100000)
+          {
+              return rates[2];
+          }
+          else
+          {
+              return rates[3];
+          }
+      }
+
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {Money,10:C}");
+          Console.WriteLine($"应付税收: {GetTax(),10:C} ({GetRate():P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {Money - GetTax(),10:C}");
+      }
+      public void ExportToExcel()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"Excel输出税前收入: {Money,10:C}");
+          Console.WriteLine($"Excel输出应付税收: {GetTax(),10:C} ({GetRate():P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"Excel输出税后收入: {Money - GetTax(),10:C}");
+      }
+  }
+#+end_src
+
+** 来自语法糖的力量: 通过 *Property* 简化代码
+*** Eager Version
+
+#+begin_div :class mc11
+
+#+begin_src csharp
+  class TaxCal
+  {
+      private double Money;
+      private double Rate;
+      private double Tax;
+
+      public double GetMoney()
+      {
+          return Money;
+      }
+      public void SetMoney(double duoshao)
+      {
+          if (duoshao < 0)
+          {
+              Console.WriteLine("\n参数输入格式不正确！");
+              Environment.Exit(0);
+          }
+          Money = duoshao;
+          CalculateTax(); // 更新对象中的 Tax 和 Rate
+      }
+      public double GetRate()
+      {
+          return Rate;
+      }
+      public double GetTax()
+      {
+          return Tax;
+      }
+
+      public void CalculateTax()
+      {
+          double[] rates = new double[]{0.03, 0.05, 0.2, 0.45};
+          if (Money <= 5000)
+          {
+              Rate = 0;
+              Tax = 0;
+          }
+          else if (Money < 10000)
+          {
+              Rate = rates[0];
+              Tax = (Money - 5000) * Rate;
+          }
+          else if (Money < 20000)
+          {
+              Rate = rates[1];
+              Tax = (Money - 10000) * Rate ...;
+          }
+          else if (Money < 100000)
+          {
+              Rate = rates[2];
+              Tax = (Money - 20000) * Rate ...;
+          }
+          else
+          {
+              Rate = rates[3];
+              Tax = (Money - 100000) * Rate ...;
+          }
+      }
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {Money,10:C}");
+          Console.WriteLine($"应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {Money - Tax,10:C}");
+      }
+      public void ExportToExcel()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {Money,10:C}");
+          Console.WriteLine($"应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {Money - Tax,10:C}");
+      }
+  }
+#+end_src
+
+:break:
+
+#+begin_src csharp
+class TaxCal
+{
+    private double _money; // 用来承载后面的数据，税前收入
+    public double Money
+    {
+        get { return _money; } // xxxx.Money
+        set                    // xxxx.Money = 3333;
+        {
+            if (value < 0)
+            {
+                Console.WriteLine("\n参数输入格式不正确！");
+                Environment.Exit(0);
+            }
+            _money = value;
+            CalculateTax();
+        }
+    }
+    public double Rate { get; private set; }
+    public double Tax { get; private set; }
+
+    public void CalculateTax()
+    {
+        double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+        if (Money <= 5000)
+        {
+            Rate = 0;
+            Tax = 0;
+        }
+        else if (Money < 10000)
+        {
+            Rate = rates[0];
+            Tax = (Money - 5000) * Rate;
+        }
+        else if (Money < 20000)
+        {
+            Rate = rates[1];
+            Tax = (Money - 10000) * Rate + 5000 * rates[0];
+        }
+        else if (Money < 100000)
+        {
+            Rate = rates[2];
+            Tax = (Money - 20000) * Rate + 10000 * rates[1] + 5000 * rates[0];
+        }
+        else
+        {
+            Rate = rates[3];
+            Tax = (Money - 100000) * Rate + 80000 * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+        }
+    }
+    public void PrintToConsole()
+    {
+        Console.WriteLine();
+        Console.WriteLine($"税前收入: {Money,10:C}");
+        Console.WriteLine($"应付税收: {Tax,10:C} ({Rate:P1})");
+        Console.WriteLine("".PadRight(30, '┈'));
+        Console.WriteLine($"税后收入: {Money - Tax,10:C}");
+    }
+    public void ExportToExcel()
+    {
+        Console.WriteLine();
+        Console.WriteLine($"税前收入: {Money,10:C}");
+        Console.WriteLine($"应付税收: {Tax,10:C} ({Rate:P1})");
+        Console.WriteLine("".PadRight(30, '┈'));
+        Console.WriteLine($"税后收入: {Money - Tax,10:C}");
+    }
+}
+#+end_src
+#+end_div
+
+*** Lazy Version
+
+#+begin_div :class mc11
+
+#+begin_src csharp
+  class TaxCalLazy
+  {
+      private double Money;
+
+      public double GetMoney()
+      {
+          return Money;
+      }
+      public void SetMoney(double duoshao)
+      {
+          if (duoshao < 0)
+          {
+              Console.WriteLine("\n参数输入格式不正确！");
+              Environment.Exit(0);
+
+          }
+          Money = duoshao;
+      }
+
+      public double GetTax()
+      {
+          double[] rates = new double[]{0.03, 0.05, 0.2, 0.45};
+          if (Money <= 5000)
+          {
+              return 0;
+          }
+          else if (Money < 10000)
+          {
+              return (Money - 5000) * rates[0];
+          }
+          else if (Money < 20000)
+          {
+              return (Money - 10000) * rates[1] + ...;
+          }
+          else if (Money < 100000)
+          {
+              return (Money - 20000) * rates[2] + ...;
+          }
+          else
+          {
+              return (Money - 100000) * rates[3] + ...;
+          }
+      }
+      public double GetRate()
+      {
+          double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+          if (Money <= 5000)
+          {
+              return 0;
+          }
+          else if (Money < 10000)
+          {
+              return rates[0];
+          }
+          else if (Money < 20000)
+          {
+              return rates[1];
+          }
+          else if (Money < 100000)
+          {
+              return rates[2];
+          }
+          else
+          {
+              return rates[3];
+          }
+      }
+
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {Money,10:C}");
+          Console.WriteLine($"应付税收: {GetTax(),10:C} ({GetRate():P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {Money - GetTax(),10:C}");
+      }
+      public void ExportToExcel()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {Money,10:C}");
+          Console.WriteLine($"应付税收: {GetTax(),10:C} ({GetRate():P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {Money - GetTax(),10:C}");
+      }
+  }
+
+#+end_src
+
+:break:
+
+#+begin_src csharp
+  class TaxCalLazy
+  {
+      private double _money;
+      public double Money
+      {
+          get { return _money; }
+          set
+          {
+              if (value < 0)
+              {
+                  Console.WriteLine("\n参数输入格式不正确！");
+                  Environment.Exit(0);
+
+              }
+              _money = value;
+          }
+      }
+      public double Tax
+      {
+          get
+          {
+              double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+              if (Money <= 5000)
+              {
+                  return 0;
+              }
+              else if (Money < 10000)
+              {
+                  return (Money - 5000) * rates[0];
+              }
+              else if (Money < 20000)
+              {
+                  return (Money - 10000) * rates[1] + 5000 * rates[0];
+              }
+              else if (Money < 100000)
+              {
+                  return (Money - 20000) * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+              }
+              else
+              {
+                  return (Money - 100000) * rates[3] + 80000 * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+              }
+          }
+      }
+      public double Rate
+      {
+          get
+          {
+              double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+              if (Money <= 5000)
+              {
+                  return 0;
+              }
+              else if (Money < 10000)
+              {
+                  return rates[0];
+              }
+              else if (Money < 20000)
+              {
+                  return rates[1];
+              }
+              else if (Money < 100000)
+              {
+                  return rates[2];
+              }
+              else
+              {
+                  return rates[3];
+              }
+          }
+      }
+
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {Money,10:C}");
+          Console.WriteLine($"应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {Money - Tax,10:C}");
+      }
+      public void ExportToExcel()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {Money,10:C}");
+          Console.WriteLine($"应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {Money - Tax,10:C}");
+      }
+  }
+#+end_src
+#+end_div
+
+** 使用 *Constructor* 进行对象的个性化构建
+
+使用构造方法，让对象在创建的时候，进行必要的初始化工作。
+
+每个类都需要有构造方法，构造方法就是一种特殊的方法:
+#+begin_src csharp
+  class TaxCal
+  {
+      public TaxCal(double money)
+      {
+          Money = money;
+      }
+    
+      private double _money;
+      public double Money
+      {
+          get { return _money; } // xxxx.Money
+          set                    // xxxx.Money = 3333;
+          {
+              if (value < 0)
+              {
+                  Console.WriteLine("\n参数输入格式不正确！");
+                  Environment.Exit(0);
+              }
+              _money = value;
+              CalculateTax();
+          }
+      }
+      public double Rate { get; private set; }
+      public double Tax { get; private set; }
+
+      public void CalculateTax()
+      {
+          double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+          if (Money <= 5000)
+          {
+              Rate = 0;
+              Tax = 0;
+          }
+          else if (Money < 10000)
+          {
+              Rate = rates[0];
+              Tax = (Money - 5000) * Rate;
+          }
+          else if (Money < 20000)
+          {
+              Rate = rates[1];
+              Tax = (Money - 10000) * Rate + 5000 * rates[0];
+          }
+          else if (Money < 100000)
+          {
+              Rate = rates[2];
+              Tax = (Money - 20000) * Rate + 10000 * rates[1] + 5000 * rates[0];
+          }
+          else
+          {
+              Rate = rates[3];
+              Tax = (Money - 100000) * Rate + 80000 * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+          }
+      }
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {Money,10:C}");
+          Console.WriteLine($"应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {Money - Tax,10:C}");
+      }
+      public void ExportToExcel()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {Money,10:C}");
+          Console.WriteLine($"应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {Money - Tax,10:C}");
+      }
+  }
+
+  class Program
+  {
+      static void Main()
+      {
+          var t = new TaxCal(20000); // 必须使用带参数的构造器进行初始化
+          t.PrintToConsole();
+      }
+  }
+#+end_src
+
+** 使用 *static* 将某些数据归属于类，达到数据共享的目的
+
+世界大势，合久必分，分久必合。使用对象将数据进行有效分离，使用 static 将某些数据归属于类，从而在实例间进行共享。
+
+共享了就有被误操作的风险，所以，可以通过 const/readonly 保证字段不会被随意修改。
+
+#+begin_src csharp
+  using System;
+
+  class Program
+  {
+      static void Main(string[] args)
+      {
+          double money;
+          if (args.Length != 1 || !double.TryParse(args[0], out money))
+          {
+              Console.WriteLine("您的输入有误，正确的调用方法是:\nTaxCalculator 税前收入");
+              return;
+          }
+
+          TaxCal t = new TaxCal(22323);
+          t.PrintToConsole();
+      }
+  }
+
+  class TaxCal
+  {
+      public TaxCal(double m)
+      {
+          Money = m;
+      }
+
+      private double _money; // 用来承载后面的数据，税前收入
+      private static readonly double[] rates = new double[] { 0.03, 0.05, 0.2, 0.45 };
+
+      public double Money
+      {
+          get => _money; // xxxx.Money
+          set                    // xxxx.Money = 3333;
+          {
+              if (value < 0)
+              {
+                  Console.WriteLine("\n参数输入格式不正确！");
+                  Environment.Exit(0);
+              }
+              _money = value;
+              CalculateTax();
+          }
+      }
+      public double Rate { get; private set; }
+      public double Tax { get; private set; }
+
+      public void CalculateTax()
+      {
+          if (Money <= 5000)
+          {
+              Rate = 0;
+              Tax = 0;
+          }
+          else if (Money < 10000)
+          {
+              Rate = rates[0];
+              Tax = (Money - 5000) * Rate;
+          }
+          else if (Money < 20000)
+          {
+              Rate = rates[1];
+              Tax = (Money - 10000) * Rate + 5000 * rates[0];
+          }
+          else if (Money < 100000)
+          {
+              Rate = rates[2];
+              Tax = (Money - 20000) * Rate + 10000 * rates[1] + 5000 * rates[0];
+          }
+          else
+          {
+              Rate = rates[3];
+              Tax = (Money - 100000) * Rate + 80000 * rates[2] + 10000 * rates[1] + 5000 * rates[0];
+          }
+      }
+      public void PrintToConsole()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"税前收入: {Money,10:C}");
+          Console.WriteLine($"应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"税后收入: {Money - Tax,10:C}");
+      }
+      public void ExportToExcel()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"Excle输出税前收入: {Money,10:C}");
+          Console.WriteLine($"Excle输出应付税收: {Tax,10:C} ({Rate:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"Excle输出税后收入: {Money - Tax,10:C}");
+      }
+      public static void ShowRates()
+      {
+          foreach (double r in rates)
+          {
+              Console.WriteLine($"- {r}");
+          }
+      }
+  }
+#+end_src
+
+
+
+** 小结
+
+* 小费计算器
+** 核心代码
+
+#+begin_src csharp
+  // Main 方法是程序的入口
+  // args 表示从控制台传来的参数数据
+  // 比如，在 CMD 窗口输入 TipCalculator 222 333 444，那么:
+  //   - args[0] 就是字符串 222
+  //   - args[1] 就是字符串 333
+  //   - args[2] 就是字符串 444
+  static void Main(string[] args)
+  {
+      // 字符串是用来描述世界的方式，它不能参与数学计算。
+      // 因此要计算，需要先转换成合适的格式，比如 double 类型
+
+      // 账单
+      double bill = double.Parse(args[0]);
+      // 小费计算
+      double rate = 0.18;
+      double tip = bill * rate;
+      // 实际账单计算
+      double realBill = bill + tip;
+
+      // 输出
+      Console.WriteLine("{0}", realBill);
+  }
+#+end_src
+
+** 在核心代码上进行优化
+
+#+begin_src csharp
+  // 目标:
+  // 1. 让程序更健壮，避免不必要的异常抛出
+  // 2. 让输出更加美观，用户体验更友好
+
+  static void Main(string[] args)
+  {
+      // 声明一个变量，用来保存转换后的账单数目
+      double bill;
+
+      // 检查用户输入，如果输入不合理，给予提醒并退出程序
+      // double.Parse 和 double.TryParse 都是用来将 string 类型的数据转换为 double 类型:
+      //  - Parse 会在转换失败的时候抛出异常，所以如果想让程序运行良好，需要结合 try..catch 进行错误处理
+      //  - TryParse 可通过返回 true/false 的方式判断转换成功与否，需要结合 out 参数存储转换后的值
+      // if 是一种基本的程序流程，表示只有满足条件的时候，其代码块才会被执行。它是对顺序结构的补充
+      // return 表示退出当前方法的运行。如果在 Main 方法中，则表示退出程序的运行
+      //
+      // 下面一句的意思是: 如果输入的参数不是 1 个，或者输入的参数不能转换为 double，那么提醒用户并退出
+      if (args.Length != 1 || !double.TryParse(args[0], out bill))
+      {
+          Console.WriteLine("您的输入有误，正确的调用方法是:\nTipCalculator 账单数额");
+          return;
+      }
+
+      // 小费以及实际账单的计算
+      double rate = 0.18;
+      double tip = bill * rate;
+      double realBill = bill + tip;
+
+      // 进行格式化输出，即将某个类型的数值，转换成预期格式的字符串:
+      // - 使用 $ 符号，可以对变量进行内插操作; 使用 @ 可以忽略转义并运行多行字符串
+      // - 通过 {a:X} 可以使用 C# 预设的某些转换规则进行转换。比如 C 表示货币，P 表示百分比
+      // - 使用 {a,N} 的方式，让转换后的字符串满足 N 的长度。如果不满足，使用空格补齐。-N 表示左对齐
+      // - 可以结合使用，语法为 {a,N:X...}，比如 {rate,10:P1} 表示按照百分比显示、小数保留一位、补齐为 10 的长度
+      // string.PadRight 是内置的一个字符串操作的 API，表示将字符串使用某个字符补齐为多少长度
+      Console.WriteLine();
+      Console.WriteLine($"账单总额: {bill,10:C}");
+      Console.WriteLine($"小费数额: {tip,10:C} ({rate:P1})");
+      Console.WriteLine("".PadRight(30, '┈'));
+      Console.WriteLine($"账单实付: {realBill,10:C}");
+  }
+#+end_src
+
+** 结构化重构
+
+#+begin_src csharp -n
+  class TipCal
+  {
+      public TipCal(double bill)
+      {
+          Bill = bill;
+      }
+
+      const double RATE = 0.18;
+      public double Bill { get; private set; }
+      public double Tip { get { return Bill * RATE; } }
+
+      public void Print()
+      {
+          Console.WriteLine();
+          Console.WriteLine($"账单总额: {Bill,10:C}");
+          Console.WriteLine($"小费数额: {Tip,10:C} ({RATE:P1})");
+          Console.WriteLine("".PadRight(30, '┈'));
+          Console.WriteLine($"账单实付: {Bill + Tip,10:C}");
+      }
+  }
+#+end_src

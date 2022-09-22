@@ -1,0 +1,61 @@
+#+TITLE: 173.NET
+
+#+HTML_HEAD: <meta http-equiv="Cache-Control" content="no-store">
+#+HTML_HEAD: <link rel="stylesheet" href="/html/asset/common.css?8912">
+#+HTML_HEAD: <link rel="stylesheet" href="/yaoliuyao/html/asset/common.css?8912">
+#+HTML_HEAD: <script async=true src="https://imfine.cc/script/ga/163.js"></script>
+#+HTML_HEAD: <style>
+#+HTML_HEAD: #org-div-home-and-up { display:none; }
+#+HTML_HEAD: @media (max-width: 768px) {
+#+HTML_HEAD:   #content { background: #f9f9f9; }
+#+HTML_HEAD:   #content > .org-ul { display:flex; flex-flow: column wrap; height: 2200px; margin: 0 auto; }
+#+HTML_HEAD:   #content > .org-ul > li {  padding-right: 2em; list-style: none; }
+#+HTML_HEAD:   #content > .org-ul > li > ul:first-child { margin-top: 1em; }
+#+HTML_HEAD: }
+#+HTML_HEAD: @media (min-width: 768px) {
+#+HTML_HEAD:   #content { margin-left: auto; margin-right: auto; padding-left: 50px; }
+#+HTML_HEAD:   #postamble { display: none; }
+#+HTML_HEAD:   #main {display: grid; grid-gap: 20px; grid-template-columns: 2fr auto;}
+#+HTML_HEAD:   #toc { min-width: 60%; padding-right: 100px; }
+#+HTML_HEAD:   #main aside { font-size: 1em; }
+#+HTML_HEAD:   #main aside > ol { display: flex; flex-flow: row wrap; width: 368px; box-shadow: 0 0 10px #eee; padding: 20px 0 20px 20px; margin-top: -4em; }
+#+HTML_HEAD:   #main aside > ol > li { margin-bottom: 1em; width: 150px; }
+#+HTML_HEAD: }
+#+HTML_HEAD: </style>
+
+# #+HTML: <h2 style="color: red; font-weight: bold; text-shadow: 0 0 1px #ee0000"><img style="width: 98%" src="/html/asset/dream.png"></h4>
+#+HTML: <h3 style="color: red; font-weight: normal; font-size: 1.8em; text-shadow: 0 0 1px #ee0000; font-family: 楷体">请诸位务必加强管理与自我管理，提高自觉性与积极性</h3>
+
+#+HTML: <div id="main">
+
+#+HTML: <section id="toc">
+
+#+HTML: <h3>当前任务 <span style="font-size: 14px">(<a href="111/tasks.html">全部任务</a>)</span></h3>
+#+INCLUDE: "111/tasks.org::#active" :only-contents t
+
+# #+HTML: <h3>链接资源</h3>
+# #+INCLUDE: "111/.links.org" :lines "2-"
+
+#+HTML: <div><br>
+#+HTML: <h3>笔记目录 <small>(<a href="https://github.com/freelazy/" target="_blank">Github</a>)</small></h3>
+#+INCLUDE: ".sitemap.org" :lines "6-"
+#+HTML: </div>
+
+#+HTML: <div><br>
+#+HTML: <h3>其他链接</h3>
+#+HTML: <ul>
+#+HTML:   <li><a href="/luping">录屏视频 (/luping)</a></li>
+#+HTML:   <li><a href="/assets">素材资料 (/assets)</a></li>
+#+HTML:   <li><a href="/tools">软件工具 (/tools)</a></li>
+# #+HTML:   <li><a href="0-notes-163/index.html">backup of 163's notes</a></li>
+# #+HTML:   <li><a href="0-notes-161/index.html">backup of 161's notes</a></li>
+#+HTML: </ul>
+#+HTML: </div>
+
+#+HTML: </section>
+
+#+HTML: <aside>
+#+INCLUDE: "111/.group.org"
+#+HTML: </aside>
+
+#+HTML: </div>

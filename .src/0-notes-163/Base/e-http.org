@@ -1,0 +1,61 @@
+#+TITLE: HTTP 协议
+
+
+* HTTP
+
+超文本传输协定（英语： HyperText Transfer Protocol，缩写：HTTP）是一种用于分布式、协作式和超媒体信息系统的应用层协议。HTTP 是全球资讯网的数据通信的基础。
+
+- 基于 *请求* - *响应* 的机制
+- 无状态的（不会记录到底是谁发来的请求）
+
+优势:
+- 因为简单，所以完善，所以可靠
+- 所以没有冗余，所以更快
+- 因为规则简单，所以易于理解，易于实现
+- 因为简单，所以可以将功能做到极致(连接效率)
+- 领域广，分布式
+
+参考:
+- https://www.cnblogs.com/ranyonsue/p/5984001.html
+
+#+begin_src restclient
+  GET https://localhost:5001/movies
+#+end_src
+
+#+BEGIN_SRC html
+  <!-- GET https://localhost:5001/movies -->
+  <!-- HTTP/1.1 200 OK -->
+  <!-- Date: Thu, 09 Dec 2021 08:06:51 GMT -->
+  <!-- Content-Type: text/html; charset=utf-8 -->
+  <!-- Server: Kestrel -->
+  <!-- Cache-Control: no-cache, no-store -->
+  <!-- Pragma: no-cache -->
+  <!-- Transfer-Encoding: chunked -->
+  <!-- Set-Cookie: .AspNetCore.Antiforgery.Ds3jRf6UWHc=CfDJ8LqXAFyWYq1Mvg4ZYZ1EO6hVx5yOCF9bOrfraagTHB0GOFbLfi1puaQIBD-vMHgN-ttge8fmb3_aV_MeoJBCed_-vPWrWFLXOjG9IMQxxbEs64wS7OV2Guo8_W-oGKixXUFtyAvvEZwgTAS8nlIdGSM; path=/; samesite=strict; httponly -->
+  <!-- X-Frame-Options: SAMEORIGIN -->
+  <!-- Request duration: 0.024779s -->
+#+END_SRC
+
+* Methods
+
+http://xxxxx.com:80/yyyy:
+- GET, GET http://xxxxx.com/book?id=3
+- POST, POST http://xxxxx.com/book?id=3
+- PUT, PUT http://xxxxx.com/book
+- DEL, DELTE http://xxxxx.com/book?id=3 -> http://xxxxx.com/yyy?action=del&id=3
+
+* RESTful
+
+???
+
+* Status Code (状态码)
+
+200: 请求成功，正常返回。
+
+302: Redirect (Location=xxx)
+
+404: 服务器没有找到你请求的页面。
+
+405: 页面是存在，但是请求的方法不对 (get/post)
+
+500: 服务器找到了页面，但是在处理的时候，它出异常了！

@@ -1,0 +1,23 @@
+#+TITLE: HTTP
+
+HTTP (超文本传输协议) 是一个简单的请求-响应协议，它通常运行在 TCP 之上。
+
+* HTTP (Hyper Text Transfer Protocol)
+
+基本特点:
+- 基于请求-响应 (Request - Response)
+- 无状态的
+
+HTTP 是无状态的:
+- 
+
+* 请求方法
+
+- GET/POST
+
+* 响应码
+
+- 20X
+- 30X
+- 404
+- 50X

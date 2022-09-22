@@ -1,0 +1,23 @@
+#+TITLE: 奔向新生
+
+
+
+* 新的班级
+
+- S4SE161（.NET）
+- S4SE163（前端）
+- S4SE164（互联网运营）
+- S4SE165（Java一班）原161+163+164
+- S4SE166（Java二班）原165+166
+
+* 分班情况
+
+[[file:img/161.png]]
+
+[[file:img/163.png]]
+
+[[file:img/164.png]]
+
+[[file:img/165.png]]
+
+[[file:img/166.png]]

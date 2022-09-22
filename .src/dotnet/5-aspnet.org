@@ -1,0 +1,84 @@
+#+TITLE: ASP.NET
+
+
+* 单机 到 CS 到 BS
+
+要注意，.NET 跟 C# 不是一样的概念：
+:    编译器                  运行
+: C#   ->   中间码(IL) ->   (.NET)  -> 机器码
+: F#
+: VB
+: JS
+: Java
+: 
+: .java -> .class -> (JVM) -> 机器码
+: kotlin
+: groovy
+: clojue
+: scala
+
+经典、传统软件 (桌面软件):
+- 语言: C/C++/C#/Java/OC/Swift
+- 技术: Winform/WPF/UWP/MaUI Qt/GTK
+
+单机软件不符合应用场景，多机协助成了最大需求。
+最终，出现了 CS (Client-Server) 架构。
+- 多机通信使用 Socket，但是 Socket 需要处理太多细节，比较麻烦
+- 都要从 0 开始构建底层界面
+- BS 能干的事情，CS *一定* 可以做到而且可以干的更好，但是 CS 要花费更高的 *成本*
+- CS 能干的事情，BS 不一定能做到。CS 的客户端可以对系统进行完全的控制，它可以实现浏览器无法实现的很多行为
+- BS 架构，通过放弃了一些东西，成功降低了各种成本:
+  + 学习成本低
+  + 开发成本低
+  + 使用成本低
+
+#+begin_src html
+  <h1>标题</h1>
+  <form action="xxx">
+    <input type="submit" value="点我发送" />
+  </form>
+#+end_src
+
+任务: 
+- 什么是 CS 架构，什么是 BS 架构?
+- CS 架构跟 BS 架构相比，各有什么优劣?
+- 整理资料，了解浏览器的发展历史
+
+360/....很多野生浏览器:
+- 当时 IE 你不能不用，而且多个版本之间还有差别。IE6
+- 当时先进生产力的代表是 Firefox, Chrome, Opera 等更加贴近标准的浏览器
+- 双(多)核浏览器+兼容
+
+
+* ASP -> ASP.NET -> ASP.NET Core
+
+大致分为三个阶段:
+1. 1996 年左右，ASP (Active Server Page), 使用的开发语言是 VB
+2. 2002 年左右，随着 .NET 平台出现，推出了 ASP.NET 技术
+3. 2015 年左右，微软开始推出跨平台的 .NET，称作 .NET Core
+
+* ASP.NET (Framework)
+
+Pipeline (管道/管线) 模型:
+- 最核心的接口: ~IHttpHandler/IHttpHandlerFactory~, ~IHttpModule~
+- 最核心的配置文件: Web.config
+- 比较重要的类: HttpApplication, HttpContext
+
+Pipeline 中标准的 19 个事件:
+[[file:img/oimg_20220920_070127.png]]
+Global.asax:
+- Application_Start/End
+- Session_Start/End
+- Application_BeginRequest/AuthenticateRequest/Error
+
+部署:
+- 环境: Windows + SqlServer + IIS
+- IIS 是缩写，全称 Internet Information Services (互联网信息服务 ), 是由微软公司提供的基于运行 .NET 的互联网基本服务。
+- 步骤: 
+  1. 开发项目，通过【发布】导出要部署的项目文件夹
+  2. 在电脑上安 Windows 操作系统
+  3. 在 Windows 中安装 SqlServer 数据库
+  4. 在 Windows 中启用 IIS 服务器
+  5. 在 IIS 管理器中，为项目文件夹创建新的【网站】
+  6. 注意整个过程中的【权限】和【防火墙】问题
+

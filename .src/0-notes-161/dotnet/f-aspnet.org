@@ -1,0 +1,552 @@
+#+TITLE: ASP.NET
+
+
+* Prelude
+** 请求
+*** A 超链接
+
+将请求的参数，携带到 QueryString 中发送到服务器:
+: GET http://localhost:5001/comment/dolike?id=3
+: GET http://localhost:5001/comment/dolike/3
+
+*** FORM 表单
+
+使用 Form 标签 + Input 进行更多属性的 *交互式* 提交:
+#+begin_src html
+  <!-- GET /comment/dosave?x=1&y=2&z=3 -->
+  
+  <form action="/comment/dosave" method="get">
+    <input name="x" value="1">
+    <input name="y" value="2">
+    <input name="z" value="3" type="password/number/date">
+  
+    <div>
+      <div>
+        <button>提交</button>
+        <input type="submit" value="提交">
+      </div>
+    </div>
+  </form>
+#+end_src
+
+*** [AJAX] XMLHttpRequest
+
+https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest
+
+Asynchronous JavaScript and XML:
+- 异步 (不会导致当前页面卡顿)
+- 局部刷新 (JS 操作 DOM 节点)
+
+使用 AJAX 进行操作的基本流程:
+- 第一步，发送请求
+- 第二步，获取响应的数据
+- 第三步，将数据组装为需要的 html 字符串
+- 第四步，找到某个 dom 节点，将上述 html 字符串添加到其中
+
+#+begin_src js
+  var xhr = new XMLHttpRequest();
+  //xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+  xhr.setRequestHeader("xxx", "123");
+  xhr.open("get", "http://localhost:5001/comment/dosave");  
+  xhr.send("Author=lisi&Content=xxx");
+  
+  //// 通过事件，绑定相关动作
+  xhr.onload = (event) => {
+      if (xhr.statusCode == 200)
+      {
+          let content = xhr.responseText; // 返回的响应字符串
+          //window.location.refresh();
+          //dom.innerHTML = content;
+          dom.innerHTML = JSON.parse(content).xxx;
+      }
+  };
+  xhr.error = (err) =>
+  {
+      alert("保存失败!");
+  }
+#+end_src
+
+对于 JSON 的处理
+#+begin_src js
+  let xhr = new XmlHttpRequest();
+  xhr.open();
+  xhr.send();
+  
+  // 第一种方式
+  xhr.onload = (e) =>
+  {
+      if (xhr.statusCode == 200)
+      {
+          let text = xhr.responseText; // DOMString
+          let json = JSON.parse(text); // JSON 对象
+          alert(json[1].name);
+      }
+  };
+  
+  // 第二种方式
+  xhr.responseType = "json";
+  xhr.onload = (e) =>
+  {
+      if (xhr.statusCode == 200)
+      {
+          let json = xhr.response; // 根据 responseType 自动格式化
+          alert(json[1].name);
+      }
+  };
+#+end_src
+
+
+*** jQuery (封装)
+
+旧时代的残迹:
+#+begin_src js
+  function createXHR ()
+  {
+      var xmlHttp = false;
+      try {
+          xmlHttp = new XMLHttpRequest();
+      } catch (trymicrosoft) {
+          try {
+              xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+          } catch (othermicrosoft) {
+              try {
+                  xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+              } catch (failed) {
+                  xmlHttp = false;
+              }
+          }
+      }
+      if (!xmlHttp){
+          alert("无法创建 XMLHttpRequest 对象！");
+      }
+  }
+#+end_src
+
+主要的问题:
+1. AJAX 兼容性的写法
+2. DOM 节点兼容性的写法
+
+通过 jQuery 发送请求:
+#+begin_src js
+  $.ajax({
+      url: '/xxx',                 // 代表请求的服务器地址
+      method: 'get|post|..',       // 使用的请求方法
+      headers: {},                 // 设置请求头
+  
+      contentType: 'application/x-www-form-urlencoded|...', // 请求的 enctype
+      data: 'String'|Object|Array, // 传输的数据
+      processData: true|false,     // true: 若 data 是字符串不处理，否则调用 $.params(data, tranditional) 将其转换为 UrlSearchParams 格式
+      tranditional: false|true,    // 此参数将会传给上述 $.param 函数，决定是否深度序列
+  
+      dataType: 'json?xml?text',   // 默认根据 response 头部的信息自动推测
+      async: true|false,           // 是否使用异步请求的方式
+      xhr: () => { var xhr = $.ajaxSettings.xhr() }, // 创建 xhr 后调用
+      xhrFields: { withCredentials: true },          // 跨域
+      timeout, cache, accepts, contents, crossDomain, converters, jsonp, mimeType
+  }).done((data) => {
+      console.log(data.xxx);
+  }).fail((xhr, status, err) => {
+      console.error(err);
+  }).always((data|xhr, status) => {
+      console.log("终于结束了!");
+  });
+  
+  // 语法糖
+  $.get("/xxx", callback);
+  $.get("/xxx").done(callback);
+  $.post("/xxx", callback);
+  $.post("/xxx", { id: 1 }, callback);
+  $.post("/xxx", { id: 1 }).done(callback);
+  
+  // 下面是等同的
+  $.ajax({
+      method: "get",
+      url: "/xxx",
+      dataType: "json"
+  }).done(function (data) {
+      // data is json
+  });
+  $.getJSON("/XXX", callback);        // 1 个函数
+  $.getJSON("/XXX", { a: 2, b: 3});   // 1 个 json
+  $.getJSON("/XXX", { a: 2, b: 3},  callback); // 两个，数据和函数
+  
+  // 下面是等同的
+  $.ajax({
+      method: "get",
+      url: "/xxx"
+  }).done(function(data) {
+      $("h3").html(data);
+  });
+  $("h3").load("/xxx");
+  
+  // 加载 js 脚本
+  $.getScript("/xxxx.js");
+#+end_src
+
+*** Fetch API
+
+https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch
+
+#+begin_src js
+  function list () {
+      fetch("/Post/List")
+          .then(response => response.json())
+          .then(posts => {
+              document.querySelector(".list-box").innerHTML = posts.length > 0 ? "" : "没有任何文章";
+              for (let i = 0; i < posts.length; i++) {
+                  renderPost(posts[i]);
+              }
+          }).catch(e => {
+              renderError(err);
+          });
+  }
+  
+  function upload (e) {
+      let fd = new FormData();
+      fd.append("x", $("#mfile").get(0).files[0]);
+  
+      fetch("/Post/Upload", { method: "POST", body: fd })
+          .then(r => r.text())
+          .then(name => {
+              document.querySelector("#cover").value = name;
+              document.querySelector("#preview").src = `/images/${name}`;
+          });
+  }
+  
+  async function save (e) {
+      let fd = new FormData();
+      fd.append("cover", document.querySelector("#cover").value);
+      fd.append("author", document.querySelector("#author").value);
+      fd.append("title", document.querySelector("#title").value);
+      fd.append("content", document.querySelector("#content").value);
+  
+      try {
+          let rsp = await fetch("/Post/Save", { method: "post", body: fd });
+          renderPost(await rsp.json());
+  
+          clearInputs();
+          document.querySelector(".post-new").style.display = "block";
+          document.querySelector(".input-box").style.display = "none";
+      } catch (e) {
+          renderError("保存失败");
+      }
+  }
+#+end_src
+
+*** axios
+
+基本使用:
+#+begin_src js
+  function list () {
+      axios("/Post/List")
+          .then(resp => {
+              let posts = resp.data;
+              document.querySelector(".list-box").innerHTML = posts.length > 0 ? "" : "没有任何文章";
+              for (let i = 0; i < posts.length; i++) {
+                  renderPost(posts[i]);
+              }
+          })
+          .catch(e => renderError(err));
+  }
+  
+  function upload (e) {
+      let fd = new FormData();
+      fd.append("x", $("#mfile").get(0).files[0]);
+  
+      axios({
+          method: "post",
+          url: "/Post/Upload", 
+          data: fd 
+      }).then(resp => {
+          let name = resp.data;
+          document.querySelector("#cover").value = name;
+          document.querySelector("#preview").src = `/images/${name}`;
+      });
+  }
+  
+  async function save (e) {
+      let fd = new FormData();
+      ["cover", "author", "title", "content"].forEach(id => {
+          fd.append(id, document.querySelector(`#${id}`).value);
+      });
+  
+      try {
+          let rsp = await axios("/Post/Save", { method: "post", data: fd });
+          renderPost(rsp.data);
+  
+          clearInputs();
+          document.querySelector(".post-new").style.display = "block";
+          document.querySelector(".input-box").style.display = "none";
+      } catch (e) {
+          renderError("保存失败");
+      }
+  }
+  
+#+end_src
+
+回调地狱 (Callback Hell):
+#+begin_src js
+  function xxx_then (e) {
+      axios("/post/getpost/3")
+          .then(r => {
+              console.log(`得到 ${r.data.title}`);
+              axios("/post/getpost/5")
+                  .then(r => {
+                      console.log(`得到 ${r.data.title}`);
+                      axios("/post/getpost/6")
+                          .then(r => {
+                              console.log(`得到 ${r.data.title}`);
+                              axios("/post/getpost/15")
+                                  .then(r => {
+                                      console.log(`得到 ${r.data.title}`);
+                                      axios("/post/getpost/23")
+                                          .then(r => {
+                                              console.log(`得到 ${r.data.title}`);
+                                              alert("终于结束了");
+                                          });
+                                  });
+                          });
+                  });
+          });
+  }
+  
+  async function xxx (e) {
+      let r;
+  
+      r = await axios("/post/getpost/3");
+      console.log(`得到 ${r.data.title}`);
+  
+      r = await axios("/post/getpost/5");
+      console.log(`得到 ${r.data.title}`);
+  
+      r = await axios("/post/getpost/6"); 
+      console.log(`得到 ${r.data.title}`);
+  
+      r = await axios("/post/getpost/15"); 
+      console.log(`得到 ${r.data.title}`);
+  
+      r = await axios("/post/getpost/23"); 
+      console.log(`得到 ${r.data.title}`);
+  }
+  
+  function xxx_await_short()
+  {
+      [3, 5, 6, 15, 23].forEach(async id => {
+          let r = await axios("/post/getpost/" + id);
+          console.log(`得到 ${r.data.title}`);
+      });
+  }
+#+end_src
+
+** 页面
+*** A/FORM
+
+得到的，就是完整的页面:
+- 服务器端，通过模板引擎，模块化的方式，组合成了完整的页面
+
+*** AJAX/原生 DOM 节点
+
+浏览器需要将得到的数据 (本质是字符串)，转换为 DOM 节点的一部分:
+- ajax 发送请求，得到数据
+- 将结果拼接成合理的 html 字符串片段
+- 找到 dom 中的某个节点
+- 将上述拼装的字符串，更新到选择的节点上
+
+*** jQuery
+
+将拼字符串的方式发扬光大
+
+*** Vue/ReactJS/Angular
+
+- 前端的模板引擎
+- 组件化、模块化、工程化
+* ASP.NET Core
+
+- JSP: Java Server Pages
+- ASP: Active Server Pages
+- ASP.NET
+
+ASP.NET 为 .NET 平台提供了完整的进行 Web 开发的底层框架:
+- (ADO.NET - EF)
+- Webforms - Winforms (事件驱动、基于控件)
+- ASP.NET MVC (模型-视图-控制器)
+- ASP.NET Web API
+
+ASP.NET Core:
+- Razor Page
+- Blazor (组件，使用 C# 写前端)
+- MVC (跨平台，内置 web 服务器，内置 DI 容器)
+- Web API
+
+** 基本概念
+
+HTML:
+#+begin_example
+HTML 由来. HTML的英文全称是 Hyper Text Markup Language，即超文本标记语
+言。HTML是由Web的发明者 Tim Berners-Lee和同事 Daniel W. Connolly于
+1990年创立的一种标记语言，它是标准通用化标记语言SGML的应用。用HTML编
+写的超文本文档称为HTML文档，它能独立于各种操作系统平台 (如UNIX，
+Windows等)。使用HTML，将所需要表达的信息按某种规则写成HTML文件，通过
+专用的浏览器来识别，并将这些HTML文件“翻译”成可以识别的信息，即现在所
+见到的网页。
+#+end_example
+
+* MVC
+
+项目的创建跟初始化:
+#+begin_src sh
+  dotnet new mvc -o MvcMovie1
+  cd MvcMovie1
+  
+  #dotnet tool install --global dotnet-ef --version 5.0.0
+  #dotnet tool install --global dotnet-aspnet-codegenerator --version 5.0.0
+  dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 5.0.0
+  dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 5.0.0
+  dotnet add package Microsoft.EntityFrameworkCore.Design --version 5.0.0
+  dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 5.0.0
+  
+  code .
+  # Movie1.cs
+  
+  dotnet-aspnet-codegenerator controller -name Movies1Controller -m Movie1 -dc MvcMovie1Context --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries -sqlite
+  # appsettings.json
+  
+  dotnet ef migrations add FirstInit
+  dotnet ef database update
+  
+  
+  dotnet run
+  dotnet watch run
+#+end_src
+
+生成种子数据:
+#+begin_src sql
+  insert into movie1 (id, name, price) values (1, "xx1", 123);
+  insert into movie1 (id, name, price) values (2, "x2x1", 132);
+  insert into movie1 (id, name, price) values (3, "xx31", 213);
+  insert into movie1 (id, name, price) values (4, "x2x1", 13);
+  insert into movie1 (id, name, price) values (5, "xxk1", 132);
+  insert into movie1 (id, name, price) values (6, "xax1", 13);
+  insert into movie1 (id, name, price) values (7, "xbx1", 23);
+  insert into movie1 (id, name, price) values (8, "xxy1", 53);
+  insert into movie1 (id, name, price) values (9, "xxz1", 923);
+  insert into movie1 (id, name, price) values (10, "xx-1", 13);
+  insert into movie1 (id, name, price) values (11, "x-x1", 123);
+#+end_src
+
+进行相关修改:
+1. 修改 _layout 文件
+2. 重新对 Movies1Controller 里面的内容做调整
+3. 对视图页面 (Views/*) 进行编辑
+
+添加字段:
+1. 修改 Model, Url
+2. 执行命令
+   #+begin_src sh
+     dotnet ef migrations add AddUrlToMovie1
+     dotnet ef database update
+   #+end_src   
+
+添加一个 Controller:
+#+begin_src sh
+  # Actor.cs
+  
+  dotnet-aspnet-codegenerator controller -name ActorController -m Actor -dc MvcMovie1Context --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries -sqlite
+  
+  dotnet ef migrations add AddModelActor
+  dotnet ef database update
+#+end_src
+
+* WebAPI
+** 项目的创建
+
+创建一个新项目:
+: dotnet new webapi -o 你的项目名字
+
+如果需要 ef 支持，添加:
+: dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 5.0.0
+
+** Controller
+
+- 需要继承自 ControllerBase
+- ControllerBase 里提供了 Ok/NotFound/BadReqeust/Content/CreatedAtAction 之类的方法
+- 通过 [Route] [HttpXxx] 的方式，构成了访问的 url
+- 返回值可以是一个类，可以是列表、枚举对象，也可以是 ActionResult
+- [ApiController] 作用在 Controller 类上
+
+** RESTful
+
+- 什么是前后端分离
+- 为什么使用 JSON 进行数据传递
+- 什么是 RESTful
+- 什么是 YAML
+  
+** OpenAPI/Swagger
+
+背景:
+- 前后端分离大趋势
+- 前后端的开发，需要在 API 方面进行深入交流
+- 在这样的需求驱动下，最后就产生了 OpenAPI 的标准
+- 它的核心就是一个 json/yaml 文档
+- Swagger 是 OpenAPI 的实现:
+  + Codegen
+  + Editor
+  + UI
+
+使用 Swagger 的步骤。在这里，我们使用 Swashbuckle 框架。
+
+首先，添加依赖到项目。
+
+: dotnet add package Swashbuckle.AspNetCore
+
+其次，注入相关内容。
+
+#+begin_src csharp
+  services.AddSwaggerGen(c =>
+  {
+      c.SwaggerDoc("v1", new OpenApiInfo { Title = "我的项目", Version = "v1.2" });
+  });
+#+end_src
+
+最后，配置使用:
+#+begin_src csharp
+  app.UseSwagger();
+  app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApplication1 v1"));
+#+end_src
+
+访问:
+#+begin_example
+  doc: https://localhost:44322/swagger/v1/swagger.json
+  ui:  https://localhost:44322/swagger/index.html
+#+end_example
+
+
+
+* Identity
+
+Identity:
+#+begin_example
+名词:
+ 1. 身分 (identity, status, position, rank, dignity)
+ 2. 特性 (characteristic, feature, property, behavior, identity, characteristical)
+ 3. 个性 (personality, individuality, character, individual character, identity, selfhood)
+ 4. 恒等式 (identity)
+#+end_example
+
+ASP.NET 中，Identity 主要做的两件事:
+1. Authentication (认证、验证) 登录
+2. Authorization (授权)
+
+
+
+#+begin_src sqlite :db E:\Workdir\WebApplication4\WebApplication4\IdentitySqlite.db
+  select * from AspNetUsers;
+#+end_src
+
+#+RESULTS:
+| 02333d35-a7fa-439d-879b-7876c8eb278c | wodeyouxiang@qq.com | WODEYOUXIANG@QQ.COM | wodeyouxiang@qq.com | WODEYOUXIANG@QQ.COM | 1 | AQAAAAEAACcQAAAAEPCUecCKcIWyQfqVRSgeFTEz/P94aqvELBbx17XJWa8RmXbOBnvA0EV5cZBps3JGnQ== | 2G5SUZCMSEDXPK6MBUC25NEH2XKWJ4YE | e42ce9aa-6071-41fb-9b5f-01b580c99c83 |   | 0 | 0 |   | 1 | 0 |
+
+
+
+
+| 02333d35-a7fa-439d-879b-7876c8eb278c | wodeyouxiang@qq.com | WODEYOUXIANG@QQ.COM | wodeyouxiang@qq.com | WODEYOUXIANG@QQ.COM | 0 | AQAAAAEAACcQAAAAEPCUecCKcIWyQfqVRSgeFTEz/P94aqvELBbx17XJWa8RmXbOBnvA0EV5cZBps3JGnQ== | 2G5SUZCMSEDXPK6MBUC25NEH2XKWJ4YE | 62ce8e06-9a0b-4a07-9ad5-01c914821d13 |   | 0 | 0 |   | 1 | 0 |

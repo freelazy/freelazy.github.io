@@ -1,0 +1,23 @@
+#+TITLE: English
+
+
+
+* 单词
+
+- noun: 名词; verb, 动词, 谓语
+- Express: 特快 (极速版)
+- Module: 模块
+- Model: 模型
+- Context: 上下文
+- factory: 工厂
+- documentation: document/docs, 文档
+- Template: 模板
+- prevent: 阻止
+
+* 简单单词
+
+- Format , 格式化
+- Parse  , 解析
+- Search , 搜索
+- Replace, 代替
+- Find   , 查找、寻找

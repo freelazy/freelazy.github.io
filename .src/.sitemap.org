@@ -1,0 +1,21 @@
+#+TITLE: Sitemap for project _notes_yao63
+
+- [[file:index.org][173.NET]]
+- 111
+  - [[file:111/tasks.org][任务和作业]]
+- database
+  - [[file:database/1-sqlserver.org][SqlServer]]
+  - [[file:database/2-mysql.org][MySQL]]
+  - [[file:database/5-nosql.org][NoSQL]]
+- dotnet
+  - [[file:dotnet/0-csharp.org][C♯]]
+  - [[file:dotnet/4-winform.org][Winform]]
+  - [[file:dotnet/5-aspnet.org][ASP.NET]]
+- frontend
+  - [[file:frontend/0-http.org][HTTP]]
+  - [[file:frontend/1-html+css.org][HTML/CSS]]
+  - [[file:frontend/2-javascript.org][JavaScript]]
+- miscellaneous
+  - [[file:miscellaneous/english.org][English]]
+  - [[file:miscellaneous/misc.org][其他]]
+  - [[file:miscellaneous/skills.org][每天很多小技巧]]

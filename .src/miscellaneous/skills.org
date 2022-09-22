@@ -1,0 +1,34 @@
+#+TITLE: 每天很多小技巧
+
+
+* Form 表单中的 Button 乱象治理
+
+表现: 如果在 Form 表单中有 Button，点击后竟然自作主张提交了表单，给我造成了巨大困惑！
+
+回复:
+#+begin_src html
+  <html>
+    <form method="get" action="xxx">
+      <input name="xxx" value="." />
+      <button onclick="changge()">唱</button>
+      <button onclick="fangfa1(); return false;">一</button>
+      <button onclick="return fangfa2()">二</button>
+      <button onclick="fangfa3(event)">三</button>
+      <button onclick="fangfa4()">四</button>
+      <input type="submit" value="eee" />
+    </form>
+    <script>
+     function changge() { alert("啦啦啦啦啦啦") }
+     function fangfa1() { alert("啦啦啦啦啦啦") }
+     function fangfa2() { alert("啦啦啦啦啦啦"); return false; }
+     function fangfa3(ev) {
+         ev.preventDefault();
+         alert("啦啦啦啦啦啦");
+     }
+     function fangfa4() {
+         event.preventDefault();
+         alert("啦啦啦啦啦啦");
+     }
+    </script>
+  </html>
+#+end_src

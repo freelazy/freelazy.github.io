@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2022-09-22 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ASP.NET</title>
+<meta name="author" content="悟饭" />
+<meta name="generator" content="Org Mode" />
+<link rel='stylesheet' href='/html/asset/common.css?3344' />
+<link rel='stylesheet' href='/yaoliuyao/html/asset/common.css?3344' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/html/asset/common.js'></script>
+<script src='/yaoliuyao/html/asset/common.js'></script>
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">ASP.NET</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgc86f394">1. 单机 到 CS 到 BS</a></li>
+<li><a href="#orgf85f0f3">2. ASP -&gt; ASP.NET -&gt; ASP.NET Core</a></li>
+<li><a href="#orgf93b76b">3. ASP.NET (Framework)</a></li>
+</ul>
+</div>
+</nav>
+
+
+<section id="outline-container-orgc86f394" class="outline-2">
+<h2 id="orgc86f394"><span class="section-number-2">1.</span> 单机 到 CS 到 BS</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+要注意，.NET 跟 C# 不是一样的概念：
+</p>
+<pre class="example">
+   编译器                  运行
+C#   -&gt;   中间码(IL) -&gt;   (.NET)  -&gt; 机器码
+F#
+VB
+JS
+Java
+
+.java -&gt; .class -&gt; (JVM) -&gt; 机器码
+kotlin
+groovy
+clojue
+scala
+</pre>
+
+
+<p>
+经典、传统软件 (桌面软件):
+</p>
+<ul class="org-ul">
+<li>语言: C/C++/C#/Java/OC/Swift</li>
+<li>技术: Winform/WPF/UWP/MaUI Qt/GTK</li>
+</ul>
+
+<p>
+单机软件不符合应用场景，多机协助成了最大需求。
+最终，出现了 CS (Client-Server) 架构。
+</p>
+<ul class="org-ul">
+<li>多机通信使用 Socket，但是 Socket 需要处理太多细节，比较麻烦</li>
+<li>都要从 0 开始构建底层界面</li>
+<li>BS 能干的事情，CS <b>一定</b> 可以做到而且可以干的更好，但是 CS 要花费更高的 <b>成本</b></li>
+<li>CS 能干的事情，BS 不一定能做到。CS 的客户端可以对系统进行完全的控制，它可以实现浏览器无法实现的很多行为</li>
+<li>BS 架构，通过放弃了一些东西，成功降低了各种成本:
+<ul class="org-ul">
+<li>学习成本低</li>
+<li>开发成本低</li>
+<li>使用成本低</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span><span style="font-weight: bold; text-decoration: underline;">&#26631;&#39064;</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">form</span> <span style="color: #00538b;">action</span>=<span style="color: #2544bb;">"xxx"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #00538b;">type</span>=<span style="color: #2544bb;">"submit"</span> <span style="color: #00538b;">value</span>=<span style="color: #2544bb;">"&#28857;&#25105;&#21457;&#36865;"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">form</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+任务:
+</p>
+<ul class="org-ul">
+<li>什么是 CS 架构，什么是 BS 架构?</li>
+<li>CS 架构跟 BS 架构相比，各有什么优劣?</li>
+<li>整理资料，了解浏览器的发展历史</li>
+</ul>
+
+<p>
+360/&#x2026;.很多野生浏览器:
+</p>
+<ul class="org-ul">
+<li>当时 IE 你不能不用，而且多个版本之间还有差别。IE6</li>
+<li>当时先进生产力的代表是 Firefox, Chrome, Opera 等更加贴近标准的浏览器</li>
+<li>双(多)核浏览器+兼容</li>
+</ul>
+</div>
+</section>
+
+
+<section id="outline-container-orgf85f0f3" class="outline-2">
+<h2 id="orgf85f0f3"><span class="section-number-2">2.</span> ASP -&gt; ASP.NET -&gt; ASP.NET Core</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+大致分为三个阶段:
+</p>
+<ol class="org-ol">
+<li>1996 年左右，ASP (Active Server Page), 使用的开发语言是 VB</li>
+<li>2002 年左右，随着 .NET 平台出现，推出了 ASP.NET 技术</li>
+<li>2015 年左右，微软开始推出跨平台的 .NET，称作 .NET Core</li>
+</ol>
+</div>
+</section>
+
+<section id="outline-container-orgf93b76b" class="outline-2">
+<h2 id="orgf93b76b"><span class="section-number-2">3.</span> ASP.NET (Framework)</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Pipeline (管道/管线) 模型:
+</p>
+<ul class="org-ul">
+<li>最核心的接口: <code>IHttpHandler/IHttpHandlerFactory</code>, <code>IHttpModule</code></li>
+<li>最核心的配置文件: Web.config</li>
+<li>比较重要的类: HttpApplication, HttpContext</li>
+</ul>
+
+<p>
+Pipeline 中标准的 19 个事件:
+<img src="img/oimg_20220920_070127.png" alt="oimg_20220920_070127.png">
+Global.asax:
+</p>
+<ul class="org-ul">
+<li>Application_Start/End</li>
+<li>Session_Start/End</li>
+<li>Application_BeginRequest/AuthenticateRequest/Error</li>
+</ul>
+
+<p>
+部署:
+</p>
+<ul class="org-ul">
+<li>环境: Windows + SqlServer + IIS</li>
+<li>IIS 是缩写，全称 Internet Information Services (互联网信息服务 ), 是由微软公司提供的基于运行 .NET 的互联网基本服务。</li>
+<li>步骤:
+<ol class="org-ol">
+<li>开发项目，通过【发布】导出要部署的项目文件夹</li>
+<li>在电脑上安 Windows 操作系统</li>
+<li>在 Windows 中安装 SqlServer 数据库</li>
+<li>在 Windows 中启用 IIS 服务器</li>
+<li>在 IIS 管理器中，为项目文件夹创建新的【网站】</li>
+<li>注意整个过程中的【权限】和【防火墙】问题</li>
+</ol></li>
+</ul>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 悟饭</p>
+<p class="date">Created: 2022-09-22</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>

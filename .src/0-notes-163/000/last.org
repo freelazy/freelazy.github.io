@@ -1,0 +1,75 @@
+#+TITLE: 期末考试
+
+
+* 模拟题
+
+[[file:img/exam.png]]
+
+
+
+要求:
+- 使用技术:
+  + 工具: eclipse/idea
+  + 后台: Java/Servlet, SQLServer, TOMCAT
+  + 前端: Vue (可以使用 bootstrap 进行样式渲染)，不要用脚手架
+- 数据库对象:
+  + CUP (杯子)
+  + 需要有自增的 id，需要能处理 price 和 date
+- 后台:
+  + 创建合理的包结构 (com.xxx.yy.web/dao/service/filter/bean 等)
+  + 务必: 添加编码过滤器和跨域过滤器
+  + 务必: 根据数据库对象创建对应的正确的 Java Bean 对象
+  + 务必: 正确写好 Servlet 处理逻辑和 dao 处理逻辑
+- 前端:
+  + 直接创建 xxx.html 文件并使用 script 引入 vue.js 和 axios.js，*不要用脚手架，不要用 CDN*
+  + JS 的逻辑一定要完善:
+     * 提交之前要有确认
+     * 成功之后要有提醒
+     * 出现错误要有提示
+  + 使用 axios 进行异步提交
+  + 可以将 bootstrap 或其他 css 框架添加进项目渲染样式
+  
+
+
+* 基本步骤
+
+https://github.com/yaollllllsan/lastexam
+
+** 创建数据库对象
+
+#+begin_src sql
+  -- 1 分
+  create database mycup;
+  go
+
+  use mycup;
+
+  -- 5 分
+  create table cup
+  (
+     id int identity primary key,
+     name varchar(20) not null,
+     price money check ( price > 0 ),
+     birth datetime default getdate()
+  );
+
+  -- 3 分
+  insert into cup (name, price, birth) values ('高脚杯', 22.3, '2020-10-11');
+  insert into cup (name, price, birth) values ('啤酒杯', 14.3, '2020-12-11');
+  insert into cup (name, price, birth) values ('茶水杯', 93.3, '2020-11-11');
+#+end_src
+
+** 创建项目
+
+- 使用 Idea/Eclipse 创建一个普通的 Java Web 项目 (*必须要保证考试的时候 idea 不罢工*)
+- 修改 tomcat 页面的 VM options 项，填入 ~-Dfile.encoding=UTF-8~
+- 在新项目的 src 目录下面，创建 *正确* 的 package (com.nfit.xxx.yyy)
+- 将备份的 lib/java/assets 复制到相应的位置；配置项目的 lib 依赖保证其正确；修改 java 文件中的错误，保证没错误
+- 在 web 文件夹下，创建初始的入口 html 文件，比如，叫 admin.html；然后，将 vue/axios/bootstrap 引入其中
+- 启动 tomcat，保证项目能正常运行
+
+** 正式阶段
+
+- 在 admin.html 中，创建标题、表格、按钮组，并使用 bootstrap 渲染出合适的样式
+- 分别实现各个功能
+
