@@ -76,7 +76,7 @@ Global.asax:
 - IIS 是缩写，全称 Internet Information Services (互联网信息服务 ), 是由微软公司提供的基于运行 .NET 的互联网基本服务。
 - 步骤: 
   1. 开发项目，通过【发布】导出要部署的项目文件夹
-  2. 在电脑上安 Windows 操作系统
+  2. 在服务器上安 Windows 操作系统
   3. 在 Windows 中安装 SqlServer 数据库
   4. 在 Windows 中启用 IIS 服务器
   5. 在 IIS 管理器中，为项目文件夹创建新的【网站】
