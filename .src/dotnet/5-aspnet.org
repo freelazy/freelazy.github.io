@@ -83,8 +83,8 @@ Global.asax:
   6. 注意整个过程中的【权限】和【防火墙】问题
 
 
-* ASP.NET Webform (Framework)
-* ASP.NET MVC (Framework)
+* ASP.NET Webform
+* ASP.NET MVC
 
 MVC:
 - Model (模型)
