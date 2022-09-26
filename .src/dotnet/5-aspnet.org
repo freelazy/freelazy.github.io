@@ -82,3 +82,11 @@ Global.asax:
   5. 在 IIS 管理器中，为项目文件夹创建新的【网站】
   6. 注意整个过程中的【权限】和【防火墙】问题
 
+
+* ASP.NET Webform (Framework)
+* ASP.NET MVC (Framework)
+
+MVC:
+- Model (模型)
+- View  (视图)
+- Controller (控制器)
