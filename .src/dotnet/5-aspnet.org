@@ -142,7 +142,7 @@ Global.asax:
 #+begin_src html
   <html>
     <script runat="server">
-      public string MyName = "真难";
+        public string MyName = "真难";
         public string HelloWorld() { return "HelloWorld"; }
         public string MyCalender() { return "<div>我是一个巨复杂的日历</div>"; }
         protected void Button1_Click(object sender, EventArgs e) { }
