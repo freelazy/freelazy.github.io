@@ -238,7 +238,7 @@ Global.asax:
 
 你 (Browser) 请求 http://localhost:893232/Hello.aspx 到我 (IIS):
 - 首先，查找 aspx 有没有对应的编译文件。如果有，执行之；否则，先编译，后执行之
-- aspx 会被动态编译成相应的 csharp 文件，之后会被编译进 dll 中 (HttpRuntime.CodegenDir)
+- aspx 会被动态转换为相应的 csharp 文件，之后会被编译进 dll 中 (HttpRuntime.CodegenDir)
 - aspx 文件实质是 ~Page~ 的一个子类，它实现了 ~IHttpHandler~ 接口
 - aspx 还实现了 ~IRequiresSessionState~ 接口，因此可以在 aspx 中自由使用 Session
 - 在父类 Page 中，定义了控件加载的逻辑和页面渲染的逻辑

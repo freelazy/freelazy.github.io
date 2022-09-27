@@ -371,7 +371,7 @@ Global.asax:
 </p>
 <ul class="org-ul">
 <li>首先，查找 aspx 有没有对应的编译文件。如果有，执行之；否则，先编译，后执行之</li>
-<li>aspx 会被动态编译成相应的 csharp 文件，之后会被编译进 dll 中 (HttpRuntime.CodegenDir)</li>
+<li>aspx 会被动态转换为相应的 csharp 文件，之后会被编译进 dll 中 (HttpRuntime.CodegenDir)</li>
 <li>aspx 文件实质是 <code>Page</code> 的一个子类，它实现了 <code>IHttpHandler</code> 接口</li>
 <li>aspx 还实现了 <code>IRequiresSessionState</code> 接口，因此可以在 aspx 中自由使用 Session</li>
 <li>在父类 Page 中，定义了控件加载的逻辑和页面渲染的逻辑</li>
