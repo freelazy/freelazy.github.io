@@ -147,6 +147,9 @@ Global.asax:
         public string MyCalender() { return "<div>我是一个巨复杂的日历</div>"; }
         protected void Button1_Click(object sender, EventArgs e) { }
     </script>
+
+    <%= MyCalender() %>
+    <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
   </html>
 #+end_src
 
