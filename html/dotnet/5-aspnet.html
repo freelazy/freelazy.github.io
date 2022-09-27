@@ -192,11 +192,11 @@ Global.asax:
 </div>
 
 <p>
-运行项目，可以通过 <code>/localhost:port/Hello.aspx</code> 访问这个页面。浏览器中查看源代码可以看到内容跟上述一致。
+运行项目，可以通过 <code>https://localhost:port/Hello.aspx</code> 访问这个页面。浏览器中查看源代码可以看到内容跟上述一致。
 </p>
 
 <p>
-接下来，aspx 文件中，可以接受行内表达式语法。这种语法来源于之前的 asp 时代，是在 html 内嵌 C#/VB 代码的一种方式 (<a href="https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/aspnet/development/inline-expressions">官方链接</a>)。
+接下来，aspx 接受行内表达式语法。这种语法来源于之前的 asp 时代，是在 html 内嵌 C#/VB 代码的一种方式 (<a href="https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/aspnet/development/inline-expressions">官方链接</a>)。
 </p>
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
@@ -228,7 +228,7 @@ Global.asax:
 </div>
 
 <p>
-微软说，时代变了，行内表达式容易导致逻辑跟页面混淆，不便于维护和复用。建议使用控件机制。
+微软说，时代变了，行内表达式容易导致逻辑跟页面混淆，不便于维护和复用。亲，建议使用控件。
 控件的使用方法，跟 Winform 中实在太像了:
 </p>
 <div class="org-src-container">
@@ -258,7 +258,7 @@ Global.asax:
 
 <p>
 但是上述 C# 代码写在 aspx 文件里，开发成本和维护成本都比较高，所以能不能有一种机制将其<b>分离</b>出去?
-有的，有的。使用页面指令，指定外部 CS 文件即可:
+有的，有的。使用页面指令，指定外部 csharp 文件即可:
 </p>
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span>%@ Page <span style="color: #00538b;">Language</span>=<span style="color: #2544bb;">"C#"</span> <span style="color: #00538b;">AutoEventWireup</span>=<span style="color: #2544bb;">"true"</span> <span style="color: #00538b;">CodeBehind</span>=<span style="color: #2544bb;">"Balala.cs"</span> <span style="color: #00538b;">Inherits</span>=<span style="color: #2544bb;">"WebApplication2.Balala"</span> %<span style="color: #000000;">&gt;</span>
@@ -266,7 +266,11 @@ Global.asax:
 </div>
 
 <p>
-于是，就可以创建文件 Balala.cs 在里面专注于数据和业务逻辑，之后让 aspx 专注于页面展现了（模型与视图分离的思想）:
+于是，就可以创建文件 Balala.cs 在里面专注于数据和业务逻辑，之后让 aspx 专注于页面展现了（模型与视图分离的思想）。
+</p>
+
+<p>
+这个 Balala.cs 需要写成类似这个样子:
 </p>
 <div class="org-src-container">
 <pre class="src src-csharp"><span style="color: #5317ac;">namespace</span> <span style="color: #00538b;">WebApplication2</span>

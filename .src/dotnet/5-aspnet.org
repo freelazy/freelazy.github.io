@@ -96,9 +96,9 @@ Global.asax:
   </html>
 #+end_src
 
-运行项目，可以通过 ~/localhost:port/Hello.aspx~ 访问这个页面。浏览器中查看源代码可以看到内容跟上述一致。
+运行项目，可以通过 ~https://localhost:port/Hello.aspx~ 访问这个页面。浏览器中查看源代码可以看到内容跟上述一致。
 
-接下来，aspx 文件中，可以接受行内表达式语法。这种语法来源于之前的 asp 时代，是在 html 内嵌 C#/VB 代码的一种方式 ([[https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/aspnet/development/inline-expressions][官方链接]])。
+接下来，aspx 接受行内表达式语法。这种语法来源于之前的 asp 时代，是在 html 内嵌 C#/VB 代码的一种方式 ([[https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/aspnet/development/inline-expressions][官方链接]])。
 #+begin_src html
   <html>
     <h1>我是 Hello.aspx 文件，所有的 html 代码在这里都会被原样返回给浏览器</h1>
@@ -127,7 +127,7 @@ Global.asax:
   </html>
 #+end_src
 
-微软说，时代变了，行内表达式容易导致逻辑跟页面混淆，不便于维护和复用。建议使用控件机制。
+微软说，时代变了，行内表达式容易导致逻辑跟页面混淆，不便于维护和复用。亲，建议使用控件。
 控件的使用方法，跟 Winform 中实在太像了:
 #+begin_src html
   <html>
@@ -151,12 +151,14 @@ Global.asax:
 #+end_src
 
 但是上述 C# 代码写在 aspx 文件里，开发成本和维护成本都比较高，所以能不能有一种机制将其​*分离*​出去?
-有的，有的。使用页面指令，指定外部 CS 文件即可:
+有的，有的。使用页面指令，指定外部 csharp 文件即可:
 #+begin_src html
   <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Balala.cs" Inherits="WebApplication2.Balala" %>
 #+end_src
 
-于是，就可以创建文件 Balala.cs 在里面专注于数据和业务逻辑，之后让 aspx 专注于页面展现了（模型与视图分离的思想）:
+于是，就可以创建文件 Balala.cs 在里面专注于数据和业务逻辑，之后让 aspx 专注于页面展现了（模型与视图分离的思想）。
+
+这个 Balala.cs 需要写成类似这个样子:
 #+begin_src csharp
   namespace WebApplication2
   {
