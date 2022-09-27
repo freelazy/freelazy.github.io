@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-09-26 -->
+<!-- 2022-09-27 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ASP.NET</title>
@@ -25,7 +25,11 @@
 <li><a href="#orgc86f394">1. 单机 到 CS 到 BS</a></li>
 <li><a href="#orgf85f0f3">2. ASP -&gt; ASP.NET -&gt; ASP.NET Core</a></li>
 <li><a href="#orgf93b76b">3. ASP.NET (Framework)</a></li>
-<li><a href="#orgc345950">4. ASP.NET Webform</a></li>
+<li><a href="#orgc345950">4. ASP.NET Webform</a>
+<ul>
+<li><a href="#org2585d5b">4.1. aspx 文件</a></li>
+</ul>
+</li>
 <li><a href="#org1a00f89">5. ASP.NET MVC</a></li>
 </ul>
 </div>
@@ -58,8 +62,8 @@ scala
 经典、传统软件 (桌面软件):
 </p>
 <ul class="org-ul">
-<li>语言: C<i>C++</i>C#/Java<i>OC</i>Swift</li>
-<li>技术: Winform<i>WPF</i>UWP<i>MaUI Qt</i>GTK</li>
+<li>语言: C/C++/C#/Java/OC/Swift</li>
+<li>技术: Winform/WPF/UWP/MaUI Qt/GTK</li>
 </ul>
 
 <p>
@@ -142,7 +146,7 @@ Global.asax:
 <ul class="org-ul">
 <li>Application_Start/End</li>
 <li>Session_Start/End</li>
-<li>Application_BeginRequest<i>AuthenticateRequest</i>Error</li>
+<li>Application_BeginRequest/AuthenticateRequest/Error</li>
 </ul>
 
 <p>
@@ -167,9 +171,131 @@ Global.asax:
 
 <section id="outline-container-orgc345950" class="outline-2">
 <h2 id="orgc345950"><span class="section-number-2">4.</span> ASP.NET Webform</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org2585d5b" class="outline-3">
+<h3 id="org2585d5b"><span class="section-number-3">4.1.</span> aspx 文件</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+一个 aspx 主要包含如下内容。
+</p>
+
+<p>
+首先，可以将 aspx 文件看做一个加强版的 html 文件，所以，它完全接受 html 语法:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span><span style="font-weight: bold; text-decoration: underline;">&#25105;&#26159; Hello.aspx &#25991;&#20214;&#65292;&#25152;&#26377;&#30340; html &#20195;&#30721;&#22312;&#36825;&#37324;&#37117;&#20250;&#34987;&#21407;&#26679;&#36820;&#22238;&#32473;&#27983;&#35272;&#22120;</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span> &#20854;&#20182;&#30340;&#25110;&#31616;&#21333;&#25110;&#22797;&#26434;&#30340; html/js/css &#20195;&#30721; <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+这时候，运行后，可以通过 <code>/localhost:port/Hello.aspx</code> 访问这个页面。浏览器中查看源代码可以看到内容跟上述一致。
+</p>
+
+<p>
+接下来，aspx 文件中，可以接受行内表达式语法。这种语法来源于之前的 asp 时代，是在 html 内嵌 C#/VB 代码的一种方式 (<a href="https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/aspnet/development/inline-expressions">官方链接</a>)。
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span><span style="font-weight: bold; text-decoration: underline;">&#25105;&#26159; Hello.aspx &#25991;&#20214;&#65292;&#25152;&#26377;&#30340; html &#20195;&#30721;&#22312;&#36825;&#37324;&#37117;&#20250;&#34987;&#21407;&#26679;&#36820;&#22238;&#32473;&#27983;&#35272;&#22120;</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span> &#20854;&#20182;&#30340;&#25110;&#31616;&#21333;&#25110;&#22797;&#26434;&#30340; html/js/css &#20195;&#30721; <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>% Response.Write<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&#36890;&#36807;&#34892;&#20869;&#34920;&#36798;&#24335;&#65292;&#21487;&#20197;&#22312;&#25991;&#20214;&#20013;&#23884;&#20837; C# &#20195;&#30721;&#20102;&#65281;"</span><span style="color: #a8007f;">)</span>; %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>% Response.Write<span style="color: #a8007f;">(</span>Request.UserAgent<span style="color: #a8007f;">)</span>; %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>%
+      string a = <span style="color: #2544bb;">"&#21487;&#20197;&#20889;&#24456;&#22810;&#20195;&#30721;&#65292;&#22312;&#36825;&#37324;"</span>;
+      string c = <span style="color: #2544bb;">"&#29616;&#22312;&#65292;&#23450;&#20041;&#19968;&#20010;&#21464;&#37327;&#65292;&#21518;&#38754;&#20351;&#29992;"</span>;
+    %<span style="color: #000000;">&gt;</span>
+
+    <span style="color: #000000;">&lt;</span>% Response.Write<span style="color: #a8007f;">(</span>c<span style="color: #a8007f;">)</span>; %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>%-- &#25105;&#26159;&#19968;&#20010;&#27880;&#37322;: &#19979;&#38754;&#30340;&#19968;&#34892;&#20195;&#30721;&#65292;&#26159;&#19978;&#38754;&#20195;&#30721;&#30340;&#35821;&#27861;&#31958; --%<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>%= c <span style="color: #000000;">&gt;</span>
+
+    <span style="color: #000000;">&lt;</span>%= <span style="color: #2544bb;">"&lt;div&gt;&#20320;&#22909;&lt;/div&gt;"</span> %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>%-- &#20351;&#29992; <span style="color: #00538b;">%:</span> &#36827;&#34892;&#33258;&#21160;&#26684;&#24335;&#21270;&#36755;&#20986; --%<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>% Response.Write<span style="color: #a8007f;">(</span>HttpUtility.HtmlEncode<span style="color: #005f88;">(</span><span style="color: #2544bb;">"&lt;div&gt;&#20320;&#22909;&lt;/div&gt;"</span><span style="color: #005f88;">)</span><span style="color: #a8007f;">)</span>; %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>%= HttpUtility.HtmlEncode<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&lt;div&gt;&#20320;&#22909;&lt;/div&gt;"</span><span style="color: #a8007f;">)</span> %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #00538b;">%:</span> <span style="color: #2544bb;">"&lt;div&gt;&#20320;&#22909;&lt;/div&gt;"</span> %<span style="color: #000000;">&gt;</span>
+
+    <span style="color: #000000;">&lt;</span>%# Button1.Controls %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>%#: Button1.Controls %<span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+微软说，时代变了，行内表达式容易导致逻辑跟页面混淆，不便于维护和复用。建议使用控件机制。
+控件的使用方法，跟 Winform 中实在太像了:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">form</span> <span style="color: #00538b;">id</span>=<span style="color: #2544bb;">"form1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span><span style="color: #000000;">&gt;</span>
+     <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Calendar</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"Calendar1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Calendar</span><span style="color: #000000;">&gt;</span>
+     <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Button</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"Button1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">OnClick</span>=<span style="color: #2544bb;">"Button1_Click"</span> <span style="color: #00538b;">Text</span>=<span style="color: #2544bb;">"Button"</span> /<span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">form</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+如果是方法等大段的 C# 代码，可以写在 script runat server 里面:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #5317ac;">public</span> string MyName = <span style="color: #2544bb;">"&#30495;&#38590;"</span>;
+      <span style="color: #5317ac;">public</span> string HelloWorld<span style="color: #000000;">()</span> <span style="color: #000000;">{</span> <span style="color: #5317ac;">return</span> <span style="color: #2544bb;">"HelloWorld"</span>; <span style="color: #000000;">}</span>
+      <span style="color: #5317ac;">public</span> string MyCalender<span style="color: #000000;">()</span> <span style="color: #000000;">{</span> <span style="color: #5317ac;">return</span> <span style="color: #2544bb;">"&lt;div&gt;&#25105;&#26159;&#19968;&#20010;&#24040;&#22797;&#26434;&#30340;&#26085;&#21382;&lt;/div&gt;"</span>; <span style="color: #000000;">}</span>
+      <span style="color: #5317ac;">protected</span> <span style="color: #5317ac;">void</span> <span style="color: #00538b;">Button1_Click</span><span style="color: #000000;">(</span>object sender, EventArgs e<span style="color: #000000;">)</span> <span style="color: #000000;">{</span> <span style="color: #000000;">}</span>
+  <span style="color: #000000;">&lt;</span>/script<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+但是上述 C# 代码写在 aspx 文件里，开发成本和维护成本都比较高，所以能不能有一种机制将其<b>分离</b>出去?
+有的，有的。使用页面指令，指定外部 CS 文件即可:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span>%@ Page <span style="color: #00538b;">Language</span>=<span style="color: #2544bb;">"C#"</span> <span style="color: #00538b;">AutoEventWireup</span>=<span style="color: #2544bb;">"true"</span> <span style="color: #00538b;">CodeBehind</span>=<span style="color: #2544bb;">"Balala.cs"</span> <span style="color: #00538b;">Inherits</span>=<span style="color: #2544bb;">"WebApplication2.Balala"</span> %<span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+于是，就可以创建文件 Balala.cs 在里面专注于数据和业务逻辑，之后让 aspx 专注于页面展现了（模型与视图分离的思想）:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">namespace</span> <span style="color: #00538b;">WebApplication2</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">public</span> <span style="color: #5317ac;">partial</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">Balala</span> : <span style="color: #005a5f;">Page</span>
+    <span style="color: #a8007f;">{</span>
+        <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">string</span> <span style="color: #00538b;">MyName</span> = <span style="color: #2544bb;">"&#30495;&#38590;"</span>;
+        <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">string</span> <span style="color: #721045;">HelloWorld</span><span style="color: #005f88;">()</span>
+        <span style="color: #005f88;">{</span>
+            <span style="color: #5317ac;">return</span> <span style="color: #2544bb;">"HelloWorld"</span>;
+        <span style="color: #005f88;">}</span>
+        <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">string</span> <span style="color: #721045;">MyCalender</span><span style="color: #005f88;">()</span>
+        <span style="color: #005f88;">{</span>
+            <span style="color: #5317ac;">return</span> <span style="color: #2544bb;">"&lt;div&gt;&#25105;&#26159;&#19968;&#20010;&#24040;&#22797;&#26434;&#30340;&#26085;&#21382;&lt;/div&gt;"</span>;
+        <span style="color: #005f88;">}</span>
+        <span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Button1_Click</span><span style="color: #005f88;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #005f88;">)</span>
+        <span style="color: #005f88;">{</span>
+        <span style="color: #005f88;">}</span>
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+通过以上操作，一个完整的 Web 窗体就有了。
+</p>
+</div>
+</div>
 </section>
-
-
 
 <section id="outline-container-org1a00f89" class="outline-2">
 <h2 id="org1a00f89"><span class="section-number-2">5.</span> ASP.NET MVC</h2>
@@ -187,7 +313,7 @@ MVC:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2022-09-26</p>
+<p class="date">Created: 2022-09-27</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

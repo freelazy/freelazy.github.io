@@ -84,8 +84,101 @@ Global.asax:
 
 
 * ASP.NET Webform
+** aspx 文件
 
+一个 aspx 主要包含如下内容。
 
+首先，可以将 aspx 文件看做一个加强版的 html 文件，所以，它完全接受 html 语法:
+#+begin_src html
+  <html>
+    <h1>我是 Hello.aspx 文件，所有的 html 代码在这里都会被原样返回给浏览器</h1>
+    <p> 其他的或简单或复杂的 html/js/css 代码 </p>
+  </html>
+#+end_src
+
+这时候，运行后，可以通过 ~/localhost:port/Hello.aspx~ 访问这个页面。浏览器中查看源代码可以看到内容跟上述一致。
+
+接下来，aspx 文件中，可以接受行内表达式语法。这种语法来源于之前的 asp 时代，是在 html 内嵌 C#/VB 代码的一种方式 ([[https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/aspnet/development/inline-expressions][官方链接]])。
+#+begin_src html
+  <html>
+    <h1>我是 Hello.aspx 文件，所有的 html 代码在这里都会被原样返回给浏览器</h1>
+    <p> 其他的或简单或复杂的 html/js/css 代码 </p>
+    <div>
+      <% Response.Write("通过行内表达式，可以在文件中嵌入 C# 代码了！"); %>
+      <% Response.Write(Request.UserAgent); %>
+      <%
+        string a = "可以写很多代码，在这里"; 
+        string c = "现在，定义一个变量，后面使用";
+      %>
+
+      <% Response.Write(c); %>
+      <%-- 我是一个注释: 下面的一行代码，是上面代码的语法糖 --%>
+      <%= c >
+
+      <%= "<div>你好</div>" %>
+      <%-- 使用 %: 进行自动格式化输出 --%>
+      <% Response.Write(HttpUtility.HtmlEncode("<div>你好</div>")); %>
+      <%= HttpUtility.HtmlEncode("<div>你好</div>") %>
+      <%: "<div>你好</div>" %>
+
+      <%# Button1.Controls %>
+      <%#: Button1.Controls %>
+    </div>
+  </html>
+#+end_src
+
+微软说，时代变了，行内表达式容易导致逻辑跟页面混淆，不便于维护和复用。建议使用控件机制。
+控件的使用方法，跟 Winform 中实在太像了:
+#+begin_src html
+  <html>
+    <form id="form1" runat="server">
+       <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+       <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+    </form>
+  </html>
+#+end_src
+
+如果是方法等大段的 C# 代码，可以写在 script runat server 里面:
+#+begin_src html
+  <html>
+    <script runat="server">
+      public string MyName = "真难";
+        public string HelloWorld() { return "HelloWorld"; }
+        public string MyCalender() { return "<div>我是一个巨复杂的日历</div>"; }
+        protected void Button1_Click(object sender, EventArgs e) { }
+    </script>
+  </html>
+#+end_src
+
+但是上述 C# 代码写在 aspx 文件里，开发成本和维护成本都比较高，所以能不能有一种机制将其​*分离*​出去?
+有的，有的。使用页面指令，指定外部 CS 文件即可:
+#+begin_src html
+  <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Balala.cs" Inherits="WebApplication2.Balala" %>
+#+end_src
+
+于是，就可以创建文件 Balala.cs 在里面专注于数据和业务逻辑，之后让 aspx 专注于页面展现了（模型与视图分离的思想）:
+#+begin_src csharp
+  namespace WebApplication2
+  {
+      public partial class Balala : Page
+      {
+          public string MyName = "真难";
+          public string HelloWorld()
+          {
+              return "HelloWorld";
+          }
+          public string MyCalender()
+          {
+              return "<div>我是一个巨复杂的日历</div>";
+          }
+          protected void Button1_Click(object sender, EventArgs e)
+          {
+          }
+      }
+  }
+#+end_src
+
+通过以上操作，一个完整的 Web 窗体就有了。
 
 * ASP.NET MVC
 
