@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-09-26 -->
+<!-- 2022-09-27 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>C♯</title>
@@ -112,7 +112,7 @@
 <ul>
 <li><a href="#org4062d97">8.2.1. Basic</a></li>
 <li><a href="#org020445a">8.2.2. 方法的重载 (overload)</a></li>
-<li><a href="#org53f1e2f">8.2.3. 参数 (值参数<i>ref</i>out)</a></li>
+<li><a href="#org53f1e2f">8.2.3. 参数 (值参数/ref/out)</a></li>
 <li><a href="#org4716fa7">8.2.4. out 参数: 用来模拟方法返回多个值的场景</a></li>
 <li><a href="#orge43b6cb">8.2.5. 数组参数 (params)</a></li>
 <li><a href="#org0da48cf">8.2.6. 可选参数/命名参数</a></li>
@@ -172,7 +172,7 @@
 <li><a href="#org96851bb">12.1.4. 模板代码实在不爽，委托类型出现来救场</a></li>
 </ul>
 </li>
-<li><a href="#orgc3a946d">12.2. 基本语法</a></li>
+<li><a href="#org217b68d">12.2. 基本语法</a></li>
 <li><a href="#org02490b7">12.3. 匿名委托</a></li>
 <li><a href="#org9e08dbb">12.4. 表达式语法</a></li>
 <li><a href="#org8209cba">12.5. 内建的委托类型 Action/Func</a></li>
@@ -208,7 +208,7 @@
 <li><a href="#orgcf289a9">15.2.4. Stack&lt;T&gt;</a></li>
 <li><a href="#org013168a">15.2.5. LinkedList&lt;T&gt;</a></li>
 <li><a href="#org478f646">15.2.6. HashSet&lt;T&gt;</a></li>
-<li><a href="#org18d00a1">15.2.7. SortedList<i>Set</i>Dictionary&lt;&gt;</a></li>
+<li><a href="#org18d00a1">15.2.7. SortedList/Set/Dictionary&lt;&gt;</a></li>
 </ul>
 </li>
 <li><a href="#orge8c6085">15.3. System.Collections.Immutable</a></li>
@@ -216,7 +216,7 @@
 </li>
 <li><a href="#org67c7d80">16. IEnumerable/Linq</a>
 <ul>
-<li><a href="#org7173fa2">16.1. IEnumerable<i>IEnumerator</i>foreach</a></li>
+<li><a href="#org7173fa2">16.1. IEnumerable/IEnumerator/foreach</a></li>
 <li><a href="#org2dd52b4">16.2. Iterator</a></li>
 <li><a href="#org795ad5a">16.3. Linq</a>
 <ul>
@@ -317,18 +317,18 @@
 <li><a href="#org9780d66">22.7. FileSystemWatching</a></li>
 </ul>
 </li>
-<li><a href="#org3e8acac">23. Socket</a>
+<li><a href="#orgf785cf4">23. Socket</a>
 <ul>
 <li><a href="#orgd2b4814">23.1. OSI 模型</a></li>
 <li><a href="#orgf72c611">23.2. TCP/IP 协议栈</a></li>
 <li><a href="#org36cdc5c">23.3. Uri/UriBuilder</a></li>
 <li><a href="#org2ae0956">23.4. IpAddress/Dns</a></li>
-<li><a href="#orgd9da66a">23.5. Socket</a>
+<li><a href="#org3e8acac">23.5. Socket</a>
 <ul>
 <li><a href="#orgece0856">23.5.1. TCP vs UDP</a></li>
 <li><a href="#org1f9d7d0">23.5.2. Socket/TCP</a>
 <ul>
-<li><a href="#org217b68d">23.5.2.1. 基本语法</a></li>
+<li><a href="#org37ecbf2">23.5.2.1. 基本语法</a></li>
 <li><a href="#orgc646996">23.5.2.2. 简单的 HTTP 服务器</a></li>
 <li><a href="#org5b92fb4">23.5.2.3. 简单的客户端实现</a></li>
 </ul>
@@ -343,7 +343,7 @@
 <li><a href="#org18503dc">23.8. HttpClient/HttpListener</a>
 <ul>
 <li><a href="#org765ae12">23.8.1. HttpListener</a></li>
-<li><a href="#org96e1398">23.8.2. HttpWebRequest<i>WebClient</i>HttpClient</a></li>
+<li><a href="#org96e1398">23.8.2. HttpWebRequest/WebClient/HttpClient</a></li>
 </ul>
 </li>
 </ul>
@@ -396,13 +396,12 @@
 </nav>
 
 
-
 <section id="outline-container-org7209f8f" class="outline-2">
 <h2 id="org7209f8f"><span class="section-number-2">1.</span> 历史</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li>Visual J++ 被放弃，<a href="https://baike.baidu.com/item/%E5%AE%89%E5%BE%B7%E6%96%AF%C2%B7%E6%B5%B7%E5%B0%94%E6%96%AF%E4%BC%AF%E6%A0%BC">安德斯·海尔斯伯格</a>带领团队从 2000 年左右开始开发了 C#，到 2002 年的的时候，开始提交给 ECMA 成为了标准</li>
-<li>因为安德斯他的个人经历，所以 C# 深受 Pascal<i>C++</i>Java 的影响</li>
+<li>因为安德斯他的个人经历，所以 C# 深受 Pascal/C++/Java 的影响</li>
 <li>到现在，C# 已经成为了一种多范式的语言。首先它是一门纯粹的面向对象的语言 (封装、继承、多态)，提供了面向组件编程的一些改进 (属性、委托、事件)</li>
 </ul>
 
@@ -427,7 +426,7 @@ C# 版本演化:
 <h2 id="orgc540fb4"><span class="section-number-2">2.</span> [语言与类型]</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-在 C# 等面向对象的语言中，<b>类型 (Type)</b> 是第一位的
+在 C# 等面向对象的语言中，*类型 (Type)* 是第一位的
 </p>
 <ul class="org-ul">
 <li>在 C# 中，不外乎做两件事，第一件是引入别人的类型，第二件是声明自己的类型</li>
@@ -437,13 +436,13 @@ C# 版本演化:
 </ul>
 
 
-<figure id="org9d0dfaa">
+<figure id="orgd7ad95b">
 <img src="img/types.png" alt="types.png" width="400px">
 
 </figure>
 
 
-<figure id="org263c65d">
+<figure id="orgf527785">
 <img src="img/types-2.png" alt="types-2.png" width="400px">
 
 </figure>
@@ -688,7 +687,7 @@ System 命名空间:
 </ul>
 
 
-<figure id="orgba72c4d">
+<figure id="orgf11d70b">
 <img src="img/value-type-ref-type.png" alt="value-type-ref-type.png" width="500px">
 
 </figure>
@@ -809,7 +808,7 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 </div>
 
 
-<figure id="org6154c28">
+<figure id="org4c4d16f">
 <img src="img/integers.png" alt="integers.png" width="400px">
 
 </figure>
@@ -837,7 +836,7 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 </ul>
 
 
-<figure id="org59e1230">
+<figure id="orgbbd1578">
 <img src="img/float-type.png" alt="float-type.png" width="500px">
 
 </figure>
@@ -896,7 +895,7 @@ Q &amp; A:
 </ul>
 
 
-<figure id="orgef17c99">
+<figure id="org2469f4a">
 <img src="img/unicode.png" alt="unicode.png" width="500px">
 
 </figure>
@@ -942,7 +941,7 @@ f = <span style="color: #0000c0;">true</span>; g = <span style="color: #0000c0;"
 <h4 id="orga33daeb"><span class="section-number-4">4.2.1.</span> [条件分支] 在某种条件之下，做某件事</h4>
 <div class="outline-text-4" id="text-4-2-1">
 <ul class="org-ul">
-<li>if<i>else if</i>else</li>
+<li>if/else if/else</li>
 <li>switch (statement/expression)</li>
 </ul>
 
@@ -1322,7 +1321,7 @@ s += t; <span style="color: #505050;">// </span><span style="color: #505050;">s 
 </div>
 
 
-<figure id="orga0b844f">
+<figure id="orge8aa498">
 <img src="img/string-immute.png" alt="string-immute.png" width="400px">
 
 </figure>
@@ -1360,7 +1359,7 @@ s<span style="color: #000000;">[</span>1<span style="color: #000000;">]</span> =
 </p>
 
 
-<figure id="org088ede7">
+<figure id="orgc7c62dd">
 <img src="img/string-vs-stringbuilder.png" alt="string-vs-stringbuilder.png" width="500px">
 
 </figure>
@@ -1814,7 +1813,7 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 </ul>
 
 <p>
-装箱<i>拆箱 (boxing</i>unboxing):
+装箱/拆箱 (boxing/unboxing):
 </p>
 <ul class="org-ul">
 <li><b>装箱</b> 是将值类型转换为 object 类型或由此值类型实现的任何接口类型的过程</li>
@@ -2003,7 +2002,7 @@ S = <span style="color: #721045;">MakeStudent</span><span style="color: #000000;
 <h3 id="orgb089b16"><span class="section-number-3">7.5.</span> 基于 <b>字符串</b> 之间的互相转换</h3>
 <div class="outline-text-3" id="text-7-5">
 <ul class="org-ul">
-<li>核心两种方法: <code>string.Format</code> 用来转换为字符串，<code>type.Parse</code> 用来从字符串转化</li>
+<li>核心两种方法: <code>string.Format</code> 用来转换为字符串，~type.Parse~ 用来从字符串转化</li>
 <li>可以使用 <code>ToString/TryParse</code> 对上面的两个方法进行补充</li>
 </ul>
 
@@ -2188,8 +2187,8 @@ Convert.<span style="color: #721045;">TryFromBase64String</span><span style="col
 <li>作为一个字段，最重要的是 (类型) (名字) = (值)</li>
 <li>可以 <b>选择性</b> 使用其他修饰符，为字段增加 <b>额外</b> 的功能或限制:
 <ul class="org-ul">
-<li>访问修饰符: private<i>public</i>protected/internal 等，用来给予外部的访问限制</li>
-<li>只读<i>常量修饰符: const</i>readonly，用来防止数据被误修改</li>
+<li>访问修饰符: private/public/protected/internal 等，用来给予外部的访问限制</li>
+<li>只读/常量修饰符: const/readonly，用来防止数据被误修改</li>
 <li>静态修饰符: static 的作用是，将这个字段的归属权给予类</li>
 </ul></li>
 </ul>
@@ -2275,7 +2274,7 @@ Convert.<span style="color: #721045;">TryFromBase64String</span><span style="col
 </div>
 
 <div id="outline-container-org53f1e2f" class="outline-4">
-<h4 id="org53f1e2f"><span class="section-number-4">8.2.3.</span> 参数 (值参数<i>ref</i>out)</h4>
+<h4 id="org53f1e2f"><span class="section-number-4">8.2.3.</span> 参数 (值参数/ref/out)</h4>
 <div class="outline-text-4" id="text-8-2-3">
 <p>
 值参数 (默认的):
@@ -2359,7 +2358,7 @@ out:
 </div>
 
 
-<figure id="orgf8fa986">
+<figure id="org1bd8246">
 <img src="img/method-parameter.png" alt="method-parameter.png" width="400px">
 
 </figure>
@@ -2592,7 +2591,7 @@ out:
 </p>
 <ul class="org-ul">
 <li>它能减少太多冗余的模板代码；它能简化对实例中数据的可控性的访问，让代码更简洁</li>
-<li>但是不要忘了，它跟 getter<i>setter 方法的本质是一样的。最后编译器还是将我们写的属性代码转换成了 getter</i>setter 方法的形式</li>
+<li>但是不要忘了，它跟 getter/setter 方法的本质是一样的。最后编译器还是将我们写的属性代码转换成了 getter/setter 方法的形式</li>
 <li>也就是说 <code>r.Width = 333</code> 这样的属性赋值，本质就是方法调用</li>
 </ul>
 
@@ -2929,7 +2928,7 @@ readonly:
 如果想让 A 调用的 B 是派生类 <b>最下面</b> 的 B 的话，使用 <code>virutal/override</code> 将 B 设置为 <b>虚函数</b> 即可。
 子类中存在的相同方法，如果不是 override 的，那么将会是 new 的。new 可以不写</li>
 <li>在 C# 中，只允许有一个父类，即 <b>单继承</b></li>
-<li>所有类的根基类是 <b>object</b>。object 中定义了 ToString<i>GetType</i>Equal 等方法。因此，所有的对象都拥有这几个方法</li>
+<li>所有类的根基类是 <b>object</b>。object 中定义了 ToString/GetType/Equal 等方法。因此，所有的对象都拥有这几个方法</li>
 <li>在方法中，使用 <b>this</b> 表示当前的对象，使用 <b>base</b> 表示父类部分。base.Xxx 表示调用父类部分的 Xxx</li>
 <li>使用 private 修饰的数据不能被继承使用，这时候应该使用 <b>protected</b></li>
 </ul>
@@ -3481,7 +3480,7 @@ bool: true/false
 </p>
 
 <p>
-Gender (男<i>女</i>未知)
+Gender (男/女/未知)
 </p>
 </div>
 
@@ -3771,7 +3770,7 @@ Gender (男<i>女</i>未知)
 <h4 id="orgd3cb155"><span class="section-number-4">12.1.3.</span> 没有中间商赚差价，借助类和接口的方式，传递不同的方法</h4>
 <div class="outline-text-4" id="text-12-1-3">
 
-<figure id="org7d1d1d2">
+<figure id="org0461ebb">
 <img src="img/guaziershouche.png" alt="guaziershouche.png">
 
 </figure>
@@ -3966,8 +3965,8 @@ Gender (男<i>女</i>未知)
 </div>
 </div>
 
-<div id="outline-container-orgc3a946d" class="outline-3">
-<h3 id="orgc3a946d"><span class="section-number-3">12.2.</span> 基本语法</h3>
+<div id="outline-container-org217b68d" class="outline-3">
+<h3 id="org217b68d"><span class="section-number-3">12.2.</span> 基本语法</h3>
 <div class="outline-text-3" id="text-12-2">
 <div class="org-src-container">
 <pre class="src src-cs"><span style="color: #505050;">// </span><span style="color: #505050;">1. &#22768;&#26126; (&#22996;&#25176;&#31867;&#22411;)</span>
@@ -5048,7 +5047,7 @@ hs1.<span style="color: #721045;">UnionWith</span><span style="color: #000000;">
 </div>
 
 <div id="outline-container-org18d00a1" class="outline-4">
-<h4 id="org18d00a1"><span class="section-number-4">15.2.7.</span> SortedList<i>Set</i>Dictionary&lt;&gt;</h4>
+<h4 id="org18d00a1"><span class="section-number-4">15.2.7.</span> SortedList/Set/Dictionary&lt;&gt;</h4>
 </div>
 </div>
 
@@ -5092,11 +5091,11 @@ ImmutableList:
 <h2 id="org67c7d80"><span class="section-number-2">16.</span> IEnumerable/Linq</h2>
 <div class="outline-text-2" id="text-16">
 <ol class="org-ol">
-<li>string<i>array</i>List/Dict 虽然不是同一种类型，但是很像，有没有内在相似的逻辑? [思考]</li>
+<li>string/array/List/Dict 虽然不是同一种类型，但是很像，有没有内在相似的逻辑? [思考]</li>
 <li>a) 容器 b) 遍历</li>
 <li>将上述两点逻辑，抽象为接口 IEnumerable/IEnumerator(MoveNext,Current)</li>
 <li>为了便于使用这个接口，出现 foreach 语法</li>
-<li>通过插件的形式，推出了 Linq 的机制 (Where<i>Select</i>OrderBy<i>Avg</i>Sum)
+<li>通过插件的形式，推出了 Linq 的机制 (Where/Select/OrderBy/Avg/Sum)
 <ul class="org-ul">
 <li>Method 语法</li>
 <li>Query 表达式语法 (Linq to Object)</li>
@@ -5111,7 +5110,7 @@ ImmutableList:
 </div>
 
 <div id="outline-container-org7173fa2" class="outline-3">
-<h3 id="org7173fa2"><span class="section-number-3">16.1.</span> IEnumerable<i>IEnumerator</i>foreach</h3>
+<h3 id="org7173fa2"><span class="section-number-3">16.1.</span> IEnumerable/IEnumerator/foreach</h3>
 <div class="outline-text-3" id="text-16-1">
 <div class="org-src-container">
 <pre class="src src-csharp"><span style="color: #5317ac;">class</span> <span style="color: #005a5f;">Program</span>
@@ -5331,16 +5330,16 @@ Linq (Language Integrated Query，语言集成扩展)：
 <ul class="org-ul">
 <li>筛选操作符: Where/OfType</li>
 <li>投射操作符: Select/SelectMany</li>
-<li>顺序操作符: OrderBy<i>ThenBy</i>OrderByDescending<i>ThenByDescending</i>Reverse</li>
+<li>顺序操作符: OrderBy/ThenBy/OrderByDescending/ThenByDescending/Reverse</li>
 <li>连接操作符: Join/GroupJoin</li>
 <li>组合操作符: GroupBy/ToLookup</li>
-<li>限定操作符: Any<i>All</i>Contains</li>
-<li>范围操作符: Take<i>Skip</i>TakeWhile/SkipWhile</li>
-<li>集合操作符: Distinct<i>Union</i>Intersect<i>Except</i>Zip</li>
-<li>返回单元素: First<i>FirstOrDefault</i>Last<i>LastOrDefault</i>ElementAt<i>ElementAtOrDefault</i>Single/SingleOrDefault</li>
-<li>聚合操作符: Count<i>Sum</i>Min<i>Max</i>Average/Aggregate</li>
-<li>转换操作符: ToArray<i>AsEnumerable</i>ToList<i>ToDictionary</i>Cast</li>
-<li>生成操作符: Empty<i>Range</i>Repeat</li>
+<li>限定操作符: Any/All/Contains</li>
+<li>范围操作符: Take/Skip/TakeWhile/SkipWhile</li>
+<li>集合操作符: Distinct/Union/Intersect/Except/Zip</li>
+<li>返回单元素: First/FirstOrDefault/Last/LastOrDefault/ElementAt/ElementAtOrDefault/Single/SingleOrDefault</li>
+<li>聚合操作符: Count/Sum/Min/Max/Average/Aggregate</li>
+<li>转换操作符: ToArray/AsEnumerable/ToList/ToDictionary/Cast</li>
+<li>生成操作符: Empty/Range/Repeat</li>
 </ul>
 
 <div class="org-src-container">
@@ -8051,8 +8050,8 @@ Console.<span style="color: #721045;">ReadKey</span><span style="color: #000000;
 </div>
 </section>
 
-<section id="outline-container-org3e8acac" class="outline-2">
-<h2 id="org3e8acac"><span class="section-number-2">23.</span> Socket</h2>
+<section id="outline-container-orgf785cf4" class="outline-2">
+<h2 id="orgf785cf4"><span class="section-number-2">23.</span> Socket</h2>
 <div class="outline-text-2" id="text-23">
 </div>
 <div id="outline-container-orgd2b4814" class="outline-3">
@@ -8069,7 +8068,7 @@ Console.<span style="color: #721045;">ReadKey</span><span style="color: #000000;
 </ul>
 
 
-<figure id="orgc632f90">
+<figure id="org45f69e1">
 <img src="img/osi-1.png" alt="osi-1.png">
 
 </figure>
@@ -8082,7 +8081,7 @@ Console.<span style="color: #721045;">ReadKey</span><span style="color: #000000;
 <li>到现在为止, Windows 操作系统也没有完全实现 OSI 协议</li>
 <li>反而在这个过程中，围绕着 TCP 和 IP 这两种协议，衍生出了 TCP/IP Protocol Stack (协议栈) 的概念，并且被广泛使用</li>
 <li>TCP/IP 协议栈慢慢就成为了事实上的标准；但是学习的时候，理论上还是以 OSI 为基准</li>
-<li>TCP<i>IP 出现在 OSI 模型之前，但是后面 OSI 出现之后，TCP</i>IP 借鉴了其中很多想法，包括分层</li>
+<li>TCP/IP 出现在 OSI 模型之前，但是后面 OSI 出现之后，TCP/IP 借鉴了其中很多想法，包括分层</li>
 <li>正因为如此，OSI 模型，现在变成了 <b>参考</b> 模型</li>
 </ul>
 </div>
@@ -8092,21 +8091,21 @@ Console.<span style="color: #721045;">ReadKey</span><span style="color: #000000;
 <h3 id="orgf72c611"><span class="section-number-3">23.2.</span> TCP/IP 协议栈</h3>
 <div class="outline-text-3" id="text-23-2">
 
-<figure id="org8811f55">
+<figure id="org8116f64">
 <img src="img/tcpipstack.png" alt="tcpipstack.png">
 
 </figure>
 
 
 
-<figure id="orgfc077b9">
+<figure id="org6945da3">
 <img src="img/tcpip-2222.png" alt="tcpip-2222.png">
 
 </figure>
 
 
 
-<figure id="orgd5a272e">
+<figure id="org8a7e50d">
 <img src="img/tcpip-3332.png" alt="tcpip-3332.png">
 
 </figure>
@@ -8127,7 +8126,7 @@ URI (Uniform Resource Identifier), 统一资源标识符:
 <p>
 示例:
 </p>
-<pre class="example" id="orgdc61853">
+<pre class="example" id="org36d435b">
 ftp://ftp.is.co.za/rfc/rfc1808.txt (also a URL because of the protocol)
 http://www.ietf.org/rfc/rfc2396.txt (also a URL because of the protocol)
 ldap://[2001:db8::7]/c=GB?objectClass?one (also a URL because of the protocol)
@@ -8212,8 +8211,8 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 </div>
 </div>
 
-<div id="outline-container-orgd9da66a" class="outline-3">
-<h3 id="orgd9da66a"><span class="section-number-3">23.5.</span> Socket</h3>
+<div id="outline-container-org3e8acac" class="outline-3">
+<h3 id="org3e8acac"><span class="section-number-3">23.5.</span> Socket</h3>
 <div class="outline-text-3" id="text-23-5">
 <p>
 插座来了。
@@ -8239,7 +8238,7 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 </ul>
 
 
-<figure id="org2f1330a">
+<figure id="orgba97d6c">
 <img src="img/tcp3333.png" alt="tcp3333.png">
 
 </figure>
@@ -8256,8 +8255,8 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 </ul>
 </div>
 
-<div id="outline-container-org217b68d" class="outline-5">
-<h5 id="org217b68d"><span class="section-number-5">23.5.2.1.</span> 基本语法</h5>
+<div id="outline-container-org37ecbf2" class="outline-5">
+<h5 id="org37ecbf2"><span class="section-number-5">23.5.2.1.</span> 基本语法</h5>
 <div class="outline-text-5" id="text-23-5-2-1">
 <div class="org-src-container">
 <pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">TCP &#32534;&#31243;&#19977;&#26495;&#26023;:</span>
@@ -8528,7 +8527,7 @@ webServer.<span style="color: #721045;">Start</span><span style="color: #000000;
 
 
 <div id="outline-container-org96e1398" class="outline-4">
-<h4 id="org96e1398"><span class="section-number-4">23.8.2.</span> HttpWebRequest<i>WebClient</i>HttpClient</h4>
+<h4 id="org96e1398"><span class="section-number-4">23.8.2.</span> HttpWebRequest/WebClient/HttpClient</h4>
 </div>
 </div>
 </section>
@@ -8730,7 +8729,7 @@ Parameters 可以 a) 简化代码 b) 防止 SQL 注入:
 <div class="outline-text-3" id="text-24-2">
 <ul class="org-ul">
 <li>Sakila: <a href="https://github.com/ivanceras/sakila">https://github.com/ivanceras/sakila</a></li>
-<li>Northwind<i>AdventureWorks: https:/</i>github.com<i>Microsoft</i>sql-server-samples</li>
+<li>Northwind/AdventureWorks: <a href="https://github.com/Microsoft/sql-server-samples">https://github.com/Microsoft/sql-server-samples</a></li>
 <li>生成示例数据库: <a href="https://mockaroo.com/">https://mockaroo.com/</a></li>
 </ul>
 </div>
@@ -8750,7 +8749,7 @@ Parameters 可以 a) 简化代码 b) 防止 SQL 注入:
 <ul class="org-ul">
 <li>Console.Write/WriteLine，用来向控制台输出内容</li>
 <li>Console.Clear，用来清空屏幕内容</li>
-<li>Console.ForegroundColor<i>BackgroudColor</i>ResetColor，用来设置控制台颜色</li>
+<li>Console.ForegroundColor/BackgroudColor/ResetColor，用来设置控制台颜色</li>
 <li>Console.ReadLine，用来从控制台读取用户输入的字符串</li>
 <li>Console.ReadKey，用来读取按键，返回一个 ConsoleKeyInfo 对象</li>
 <li>Console.Beep，用来让控制台发出声音</li>
@@ -9144,7 +9143,7 @@ sw.<span style="color: #721045;">Stop</span><span style="color: #000000;">()</sp
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2022-09-26</p>
+<p class="date">Created: 2022-09-27</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
