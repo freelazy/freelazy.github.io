@@ -185,6 +185,55 @@ Global.asax:
 
 通过以上操作，一个完整的 Web 窗体就有了。
 
+另外，不同的页面往往在整体的布局存在很多相似之处，不同页面存在大量雷同代码。
+为了简化在 aspx 中构建页面，可以通过母版的方式，将整体的页面布局代码分离到外面 (挖坑-填坑)，
+达到共用布局的目的。
+
+方法很简单，首先，要创建一个模板文件。它跟 aspx 很像，只是文件的后缀和页面指令不同。比如，创建一个 yyy.Master 母版:
+#+begin_src html
+  <%@ Master Language="C#" %>
+
+  <html>
+  <head>
+      <title></title>
+      <asp:ContentPlaceHolder ID="head" runat="server" />
+  </head>
+  <body>
+      <aside>
+          菜单
+      </aside>
+      <div class="main">
+          <asp:ContentPlaceHolder ID="main" runat="server" />
+      </div>
+  </body>
+  </html>
+#+end_src
+
+通过使用 ~asp:ContentPlaceHolder~ 挖坑。使用这个母版的 aspx 文件，只需要用 ~asp:Content~ 填坑即可。
+
+#+begin_src html
+  <%@ Page Language="C#" AutoEventWireup="true"
+      MasterPageFile="~/yyy.Master"
+      CodeBehind="WebForm2.aspx.cs" Inherits="WebApplication2.WebForm2" %>
+
+  <asp:Content runat="server" ContentPlaceHolderID="head">
+      <style>
+          .main {
+              background: lightyellow;
+              height: 200px;
+          }
+      </style>
+  </asp:Content>
+
+  <asp:Content runat="server" ContentPlaceHolderID="main">
+      <div style="color: red;">
+          我是另外的一个页面
+      </div>
+  </asp:Content>
+#+end_src
+
+就这样，就实现了页面布局的可重复使用。编码可以更灵活了。
+
 * ASP.NET MVC
 
 MVC:

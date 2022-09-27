@@ -300,6 +300,65 @@ Global.asax:
 <p>
 通过以上操作，一个完整的 Web 窗体就有了。
 </p>
+
+<p>
+另外，不同的页面往往在整体的布局存在很多相似之处，不同页面存在大量雷同代码。
+为了简化在 aspx 中构建页面，可以通过母版的方式，将整体的页面布局代码分离到外面 (挖坑-填坑)，
+达到共用布局的目的。
+</p>
+
+<p>
+方法很简单，首先，要创建一个模板文件。它跟 aspx 很像，只是文件的后缀和页面指令不同。比如，创建一个 yyy.Master 母版:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span>%@ Master <span style="color: #00538b;">Language</span>=<span style="color: #2544bb;">"C#"</span> %<span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">head</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">title</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">title</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">ContentPlaceHolder</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"head"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">head</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">body</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">aside</span><span style="color: #000000;">&gt;</span>
+        &#33756;&#21333;
+    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">aside</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #00538b;">class</span>=<span style="color: #2544bb;">"main"</span><span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">ContentPlaceHolder</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"main"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">body</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+通过使用 <code>asp:ContentPlaceHolder</code> 挖坑。使用这个母版的 aspx 文件，只需要用 <code>asp:Content</code> 填坑即可。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span>%@ Page <span style="color: #00538b;">Language</span>=<span style="color: #2544bb;">"C#"</span> <span style="color: #00538b;">AutoEventWireup</span>=<span style="color: #2544bb;">"true"</span>
+    <span style="color: #00538b;">MasterPageFile</span>=<span style="color: #2544bb;">"~/yyy.Master"</span>
+    <span style="color: #00538b;">CodeBehind</span>=<span style="color: #2544bb;">"WebForm2.aspx.cs"</span> <span style="color: #00538b;">Inherits</span>=<span style="color: #2544bb;">"WebApplication2.WebForm2"</span> %<span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Content</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">ContentPlaceHolderID</span>=<span style="color: #2544bb;">"head"</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
+        <span style="color: #5317ac;">.main </span><span style="color: #000000;">{</span>
+            <span style="color: #005a5f;">background</span>: <span style="color: #000000; background-color: #ffffe0;">lightyellow</span>;
+            <span style="color: #005a5f;">height</span>: 200px;
+        <span style="color: #000000;">}</span>
+    <span style="color: #000000;">&lt;</span>/style<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Content</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Content</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">ContentPlaceHolderID</span>=<span style="color: #2544bb;">"main"</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #00538b;">style</span>=<span style="color: #2544bb;">"color: red;"</span><span style="color: #000000;">&gt;</span>
+        &#25105;&#26159;&#21478;&#22806;&#30340;&#19968;&#20010;&#39029;&#38754;
+    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Content</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+就这样，就实现了页面布局的可重复使用。编码可以更灵活了。
+</p>
 </div>
 </div>
 </section>

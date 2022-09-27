@@ -15,6 +15,7 @@
 - prevent: 阻止
 - Cookie: 饼干
 - Session: 会话
+- master/slaver: 主人/奴隶
 
 * 简单单词
 
