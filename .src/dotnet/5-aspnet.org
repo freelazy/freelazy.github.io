@@ -234,7 +234,7 @@ Global.asax:
 
 就这样，就实现了页面布局的可重复使用。编码可以更灵活了。
 
-** 基本流程
+** Page 类
 
 你 (Browser) 请求 http://localhost:893232/Hello.aspx 到我 (IIS):
 - 首先，查找 aspx 有没有对应的编译文件。如果有，执行之；否则，先编译，后执行之
