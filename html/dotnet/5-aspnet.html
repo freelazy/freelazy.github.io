@@ -28,6 +28,7 @@
 <li><a href="#orgc345950">4. ASP.NET Webform</a>
 <ul>
 <li><a href="#org2585d5b">4.1. aspx 文件</a></li>
+<li><a href="#org78f20fd">4.2. 基本流程</a></li>
 </ul>
 </li>
 <li><a href="#org1a00f89">5. ASP.NET MVC</a></li>
@@ -359,6 +360,24 @@ Global.asax:
 <p>
 就这样，就实现了页面布局的可重复使用。编码可以更灵活了。
 </p>
+</div>
+</div>
+
+<div id="outline-container-org78f20fd" class="outline-3">
+<h3 id="org78f20fd"><span class="section-number-3">4.2.</span> 基本流程</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+你 (Browser) 请求 <a href="http://localhost:893232/Hello.aspx">http://localhost:893232/Hello.aspx</a> 到我 (IIS):
+</p>
+<ul class="org-ul">
+<li>首先，查找 aspx 有没有对应的编译文件。如果有，执行之；否则，先编译，后执行之</li>
+<li>aspx 会被动态编译成相应的 csharp 文件，之后会被编译进 dll 中 (HttpRuntime.CodegenDir)</li>
+<li>aspx 文件实质是 <code>Page</code> 的一个子类，它实现了 <code>IHttpHandler</code> 接口</li>
+<li>aspx 还实现了 <code>IRequiresSessionState</code> 接口，因此可以在 aspx 中自由使用 Session</li>
+<li>在父类 Page 中，定义了控件加载的逻辑和页面渲染的逻辑</li>
+<li>在父类 Page 中，初始化了很多属性和方法，可以直接使用</li>
+<li>因此，掌握 Page 类的<b>生命周期</b>和 Page 的基本方法属性非常重要</li>
+</ul>
 </div>
 </div>
 </section>

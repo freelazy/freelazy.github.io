@@ -234,6 +234,17 @@ Global.asax:
 
 就这样，就实现了页面布局的可重复使用。编码可以更灵活了。
 
+** 基本流程
+
+你 (Browser) 请求 http://localhost:893232/Hello.aspx 到我 (IIS):
+- 首先，查找 aspx 有没有对应的编译文件。如果有，执行之；否则，先编译，后执行之
+- aspx 会被动态编译成相应的 csharp 文件，之后会被编译进 dll 中 (HttpRuntime.CodegenDir)
+- aspx 文件实质是 ~Page~ 的一个子类，它实现了 ~IHttpHandler~ 接口
+- aspx 还实现了 ~IRequiresSessionState~ 接口，因此可以在 aspx 中自由使用 Session
+- 在父类 Page 中，定义了控件加载的逻辑和页面渲染的逻辑
+- 在父类 Page 中，初始化了很多属性和方法，可以直接使用
+- 因此，掌握 Page 类的​*生命周期*和 Page 的基本方法属性非常重要
+
 * ASP.NET MVC
 
 MVC:
