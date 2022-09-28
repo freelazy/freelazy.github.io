@@ -29,6 +29,7 @@
 <ul>
 <li><a href="#org2585d5b">4.1. aspx 文件</a></li>
 <li><a href="#org3adc12e">4.2. Page 类</a></li>
+<li><a href="#org7b56e37">4.3. Page 生命周期</a></li>
 </ul>
 </li>
 <li><a href="#org1a00f89">5. ASP.NET MVC</a></li>
@@ -378,15 +379,35 @@ Global.asax:
 <li>在父类 Page 中，初始化了很多属性和方法，可以直接使用</li>
 <li>因此，掌握 Page 类的<b>生命周期</b>和 Page 的基本方法属性非常重要</li>
 </ul>
+</div>
+</div>
+
+<div id="outline-container-org7b56e37" class="outline-3">
+<h3 id="org7b56e37"><span class="section-number-3">4.3.</span> Page 生命周期</h3>
+<div class="outline-text-3" id="text-4-3">
+
+<figure id="org9905f59">
+<img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
+
+</figure>
 
 <p>
-Page 类事件：
-<img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
+PreInit:
 </p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">1. &#36890;&#36807;&#26816;&#26597; IsPostBack &#26469;&#30830;&#23450;&#39029;&#38754;&#26159;&#21542;&#26159;&#31532;&#19968;&#27425;&#34987;&#21152;&#36733;</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">2. &#21019;&#24314;&#25110;&#37325;&#24314;&#26381;&#21153;&#22120;&#25511;&#20214;</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">3. &#35774;&#32622;&#27597;&#29256; (Master)</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">4. &#35774;&#32622;&#20027;&#39064; (Theme)</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">&#27880;&#24847;: &#22914;&#26524;&#39029;&#38754;&#26159; postback &#37027;&#20040;&#25511;&#20214;&#30340;&#20540;&#36824;&#27809;&#26377;&#34987;&#24674;&#22797;&#65292;&#22240;&#27492;&#20320;&#22312;&#36825;&#20010;&#38454;&#27573;&#35774;&#32622;&#30340;&#25511;&#20214;&#20540;&#20063;&#35768;&#20250;&#34987;&#35206;&#30422;</span>
+<span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_Init</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
 </div>
 </div>
 </section>
-
 
 <section id="outline-container-org1a00f89" class="outline-2">
 <h2 id="org1a00f89"><span class="section-number-2">5.</span> ASP.NET MVC</h2>

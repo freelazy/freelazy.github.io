@@ -245,9 +245,21 @@ Global.asax:
 - 在父类 Page 中，初始化了很多属性和方法，可以直接使用
 - 因此，掌握 Page 类的​*生命周期*和 Page 的基本方法属性非常重要
 
-Page 类事件：
+** Page 生命周期
+
 [[file:img/oimg_20220928_005325.png]]
 
+PreInit:
+#+begin_src csharp
+    // 1. 通过检查 IsPostBack 来确定页面是否是第一次被加载
+    // 2. 创建或重建服务器控件
+    // 3. 设置母版 (Master)
+    // 4. 设置主题 (Theme)
+    // 注意: 如果页面是 postback 那么控件的值还没有被恢复，因此你在这个阶段设置的控件值也许会被覆盖
+    protected void Page_Init(object sender, EventArgs e)
+    {
+    }
+#+end_src
 
 * ASP.NET MVC
 
