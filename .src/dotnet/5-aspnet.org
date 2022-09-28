@@ -276,7 +276,8 @@ InitComplete:
 #+begin_src csharp
   protected void Page_InitComplete(object sender, EventArgs e)
   {
-      // 1. 在这个阶段，viewstate 值还没有被加载，因此您可以使用此事件对视图状态进行更改，以确保在下一次 postback 后保留这些更改
+      // 1. 在这个阶段，viewstate 值还没有被加载。
+      //    因此您可以使用此事件对视图状态进行更改，以确保在下一次 postback 后保留这些更改
       // 2. 这个事件是被 Page 对象触发的
       // 3. 如果需要所有初始化工作完成才能执行的任务，可以写在这里
   }
