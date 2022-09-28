@@ -386,7 +386,7 @@ Global.asax:
 <h3 id="org7b56e37"><span class="section-number-3">4.3.</span> Page 生命周期</h3>
 <div class="outline-text-3" id="text-4-3">
 
-<figure id="org9905f59">
+<figure id="org54e093c">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -395,16 +395,148 @@ Global.asax:
 PreInit:
 </p>
 <div class="org-src-container">
-<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">1. &#36890;&#36807;&#26816;&#26597; IsPostBack &#26469;&#30830;&#23450;&#39029;&#38754;&#26159;&#21542;&#26159;&#31532;&#19968;&#27425;&#34987;&#21152;&#36733;</span>
-<span style="color: #505050;">// </span><span style="color: #505050;">2. &#21019;&#24314;&#25110;&#37325;&#24314;&#26381;&#21153;&#22120;&#25511;&#20214;</span>
-<span style="color: #505050;">// </span><span style="color: #505050;">3. &#35774;&#32622;&#27597;&#29256; (Master)</span>
-<span style="color: #505050;">// </span><span style="color: #505050;">4. &#35774;&#32622;&#20027;&#39064; (Theme)</span>
-<span style="color: #505050;">// </span><span style="color: #505050;">&#27880;&#24847;: &#22914;&#26524;&#39029;&#38754;&#26159; postback &#37027;&#20040;&#25511;&#20214;&#30340;&#20540;&#36824;&#27809;&#26377;&#34987;&#24674;&#22797;&#65292;&#22240;&#27492;&#20320;&#22312;&#36825;&#20010;&#38454;&#27573;&#35774;&#32622;&#30340;&#25511;&#20214;&#20540;&#20063;&#35768;&#20250;&#34987;&#35206;&#30422;</span>
-<span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_Init</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_PreInit</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
 <span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#36890;&#36807;&#26816;&#26597; IsPostBack &#26469;&#30830;&#23450;&#39029;&#38754;&#26159;&#21542;&#26159;&#31532;&#19968;&#27425;&#34987;&#21152;&#36733;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#21019;&#24314;(&#25110;&#37325;&#24314;)&#26381;&#21153;&#22120;&#25511;&#20214;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#35774;&#32622;&#27597;&#29256; (Master)</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">4. &#35774;&#32622;&#20027;&#39064; (Theme)</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#27880;&#24847;: &#22914;&#26524;&#39029;&#38754;&#26159; postback &#37027;&#20040;&#25511;&#20214;&#30340;&#20540;&#36824;&#27809;&#26377;&#34987;&#24674;&#22797;&#65292;&#22240;&#27492;&#20320;&#22312;&#36825;&#20010;&#38454;&#27573;&#35774;&#32622;&#30340;&#25511;&#20214;&#20540;&#20063;&#35768;&#20250;&#34987;&#35206;&#30422;</span>
 <span style="color: #000000;">}</span>
 </pre>
 </div>
+
+<p>
+Init:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_Init</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#36825;&#20010;&#20107;&#20214;&#26159;&#22312;&#25152;&#26377;&#25511;&#20214;&#37117;&#34987;&#21021;&#22987;&#21270;&#20043;&#21518;&#34987;&#35302;&#21457;&#30340;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#20026;&#27599;&#20010;&#25511;&#20214;&#35774;&#32622; UniqueID&#65292;&#24182;&#19988;&#24212;&#29992;&#30382;&#32932;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#21487;&#20197;&#20351;&#29992;&#36825;&#20010;&#20107;&#20214;&#26469;&#35835;&#21462;&#25110;&#21021;&#22987;&#21270;&#25511;&#20214;&#30340;&#23646;&#24615;&#65288;&#65281;&#65281;&#65281;&#65289;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">4. &#22312;&#25511;&#20214;&#26641;&#20013;&#65292;Init &#20107;&#20214;&#26159;&#30001;&#20869;&#32780;&#22806;&#30340;&#39034;&#24207;&#35302;&#21457;&#30340;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+InitComplete:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_InitComplete</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#22312;&#36825;&#20010;&#38454;&#27573;&#65292;viewstate &#20540;&#36824;&#27809;&#26377;&#34987;&#21152;&#36733;&#65292;&#22240;&#27492;&#24744;&#21487;&#20197;&#20351;&#29992;&#27492;&#20107;&#20214;&#23545;&#35270;&#22270;&#29366;&#24577;&#36827;&#34892;&#26356;&#25913;&#65292;&#20197;&#30830;&#20445;&#22312;&#19979;&#19968;&#27425; postback &#21518;&#20445;&#30041;&#36825;&#20123;&#26356;&#25913;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#36825;&#20010;&#20107;&#20214;&#26159;&#34987; Page &#23545;&#35937;&#35302;&#21457;&#30340;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#22914;&#26524;&#38656;&#35201;&#25152;&#26377;&#21021;&#22987;&#21270;&#24037;&#20316;&#23436;&#25104;&#25165;&#33021;&#25191;&#34892;&#30340;&#20219;&#21153;&#65292;&#21487;&#20197;&#20889;&#22312;&#36825;&#37324;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+OnPreLoad:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">OnPreLoad</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#26159;&#22312; Page &#23545;&#35937;&#24050;&#32463;&#21152;&#36733;&#20102; ViewState &#20013;&#30340;&#20540;&#12289;&#24182;&#21152;&#36733;&#23436;&#25104;&#25152;&#26377;&#25511;&#20214;&#12289;&#24182;&#36890;&#36807; request &#21442;&#25968;&#22788;&#29702;&#23436; postback &#25968;&#25454;&#20043;&#21518;&#65292;&#25165;&#35302;&#21457;&#30340;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+Load:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_Load</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. Page &#23545;&#35937;&#20250;&#25191;&#34892; Page &#19978;&#38754;&#30340; OnLoad &#26041;&#27861;&#65292;&#28982;&#21518;&#36882;&#24402;&#22320;&#25191;&#34892;&#23376;&#25511;&#20214;&#30340; OnLoad &#26041;&#27861;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#36825;&#26159;&#22312;&#29983;&#21629;&#21608;&#26399;&#20013;&#65292;&#31532;&#19968;&#20010;&#25152;&#26377;&#30340;&#20540;&#37117;&#34987;&#23436;&#20840;&#24674;&#22797;&#20102;&#30340;&#38454;&#27573;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#32477;&#22823;&#22810;&#25968;&#24773;&#20917;&#19979;&#65292;&#21487;&#20197;&#36890;&#36807;&#26816;&#26597; IsPostBack &#30340;&#20540;&#26469;&#36991;&#20813;&#19981;&#24517;&#35201;&#30340;&#37325;&#32622;&#29366;&#24577;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">4. &#22312;&#36825;&#37324;&#65292;&#36866;&#21512;&#36827;&#34892;&#36755;&#20837;&#39564;&#35777;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">5. &#22312;&#36825;&#37324;&#65292;&#36866;&#21512;&#21160;&#24577;&#21019;&#24314;&#12289;&#28155;&#21152;&#32452;&#20214;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">6. &#22312;&#36825;&#37324;&#65292;&#36866;&#21512;&#35843;&#25972;&#25511;&#20214;&#30340;&#23646;&#24615;&#65292;&#36866;&#21512;&#21019;&#24314;&#25968;&#25454;&#24211;&#36830;&#25509;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+控件上的 PostBack 事件:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Button1_Click</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. ASP.NET &#29616;&#22312;&#20250;&#35843;&#29992;&#25152;&#26377;&#22312; Page &#25110;&#23376;&#25511;&#20214;&#19978;&#30340;&#33021;&#23548;&#33268; PostBack &#30340;&#20107;&#20214;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#20351;&#29992;&#36825;&#20123;&#20107;&#20214;&#65292;&#21487;&#20197;&#22788;&#29702;&#27604;&#22914; Button &#28857;&#20987;&#12289;TextBox &#30340;&#25991;&#26412;&#21464;&#21160;&#31561;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+LoadComplete:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_LoadComplete</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#22312;&#20107;&#20214;&#22788;&#29702;&#38454;&#27573;&#30340;&#26368;&#21518;&#34987;&#35302;&#21457;&#30340;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#36825;&#37324;&#36866;&#21512;&#25152;&#26377;&#30340;&#20854;&#20182;&#25511;&#20214;&#37117;&#34987;&#23436;&#20840;&#21152;&#36733;&#20043;&#21518;&#30340;&#20219;&#21153;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+OnPreRender:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">OnPreRender</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#22312;&#25152;&#26377;&#30340;&#23545;&#35937;&#37117;&#24050;&#32463;&#23436;&#20840;&#20934;&#22791;&#22909;&#30340;&#24773;&#20917;&#19979;&#35302;&#21457;&#30340;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#20808;&#26159; Page &#19978;&#30340; OnPreRender &#34987;&#25191;&#34892;&#65292;&#28982;&#21518;&#36882;&#24402;&#25191;&#34892;&#23376;&#25511;&#20214;&#19978;&#30340; OnPreRender</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#20801;&#35768;&#23545;&#39029;&#38754;&#25110;&#20854;&#25511;&#20214;&#36827;&#34892;&#26368;&#32456;&#26356;&#25913;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">4. &#36825;&#20010;&#20107;&#20214;&#21457;&#29983;&#22312;&#20445;&#23384; ViewState &#20043;&#21069;&#65292;&#25152;&#20197;&#22312;&#36825;&#37324;&#20570;&#30340;&#20219;&#20309;&#20462;&#25913;&#37117;&#23558;&#34987;&#20445;&#23384;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">5. &#35774;&#32622;&#20102; DataSourceID &#23646;&#24615;&#30340;&#27599;&#20010;&#25968;&#25454;&#32465;&#23450;&#25511;&#20214;&#37117;&#35843;&#29992;&#20854; DataBind &#26041;&#27861;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">6. &#36825;&#37324;&#36866;&#21512;&#29992;&#26469;&#23545; Page &#25110;&#25511;&#20214;&#36827;&#34892;&#26368;&#21518;&#30340;&#35843;&#25972;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+OnSaveStateComplete:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">OnSaveStateComplete</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#22312;&#39029;&#38754;&#21644;&#25511;&#20214;&#30340; ViewState &#24050;&#32463;&#34987;&#20445;&#23384;&#20043;&#21518;&#35302;&#21457;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#22312;&#36825;&#37324;&#23545;&#39029;&#38754;&#25110;&#25511;&#20214;&#30340;&#20462;&#25913;&#65292;&#20250;&#34987;&#24573;&#30053;&#25481;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#36825;&#37324;&#36866;&#21512;&#19981;&#24819;&#25913;&#21464; ViewState &#30340;&#19968;&#20123;&#21892;&#21518;&#24037;&#20316;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+Render-Method:
+</p>
+<ul class="org-ul">
+<li>Render 方法存在于 Page 对象和其子控件中</li>
+<li>这个阶段，其实就是 ASP.NET 拼接 html 字符串，响应给用户的过程</li>
+</ul>
+
+<p>
+Unload:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_Unload</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#36825;&#20010;&#26041;&#27861;&#29992;&#26469;&#36827;&#34892;&#28165;&#29702;&#24037;&#20316;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#22312;&#36825;&#20010;&#38454;&#27573;&#65292;&#25152;&#26377;&#24037;&#20316;&#37117;&#24050;&#32463;&#23436;&#25104;&#65292;&#21487;&#20197;&#25918;&#24515;&#37322;&#25918;&#20219;&#20309;&#36164;&#28304;&#65292;&#21253;&#25324; Page &#23545;&#35937;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#22312;&#36825;&#37324;&#65292;&#19981;&#33021;&#20351;&#29992; ~Response.Write~ &#36827;&#34892;&#36755;&#20986;&#65292;&#21542;&#21017;&#20250;&#25253;&#38169;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+参考: <a href="https://www.c-sharpcorner.com/UploadFile/8911c4/page-life-cycle-with-examples-in-Asp-Net/">https://www.c-sharpcorner.com/UploadFile/8911c4/page-life-cycle-with-examples-in-Asp-Net/</a>
+</p>
 </div>
 </div>
 </section>

@@ -251,15 +251,114 @@ Global.asax:
 
 PreInit:
 #+begin_src csharp
-    // 1. 通过检查 IsPostBack 来确定页面是否是第一次被加载
-    // 2. 创建或重建服务器控件
-    // 3. 设置母版 (Master)
-    // 4. 设置主题 (Theme)
-    // 注意: 如果页面是 postback 那么控件的值还没有被恢复，因此你在这个阶段设置的控件值也许会被覆盖
-    protected void Page_Init(object sender, EventArgs e)
-    {
-    }
+  protected void Page_PreInit(object sender, EventArgs e)
+  {
+      // 1. 通过检查 IsPostBack 来确定页面是否是第一次被加载
+      // 2. 创建(或重建)服务器控件
+      // 3. 设置母版 (Master)
+      // 4. 设置主题 (Theme)
+      // 注意: 如果页面是 postback 那么控件的值还没有被恢复，因此你在这个阶段设置的控件值也许会被覆盖
+  }
 #+end_src
+
+Init:
+#+begin_src csharp
+  protected void Page_Init(object sender, EventArgs e)
+  {
+      // 1. 这个事件是在所有控件都被初始化之后被触发的
+      // 2. 为每个控件设置 UniqueID，并且应用皮肤
+      // 3. 可以使用这个事件来读取或初始化控件的属性（！！！）
+      // 4. 在控件树中，Init 事件是由内而外的顺序触发的
+  }
+#+end_src
+
+InitComplete:
+#+begin_src csharp
+  protected void Page_InitComplete(object sender, EventArgs e)
+  {
+      // 1. 在这个阶段，viewstate 值还没有被加载，因此您可以使用此事件对视图状态进行更改，以确保在下一次 postback 后保留这些更改
+      // 2. 这个事件是被 Page 对象触发的
+      // 3. 如果需要所有初始化工作完成才能执行的任务，可以写在这里
+  }
+#+end_src
+
+OnPreLoad:
+#+begin_src csharp
+  protected void OnPreLoad(object sender, EventArgs e)
+  {
+      // 是在 Page 对象已经加载了 ViewState 中的值、并加载完成所有控件、并通过 request 参数处理完 postback 数据之后，才触发的
+  }
+#+end_src
+
+Load:
+#+begin_src csharp
+  protected void Page_Load(object sender, EventArgs e)
+  {
+      // 1. Page 对象会执行 Page 上面的 OnLoad 方法，然后递归地执行子控件的 OnLoad 方法
+      // 2. 这是在生命周期中，第一个所有的值都被完全恢复了的阶段
+      // 3. 绝大多数情况下，可以通过检查 IsPostBack 的值来避免不必要的重置状态
+      // 4. 在这里，适合进行输入验证
+      // 5. 在这里，适合动态创建、添加组件
+      // 6. 在这里，适合调整控件的属性，适合创建数据库连接
+  }
+#+end_src
+
+控件上的 PostBack 事件:
+#+begin_src csharp
+  protected void Button1_Click(object sender, EventArgs e)
+  {
+      // 1. ASP.NET 现在会调用所有在 Page 或子控件上的能导致 PostBack 的事件
+      // 2. 使用这些事件，可以处理比如 Button 点击、TextBox 的文本变动等
+  }
+#+end_src
+
+LoadComplete:
+#+begin_src csharp
+  protected void Page_LoadComplete(object sender, EventArgs e)
+  {
+      // 1. 在事件处理阶段的最后被触发的
+      // 2. 这里适合所有的其他控件都被完全加载之后的任务
+  }
+#+end_src
+
+OnPreRender:
+#+begin_src csharp
+  protected void OnPreRender(object sender, EventArgs e)
+  {
+      // 1. 在所有的对象都已经完全准备好的情况下触发的
+      // 2. 先是 Page 上的 OnPreRender 被执行，然后递归执行子控件上的 OnPreRender
+      // 3. 允许对页面或其控件进行最终更改
+      // 4. 这个事件发生在保存 ViewState 之前，所以在这里做的任何修改都将被保存
+      // 5. 设置了 DataSourceID 属性的每个数据绑定控件都调用其 DataBind 方法
+      // 6. 这里适合用来对 Page 或控件进行最后的调整
+  }
+#+end_src
+
+OnSaveStateComplete:
+#+begin_src csharp
+  protected void OnSaveStateComplete(object sender, EventArgs e)
+  {
+      // 1. 在页面和控件的 ViewState 已经被保存之后触发
+      // 2. 在这里对页面或控件的修改，会被忽略掉
+      // 3. 这里适合不想改变 ViewState 的一些善后工作
+  }
+#+end_src
+
+Render-Method:
+- Render 方法存在于 Page 对象和其子控件中
+- 这个阶段，其实就是 ASP.NET 拼接 html 字符串，响应给用户的过程
+
+Unload:
+#+begin_src csharp
+  protected void Page_Unload(object sender, EventArgs e)
+  {
+      // 1. 这个方法用来进行清理工作
+      // 2. 在这个阶段，所有工作都已经完成，可以放心释放任何资源，包括 Page 对象
+      // 3. 在这里，不能使用 ~Response.Write~ 进行输出，否则会报错
+  }
+#+end_src
+
+参考: https://www.c-sharpcorner.com/UploadFile/8911c4/page-life-cycle-with-examples-in-Asp-Net/
 
 * ASP.NET MVC
 
