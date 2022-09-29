@@ -361,6 +361,58 @@ Unload:
 
 参考: https://www.c-sharpcorner.com/UploadFile/8911c4/page-life-cycle-with-examples-in-Asp-Net/
 
+** 数据控件
+*** GridView
+
+https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.gridview?view=netframework-4.8
+
+最简方式:
+#+begin_src html
+  <asp:SqlDataSource ID="DS1" runat="server"
+                     SelectCommand="select * from students"
+                     ConnectionString="<%$ ConnectionStrings: mydb %>" />
+  <asp:GridView DataSourceID="DS1" runat="server" />
+#+end_src
+
+编程方式的数据源:
+#+begin_src csharp
+  studentsGV.DataSource = 
+      DbHelper.DoExecuteQuery("select * from students");
+  studentsGV.DataBind();
+#+end_src
+#+begin_src html
+  <asp:GridView ID="studentsGV" runat="server" />
+#+end_src
+
+灵活定义视图格式:
+#+begin_src html
+  <asp:GridView ID="studentsGV" runat="server"
+      ShowFooter="true" 
+      AutoGenerateColumns="false"
+      AllowSorting="true"
+      EmptyDataText="没有查询到任何学生">
+      <Columns>
+          <asp:BoundField DataField="name" HeaderText="姓名" SortExpression="id"/>
+          <asp:BoundField DataField="homecity" />
+          <asp:ButtonField ButtonType="Link" Text="dksk" />
+          <asp:CommandField ShowDeleteButton="true" ShowEditButton="true" />
+          <asp:TemplateField>
+              <ItemTemplate>
+                  <div>
+                      <p><%# Eval("name") %> (<%# Eval("homecity") %>)</p>
+                      <h3 style="color: red">我是谁</h3>
+                      <h5 style="color: green">我就是我，不一样的烟火</h5>
+                      <asp:Button ID="dddd" runat="server" Text="我是按钮" />
+                  </div>
+              </ItemTemplate>
+              <ItemStyle BackColor="Green" />
+          </asp:TemplateField>
+      </Columns>
+      <AlternatingRowStyle BackColor="LightBlue" Font-Size="XX-Large"/>
+      <HeaderStyle BackColor="Gray" />
+  </asp:GridView>
+#+end_src
+
 * ASP.NET MVC
 
 MVC:
