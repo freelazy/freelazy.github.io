@@ -413,6 +413,34 @@ https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.gridview?
   </asp:GridView>
 #+end_src
 
+*** Repeater
+
+专门进行数据迭代的一个控件，可以生成更高效更优雅的代码。
+
+https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.repeater?view=netframework-4.8
+
+#+begin_src csharp
+  if (!IsPostBack)
+  {
+      sl.DataSource = DbHelper.DoExecuteQuery("select * from students");
+      sl.DataBind();
+  }
+#+end_src
+
+#+begin_src html
+  <asp:Repeater ID="sl" runat="server">
+      <HeaderTemplate>
+          <ul>
+      </HeaderTemplate>
+      <ItemTemplate>
+          <li><%# Eval("name") %>, <%# Eval("homecity") %></li>
+      </ItemTemplate>
+      <FooterTemplate>
+          </ul>
+      </FooterTemplate>
+  </asp:Repeater>
+#+end_src
+
 * ASP.NET MVC
 
 MVC:

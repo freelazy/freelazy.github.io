@@ -33,6 +33,7 @@
 <li><a href="#org0651d6c">4.4. 数据控件</a>
 <ul>
 <li><a href="#org2c68f19">4.4.1. GridView</a></li>
+<li><a href="#org878689a">4.4.2. Repeater</a></li>
 </ul>
 </li>
 </ul>
@@ -391,7 +392,7 @@ Global.asax:
 <h3 id="org7b56e37"><span class="section-number-3">4.3.</span> Page 生命周期</h3>
 <div class="outline-text-3" id="text-4-3">
 
-<figure id="org126afb7">
+<figure id="orgf56d206">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -611,6 +612,43 @@ studentsGV.<span style="color: #721045;">DataBind</span><span style="color: #000
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">AlternatingRowStyle</span> <span style="color: #00538b;">BackColor</span>=<span style="color: #2544bb;">"LightBlue"</span> <span style="color: #00538b;">Font-Size</span>=<span style="color: #2544bb;">"XX-Large"</span>/<span style="color: #000000;">&gt;</span>
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">HeaderStyle</span> <span style="color: #00538b;">BackColor</span>=<span style="color: #2544bb;">"Gray"</span> /<span style="color: #000000;">&gt;</span>
 <span style="color: #000000;">&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">GridView</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org878689a" class="outline-4">
+<h4 id="org878689a"><span class="section-number-4">4.4.2.</span> Repeater</h4>
+<div class="outline-text-4" id="text-4-4-2">
+<p>
+专门进行数据迭代的一个控件，可以生成更高效更优雅的代码。
+</p>
+
+<p>
+<a href="https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.repeater?view=netframework-4.8">https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.repeater?view=netframework-4.8</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">if</span> <span style="color: #000000;">(</span><span style="color: #813e00;">!</span>IsPostBack<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    sl.DataSource = DbHelper.<span style="color: #721045;">DoExecuteQuery</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"select * from students"</span><span style="color: #a8007f;">)</span>;
+    sl.<span style="color: #721045;">DataBind</span><span style="color: #a8007f;">()</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Repeater</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"sl"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">HeaderTemplate</span><span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span><span style="color: #721045;">ul</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">HeaderTemplate</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">ItemTemplate</span><span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span><span style="color: #721045;">li</span><span style="color: #000000;">&gt;&lt;</span>%# Eval<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"name"</span><span style="color: #a8007f;">)</span> %<span style="color: #000000;">&gt;</span>, <span style="color: #000000;">&lt;</span>%# Eval<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"homecity"</span><span style="color: #a8007f;">)</span> %<span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">li</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">ItemTemplate</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">FooterTemplate</span><span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">ul</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">FooterTemplate</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Repeater</span><span style="color: #000000;">&gt;</span>
 </pre>
 </div>
 </div>

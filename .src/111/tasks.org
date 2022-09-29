@@ -1,10 +1,16 @@
 #+TITLE: 任务和作业
 
 
-* [2022-09-21 Wed]
+
+* [2022-09-29 Thu]
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+1. 使用 Webform 方式，将学生管理系统 (CRUD) 完整复刻出来
+2. 将官网的 WingtipToys 项目认真按步骤敲一遍，做到理解+掌握
+
+* [2022-09-21 Wed]
 
 关于 HTTP 的无状态性:
 - 什么是【无状态】
