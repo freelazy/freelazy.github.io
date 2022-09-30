@@ -438,7 +438,7 @@ Code Action Task:
       }
   }
 #+end_src
-#+HTML: </details>
+#+HTML: </details><br/><br/>
 
 Code Action Task:
 #+begin_example
