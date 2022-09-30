@@ -374,12 +374,11 @@ Unload:
   <%=Request.UserAgent %>
   <%=Request.Headers["location"] %>
 
-  <%=Request.Cookies["Asp_Net.SessionId"] %>
-  <%=Response.Cookies["ssss"] %>
-
   <%=ViewState["kkkkk"] %>
   <% ViewState["kkkkk"] = 333; %>
 
+  <%=Request.Cookies["Asp_Net.SessionId"] %>
+  <%=Response.Cookies["ssss"] %>
   <%=Session["ksdkfj"] %>
 
   <% Application["网站url"] = "xxxx"; %>
@@ -404,6 +403,38 @@ Code Action Task:
 : 恭喜您，验证通过。
 然后，将输入框变成只读状态。
 #+end_example
+
+#+HTML: <details><summary>答案</summary>
+#+begin_src html
+  <p>
+      <asp:TextBox ID="tb1" runat="server" />
+      <asp:Button ID="bt1" runat="server" Text="验证" OnClick="bt1_Click" />
+  </p>
+  <p>
+      <asp:Label ID="lb1" runat="server" />
+  </p>
+#+end_src
+
+#+begin_src csharp
+  protected void bt1_Click(object sender, EventArgs e)
+  {
+      if (tb1.Text.Length < 5)
+      {
+          lb1.Text = "您输入的内容不合格，请重填。";
+          lb1.ForeColor = System.Drawing.Color.Red;
+          tb1.Text = String.Empty;
+          tb1.Focus();
+      }
+      else
+      {
+          lb1.Text = "恭喜您，验证通过";
+          lb1.ForeColor = System.Drawing.Color.Green;
+          tb1.ReadOnly = true;
+          bt1.Enabled = false;
+      }
+  }
+#+end_src
+#+HTML: </details>
 
 ** 数据控件
 *** GridView

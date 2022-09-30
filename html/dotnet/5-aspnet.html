@@ -393,7 +393,7 @@ Global.asax:
 <h3 id="orgcfd4161"><span class="section-number-3">4.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-4-3">
 
-<figure id="org9434c93">
+<figure id="org64a4731">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -564,12 +564,11 @@ Unload:
 <span style="color: #000000;">&lt;</span>%=Request.UserAgent %<span style="color: #000000;">&gt;</span>
 <span style="color: #000000;">&lt;</span>%=Request.Headers<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"location"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
 
-<span style="color: #000000;">&lt;</span>%=Request.Cookies<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"Asp_Net.SessionId"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span>%=Response.Cookies<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"ssss"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
-
 <span style="color: #000000;">&lt;</span>%=ViewState<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"kkkkk"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
 <span style="color: #000000;">&lt;</span>% ViewState<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"kkkkk"</span><span style="color: #a8007f;">]</span> = 333; %<span style="color: #000000;">&gt;</span>
 
+<span style="color: #000000;">&lt;</span>%=Request.Cookies<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"Asp_Net.SessionId"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Response.Cookies<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"ssss"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
 <span style="color: #000000;">&lt;</span>%=Session<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"ksdkfj"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
 
 <span style="color: #000000;">&lt;</span>% Application<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"&#32593;&#31449;url"</span><span style="color: #a8007f;">]</span> = <span style="color: #2544bb;">"xxxx"</span>; %<span style="color: #000000;">&gt;</span>
@@ -584,7 +583,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org6813626">
+<pre class="example" id="org39437ba">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -597,6 +596,40 @@ Code Action Task:
 : 恭喜您，验证通过。
 然后，将输入框变成只读状态。
 </pre>
+
+<details><summary>答案</summary>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">TextBox</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"tb1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Button</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"bt1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">Text</span>=<span style="color: #2544bb;">"&#39564;&#35777;"</span> <span style="color: #00538b;">OnClick</span>=<span style="color: #2544bb;">"bt1_Click"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Label</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"lb1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">bt1_Click</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>tb1.Text.Length &lt; 5<span style="color: #a8007f;">)</span>
+    <span style="color: #a8007f;">{</span>
+        lb1.Text = <span style="color: #2544bb;">"&#24744;&#36755;&#20837;&#30340;&#20869;&#23481;&#19981;&#21512;&#26684;&#65292;&#35831;&#37325;&#22635;&#12290;"</span>;
+        lb1.ForeColor = System.Drawing.Color.Red;
+        tb1.Text = String.Empty;
+        tb1.<span style="color: #721045;">Focus</span><span style="color: #005f88;">()</span>;
+    <span style="color: #a8007f;">}</span>
+    <span style="color: #5317ac;">else</span>
+    <span style="color: #a8007f;">{</span>
+        lb1.Text = <span style="color: #2544bb;">"&#24685;&#21916;&#24744;&#65292;&#39564;&#35777;&#36890;&#36807;"</span>;
+        lb1.ForeColor = System.Drawing.Color.Green;
+        tb1.ReadOnly = <span style="color: #0000c0;">true</span>;
+        bt1.Enabled = <span style="color: #0000c0;">false</span>;
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+</details>
 </div>
 </div>
 
