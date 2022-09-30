@@ -440,6 +440,43 @@ Code Action Task:
 #+end_src
 #+HTML: </details>
 
+Code Action Task:
+#+begin_example
+在页面中，显示:
+: 这是本页面在 Page 生命中，被访问的第 N 次。
+
+这个例子用来理解如何使用 ViewState 对象。
+#+end_example
+
+#+HTML: <details><summary>参考答案</summary><br />
+
+第一种方案，借助 ~asp:HiddenField~ 控件，曲线救国。
+: 代码略。
+
+第二种方案，使用 ViewState 对象:
+#+begin_src html
+  这是本页面在 Page 生命中，被访问的第 <%= VisitCount %> 次。
+#+end_src
+#+begin_src csharp
+  public int VisitCount { 
+      get 
+      {
+          return ViewState["vc"] != null ? (int)ViewState["vc"] : 0;
+      }
+      set
+      {
+          ViewState["vc"] = value;
+      }
+  }
+
+  protected void Page_Load(object sender, EventArgs e)
+  {
+      VisitCount += 1;
+  }
+#+end_src
+
+#+HTML: </details>
+
 ** 数据控件
 *** GridView
 
