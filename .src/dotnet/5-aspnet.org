@@ -465,7 +465,7 @@ Code Action Task:
   }
 #+end_src
 
-第二种方案，使用 ViewState 对象:
+第二种方案，使用 ViewState 对象，即手动模式。
 #+begin_src html
   <p>
       这是本页面在 Page 生命中，被访问的第 <%= VisitCount %> 次。
