@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-09-29 -->
+<!-- 2022-09-30 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ASP.NET</title>
@@ -30,10 +30,11 @@
 <li><a href="#org2585d5b">4.1. aspx 文件</a></li>
 <li><a href="#org3adc12e">4.2. Page 类</a></li>
 <li><a href="#org7b56e37">4.3. Page 生命周期</a></li>
-<li><a href="#org0651d6c">4.4. 数据控件</a>
+<li><a href="#org416e13d">4.4. Page 的内置对象</a></li>
+<li><a href="#org0651d6c">4.5. 数据控件</a>
 <ul>
-<li><a href="#org2c68f19">4.4.1. GridView</a></li>
-<li><a href="#org878689a">4.4.2. Repeater</a></li>
+<li><a href="#org2c68f19">4.5.1. GridView</a></li>
+<li><a href="#org878689a">4.5.2. Repeater</a></li>
 </ul>
 </li>
 </ul>
@@ -392,7 +393,7 @@ Global.asax:
 <h3 id="org7b56e37"><span class="section-number-3">4.3.</span> Page 生命周期</h3>
 <div class="outline-text-3" id="text-4-3">
 
-<figure id="orgf56d206">
+<figure id="orgcdc06fb">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -547,13 +548,61 @@ Unload:
 </div>
 </div>
 
-<div id="outline-container-org0651d6c" class="outline-3">
-<h3 id="org0651d6c"><span class="section-number-3">4.4.</span> 数据控件</h3>
+<div id="outline-container-org416e13d" class="outline-3">
+<h3 id="org416e13d"><span class="section-number-3">4.4.</span> Page 的内置对象</h3>
 <div class="outline-text-3" id="text-4-4">
+<p>
+所谓的内置对象，是指在 Page 类中被初始化，从而在 aspx 中能直接使用的对象。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span>%=Request<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"id"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Request.QueryString<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"id"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Request.Form<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"id"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Request.Params<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"id"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Request.Files<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"id"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Request.UserAgent %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Request.Headers<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"location"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span>%=Request.Cookies<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"Asp_Net.SessionId"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Response.Cookies<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"ssss"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span>%=ViewState<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"kkkkk"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>% ViewState<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"kkkkk"</span><span style="color: #a8007f;">]</span> = 333; %<span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span>%=Session<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"ksdkfj"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span>% Application<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"&#32593;&#31449;url"</span><span style="color: #a8007f;">]</span> = <span style="color: #2544bb;">"xxxx"</span>; %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Application<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"&#24635;&#20849;&#35775;&#38382;&#30340;&#25968;&#30446;"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>&#35775;&#38382;&#27425;&#25968;: <span style="color: #000000;">&lt;</span>%= new Random<span style="color: #a8007f;">()</span>.Next<span style="color: #a8007f;">()</span> %<span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span>%=Server.MapPath<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"/UploadedFiles"</span><span style="color: #a8007f;">)</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>% Server.Transfer<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"Logon.aspx"</span>, true<span style="color: #a8007f;">)</span>; %<span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+Code Action Task:
+</p>
+<pre class="example" id="org513475c">
+如果输入的内容长度小于5，下面用红色的字，提示:
+: 您输入的内容不合格，请重新再填！
+然后情况输入框，将光标 focus 到 input 框。
+
+如果输入的内容合格，下面用绿色的字提示：
+: 恭喜您，验证通过。
+然后，将输入框变成只读状态。
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org0651d6c" class="outline-3">
+<h3 id="org0651d6c"><span class="section-number-3">4.5.</span> 数据控件</h3>
+<div class="outline-text-3" id="text-4-5">
 </div>
 <div id="outline-container-org2c68f19" class="outline-4">
-<h4 id="org2c68f19"><span class="section-number-4">4.4.1.</span> GridView</h4>
-<div class="outline-text-4" id="text-4-4-1">
+<h4 id="org2c68f19"><span class="section-number-4">4.5.1.</span> GridView</h4>
+<div class="outline-text-4" id="text-4-5-1">
 <p>
 <a href="https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.gridview?view=netframework-4.8">https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.gridview?view=netframework-4.8</a>
 </p>
@@ -618,8 +667,8 @@ studentsGV.<span style="color: #721045;">DataBind</span><span style="color: #000
 </div>
 
 <div id="outline-container-org878689a" class="outline-4">
-<h4 id="org878689a"><span class="section-number-4">4.4.2.</span> Repeater</h4>
-<div class="outline-text-4" id="text-4-4-2">
+<h4 id="org878689a"><span class="section-number-4">4.5.2.</span> Repeater</h4>
+<div class="outline-text-4" id="text-4-5-2">
 <p>
 专门进行数据迭代的一个控件，可以生成更高效更优雅的代码。
 </p>
@@ -672,7 +721,7 @@ MVC:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2022-09-29</p>
+<p class="date">Created: 2022-09-30</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

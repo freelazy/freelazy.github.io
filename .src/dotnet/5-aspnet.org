@@ -361,6 +361,46 @@ Unload:
 
 参考: https://www.c-sharpcorner.com/UploadFile/8911c4/page-life-cycle-with-examples-in-Asp-Net/
 
+** Page 的内置对象
+
+所谓的内置对象，是指在 Page 类中被初始化，从而在 aspx 中能直接使用的对象。
+
+#+begin_src html
+  <%=Request["id"] %>
+  <%=Request.QueryString["id"] %>
+  <%=Request.Form["id"] %>
+  <%=Request.Params["id"] %>
+  <%=Request.Files["id"] %>
+  <%=Request.UserAgent %>
+  <%=Request.Headers["location"] %>
+
+  <%=Request.Cookies["Asp_Net.SessionId"] %>
+  <%=Response.Cookies["ssss"] %>
+
+  <%=ViewState["kkkkk"] %>   
+  <% ViewState["kkkkk"] = 333; %>
+
+  <%=Session["ksdkfj"] %>
+
+  <% Application["网站url"] = "xxxx"; %>
+  <%=Application["总共访问的数目"] %>
+  <p>访问次数: <%= new Random().Next() %></p>
+
+  <%=Server.MapPath("/UploadedFiles") %>
+  <% Server.Transfer("Logon.aspx", true); %>
+#+end_src
+
+Code Action Task:
+#+begin_example
+如果输入的内容长度小于5，下面用红色的字，提示:
+: 您输入的内容不合格，请重新再填！
+然后情况输入框，将光标 focus 到 input 框。
+
+如果输入的内容合格，下面用绿色的字提示：
+: 恭喜您，验证通过。
+然后，将输入框变成只读状态。
+#+end_example
+
 ** 数据控件
 *** GridView
 

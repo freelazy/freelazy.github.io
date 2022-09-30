@@ -16,6 +16,7 @@
 - Cookie: 饼干
 - Session: 会话
 - master/slaver: 主人/奴隶
+- Transfer: 转移
 
 * 简单单词
 
