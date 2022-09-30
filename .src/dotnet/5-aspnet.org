@@ -10,7 +10,7 @@
 : VB
 : JS
 : Java
-: 
+:
 : .java -> .class -> (JVM) -> 机器码
 : kotlin
 : groovy
@@ -39,7 +39,7 @@
   </form>
 #+end_src
 
-任务: 
+任务:
 - 什么是 CS 架构，什么是 BS 架构?
 - CS 架构跟 BS 架构相比，各有什么优劣?
 - 整理资料，了解浏览器的发展历史
@@ -74,7 +74,7 @@ Global.asax:
 部署:
 - 环境: Windows + SqlServer + IIS
 - IIS 是缩写，全称 Internet Information Services (互联网信息服务 ), 是由微软公司提供的基于运行 .NET 的互联网基本服务。
-- 步骤: 
+- 步骤:
   1. 开发项目，通过【发布】导出要部署的项目文件夹
   2. 在服务器上安 Windows 操作系统
   3. 在 Windows 中安装 SqlServer 数据库
@@ -107,7 +107,7 @@ Global.asax:
       <% Response.Write("通过行内表达式，可以在文件中嵌入 C# 代码了！"); %>
       <% Response.Write(Request.UserAgent); %>
       <%
-        string a = "可以写很多代码，在这里"; 
+        string a = "可以写很多代码，在这里";
         string c = "现在，定义一个变量，后面使用";
       %>
 
@@ -377,7 +377,7 @@ Unload:
   <%=Request.Cookies["Asp_Net.SessionId"] %>
   <%=Response.Cookies["ssss"] %>
 
-  <%=ViewState["kkkkk"] %>   
+  <%=ViewState["kkkkk"] %>
   <% ViewState["kkkkk"] = 333; %>
 
   <%=Session["ksdkfj"] %>
@@ -392,6 +392,10 @@ Unload:
 
 Code Action Task:
 #+begin_example
+----------------------    -------
+| .                  |    | 验证 |
+----------------------    -------
+
 如果输入的内容长度小于5，下面用红色的字，提示:
 : 您输入的内容不合格，请重新再填！
 然后情况输入框，将光标 focus 到 input 框。
@@ -416,7 +420,7 @@ https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.gridview?
 
 编程方式的数据源:
 #+begin_src csharp
-  studentsGV.DataSource = 
+  studentsGV.DataSource =
       DbHelper.DoExecuteQuery("select * from students");
   studentsGV.DataBind();
 #+end_src
@@ -427,7 +431,7 @@ https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.gridview?
 灵活定义视图格式:
 #+begin_src html
   <asp:GridView ID="studentsGV" runat="server"
-      ShowFooter="true" 
+      ShowFooter="true"
       AutoGenerateColumns="false"
       AllowSorting="true"
       EmptyDataText="没有查询到任何学生">
