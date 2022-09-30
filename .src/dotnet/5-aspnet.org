@@ -404,7 +404,7 @@ Code Action Task:
 然后，将输入框变成只读状态。
 #+end_example
 
-#+HTML: <details><summary>答案</summary><br />
+#+HTML: <details><summary>参考答案</summary><br />
 
 标注着 runat=server 的控件上的状态，
 在每次请求的时候，都会被通过 _ViewState 的方式自动传递着。
