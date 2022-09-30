@@ -575,9 +575,11 @@ https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.repeater?
 
 控件的主要目的，是复用。使用控件跟调用方法很类似，只不过方法的核心是逻辑，控件的核心是视图。
 
-自定义控件的后缀名为 ascx，以 <%@ Control> 作为标记。以 MyLogin.ascx 为例:
+自定义控件的后缀名为 ascx，用 <%@ Control> 作为标记。以 MyLogin.ascx 为例:
 #+begin_src html
-  <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MyLogin.ascx.cs" Inherits="StudentManageSystem_WF.MyLogin" %>
+  <%@ Control Language="C#" AutoEventWireup="true"
+      CodeBehind="MyLogin.ascx.cs"
+      Inherits="StudentManageSystem_WF.MyLogin" %>
 
   <div>
       <asp:TextBox ID="username" runat="server" />

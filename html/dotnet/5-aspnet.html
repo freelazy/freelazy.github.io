@@ -394,7 +394,7 @@ Global.asax:
 <h3 id="orgcfd4161"><span class="section-number-3">4.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-4-3">
 
-<figure id="orge0934e2">
+<figure id="org7843edd">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -584,7 +584,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="orgc7f2cef">
+<pre class="example" id="org7a702a5">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -641,7 +641,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org698d211">
+<pre class="example" id="org51aad6f">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -817,10 +817,12 @@ studentsGV.<span style="color: #721045;">DataBind</span><span style="color: #000
 </p>
 
 <p>
-自定义控件的后缀名为 ascx，以 &lt;%@ Control&gt; 作为标记。以 MyLogin.ascx 为例:
+自定义控件的后缀名为 ascx，用 &lt;%@ Control&gt; 作为标记。以 MyLogin.ascx 为例:
 </p>
 <div class="org-src-container">
-<pre class="src src-html"><span style="color: #000000;">&lt;</span>%@ Control <span style="color: #00538b;">Language</span>=<span style="color: #2544bb;">"C#"</span> <span style="color: #00538b;">AutoEventWireup</span>=<span style="color: #2544bb;">"true"</span> <span style="color: #00538b;">CodeBehind</span>=<span style="color: #2544bb;">"MyLogin.ascx.cs"</span> <span style="color: #00538b;">Inherits</span>=<span style="color: #2544bb;">"StudentManageSystem_WF.MyLogin"</span> %<span style="color: #000000;">&gt;</span>
+<pre class="src src-html"><span style="color: #000000;">&lt;</span>%@ Control <span style="color: #00538b;">Language</span>=<span style="color: #2544bb;">"C#"</span> <span style="color: #00538b;">AutoEventWireup</span>=<span style="color: #2544bb;">"true"</span>
+    <span style="color: #00538b;">CodeBehind</span>=<span style="color: #2544bb;">"MyLogin.ascx.cs"</span>
+    <span style="color: #00538b;">Inherits</span>=<span style="color: #2544bb;">"StudentManageSystem_WF.MyLogin"</span> %<span style="color: #000000;">&gt;</span>
 
 <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
     <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">TextBox</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"username"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
