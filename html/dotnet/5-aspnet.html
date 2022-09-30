@@ -31,12 +31,13 @@
 <li><a href="#org3adc12e">4.2. Page 类</a></li>
 <li><a href="#orgcfd4161">4.3. Page 的生命周期</a></li>
 <li><a href="#org416e13d">4.4. Page 的内置对象</a></li>
-<li><a href="#org0651d6c">4.5. 数据控件</a>
+<li><a href="#orgd06aa5e">4.5. 常用控件</a>
 <ul>
 <li><a href="#org2c68f19">4.5.1. GridView</a></li>
 <li><a href="#org878689a">4.5.2. Repeater</a></li>
 </ul>
 </li>
+<li><a href="#org9754857">4.6. 用户自定义控件</a></li>
 </ul>
 </li>
 <li><a href="#org1a00f89">5. ASP.NET MVC</a></li>
@@ -393,7 +394,7 @@ Global.asax:
 <h3 id="orgcfd4161"><span class="section-number-3">4.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-4-3">
 
-<figure id="org30a62f6">
+<figure id="orge0934e2">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -583,7 +584,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org8a7f973">
+<pre class="example" id="orgc7f2cef">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -640,7 +641,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="orgdab6136">
+<pre class="example" id="org698d211">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -700,8 +701,8 @@ Code Action Task:
 </div>
 </div>
 
-<div id="outline-container-org0651d6c" class="outline-3">
-<h3 id="org0651d6c"><span class="section-number-3">4.5.</span> 数据控件</h3>
+<div id="outline-container-orgd06aa5e" class="outline-3">
+<h3 id="orgd06aa5e"><span class="section-number-3">4.5.</span> 常用控件</h3>
 <div class="outline-text-3" id="text-4-5">
 </div>
 <div id="outline-container-org2c68f19" class="outline-4">
@@ -804,6 +805,55 @@ studentsGV.<span style="color: #721045;">DataBind</span><span style="color: #000
 <span style="color: #000000;">&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Repeater</span><span style="color: #000000;">&gt;</span>
 </pre>
 </div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9754857" class="outline-3">
+<h3 id="org9754857"><span class="section-number-3">4.6.</span> 用户自定义控件</h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+控件的主要目的，是复用。使用控件跟调用方法很类似，只不过方法的核心是逻辑，控件的核心是视图。
+</p>
+
+<p>
+自定义控件的后缀名为 ascx，以 &lt;%@ Control&gt; 作为标记。以 MyLogin.ascx 为例:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span>%@ Control <span style="color: #00538b;">Language</span>=<span style="color: #2544bb;">"C#"</span> <span style="color: #00538b;">AutoEventWireup</span>=<span style="color: #2544bb;">"true"</span> <span style="color: #00538b;">CodeBehind</span>=<span style="color: #2544bb;">"MyLogin.ascx.cs"</span> <span style="color: #00538b;">Inherits</span>=<span style="color: #2544bb;">"StudentManageSystem_WF.MyLogin"</span> %<span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">TextBox</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"username"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">TextBox</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"TextBox1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Button</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"skdfjskdjf"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">Text</span>=<span style="color: #2544bb;">"denglu"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">public</span> <span style="color: #5317ac;">partial</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">MyLogin</span> : System.Web.UI.<span style="color: #005a5f;">UserControl</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">string</span> <span style="color: #00538b;">DefaultUsername</span> <span style="color: #a8007f;">{</span> <span style="color: #5317ac;">get</span>; <span style="color: #5317ac;">set</span>; <span style="color: #a8007f;">}</span>
+
+    <span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_Load</span><span style="color: #a8007f;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #a8007f;">)</span>
+    <span style="color: #a8007f;">{</span>
+        <span style="color: #5317ac;">if</span> <span style="color: #005f88;">(</span><span style="color: #813e00;">!</span>IsPostBack<span style="color: #005f88;">)</span>
+        <span style="color: #005f88;">{</span>
+            username.Text = DefaultUsername;
+        <span style="color: #005f88;">}</span>
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+要使用控件，需要通过 &lt;%@ Register &gt; 对控件进行注册:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span>%@ Register <span style="color: #00538b;">Src</span>=<span style="color: #2544bb;">"~/MyLogin.ascx"</span> <span style="color: #00538b;">TagName</span>=<span style="color: #2544bb;">"MyLogin"</span> <span style="color: #00538b;">TagPrefix</span>=<span style="color: #2544bb;">"fl"</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">fl</span>:<span style="color: #721045;">MyLogin</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">DefaultUsername</span>=<span style="color: #2544bb;">"xxx"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+</pre>
 </div>
 </div>
 </div>
