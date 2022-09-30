@@ -451,11 +451,25 @@ Code Action Task:
 #+HTML: <details><summary>参考答案</summary><br />
 
 第一种方案，借助 ~asp:HiddenField~ 控件，曲线救国。
-: 代码略。
+#+begin_src html
+  <asp:HiddenField ID="hf1" Value="0" runat="server" />
+  <p>
+      这是本页面在 Page 生命中，被访问的第 <asp:Label ID="sd" Text="<%# hf1.Value %>" runat="server"/> 次。
+  </p>
+#+end_src
+#+begin_src csharp
+  protected void Page_Load(object sender, EventArgs e)
+  {
+      hf1.Value = (int.Parse(hf1.Value) + 1).ToString();
+      sd.DataBind();
+  }
+#+end_src
 
 第二种方案，使用 ViewState 对象:
 #+begin_src html
-  这是本页面在 Page 生命中，被访问的第 <%= VisitCount %> 次。
+  <p>
+      这是本页面在 Page 生命中，被访问的第 <%= VisitCount %> 次。
+  </p>
 #+end_src
 #+begin_src csharp
   public int VisitCount { 

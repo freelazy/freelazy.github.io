@@ -393,7 +393,7 @@ Global.asax:
 <h3 id="orgcfd4161"><span class="section-number-3">4.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-4-3">
 
-<figure id="orgd192337">
+<figure id="orga817713">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -583,7 +583,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org6b1b43b">
+<pre class="example" id="orgf6033ec">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -640,7 +640,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org3f3023a">
+<pre class="example" id="org277edb1">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -652,16 +652,29 @@ Code Action Task:
 <p>
 第一种方案，借助 <code>asp:HiddenField</code> 控件，曲线救国。
 </p>
-<pre class="example">
-代码略。
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">HiddenField</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"hf1"</span> <span style="color: #00538b;">Value</span>=<span style="color: #2544bb;">"0"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+    &#36825;&#26159;&#26412;&#39029;&#38754;&#22312; Page &#29983;&#21629;&#20013;&#65292;&#34987;&#35775;&#38382;&#30340;&#31532; <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Label</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"sd"</span> <span style="color: #00538b;">Text</span>=<span style="color: #2544bb;">"&lt;%# hf1.Value %&gt;"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span>/<span style="color: #000000;">&gt;</span> &#27425;&#12290;
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
 </pre>
-
+</div>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_Load</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    hf1.Value = <span style="color: #a8007f;">(</span><span style="color: #005a5f;">int</span>.<span style="color: #721045;">Parse</span><span style="color: #005f88;">(</span>hf1.Value<span style="color: #005f88;">)</span> + 1<span style="color: #a8007f;">)</span>.<span style="color: #721045;">ToString</span><span style="color: #a8007f;">()</span>;
+    sd.<span style="color: #721045;">DataBind</span><span style="color: #a8007f;">()</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
 
 <p>
 第二种方案，使用 ViewState 对象:
 </p>
 <div class="org-src-container">
-<pre class="src src-html">&#36825;&#26159;&#26412;&#39029;&#38754;&#22312; Page &#29983;&#21629;&#20013;&#65292;&#34987;&#35775;&#38382;&#30340;&#31532; <span style="color: #000000;">&lt;</span>%= VisitCount %<span style="color: #000000;">&gt;</span> &#27425;&#12290;
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+    &#36825;&#26159;&#26412;&#39029;&#38754;&#22312; Page &#29983;&#21629;&#20013;&#65292;&#34987;&#35775;&#38382;&#30340;&#31532; <span style="color: #000000;">&lt;</span>%= VisitCount %<span style="color: #000000;">&gt;</span> &#27425;&#12290;
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
 </pre>
 </div>
 <div class="org-src-container">
