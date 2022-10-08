@@ -610,6 +610,48 @@ https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.repeater?
   </p>
 #+end_src
 
+** 其他
+*** 路由 (Route)
+
+#+begin_src csharp
+  RouteTable.Routes.MapPageRoute("hello", "hello", "~/Students1.aspx");
+  RouteTable.Routes.EnableFriendlyUrls(
+      new FriendlyUrlSettings()
+      {
+          AutoRedirectMode = RedirectMode.Permanent
+      }
+  );
+#+end_src
+
+*** 捆绑 (Bundle)
+
+: 让 css/js (1) 变少 (2) 变小
+
+配置:
+#+begin_src csharp
+  BundleTable.Bundles.Add(new ScriptBundle("~/bundles/MsAjaxJs").Include(
+      "~/Scripts/WebForms/MsAjax/MicrosoftAjax.js",
+      "~/Scripts/WebForms/MsAjax/MicrosoftAjaxApplicationServices.js",
+      "~/Scripts/WebForms/MsAjax/MicrosoftAjaxTimer.js",
+      "~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebForms.js"));
+#+end_src
+
+使用:
+#+begin_src html
+  <asp:PlaceHolder runat="server">
+      <%: Scripts.Render("~/bundles/modernizr") %>
+  </asp:PlaceHolder>
+  <webopt:bundlereference runat="server" path="~/Content/css" />
+#+end_src
+
+*** 网站 Logo (favicon.ico)
+
+放在网站的根目录。
+
+*** IHttpHandler.IsReusable
+
+重用。
+
 * ASP.NET MVC
 
 MVC:
