@@ -39,7 +39,7 @@
         (:dbuser . "sa")
         (:dbpassword . "sa")
         (:dbhost . "localhost")
-        (:database . "xxx")))
+        (:database . "TeachAssist")))
 
 
 ;; Notes
