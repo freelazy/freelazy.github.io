@@ -52,6 +52,17 @@ sqllocaldb create MyLocalDbName <span style="color: #505050;"># </span><span sty
 <p>
 默认的数据库文件保存位置为: <code>C:\Users\用户名\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances</code>。
 </p>
+
+<p>
+连接字符串示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-xml"><span style="color: #505050;">&lt;!-- </span><span style="color: #505050;">Web.config</span><span style="color: #505050;"> --&gt;</span>
+&lt;<span style="color: #721045;">add</span> <span style="color: #00538b;">name</span>=<span style="color: #2544bb;">"MovieDBContext"</span>
+   <span style="color: #00538b;">connectionString</span>=<span style="color: #2544bb;">"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=aspnet-MvcMovie;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\Movies.mdf"</span>
+   <span style="color: #00538b;">providerName</span>=<span style="color: #2544bb;">"System.Data.SqlClient"</span> /&gt;
+</pre>
+</div>
 </div>
 </section>
 </div>

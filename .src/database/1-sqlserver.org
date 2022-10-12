@@ -16,3 +16,10 @@
 
 默认的数据库文件保存位置为: =C:\Users\用户名\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances=。
 
+连接字符串示例:
+#+begin_src xml
+  <!-- Web.config -->
+  <add name="MovieDBContext" 
+     connectionString="Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=aspnet-MvcMovie;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\Movies.mdf"
+     providerName="System.Data.SqlClient" />
+#+end_src
