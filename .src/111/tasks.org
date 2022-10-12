@@ -6,7 +6,7 @@
 :CUSTOM_ID: active
 :END:
 
-- 先模仿后超越: [[https://learn.microsoft.com/zh-cn/aspnet/mvc/overview/getting-started/introduction/getting-started][ASP.NET 入门项目]]，认真敲认真练!
+- 先模仿后超越: [[https://learn.microsoft.com/zh-cn/aspnet/mvc/overview/getting-started/introduction/getting-started][ASP.NET 入门项目]], *认真敲认真练*!
 - 了解什么是 XSS 攻击，如何防范
 - 预习: MVC 的生命周期
 
