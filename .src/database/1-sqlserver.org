@@ -1,12 +1,13 @@
 #+TITLE: SqlServer
 
 
-* LocalDB
+* 版本
 
-版本:
 - SQLServer
 - SQLServer Express (免费版本，对资源使用有很多限制)
 - SQLServer Express LocalDB (本地数据库，没有多用户和网络连接功能)
+
+* LocalDB
 
 可以使用 ~sqllocaldb~ 命令对 LocalDB 进行管理:
 #+begin_src shell
