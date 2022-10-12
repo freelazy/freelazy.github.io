@@ -1,7 +1,18 @@
 #+TITLE: SqlServer
 
 
-* 111
+* LocalDB
 
-skip
+版本:
+- SQLServer
+- SQLServer Express (免费版本，对资源使用有很多限制)
+- SQLServer LocalDB (本地数据库，没有多用户和网络连接功能)
+
+可以使用 ~sqllocaldb~ 命令对 LocalDB 进行管理:
+#+begin_src shell
+  sqllocaldb info                 # 显示所有的 LocalDB 实例
+  sqllocaldb create MyLocalDbName # 创建新的实例
+#+end_src
+
+默认的数据库文件保存位置为: =C:\Users\用户名\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances=。
 

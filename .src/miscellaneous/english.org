@@ -17,6 +17,7 @@
 - Session: 会话
 - master/slaver: 主人/奴隶
 - Transfer: 转移
+- Genre: 类型
 
 * 简单单词
 
