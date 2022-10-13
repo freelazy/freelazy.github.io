@@ -11,6 +11,7 @@
   - [[file:dotnet/0-csharp.org][C♯]]
   - [[file:dotnet/4-winform.org][Winform]]
   - [[file:dotnet/5-aspnet.org][ASP.NET]]
+  - [[file:dotnet/7-ef.org][Entity Framework]]
 - frontend
   - [[file:frontend/0-http.org][HTTP]]
   - [[file:frontend/1-html+css.org][HTML/CSS]]

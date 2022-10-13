@@ -1,0 +1,16 @@
+#+TITLE: Entity Framework
+
+
+
+* Code First
+
+#+begin_src powershell
+  # 生成 Configuration.cs 文件，可以在里面设置种子数据 (Seed)
+  Enable-Migrations -ContextTypeName MvcMovie.Models.MovieDBContext
+
+  # 生成指定名字的迁移文件，里面有数据库变动的逻辑 (Up/Down)
+  Add-Migration Initial-mingzi
+
+  # 应用迁移文件
+  Update-Database
+#+end_src
