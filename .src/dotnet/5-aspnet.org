@@ -670,14 +670,65 @@ ASP.NET MVC:
 
 ** Lifecycle
 
-https://www.cnblogs.com/PatrickLiu/p/15175388.html
-
 [[file:img/mvc-lifecycle.png]]
 
+UrlRoutingModule (IHttpModule):
+#+begin_src csharp
+  // 通过 RouteTable 获取路由数据
+  RouteData routeData = this.RouteCollection.GetRouteData(context);
+  // 使用 MvcHandler 处理接下来的请求
+  IRouteHandler routeHandler = routeData.RouteHandler;
+  IHttpHandler httpHandler = routeHandler.GetHttpHandler(requestContext);
+  context.RemapHandler(httpHandler);
+#+end_src
+  
+MvcHandler (IHttpHandler):
+#+begin_src csharp
+  // 创建 Controller 对象
+  this.ProcessRequestInit(httpContext, out controller, out controllerFactory);
+  // 调用 Controller 中的 Execute 方法
+  controller.Execute(this.RequestContext);
+#+end_src
 
-Route (路由):
-- RouteBase / Route / RouteCollection
-- 配置路由: =RouteTable.Routes.xxx=
+Controller.InvokeAction:
+#+begin_src csharp
+  // 获取 Action 上所有过滤器
+  FilterInfo filters = this.GetFilters(controllerContext, actionDescriptor);
+  try
+  {
+      // 执行其中的 Authentication (认证) 过滤器
+      AuthenticationContext authenticationContext = this.InvokeAuthenticationFilters(controllerContext, filters.AuthenticationFilters, actionDescriptor);
+      // 执行其中的 Authentization (授权) 过滤器 
+      AuthorizationContext authorizationContext = this.InvokeAuthorizationFilters(controllerContext, filters.AuthorizationFilters, actionDescriptor);
+      // 获取并绑定请求参数
+      IDictionary<string, object> parameterValues = this.GetParameterValues(controllerContext, actionDescriptor);
+      // (执行 ActionFilter.OnActionExecuting 然后) 执行 Action 方法！
+      ActionExecutedContext actionExecutedContext = this.InvokeActionMethodWithFilters(controllerContext, filters.ActionFilters, actionDescriptor, parameterValues);
+      // 执行后置过滤器
+      AuthenticationChallengeContext authenticationChallengeContext3 = this.InvokeAuthenticationFiltersChallenge(controllerContext, filters.AuthenticationFilters, actionDescriptor, actionExecutedContext.Result);
+      this.InvokeActionResultWithFilters(controllerContext, filters.ResultFilters, authenticationChallengeContext3.Result ?? actionExecutedContext.Result);
+  }
+  catch
+  {
+      // 执行异常过滤器
+      ExceptionContext exceptionContext = this.InvokeExceptionFilters(controllerContext, filters.ExceptionFilters, exception);
+  }
+#+end_src
+
+IViewEngine/IView:
+#+begin_src csharp
+  /// 可以定义并使用自己的 ViewEngine
+  protected void Application_Start()
+  {
+      //移除所有的View引擎包括Webform和Razor
+      ViewEngines.Engines.Clear();
+    
+      //注册你自己的View引擎
+      ViewEngines.Engines.Add(new CustomViewEngine());
+  }
+#+end_src
+
+参考: https://www.cnblogs.com/PatrickLiu/p/15175388.html
 
 ** Action
 

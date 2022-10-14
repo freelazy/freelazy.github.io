@@ -411,7 +411,7 @@ Global.asax:
 <h3 id="orgcfd4161"><span class="section-number-3">4.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-4-3">
 
-<figure id="orgbfcc5b5">
+<figure id="org6d54f87">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -601,7 +601,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="orgf241307">
+<pre class="example" id="org9427f6c">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -658,7 +658,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org81dac02">
+<pre class="example" id="org1ff3015">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -985,24 +985,83 @@ ASP.NET MVC:
 <div id="outline-container-org25d2ae8" class="outline-3">
 <h3 id="org25d2ae8"><span class="section-number-3">5.2.</span> Lifecycle</h3>
 <div class="outline-text-3" id="text-5-2">
-<p>
-<a href="https://www.cnblogs.com/PatrickLiu/p/15175388.html">https://www.cnblogs.com/PatrickLiu/p/15175388.html</a>
-</p>
 
-
-<figure id="org5b0dc1b">
+<figure id="org69776c3">
 <img src="img/mvc-lifecycle.png" alt="mvc-lifecycle.png">
 
 </figure>
 
+<p>
+UrlRoutingModule (IHttpModule):
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#36890;&#36807; RouteTable &#33719;&#21462;&#36335;&#30001;&#25968;&#25454;</span>
+<span style="color: #005a5f;">RouteData</span> <span style="color: #00538b;">routeData</span> = <span style="color: #5317ac;">this</span>.RouteCollection.<span style="color: #721045;">GetRouteData</span><span style="color: #000000;">(</span>context<span style="color: #000000;">)</span>;
+<span style="color: #505050;">// </span><span style="color: #505050;">&#20351;&#29992; MvcHandler &#22788;&#29702;&#25509;&#19979;&#26469;&#30340;&#35831;&#27714;</span>
+<span style="color: #005a5f;">IRouteHandler</span> <span style="color: #00538b;">routeHandler</span> = routeData.RouteHandler;
+<span style="color: #005a5f;">IHttpHandler</span> <span style="color: #00538b;">httpHandler</span> = routeHandler.<span style="color: #721045;">GetHttpHandler</span><span style="color: #000000;">(</span>requestContext<span style="color: #000000;">)</span>;
+context.<span style="color: #721045;">RemapHandler</span><span style="color: #000000;">(</span>httpHandler<span style="color: #000000;">)</span>;
+</pre>
+</div>
 
 <p>
-Route (路由):
+MvcHandler (IHttpHandler):
 </p>
-<ul class="org-ul">
-<li>RouteBase / Route / RouteCollection</li>
-<li>配置路由: <code>RouteTable.Routes.xxx</code></li>
-</ul>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#21019;&#24314; Controller &#23545;&#35937;</span>
+<span style="color: #5317ac;">this</span>.<span style="color: #721045;">ProcessRequestInit</span><span style="color: #000000;">(</span><span style="color: #005a5f;">httpContext</span>, <span style="color: #5317ac;">out</span> <span style="color: #005a5f;">controller</span>, <span style="color: #5317ac;">out</span> <span style="color: #005a5f;">controllerFactory</span><span style="color: #000000;">)</span>;
+<span style="color: #505050;">// </span><span style="color: #505050;">&#35843;&#29992; Controller &#20013;&#30340; Execute &#26041;&#27861;</span>
+controller.<span style="color: #721045;">Execute</span><span style="color: #000000;">(</span><span style="color: #5317ac;">this</span>.RequestContext<span style="color: #000000;">)</span>;
+</pre>
+</div>
+
+<p>
+Controller.InvokeAction:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#33719;&#21462; Action &#19978;&#25152;&#26377;&#36807;&#28388;&#22120;</span>
+<span style="color: #005a5f;">FilterInfo</span> <span style="color: #00538b;">filters</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">GetFilters</span><span style="color: #000000;">(</span>controllerContext, actionDescriptor<span style="color: #000000;">)</span>;
+<span style="color: #5317ac;">try</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#25191;&#34892;&#20854;&#20013;&#30340; Authentication (&#35748;&#35777;) &#36807;&#28388;&#22120;</span>
+    <span style="color: #005a5f;">AuthenticationContext</span> <span style="color: #00538b;">authenticationContext</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">InvokeAuthenticationFilters</span><span style="color: #a8007f;">(</span>controllerContext, filters.AuthenticationFilters, actionDescriptor<span style="color: #a8007f;">)</span>;
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#25191;&#34892;&#20854;&#20013;&#30340; Authentization (&#25480;&#26435;) &#36807;&#28388;&#22120; </span>
+    <span style="color: #005a5f;">AuthorizationContext</span> <span style="color: #00538b;">authorizationContext</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">InvokeAuthorizationFilters</span><span style="color: #a8007f;">(</span>controllerContext, filters.AuthorizationFilters, actionDescriptor<span style="color: #a8007f;">)</span>;
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#33719;&#21462;&#24182;&#32465;&#23450;&#35831;&#27714;&#21442;&#25968;</span>
+    <span style="color: #005a5f;">IDictionary</span><span style="color: #a8007f;">&lt;</span><span style="color: #005a5f;">string</span>, <span style="color: #005a5f;">object</span><span style="color: #a8007f;">&gt;</span> <span style="color: #00538b;">parameterValues</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">GetParameterValues</span><span style="color: #a8007f;">(</span>controllerContext, actionDescriptor<span style="color: #a8007f;">)</span>;
+    <span style="color: #505050;">// </span><span style="color: #505050;">(&#25191;&#34892; ActionFilter.OnActionExecuting &#28982;&#21518;) &#25191;&#34892; Action &#26041;&#27861;&#65281;</span>
+    <span style="color: #005a5f;">ActionExecutedContext</span> <span style="color: #00538b;">actionExecutedContext</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">InvokeActionMethodWithFilters</span><span style="color: #a8007f;">(</span>controllerContext, filters.ActionFilters, actionDescriptor, parameterValues<span style="color: #a8007f;">)</span>;
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#25191;&#34892;&#21518;&#32622;&#36807;&#28388;&#22120;</span>
+    <span style="color: #005a5f;">AuthenticationChallengeContext</span> <span style="color: #00538b;">authenticationChallengeContext3</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">InvokeAuthenticationFiltersChallenge</span><span style="color: #a8007f;">(</span>controllerContext, filters.AuthenticationFilters, actionDescriptor, actionExecutedContext.Result<span style="color: #a8007f;">)</span>;
+    <span style="color: #5317ac;">this</span>.<span style="color: #721045;">InvokeActionResultWithFilters</span><span style="color: #a8007f;">(</span>controllerContext, filters.ResultFilters, authenticationChallengeContext3.<span style="color: #005a5f;">Result</span> ?? actionExecutedContext.<span style="color: #00538b;">Result</span><span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+<span style="color: #5317ac;">catch</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#25191;&#34892;&#24322;&#24120;&#36807;&#28388;&#22120;</span>
+    <span style="color: #005a5f;">ExceptionContext</span> <span style="color: #00538b;">exceptionContext</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">InvokeExceptionFilters</span><span style="color: #a8007f;">(</span>controllerContext, filters.ExceptionFilters, exception<span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+IViewEngine/IView:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #2a486a;">/// &#21487;&#20197;&#23450;&#20041;&#24182;&#20351;&#29992;&#33258;&#24049;&#30340; ViewEngine</span>
+<span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Application_Start</span><span style="color: #000000;">()</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">//</span><span style="color: #505050;">&#31227;&#38500;&#25152;&#26377;&#30340;View&#24341;&#25806;&#21253;&#25324;Webform&#21644;Razor</span>
+    ViewEngines.Engines.<span style="color: #721045;">Clear</span><span style="color: #a8007f;">()</span>;
+
+    <span style="color: #505050;">//</span><span style="color: #505050;">&#27880;&#20876;&#20320;&#33258;&#24049;&#30340;View&#24341;&#25806;</span>
+    ViewEngines.Engines.<span style="color: #721045;">Add</span><span style="color: #a8007f;">(</span><span style="color: #5317ac;">new</span> <span style="color: #005a5f;">CustomViewEngine</span><span style="color: #005f88;">()</span><span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+参考: <a href="https://www.cnblogs.com/PatrickLiu/p/15175388.html">https://www.cnblogs.com/PatrickLiu/p/15175388.html</a>
+</p>
 </div>
 </div>
 
