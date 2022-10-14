@@ -715,7 +715,7 @@ ASP.NET MVC:
   }
 #+end_src
 
-最后，通过 ViewEngines 选择合适的 IViewEngine，并根据结果类型调用响应的 IView.Render 方法，完成渲染:
+最后，通过 ViewEngines 选择合适的 IViewEngine，并根据结果类型调用响应的 =IView.Render= 方法，完成渲染:
 #+begin_src csharp
   /// 可以定义并使用自己的 ViewEngine
   protected void Application_Start()
