@@ -1,10 +1,18 @@
 #+TITLE: 任务和作业
 
 
-* [2022-10-12 Wed]
+* [2022-10-14 Fri]
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+将【学生管理】的增删改查 (CRUD) 使用 MVC 进行实现并完善:
+- 完成基本功能，优化页面显示
+- 在首页增加按名字/城市 *过滤* 的功能
+- 增加适当的输入验证
+- 增加登录功能，并为相关添加、修改、删除业务增加认证限制，即必须登录之后才能进行
+
+* [2022-10-13 Thu]
 
 - *将 [[https://learn.microsoft.com/zh-cn/aspnet/mvc/overview/getting-started/introduction/getting-started][ASP.NET 入门项目]] 吃透、敲熟*
 - 学会使用 SqlServer Express LocalDB 进行开发
