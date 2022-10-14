@@ -653,10 +653,29 @@ https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.repeater?
 重用。
 
 * ASP.NET MVC
+** MVC
 
+ASP.NET MVC:
 - 基于 MVC 概念:
   + Model (模型)
   + View  (视图)
   + Controller (控制器)
 - 使用 Razor 作为页面的模板引擎
 - 约定大于配置 (CoC) 的理念
+
+项目文件夹:
+- Controller
+- View
+- Model
+
+** Lifecycle
+
+https://www.cnblogs.com/PatrickLiu/p/15175388.html
+
+** Action
+
+** Razor
+
+** Binding/Validation
+
+** Filter
