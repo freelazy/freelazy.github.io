@@ -698,7 +698,7 @@ ASP.NET MVC:
   {
       // 执行其中的 Authentication (认证) 过滤器
       AuthenticationContext authenticationContext = this.InvokeAuthenticationFilters(controllerContext, filters.AuthenticationFilters, actionDescriptor);
-      // 执行其中的 Authentization (授权) 过滤器 
+      // 执行其中的 Authorization (授权) 过滤器 
       AuthorizationContext authorizationContext = this.InvokeAuthorizationFilters(controllerContext, filters.AuthorizationFilters, actionDescriptor);
       // 获取并绑定请求参数
       IDictionary<string, object> parameterValues = this.GetParameterValues(controllerContext, actionDescriptor);
@@ -737,3 +737,9 @@ ASP.NET MVC:
 ** Binding/Validation
 
 ** Filter
+
+接口、方法:
+- IAuthenticationFilter/IAuthorizationFilter (AuthorizeAttribute)
+- IActionFilter (ActionFilterAttribute)
+- IResultFilter (ActionFilterAttribute)
+- IExceptionFilter (HandleErrorAttribute)
