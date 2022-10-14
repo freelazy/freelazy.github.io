@@ -675,6 +675,10 @@ https://www.cnblogs.com/PatrickLiu/p/15175388.html
 [[file:img/mvc-lifecycle.png]]
 
 
+Route (路由):
+- RouteBase / Route / RouteCollection
+- 配置路由: =RouteTable.Routes.xxx=
+
 ** Action
 
 ** Razor
