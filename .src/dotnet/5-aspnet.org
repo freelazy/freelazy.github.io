@@ -672,7 +672,7 @@ ASP.NET MVC:
 
 [[file:img/mvc-lifecycle.png]]
 
-UrlRoutingModule (IHttpModule):
+首先，在 =UrlRoutingModule= 中获取路由数据，并找到要处理的 MvcHandler:
 #+begin_src csharp
   // 通过 RouteTable 获取路由数据
   RouteData routeData = this.RouteCollection.GetRouteData(context);
@@ -682,7 +682,7 @@ UrlRoutingModule (IHttpModule):
   context.RemapHandler(httpHandler);
 #+end_src
   
-MvcHandler (IHttpHandler):
+其次，在 =MvcHandler= 中，创建对应的 Controller 对象，并调用其 Execute 方法:
 #+begin_src csharp
   // 创建 Controller 对象
   this.ProcessRequestInit(httpContext, out controller, out controllerFactory);
@@ -690,7 +690,7 @@ MvcHandler (IHttpHandler):
   controller.Execute(this.RequestContext);
 #+end_src
 
-Controller.InvokeAction:
+然后，通过 =Controller.InvokeAction= 调用对应的 Action 方法:
 #+begin_src csharp
   // 获取 Action 上所有过滤器
   FilterInfo filters = this.GetFilters(controllerContext, actionDescriptor);
@@ -715,7 +715,7 @@ Controller.InvokeAction:
   }
 #+end_src
 
-IViewEngine/IView:
+最后，通过 ViewEngines 选择合适的 IViewEngine，并根据结果类型调用响应的 IView.Render 方法，完成渲染:
 #+begin_src csharp
   /// 可以定义并使用自己的 ViewEngine
   protected void Application_Start()
