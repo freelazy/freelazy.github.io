@@ -658,10 +658,9 @@ https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.repeater?
 ASP.NET MVC:
 - 基于 MVC 概念:
   + Model (模型)
-  + View  (视图)
+  + View  (视图), 默认使用 Razor 作为页面的模板引擎
   + Controller (控制器)
-- 使用 Razor 作为页面的模板引擎
-- 约定大于配置 (CoC) 的理念
+- 约定大于配置 (CoC, Convention Over Configuration) 的理念
 
 项目文件夹:
 - Controller
@@ -733,6 +732,12 @@ ASP.NET MVC:
 ** Action
 
 ** Razor
+
+- Html 代码跟 CSharp 代码混编
+- 分解符: 遇到 @ 就是 csharp, 遇到 < 就是 html 代码
+- 常用指令: @model, @functions 等
+- 常用的类: Html/Ajax/Url/Model/ViewBag/ViewData
+- Q: ViewBag vs ViewData 有什么区别?
 
 ** Binding/Validation
 
