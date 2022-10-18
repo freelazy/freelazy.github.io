@@ -411,7 +411,7 @@ Global.asax:
 <h3 id="orgeca96eb"><span class="section-number-3">4.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-4-3">
 
-<figure id="orgb1ce23f">
+<figure id="org40cadab">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -601,7 +601,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org0a449ed">
+<pre class="example" id="org3e85205">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -658,7 +658,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org94997d8">
+<pre class="example" id="org9d46923">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -985,7 +985,7 @@ ASP.NET MVC:
 <h3 id="orgc171ad9"><span class="section-number-3">5.2.</span> Lifecycle</h3>
 <div class="outline-text-3" id="text-5-2">
 
-<figure id="org1c1bcf9">
+<figure id="orgaf26cdb">
 <img src="img/mvc-lifecycle.png" alt="mvc-lifecycle.png">
 
 </figure>
@@ -1076,11 +1076,11 @@ controller.<span style="color: #721045;">Execute</span><span style="color: #0000
 ActionResult:
 </p>
 <ul class="org-ul">
-<li>Content 方法用来返回一个 ContentResult 对象，即返回字符串本身</li>
-<li>View 方法用来返回一个 ViewResult，利用 razor 引擎生成 html 字符串</li>
-<li>Json 方法用来返回一个 JsonResult 对象，即将数据序列化</li>
-<li>File 方法用来返回一个 FileResult 对象，用来处理文件的下载</li>
-<li>其他: HttpNotFound, new HttpNotFoundResult, new HttpStatusCodeResult(505)</li>
+<li>Content() 方法用来返回一个 ContentResult 对象，即返回字符串本身</li>
+<li>View() 方法用来返回一个 ViewResult，利用 razor 引擎生成 html 字符串</li>
+<li>Json() 方法用来返回一个 JsonResult 对象，即将数据序列化</li>
+<li>File() 方法用来返回一个 FileResult 对象，用来处理文件的下载</li>
+<li>HttpNotFound, new HttpNotFoundResult, new HttpStatusCodeResult(505)</li>
 <li>Redirect/RedirectToAction/RedirectToRoute</li>
 </ul>
 
@@ -1110,6 +1110,51 @@ ActionResult:
 
 <div id="outline-container-org946e302" class="outline-3">
 <h3 id="org946e302"><span class="section-number-3">5.5.</span> Binding/Validation</h3>
+<div class="outline-text-3" id="text-5-5">
+<ul class="org-ul">
+<li>参数是自动绑定的，注意 [Bind] 的使用</li>
+<li>验证，推荐使用的是 Model 验证方式:
+<ol class="org-ol">
+<li>定义或者选择适当的 <code>ValidationAttribute</code></li>
+<li>放置到 Model 的相关属性上</li>
+<li>在 Action 中使用 <code>ModelState.IsValid</code> 来判断有没有验证的错误</li>
+<li>在 Razor 中使用 <code>@Html.ValidationSummary/ValidationMessageFor</code> 对错误信息进行输出</li>
+</ol></li>
+<li><p>
+其他方式，比如手动验证:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">if</span> <span style="color: #000000;">(</span>student.Name.Length &gt; 2<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    ModelState.<span style="color: #721045;">AddModelError</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"Name"</span>, <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Exception</span><span style="color: #005f88;">(</span><span style="color: #2544bb;">"&#22826;&#38271;"</span><span style="color: #005f88;">)</span><span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div></li>
+</ul>
+
+<p>
+内置的很多 Attribute 在 System.ComponentModel.DataAnnotations 包下面:
+</p>
+<ul class="org-ul">
+<li>Required</li>
+<li>StringLength</li>
+<li>Range</li>
+<li>RegularExpression</li>
+</ul>
+
+<p>
+自定义验证 Attribute:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">public</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">MyRequiredAttribute</span> : <span style="color: #005a5f;">ValidationAttribute</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">public</span> <span style="color: #5317ac;">override</span> <span style="color: #005a5f;">bool</span> <span style="color: #721045;">IsValid</span><span style="color: #a8007f;">(</span><span style="color: #005a5f;">object</span> <span style="color: #0000c0;">value</span><span style="color: #a8007f;">)</span>
+    <span style="color: #a8007f;">{</span>
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgc3a6654" class="outline-3">

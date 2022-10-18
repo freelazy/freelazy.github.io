@@ -735,11 +735,11 @@ ASP.NET MVC:
 - 返回值是一个普通的 string/int 等或者是一个 ActionResult
 
 ActionResult:
-- Content 方法用来返回一个 ContentResult 对象，即返回字符串本身
-- View 方法用来返回一个 ViewResult，利用 razor 引擎生成 html 字符串
-- Json 方法用来返回一个 JsonResult 对象，即将数据序列化
-- File 方法用来返回一个 FileResult 对象，用来处理文件的下载
-- 其他: HttpNotFound, new HttpNotFoundResult, new HttpStatusCodeResult(505)
+- Content() 方法用来返回一个 ContentResult 对象，即返回字符串本身
+- View() 方法用来返回一个 ViewResult，利用 razor 引擎生成 html 字符串
+- Json() 方法用来返回一个 JsonResult 对象，即将数据序列化
+- File() 方法用来返回一个 FileResult 对象，用来处理文件的下载
+- HttpNotFound, new HttpNotFoundResult, new HttpStatusCodeResult(505)
 - Redirect/RedirectToAction/RedirectToRoute
 
 传递数据的方式:
@@ -756,6 +756,36 @@ ActionResult:
 - Q: ViewBag vs ViewData 有什么区别?
 
 ** Binding/Validation
+
+- 参数是自动绑定的，注意 [Bind] 的使用
+- 验证，推荐使用的是 Model 验证方式:
+  1. 定义或者选择适当的 =ValidationAttribute=
+  2. 放置到 Model 的相关属性上
+  3. 在 Action 中使用 =ModelState.IsValid= 来判断有没有验证的错误
+  4. 在 Razor 中使用 =@Html.ValidationSummary/ValidationMessageFor= 对错误信息进行输出
+- 其他方式，比如手动验证:
+  #+begin_src csharp
+    if (student.Name.Length > 2)
+    {
+        ModelState.AddModelError("Name", new Exception("太长"));
+    }
+  #+end_src
+
+内置的很多 Attribute 在 System.ComponentModel.DataAnnotations 包下面:
+- Required
+- StringLength
+- Range
+- RegularExpression
+
+自定义验证 Attribute:
+#+begin_src csharp
+  public class MyRequiredAttribute : ValidationAttribute
+  {
+      public override bool IsValid(object value)
+      {
+      }
+  }
+#+end_src
 
 ** Filter
 
