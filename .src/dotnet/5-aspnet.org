@@ -731,12 +731,28 @@ ASP.NET MVC:
 
 ** Action
 
+- Action 是 Controller 里面用来处理请求产生响应的一个方法
+- 返回值是一个普通的 string/int 等或者是一个 ActionResult
+
+ActionResult:
+- Content 方法用来返回一个 ContentResult 对象，即返回字符串本身
+- View 方法用来返回一个 ViewResult，利用 razor 引擎生成 html 字符串
+- Json 方法用来返回一个 JsonResult 对象，即将数据序列化
+- File 方法用来返回一个 FileResult 对象，用来处理文件的下载
+- 其他: HttpNotFound, new HttpNotFoundResult, new HttpStatusCodeResult(505)
+- Redirect/RedirectToAction/RedirectToRoute
+
+传递数据的方式:
+- ViewBag
+- ViewData
+- Model
+
 ** Razor
 
 - Html 代码跟 CSharp 代码混编
 - 分解符: 遇到 @ 就是 csharp, 遇到 < 就是 html 代码
 - 常用指令: @model, @functions 等
-- 常用的类: Html/Ajax/Url/Model/ViewBag/ViewData
+- 常用的类: Html/Ajax/Url/Model/ViewBag/ViewData/Layout
 - Q: ViewBag vs ViewData 有什么区别?
 
 ** Binding/Validation

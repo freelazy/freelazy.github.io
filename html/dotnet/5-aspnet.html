@@ -18,8 +18,1115 @@
 <div id="content" class="content">
 <header>
 <h1 class="title">ASP.NET</h1>
-</header><p>
-ViewData</p>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org2e46c72">1. 单机 到 CS 到 BS</a></li>
+<li><a href="#org43580bd">2. ASP -&gt; ASP.NET -&gt; ASP.NET Core</a></li>
+<li><a href="#orga16c0aa">3. ASP.NET (Framework)</a></li>
+<li><a href="#orge20d128">4. ASP.NET Webform</a>
+<ul>
+<li><a href="#org4884bcb">4.1. aspx 文件</a></li>
+<li><a href="#org845bf47">4.2. Page 类</a></li>
+<li><a href="#orgeca96eb">4.3. Page 的生命周期</a></li>
+<li><a href="#org7495188">4.4. Page 的内置对象</a></li>
+<li><a href="#org0fe4293">4.5. 常用控件</a>
+<ul>
+<li><a href="#orgd97114a">4.5.1. GridView</a></li>
+<li><a href="#orge1c7ab0">4.5.2. Repeater</a></li>
+</ul>
+</li>
+<li><a href="#org27e318c">4.6. 用户自定义控件</a></li>
+<li><a href="#orgf16bd8d">4.7. 其他</a>
+<ul>
+<li><a href="#org3ed183e">4.7.1. 路由 (Route)</a></li>
+<li><a href="#orgbb2d469">4.7.2. 捆绑 (Bundle)</a></li>
+<li><a href="#org6449b61">4.7.3. 网站 Logo (favicon.ico)</a></li>
+<li><a href="#orgd80584e">4.7.4. IHttpHandler.IsReusable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org1228952">5. ASP.NET MVC</a>
+<ul>
+<li><a href="#orgf24ab64">5.1. MVC</a></li>
+<li><a href="#orgc171ad9">5.2. Lifecycle</a></li>
+<li><a href="#org8e3af1b">5.3. Action</a></li>
+<li><a href="#org592c73d">5.4. Razor</a></li>
+<li><a href="#org946e302">5.5. Binding/Validation</a></li>
+<li><a href="#orgc3a6654">5.6. Filter</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<section id="outline-container-org2e46c72" class="outline-2">
+<h2 id="org2e46c72"><span class="section-number-2">1.</span> 单机 到 CS 到 BS</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+要注意，.NET 跟 C# 不是一样的概念：
+</p>
+<pre class="example">
+   编译器                  运行
+C#   -&gt;   中间码(IL) -&gt;   (.NET)  -&gt; 机器码
+F#
+VB
+JS
+Java
+
+.java -&gt; .class -&gt; (JVM) -&gt; 机器码
+kotlin
+groovy
+clojue
+scala
+</pre>
+
+
+<p>
+经典、传统软件 (桌面软件):
+</p>
+<ul class="org-ul">
+<li>语言: C/C++/C#/Java/OC/Swift</li>
+<li>技术: Winform/WPF/UWP/MaUI Qt/GTK</li>
+</ul>
+
+<p>
+单机软件不符合应用场景，多机协助成了最大需求。
+最终，出现了 CS (Client-Server) 架构。
+</p>
+<ul class="org-ul">
+<li>多机通信使用 Socket，但是 Socket 需要处理太多细节，比较麻烦</li>
+<li>都要从 0 开始构建底层界面</li>
+<li>BS 能干的事情，CS <b>一定</b> 可以做到而且可以干的更好，但是 CS 要花费更高的 <b>成本</b></li>
+<li>CS 能干的事情，BS 不一定能做到。CS 的客户端可以对系统进行完全的控制，它可以实现浏览器无法实现的很多行为</li>
+<li>BS 架构，通过放弃了一些东西，成功降低了各种成本:
+<ul class="org-ul">
+<li>学习成本低</li>
+<li>开发成本低</li>
+<li>使用成本低</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span><span style="font-weight: bold; text-decoration: underline;">&#26631;&#39064;</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">form</span> <span style="color: #00538b;">action</span>=<span style="color: #2544bb;">"xxx"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #00538b;">type</span>=<span style="color: #2544bb;">"submit"</span> <span style="color: #00538b;">value</span>=<span style="color: #2544bb;">"&#28857;&#25105;&#21457;&#36865;"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">form</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+任务:
+</p>
+<ul class="org-ul">
+<li>什么是 CS 架构，什么是 BS 架构?</li>
+<li>CS 架构跟 BS 架构相比，各有什么优劣?</li>
+<li>整理资料，了解浏览器的发展历史</li>
+</ul>
+
+<p>
+360/&#x2026;.很多野生浏览器:
+</p>
+<ul class="org-ul">
+<li>当时 IE 你不能不用，而且多个版本之间还有差别。IE6</li>
+<li>当时先进生产力的代表是 Firefox, Chrome, Opera 等更加贴近标准的浏览器</li>
+<li>双(多)核浏览器+兼容</li>
+</ul>
+</div>
+</section>
+
+
+<section id="outline-container-org43580bd" class="outline-2">
+<h2 id="org43580bd"><span class="section-number-2">2.</span> ASP -&gt; ASP.NET -&gt; ASP.NET Core</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+大致分为三个阶段:
+</p>
+<ol class="org-ol">
+<li>1996 年左右，ASP (Active Server Page), 使用的开发语言是 VB</li>
+<li>2002 年左右，随着 .NET 平台出现，推出了 ASP.NET 技术</li>
+<li>2015 年左右，微软开始推出跨平台的 .NET，称作 .NET Core</li>
+</ol>
+</div>
+</section>
+
+<section id="outline-container-orga16c0aa" class="outline-2">
+<h2 id="orga16c0aa"><span class="section-number-2">3.</span> ASP.NET (Framework)</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Pipeline (管道/管线) 模型:
+</p>
+<ul class="org-ul">
+<li>最核心的接口: <code>IHttpHandler/IHttpHandlerFactory</code>, <code>IHttpModule</code></li>
+<li>最核心的配置文件: Web.config</li>
+<li>比较重要的类: HttpApplication, HttpContext</li>
+</ul>
+
+<p>
+Pipeline 中标准的 19 个事件:
+<img src="img/oimg_20220920_070127.png" alt="oimg_20220920_070127.png">
+Global.asax:
+</p>
+<ul class="org-ul">
+<li>Application_Start/End</li>
+<li>Session_Start/End</li>
+<li>Application_BeginRequest/AuthenticateRequest/Error</li>
+</ul>
+
+<p>
+部署:
+</p>
+<ul class="org-ul">
+<li>环境: Windows + SqlServer + IIS</li>
+<li>IIS 是缩写，全称 Internet Information Services (互联网信息服务 ), 是由微软公司提供的基于运行 .NET 的互联网基本服务。</li>
+<li>步骤:
+<ol class="org-ol">
+<li>开发项目，通过【发布】导出要部署的项目文件夹</li>
+<li>在服务器上安 Windows 操作系统</li>
+<li>在 Windows 中安装 SqlServer 数据库</li>
+<li>在 Windows 中启用 IIS 服务器</li>
+<li>在 IIS 管理器中，为项目文件夹创建新的【网站】</li>
+<li>注意整个过程中的【权限】和【防火墙】问题</li>
+</ol></li>
+</ul>
+</div>
+</section>
+
+
+<section id="outline-container-orge20d128" class="outline-2">
+<h2 id="orge20d128"><span class="section-number-2">4.</span> ASP.NET Webform</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org4884bcb" class="outline-3">
+<h3 id="org4884bcb"><span class="section-number-3">4.1.</span> aspx 文件</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+首先，可以将 aspx 文件看做一个加强版的 html 文件，所以，它完全接受 html 语法。
+</p>
+
+<p>
+因此创建一个 Hello.aspx 文件，内容如下:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span><span style="font-weight: bold; text-decoration: underline;">&#25105;&#26159; Hello.aspx &#25991;&#20214;&#65292;&#25152;&#26377;&#30340; html &#20195;&#30721;&#22312;&#36825;&#37324;&#37117;&#20250;&#34987;&#21407;&#26679;&#36820;&#22238;&#32473;&#27983;&#35272;&#22120;</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span> &#20854;&#20182;&#30340;&#25110;&#31616;&#21333;&#25110;&#22797;&#26434;&#30340; html/js/css &#20195;&#30721; <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+运行项目，可以通过 <code>https://localhost:port/Hello.aspx</code> 访问这个页面。浏览器中查看源代码可以看到内容跟上述一致。
+</p>
+
+<p>
+接下来，aspx 接受行内表达式语法。这种语法来源于之前的 asp 时代，是在 html 内嵌 C#/VB 代码的一种方式 (<a href="https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/aspnet/development/inline-expressions">官方链接</a>)。
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span><span style="font-weight: bold; text-decoration: underline;">&#25105;&#26159; Hello.aspx &#25991;&#20214;&#65292;&#25152;&#26377;&#30340; html &#20195;&#30721;&#22312;&#36825;&#37324;&#37117;&#20250;&#34987;&#21407;&#26679;&#36820;&#22238;&#32473;&#27983;&#35272;&#22120;</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span> &#20854;&#20182;&#30340;&#25110;&#31616;&#21333;&#25110;&#22797;&#26434;&#30340; html/js/css &#20195;&#30721; <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>% Response.Write<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&#36890;&#36807;&#34892;&#20869;&#34920;&#36798;&#24335;&#65292;&#21487;&#20197;&#22312;&#25991;&#20214;&#20013;&#23884;&#20837; C# &#20195;&#30721;&#20102;&#65281;"</span><span style="color: #a8007f;">)</span>; %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>% Response.Write<span style="color: #a8007f;">(</span>Request.UserAgent<span style="color: #a8007f;">)</span>; %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>%
+      string a = <span style="color: #2544bb;">"&#21487;&#20197;&#20889;&#24456;&#22810;&#20195;&#30721;&#65292;&#22312;&#36825;&#37324;"</span>;
+      string c = <span style="color: #2544bb;">"&#29616;&#22312;&#65292;&#23450;&#20041;&#19968;&#20010;&#21464;&#37327;&#65292;&#21518;&#38754;&#20351;&#29992;"</span>;
+    %<span style="color: #000000;">&gt;</span>
+
+    <span style="color: #000000;">&lt;</span>% Response.Write<span style="color: #a8007f;">(</span>c<span style="color: #a8007f;">)</span>; %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>%-- &#25105;&#26159;&#19968;&#20010;&#27880;&#37322;: &#19979;&#38754;&#30340;&#19968;&#34892;&#20195;&#30721;&#65292;&#26159;&#19978;&#38754;&#20195;&#30721;&#30340;&#35821;&#27861;&#31958; --%<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>%= c <span style="color: #000000;">&gt;</span>
+
+    <span style="color: #000000;">&lt;</span>%= <span style="color: #2544bb;">"&lt;div&gt;&#20320;&#22909;&lt;/div&gt;"</span> %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>%-- &#20351;&#29992; <span style="color: #00538b;">%:</span> &#36827;&#34892;&#33258;&#21160;&#26684;&#24335;&#21270;&#36755;&#20986; --%<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>% Response.Write<span style="color: #a8007f;">(</span>HttpUtility.HtmlEncode<span style="color: #005f88;">(</span><span style="color: #2544bb;">"&lt;div&gt;&#20320;&#22909;&lt;/div&gt;"</span><span style="color: #005f88;">)</span><span style="color: #a8007f;">)</span>; %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>%= HttpUtility.HtmlEncode<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&lt;div&gt;&#20320;&#22909;&lt;/div&gt;"</span><span style="color: #a8007f;">)</span> %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #00538b;">%:</span> <span style="color: #2544bb;">"&lt;div&gt;&#20320;&#22909;&lt;/div&gt;"</span> %<span style="color: #000000;">&gt;</span>
+
+    <span style="color: #000000;">&lt;</span>%# Button1.Controls %<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>%#: Button1.Controls %<span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+微软说，时代变了，行内表达式容易导致逻辑跟页面混淆，不便于维护和复用。亲，建议使用控件。
+控件的使用方法，跟 Winform 中实在太像了:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">form</span> <span style="color: #00538b;">id</span>=<span style="color: #2544bb;">"form1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span><span style="color: #000000;">&gt;</span>
+     <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Calendar</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"Calendar1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Calendar</span><span style="color: #000000;">&gt;</span>
+     <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Button</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"Button1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">OnClick</span>=<span style="color: #2544bb;">"Button1_Click"</span> <span style="color: #00538b;">Text</span>=<span style="color: #2544bb;">"Button"</span> /<span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">form</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+如果是方法等大段的 C# 代码，可以写在 script runat server 里面:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span><span style="color: #000000;">&gt;</span>
+      <span style="color: #5317ac;">public</span> string MyName = <span style="color: #2544bb;">"&#30495;&#38590;"</span>;
+      <span style="color: #5317ac;">public</span> string HelloWorld<span style="color: #000000;">()</span> <span style="color: #000000;">{</span> <span style="color: #5317ac;">return</span> <span style="color: #2544bb;">"HelloWorld"</span>; <span style="color: #000000;">}</span>
+      <span style="color: #5317ac;">public</span> string MyCalender<span style="color: #000000;">()</span> <span style="color: #000000;">{</span> <span style="color: #5317ac;">return</span> <span style="color: #2544bb;">"&lt;div&gt;&#25105;&#26159;&#19968;&#20010;&#24040;&#22797;&#26434;&#30340;&#26085;&#21382;&lt;/div&gt;"</span>; <span style="color: #000000;">}</span>
+      <span style="color: #5317ac;">protected</span> <span style="color: #5317ac;">void</span> <span style="color: #00538b;">Button1_Click</span><span style="color: #000000;">(</span>object sender, EventArgs e<span style="color: #000000;">)</span> <span style="color: #000000;">{</span> <span style="color: #000000;">}</span>
+  <span style="color: #000000;">&lt;</span>/script<span style="color: #000000;">&gt;</span>
+
+  <span style="color: #000000;">&lt;</span>%= MyCalender<span style="color: #a8007f;">()</span> %<span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Calendar</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"Calendar1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Calendar</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+但是上述 C# 代码写在 aspx 文件里，开发成本和维护成本都比较高，所以能不能有一种机制将其<b>分离</b>出去?
+有的，有的。使用页面指令，指定外部 csharp 文件即可:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span>%@ Page <span style="color: #00538b;">Language</span>=<span style="color: #2544bb;">"C#"</span> <span style="color: #00538b;">AutoEventWireup</span>=<span style="color: #2544bb;">"true"</span> <span style="color: #00538b;">CodeBehind</span>=<span style="color: #2544bb;">"Balala.cs"</span> <span style="color: #00538b;">Inherits</span>=<span style="color: #2544bb;">"WebApplication2.Balala"</span> %<span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+于是，就可以创建文件 Balala.cs 在里面专注于数据和业务逻辑，之后让 aspx 专注于页面展现了（模型与视图分离的思想）。
+</p>
+
+<p>
+这个 Balala.cs 需要写成类似这个样子:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">namespace</span> <span style="color: #00538b;">WebApplication2</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">public</span> <span style="color: #5317ac;">partial</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">Balala</span> : <span style="color: #005a5f;">Page</span>
+    <span style="color: #a8007f;">{</span>
+        <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">string</span> <span style="color: #00538b;">MyName</span> = <span style="color: #2544bb;">"&#30495;&#38590;"</span>;
+        <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">string</span> <span style="color: #721045;">HelloWorld</span><span style="color: #005f88;">()</span>
+        <span style="color: #005f88;">{</span>
+            <span style="color: #5317ac;">return</span> <span style="color: #2544bb;">"HelloWorld"</span>;
+        <span style="color: #005f88;">}</span>
+        <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">string</span> <span style="color: #721045;">MyCalender</span><span style="color: #005f88;">()</span>
+        <span style="color: #005f88;">{</span>
+            <span style="color: #5317ac;">return</span> <span style="color: #2544bb;">"&lt;div&gt;&#25105;&#26159;&#19968;&#20010;&#24040;&#22797;&#26434;&#30340;&#26085;&#21382;&lt;/div&gt;"</span>;
+        <span style="color: #005f88;">}</span>
+        <span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Button1_Click</span><span style="color: #005f88;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #005f88;">)</span>
+        <span style="color: #005f88;">{</span>
+        <span style="color: #005f88;">}</span>
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+通过以上操作，一个完整的 Web 窗体就有了。
+</p>
+
+<p>
+另外，不同的页面往往在整体的布局存在很多相似之处，不同页面存在大量雷同代码。
+为了简化在 aspx 中构建页面，可以通过母版的方式，将整体的页面布局代码分离到外面 (挖坑-填坑)，
+达到共用布局的目的。
+</p>
+
+<p>
+方法很简单，首先，要创建一个母版文件。它跟 aspx 很像，只是文件的后缀和页面指令不同。比如，创建一个 yyy.Master 母版:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span>%@ Master <span style="color: #00538b;">Language</span>=<span style="color: #2544bb;">"C#"</span> %<span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">head</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">title</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">title</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">ContentPlaceHolder</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"head"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">head</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">body</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">aside</span><span style="color: #000000;">&gt;</span>
+        &#33756;&#21333;
+    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">aside</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #00538b;">class</span>=<span style="color: #2544bb;">"main"</span><span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">ContentPlaceHolder</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"main"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">body</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+通过使用 <code>asp:ContentPlaceHolder</code> 挖坑。使用这个母版的 aspx 文件，只需要用 <code>asp:Content</code> 填坑即可。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span>%@ Page <span style="color: #00538b;">Language</span>=<span style="color: #2544bb;">"C#"</span> <span style="color: #00538b;">AutoEventWireup</span>=<span style="color: #2544bb;">"true"</span>
+    <span style="color: #00538b;">MasterPageFile</span>=<span style="color: #2544bb;">"~/yyy.Master"</span>
+    <span style="color: #00538b;">CodeBehind</span>=<span style="color: #2544bb;">"WebForm2.aspx.cs"</span> <span style="color: #00538b;">Inherits</span>=<span style="color: #2544bb;">"WebApplication2.WebForm2"</span> %<span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Content</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">ContentPlaceHolderID</span>=<span style="color: #2544bb;">"head"</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
+        <span style="color: #5317ac;">.main </span><span style="color: #000000;">{</span>
+            <span style="color: #005a5f;">background</span>: <span style="color: #000000; background-color: #ffffe0;">lightyellow</span>;
+            <span style="color: #005a5f;">height</span>: 200px;
+        <span style="color: #000000;">}</span>
+    <span style="color: #000000;">&lt;</span>/style<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Content</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Content</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">ContentPlaceHolderID</span>=<span style="color: #2544bb;">"main"</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #00538b;">style</span>=<span style="color: #2544bb;">"color: red;"</span><span style="color: #000000;">&gt;</span>
+        &#25105;&#26159;&#21478;&#22806;&#30340;&#19968;&#20010;&#39029;&#38754;
+    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Content</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+就这样，就实现了页面布局的可重复使用。编码可以更灵活了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org845bf47" class="outline-3">
+<h3 id="org845bf47"><span class="section-number-3">4.2.</span> Page 类</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+你 (Browser) 请求 <a href="http://localhost:893232/Hello.aspx">http://localhost:893232/Hello.aspx</a> 到我 (IIS):
+</p>
+<ul class="org-ul">
+<li>首先，查找 aspx 有没有对应的编译文件。如果有，执行之；否则，先编译，后执行之</li>
+<li>aspx 会被动态转换为相应的 csharp 文件，之后会被编译进 dll 中 (HttpRuntime.CodegenDir)</li>
+<li>aspx 文件实质是 <code>Page</code> 的一个子类，它实现了 <code>IHttpHandler</code> 接口</li>
+<li>aspx 还实现了 <code>IRequiresSessionState</code> 接口，因此可以在 aspx 中自由使用 Session</li>
+<li>在父类 Page 中，定义了控件加载的逻辑和页面渲染的逻辑</li>
+<li>在父类 Page 中，初始化了很多属性和方法，可以直接使用</li>
+<li>因此，掌握 Page 类的<b>生命周期</b>和 Page 的基本方法属性非常重要</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgeca96eb" class="outline-3">
+<h3 id="orgeca96eb"><span class="section-number-3">4.3.</span> Page 的生命周期</h3>
+<div class="outline-text-3" id="text-4-3">
+
+<figure id="orgb1ce23f">
+<img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
+
+</figure>
+
+<p>
+PreInit:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_PreInit</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#36890;&#36807;&#26816;&#26597; IsPostBack &#26469;&#30830;&#23450;&#39029;&#38754;&#26159;&#21542;&#26159;&#31532;&#19968;&#27425;&#34987;&#21152;&#36733;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#21019;&#24314;(&#25110;&#37325;&#24314;)&#26381;&#21153;&#22120;&#25511;&#20214;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#35774;&#32622;&#27597;&#29256; (Master)</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">4. &#35774;&#32622;&#20027;&#39064; (Theme)</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#27880;&#24847;: &#22914;&#26524;&#39029;&#38754;&#26159; postback &#37027;&#20040;&#25511;&#20214;&#30340;&#20540;&#36824;&#27809;&#26377;&#34987;&#24674;&#22797;&#65292;&#22240;&#27492;&#20320;&#22312;&#36825;&#20010;&#38454;&#27573;&#35774;&#32622;&#30340;&#25511;&#20214;&#20540;&#20063;&#35768;&#20250;&#34987;&#35206;&#30422;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+Init:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_Init</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#36825;&#20010;&#20107;&#20214;&#26159;&#22312;&#25152;&#26377;&#25511;&#20214;&#37117;&#34987;&#21021;&#22987;&#21270;&#20043;&#21518;&#34987;&#35302;&#21457;&#30340;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#20026;&#27599;&#20010;&#25511;&#20214;&#35774;&#32622; UniqueID&#65292;&#24182;&#19988;&#24212;&#29992;&#30382;&#32932;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#21487;&#20197;&#20351;&#29992;&#36825;&#20010;&#20107;&#20214;&#26469;&#35835;&#21462;&#25110;&#21021;&#22987;&#21270;&#25511;&#20214;&#30340;&#23646;&#24615;&#65288;&#65281;&#65281;&#65281;&#65289;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">4. &#22312;&#25511;&#20214;&#26641;&#20013;&#65292;Init &#20107;&#20214;&#26159;&#30001;&#20869;&#32780;&#22806;&#30340;&#39034;&#24207;&#35302;&#21457;&#30340;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+InitComplete:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_InitComplete</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#22312;&#36825;&#20010;&#38454;&#27573;&#65292;viewstate &#20540;&#36824;&#27809;&#26377;&#34987;&#21152;&#36733;&#12290;</span>
+    <span style="color: #505050;">//    </span><span style="color: #505050;">&#22240;&#27492;&#24744;&#21487;&#20197;&#20351;&#29992;&#27492;&#20107;&#20214;&#23545;&#35270;&#22270;&#29366;&#24577;&#36827;&#34892;&#26356;&#25913;&#65292;&#20197;&#30830;&#20445;&#22312;&#19979;&#19968;&#27425; postback &#21518;&#20445;&#30041;&#36825;&#20123;&#26356;&#25913;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#36825;&#20010;&#20107;&#20214;&#26159;&#34987; Page &#23545;&#35937;&#35302;&#21457;&#30340;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#22914;&#26524;&#38656;&#35201;&#25152;&#26377;&#21021;&#22987;&#21270;&#24037;&#20316;&#23436;&#25104;&#25165;&#33021;&#25191;&#34892;&#30340;&#20219;&#21153;&#65292;&#21487;&#20197;&#20889;&#22312;&#36825;&#37324;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+OnPreLoad:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">OnPreLoad</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#26159;&#22312; Page &#23545;&#35937;&#24050;&#32463;&#21152;&#36733;&#20102; ViewState &#20013;&#30340;&#20540;&#12289;&#24182;&#21152;&#36733;&#23436;&#25104;&#25152;&#26377;&#25511;&#20214;&#12289;&#24182;&#36890;&#36807; request &#21442;&#25968;&#22788;&#29702;&#23436; postback &#25968;&#25454;&#20043;&#21518;&#65292;&#25165;&#35302;&#21457;&#30340;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+Load:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_Load</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. Page &#23545;&#35937;&#20250;&#25191;&#34892; Page &#19978;&#38754;&#30340; OnLoad &#26041;&#27861;&#65292;&#28982;&#21518;&#36882;&#24402;&#22320;&#25191;&#34892;&#23376;&#25511;&#20214;&#30340; OnLoad &#26041;&#27861;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#36825;&#26159;&#22312;&#29983;&#21629;&#21608;&#26399;&#20013;&#65292;&#31532;&#19968;&#20010;&#25152;&#26377;&#30340;&#20540;&#37117;&#34987;&#23436;&#20840;&#24674;&#22797;&#20102;&#30340;&#38454;&#27573;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#32477;&#22823;&#22810;&#25968;&#24773;&#20917;&#19979;&#65292;&#21487;&#20197;&#36890;&#36807;&#26816;&#26597; IsPostBack &#30340;&#20540;&#26469;&#36991;&#20813;&#19981;&#24517;&#35201;&#30340;&#37325;&#32622;&#29366;&#24577;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">4. &#22312;&#36825;&#37324;&#65292;&#36866;&#21512;&#36827;&#34892;&#36755;&#20837;&#39564;&#35777;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">5. &#22312;&#36825;&#37324;&#65292;&#36866;&#21512;&#21160;&#24577;&#21019;&#24314;&#12289;&#28155;&#21152;&#32452;&#20214;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">6. &#22312;&#36825;&#37324;&#65292;&#36866;&#21512;&#35843;&#25972;&#25511;&#20214;&#30340;&#23646;&#24615;&#65292;&#36866;&#21512;&#21019;&#24314;&#25968;&#25454;&#24211;&#36830;&#25509;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+控件上的 PostBack 事件:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Button1_Click</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. ASP.NET &#29616;&#22312;&#20250;&#35843;&#29992;&#25152;&#26377;&#22312; Page &#25110;&#23376;&#25511;&#20214;&#19978;&#30340;&#33021;&#23548;&#33268; PostBack &#30340;&#20107;&#20214;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#20351;&#29992;&#36825;&#20123;&#20107;&#20214;&#65292;&#21487;&#20197;&#22788;&#29702;&#27604;&#22914; Button &#28857;&#20987;&#12289;TextBox &#30340;&#25991;&#26412;&#21464;&#21160;&#31561;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+LoadComplete:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_LoadComplete</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#22312;&#20107;&#20214;&#22788;&#29702;&#38454;&#27573;&#30340;&#26368;&#21518;&#34987;&#35302;&#21457;&#30340;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#36825;&#37324;&#36866;&#21512;&#25152;&#26377;&#30340;&#20854;&#20182;&#25511;&#20214;&#37117;&#34987;&#23436;&#20840;&#21152;&#36733;&#20043;&#21518;&#30340;&#20219;&#21153;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+OnPreRender:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">OnPreRender</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#22312;&#25152;&#26377;&#30340;&#23545;&#35937;&#37117;&#24050;&#32463;&#23436;&#20840;&#20934;&#22791;&#22909;&#30340;&#24773;&#20917;&#19979;&#35302;&#21457;&#30340;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#20808;&#26159; Page &#19978;&#30340; OnPreRender &#34987;&#25191;&#34892;&#65292;&#28982;&#21518;&#36882;&#24402;&#25191;&#34892;&#23376;&#25511;&#20214;&#19978;&#30340; OnPreRender</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#20801;&#35768;&#23545;&#39029;&#38754;&#25110;&#20854;&#25511;&#20214;&#36827;&#34892;&#26368;&#32456;&#26356;&#25913;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">4. &#36825;&#20010;&#20107;&#20214;&#21457;&#29983;&#22312;&#20445;&#23384; ViewState &#20043;&#21069;&#65292;&#25152;&#20197;&#22312;&#36825;&#37324;&#20570;&#30340;&#20219;&#20309;&#20462;&#25913;&#37117;&#23558;&#34987;&#20445;&#23384;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">5. &#35774;&#32622;&#20102; DataSourceID &#23646;&#24615;&#30340;&#27599;&#20010;&#25968;&#25454;&#32465;&#23450;&#25511;&#20214;&#37117;&#35843;&#29992;&#20854; DataBind &#26041;&#27861;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">6. &#36825;&#37324;&#36866;&#21512;&#29992;&#26469;&#23545; Page &#25110;&#25511;&#20214;&#36827;&#34892;&#26368;&#21518;&#30340;&#35843;&#25972;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+OnSaveStateComplete:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">OnSaveStateComplete</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#22312;&#39029;&#38754;&#21644;&#25511;&#20214;&#30340; ViewState &#24050;&#32463;&#34987;&#20445;&#23384;&#20043;&#21518;&#35302;&#21457;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#22312;&#36825;&#37324;&#23545;&#39029;&#38754;&#25110;&#25511;&#20214;&#30340;&#20462;&#25913;&#65292;&#20250;&#34987;&#24573;&#30053;&#25481;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#36825;&#37324;&#36866;&#21512;&#19981;&#24819;&#25913;&#21464; ViewState &#30340;&#19968;&#20123;&#21892;&#21518;&#24037;&#20316;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+Render-Method:
+</p>
+<ul class="org-ul">
+<li>Render 方法存在于 Page 对象和其子控件中</li>
+<li>这个阶段，其实就是 ASP.NET 拼接 html 字符串，响应给用户的过程</li>
+</ul>
+
+<p>
+Unload:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_Unload</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1. &#36825;&#20010;&#26041;&#27861;&#29992;&#26469;&#36827;&#34892;&#28165;&#29702;&#24037;&#20316;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2. &#22312;&#36825;&#20010;&#38454;&#27573;&#65292;&#25152;&#26377;&#24037;&#20316;&#37117;&#24050;&#32463;&#23436;&#25104;&#65292;&#21487;&#20197;&#25918;&#24515;&#37322;&#25918;&#20219;&#20309;&#36164;&#28304;&#65292;&#21253;&#25324; Page &#23545;&#35937;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">3. &#22312;&#36825;&#37324;&#65292;&#19981;&#33021;&#20351;&#29992; Response.Write &#36755;&#20986;&#20869;&#23481;&#65292;&#21542;&#21017;&#20250;&#25253;&#38169;</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+参考: <a href="https://www.c-sharpcorner.com/UploadFile/8911c4/page-life-cycle-with-examples-in-Asp-Net/">https://www.c-sharpcorner.com/UploadFile/8911c4/page-life-cycle-with-examples-in-Asp-Net/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7495188" class="outline-3">
+<h3 id="org7495188"><span class="section-number-3">4.4.</span> Page 的内置对象</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+所谓的内置对象，是指在 Page 类中被初始化，从而在 aspx 中能直接使用的对象。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span>%=Request<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"id"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Request.QueryString<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"id"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Request.Form<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"id"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Request.Params<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"id"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Request.Files<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"id"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Request.UserAgent %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Request.Headers<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"location"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span>%=ViewState<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"kkkkk"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>% ViewState<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"kkkkk"</span><span style="color: #a8007f;">]</span> = 333; %<span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span>%=Request.Cookies<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"Asp_Net.SessionId"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Response.Cookies<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"ssss"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Session<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"ksdkfj"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span>% Application<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"&#32593;&#31449;url"</span><span style="color: #a8007f;">]</span> = <span style="color: #2544bb;">"xxxx"</span>; %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>%=Application<span style="color: #a8007f;">[</span><span style="color: #2544bb;">"&#24635;&#20849;&#35775;&#38382;&#30340;&#25968;&#30446;"</span><span style="color: #a8007f;">]</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>&#35775;&#38382;&#27425;&#25968;: <span style="color: #000000;">&lt;</span>%= new Random<span style="color: #a8007f;">()</span>.Next<span style="color: #a8007f;">()</span> %<span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span>%=Server.MapPath<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"/UploadedFiles"</span><span style="color: #a8007f;">)</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>% Server.Transfer<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"Logon.aspx"</span>, true<span style="color: #a8007f;">)</span>; %<span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+Code Action Task:
+</p>
+<pre class="example" id="org0a449ed">
+----------------------    -------
+| .                  |    | 验证 |
+----------------------    -------
+
+如果输入的内容长度小于5，下面用红色的字，提示:
+: 您输入的内容不合格，请重新再填！
+然后情况输入框，将光标 focus 到 input 框。
+
+如果输入的内容合格，下面用绿色的字提示：
+: 恭喜您，验证通过。
+然后，将输入框变成只读状态。
+</pre>
+
+<details><summary>参考答案</summary><br />
+
+<p>
+标注着 runat=server 的控件上的状态，
+在每次请求的时候，都会被通过 _ViewState 的方式自动传递着。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">TextBox</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"tb1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Button</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"bt1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">Text</span>=<span style="color: #2544bb;">"&#39564;&#35777;"</span> <span style="color: #00538b;">OnClick</span>=<span style="color: #2544bb;">"bt1_Click"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Label</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"lb1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">bt1_Click</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>tb1.Text.Length &lt; 5<span style="color: #a8007f;">)</span>
+    <span style="color: #a8007f;">{</span>
+        lb1.Text = <span style="color: #2544bb;">"&#24744;&#36755;&#20837;&#30340;&#20869;&#23481;&#19981;&#21512;&#26684;&#65292;&#35831;&#37325;&#22635;&#12290;"</span>;
+        lb1.ForeColor = System.Drawing.Color.Red;
+        tb1.Text = String.Empty;
+        tb1.<span style="color: #721045;">Focus</span><span style="color: #005f88;">()</span>;
+    <span style="color: #a8007f;">}</span>
+    <span style="color: #5317ac;">else</span>
+    <span style="color: #a8007f;">{</span>
+        lb1.Text = <span style="color: #2544bb;">"&#24685;&#21916;&#24744;&#65292;&#39564;&#35777;&#36890;&#36807;"</span>;
+        lb1.ForeColor = System.Drawing.Color.Green;
+        tb1.ReadOnly = <span style="color: #0000c0;">true</span>;
+        bt1.Enabled = <span style="color: #0000c0;">false</span>;
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+</details><br/>
+
+<p>
+Code Action Task:
+</p>
+<pre class="example" id="org94997d8">
+在页面中，显示:
+: 这是本页面在 Page 生命中，被访问的第 N 次。
+
+这个例子用来理解如何使用 ViewState 对象。
+</pre>
+
+<details><summary>参考答案</summary><br />
+
+<p>
+第一种方案，借助 <code>asp:HiddenField</code> 控件，曲线救国。
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">HiddenField</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"hf1"</span> <span style="color: #00538b;">Value</span>=<span style="color: #2544bb;">"0"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+    &#36825;&#26159;&#26412;&#39029;&#38754;&#22312; Page &#29983;&#21629;&#20013;&#65292;&#34987;&#35775;&#38382;&#30340;&#31532; <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Label</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"sd"</span> <span style="color: #00538b;">Text</span>=<span style="color: #2544bb;">"&lt;%# hf1.Value %&gt;"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span>/<span style="color: #000000;">&gt;</span> &#27425;&#12290;
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_Load</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    hf1.Value = <span style="color: #a8007f;">(</span><span style="color: #005a5f;">int</span>.<span style="color: #721045;">Parse</span><span style="color: #005f88;">(</span>hf1.Value<span style="color: #005f88;">)</span> + 1<span style="color: #a8007f;">)</span>.<span style="color: #721045;">ToString</span><span style="color: #a8007f;">()</span>;
+    sd.<span style="color: #721045;">DataBind</span><span style="color: #a8007f;">()</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+第二种方案，使用 ViewState 对象，即手动模式。
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+    &#36825;&#26159;&#26412;&#39029;&#38754;&#22312; Page &#29983;&#21629;&#20013;&#65292;&#34987;&#35775;&#38382;&#30340;&#31532; <span style="color: #000000;">&lt;</span>%= VisitCount %<span style="color: #000000;">&gt;</span> &#27425;&#12290;
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">public</span> <span style="color: #005a5f;">int</span> <span style="color: #00538b;">VisitCount</span> <span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">get</span>
+    <span style="color: #a8007f;">{</span>
+        <span style="color: #5317ac;">return</span> ViewState<span style="color: #005f88;">[</span><span style="color: #2544bb;">"vc"</span><span style="color: #005f88;">]</span> != <span style="color: #0000c0;">null</span> ? <span style="color: #005f88;">(</span><span style="color: #005a5f;">int</span><span style="color: #005f88;">)</span>ViewState<span style="color: #005f88;">[</span><span style="color: #2544bb;">"vc"</span><span style="color: #005f88;">]</span> : 0;
+    <span style="color: #a8007f;">}</span>
+    <span style="color: #5317ac;">set</span>
+    <span style="color: #a8007f;">{</span>
+        <span style="color: #005a5f;">ViewState</span><span style="color: #005f88;">[</span><span style="color: #2544bb;">"vc"</span><span style="color: #005f88;">]</span> = <span style="color: #0000c0;">value</span>;
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+
+<span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_Load</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    VisitCount += 1;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+</details>
+</div>
+</div>
+
+<div id="outline-container-org0fe4293" class="outline-3">
+<h3 id="org0fe4293"><span class="section-number-3">4.5.</span> 常用控件</h3>
+<div class="outline-text-3" id="text-4-5">
+</div>
+<div id="outline-container-orgd97114a" class="outline-4">
+<h4 id="orgd97114a"><span class="section-number-4">4.5.1.</span> GridView</h4>
+<div class="outline-text-4" id="text-4-5-1">
+<p>
+<a href="https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.gridview?view=netframework-4.8">https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.gridview?view=netframework-4.8</a>
+</p>
+
+<p>
+最简方式:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">SqlDataSource</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"DS1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span>
+                   <span style="color: #00538b;">SelectCommand</span>=<span style="color: #2544bb;">"select * from students"</span>
+                   <span style="color: #00538b;">ConnectionString</span>=<span style="color: #2544bb;">"&lt;%$ ConnectionStrings: mydb %&gt;"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">GridView</span> <span style="color: #00538b;">DataSourceID</span>=<span style="color: #2544bb;">"DS1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+编程方式的数据源:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp">studentsGV.DataSource =
+    DbHelper.<span style="color: #721045;">DoExecuteQuery</span><span style="color: #000000;">(</span><span style="color: #2544bb;">"select * from students"</span><span style="color: #000000;">)</span>;
+studentsGV.<span style="color: #721045;">DataBind</span><span style="color: #000000;">()</span>;
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">GridView</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"studentsGV"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+灵活定义视图格式:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">GridView</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"studentsGV"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span>
+    <span style="color: #00538b;">ShowFooter</span>=<span style="color: #2544bb;">"true"</span>
+    <span style="color: #00538b;">AutoGenerateColumns</span>=<span style="color: #2544bb;">"false"</span>
+    <span style="color: #00538b;">AllowSorting</span>=<span style="color: #2544bb;">"true"</span>
+    <span style="color: #00538b;">EmptyDataText</span>=<span style="color: #2544bb;">"&#27809;&#26377;&#26597;&#35810;&#21040;&#20219;&#20309;&#23398;&#29983;"</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">Columns</span><span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">BoundField</span> <span style="color: #00538b;">DataField</span>=<span style="color: #2544bb;">"name"</span> <span style="color: #00538b;">HeaderText</span>=<span style="color: #2544bb;">"&#22995;&#21517;"</span> <span style="color: #00538b;">SortExpression</span>=<span style="color: #2544bb;">"id"</span>/<span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">BoundField</span> <span style="color: #00538b;">DataField</span>=<span style="color: #2544bb;">"homecity"</span> /<span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">ButtonField</span> <span style="color: #00538b;">ButtonType</span>=<span style="color: #2544bb;">"Link"</span> <span style="color: #00538b;">Text</span>=<span style="color: #2544bb;">"dksk"</span> /<span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">CommandField</span> <span style="color: #00538b;">ShowDeleteButton</span>=<span style="color: #2544bb;">"true"</span> <span style="color: #00538b;">ShowEditButton</span>=<span style="color: #2544bb;">"true"</span> /<span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">TemplateField</span><span style="color: #000000;">&gt;</span>
+            <span style="color: #000000;">&lt;</span><span style="color: #721045;">ItemTemplate</span><span style="color: #000000;">&gt;</span>
+                <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+                    <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;&lt;</span>%# Eval<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"name"</span><span style="color: #a8007f;">)</span> %<span style="color: #000000;">&gt;</span> <span style="color: #000000;">(</span><span style="color: #a8007f;">&lt;</span>%# Eval<span style="color: #005f88;">(</span><span style="color: #2544bb;">"homecity"</span><span style="color: #005f88;">)</span> %<span style="color: #a8007f;">&gt;</span><span style="color: #000000;">)&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+                    <span style="color: #000000;">&lt;</span><span style="color: #721045;">h3</span> <span style="color: #00538b;">style</span>=<span style="color: #2544bb;">"color: red"</span><span style="color: #000000;">&gt;</span><span style="font-style: italic; text-decoration: underline;">&#25105;&#26159;&#35841;</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h3</span><span style="color: #000000;">&gt;</span>
+                    <span style="color: #000000;">&lt;</span><span style="color: #721045;">h5</span> <span style="color: #00538b;">style</span>=<span style="color: #2544bb;">"color: green"</span><span style="color: #000000;">&gt;</span><span style="text-decoration: underline;">&#25105;&#23601;&#26159;&#25105;&#65292;&#19981;&#19968;&#26679;&#30340;&#28895;&#28779;</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h5</span><span style="color: #000000;">&gt;</span>
+                    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Button</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"dddd"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">Text</span>=<span style="color: #2544bb;">"&#25105;&#26159;&#25353;&#38062;"</span> /<span style="color: #000000;">&gt;</span>
+                <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+            <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">ItemTemplate</span><span style="color: #000000;">&gt;</span>
+            <span style="color: #000000;">&lt;</span><span style="color: #721045;">ItemStyle</span> <span style="color: #00538b;">BackColor</span>=<span style="color: #2544bb;">"Green"</span> /<span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">TemplateField</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">Columns</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">AlternatingRowStyle</span> <span style="color: #00538b;">BackColor</span>=<span style="color: #2544bb;">"LightBlue"</span> <span style="color: #00538b;">Font-Size</span>=<span style="color: #2544bb;">"XX-Large"</span>/<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">HeaderStyle</span> <span style="color: #00538b;">BackColor</span>=<span style="color: #2544bb;">"Gray"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">GridView</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge1c7ab0" class="outline-4">
+<h4 id="orge1c7ab0"><span class="section-number-4">4.5.2.</span> Repeater</h4>
+<div class="outline-text-4" id="text-4-5-2">
+<p>
+专门进行数据迭代的一个控件，可以生成更高效更优雅的代码。
+</p>
+
+<p>
+<a href="https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.repeater?view=netframework-4.8">https://learn.microsoft.com/zh-cn/dotnet/api/system.web.ui.webcontrols.repeater?view=netframework-4.8</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">if</span> <span style="color: #000000;">(</span><span style="color: #813e00;">!</span>IsPostBack<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    sl.DataSource = DbHelper.<span style="color: #721045;">DoExecuteQuery</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"select * from students"</span><span style="color: #a8007f;">)</span>;
+    sl.<span style="color: #721045;">DataBind</span><span style="color: #a8007f;">()</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Repeater</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"sl"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">HeaderTemplate</span><span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span><span style="color: #721045;">ul</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">HeaderTemplate</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">ItemTemplate</span><span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span><span style="color: #721045;">li</span><span style="color: #000000;">&gt;&lt;</span>%# Eval<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"name"</span><span style="color: #a8007f;">)</span> %<span style="color: #000000;">&gt;</span>, <span style="color: #000000;">&lt;</span>%# Eval<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"homecity"</span><span style="color: #a8007f;">)</span> %<span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">li</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">ItemTemplate</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">FooterTemplate</span><span style="color: #000000;">&gt;</span>
+        <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">ul</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">FooterTemplate</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Repeater</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org27e318c" class="outline-3">
+<h3 id="org27e318c"><span class="section-number-3">4.6.</span> 用户自定义控件</h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+控件的主要目的，是复用。使用控件跟调用方法很类似，只不过方法的核心是逻辑，控件的核心是视图。
+</p>
+
+<p>
+自定义控件的后缀名为 ascx，用 &lt;%@ Control&gt; 作为标记。以 MyLogin.ascx 为例:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span>%@ Control <span style="color: #00538b;">Language</span>=<span style="color: #2544bb;">"C#"</span> <span style="color: #00538b;">AutoEventWireup</span>=<span style="color: #2544bb;">"true"</span>
+    <span style="color: #00538b;">CodeBehind</span>=<span style="color: #2544bb;">"MyLogin.ascx.cs"</span>
+    <span style="color: #00538b;">Inherits</span>=<span style="color: #2544bb;">"StudentManageSystem_WF.MyLogin"</span> %<span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">TextBox</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"username"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">TextBox</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"TextBox1"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> /<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">Button</span> <span style="color: #00538b;">ID</span>=<span style="color: #2544bb;">"skdfjskdjf"</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">Text</span>=<span style="color: #2544bb;">"denglu"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">public</span> <span style="color: #5317ac;">partial</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">MyLogin</span> : System.Web.UI.<span style="color: #005a5f;">UserControl</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">string</span> <span style="color: #00538b;">DefaultUsername</span> <span style="color: #a8007f;">{</span> <span style="color: #5317ac;">get</span>; <span style="color: #5317ac;">set</span>; <span style="color: #a8007f;">}</span>
+
+    <span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Page_Load</span><span style="color: #a8007f;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #a8007f;">)</span>
+    <span style="color: #a8007f;">{</span>
+        <span style="color: #5317ac;">if</span> <span style="color: #005f88;">(</span><span style="color: #813e00;">!</span>IsPostBack<span style="color: #005f88;">)</span>
+        <span style="color: #005f88;">{</span>
+            username.Text = DefaultUsername;
+        <span style="color: #005f88;">}</span>
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+要使用控件，需要通过 &lt;%@ Register &gt; 对控件进行注册:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span>%@ Register <span style="color: #00538b;">Src</span>=<span style="color: #2544bb;">"~/MyLogin.ascx"</span> <span style="color: #00538b;">TagName</span>=<span style="color: #2544bb;">"MyLogin"</span> <span style="color: #00538b;">TagPrefix</span>=<span style="color: #2544bb;">"fl"</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #8f0075;">fl</span>:<span style="color: #721045;">MyLogin</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">DefaultUsername</span>=<span style="color: #2544bb;">"xxx"</span> /<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf16bd8d" class="outline-3">
+<h3 id="orgf16bd8d"><span class="section-number-3">4.7.</span> 其他</h3>
+<div class="outline-text-3" id="text-4-7">
+</div>
+<div id="outline-container-org3ed183e" class="outline-4">
+<h4 id="org3ed183e"><span class="section-number-4">4.7.1.</span> 路由 (Route)</h4>
+<div class="outline-text-4" id="text-4-7-1">
+<div class="org-src-container">
+<pre class="src src-csharp">RouteTable.Routes.<span style="color: #721045;">MapPageRoute</span><span style="color: #000000;">(</span><span style="color: #2544bb;">"hello"</span>, <span style="color: #2544bb;">"hello"</span>, <span style="color: #2544bb;">"~/Students1.aspx"</span><span style="color: #000000;">)</span>;
+RouteTable.Routes.<span style="color: #721045;">EnableFriendlyUrls</span><span style="color: #000000;">(</span>
+    <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">FriendlyUrlSettings</span><span style="color: #a8007f;">()</span>
+    <span style="color: #a8007f;">{</span>
+        AutoRedirectMode = RedirectMode.Permanent
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbb2d469" class="outline-4">
+<h4 id="orgbb2d469"><span class="section-number-4">4.7.2.</span> 捆绑 (Bundle)</h4>
+<div class="outline-text-4" id="text-4-7-2">
+<pre class="example">
+让 css/js (1) 变少 (2) 变小
+</pre>
+
+
+<p>
+配置:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp">BundleTable.Bundles.<span style="color: #721045;">Add</span><span style="color: #000000;">(</span><span style="color: #5317ac;">new</span> <span style="color: #005a5f;">ScriptBundle</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"~/bundles/MsAjaxJs"</span><span style="color: #a8007f;">)</span>.<span style="color: #721045;">Include</span><span style="color: #a8007f;">(</span>
+    <span style="color: #2544bb;">"~/Scripts/WebForms/MsAjax/MicrosoftAjax.js"</span>,
+    <span style="color: #2544bb;">"~/Scripts/WebForms/MsAjax/MicrosoftAjaxApplicationServices.js"</span>,
+    <span style="color: #2544bb;">"~/Scripts/WebForms/MsAjax/MicrosoftAjaxTimer.js"</span>,
+    <span style="color: #2544bb;">"~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebForms.js"</span><span style="color: #a8007f;">)</span><span style="color: #000000;">)</span>;
+</pre>
+</div>
+
+<p>
+使用:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #8f0075;">asp</span>:<span style="color: #721045;">PlaceHolder</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #00538b;">%:</span> Scripts.Render<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"~/bundles/modernizr"</span><span style="color: #a8007f;">)</span> %<span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #8f0075;">asp</span>:<span style="color: #721045;">PlaceHolder</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #8f0075;">webopt</span>:<span style="color: #721045;">bundlereference</span> <span style="color: #00538b;">runat</span>=<span style="color: #2544bb;">"server"</span> <span style="color: #00538b;">path</span>=<span style="color: #2544bb;">"~/Content/css"</span> /<span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6449b61" class="outline-4">
+<h4 id="org6449b61"><span class="section-number-4">4.7.3.</span> 网站 Logo (favicon.ico)</h4>
+<div class="outline-text-4" id="text-4-7-3">
+<p>
+放在网站的根目录。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd80584e" class="outline-4">
+<h4 id="orgd80584e"><span class="section-number-4">4.7.4.</span> IHttpHandler.IsReusable</h4>
+<div class="outline-text-4" id="text-4-7-4">
+<p>
+重用。
+</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org1228952" class="outline-2">
+<h2 id="org1228952"><span class="section-number-2">5.</span> ASP.NET MVC</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-orgf24ab64" class="outline-3">
+<h3 id="orgf24ab64"><span class="section-number-3">5.1.</span> MVC</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+ASP.NET MVC:
+</p>
+<ul class="org-ul">
+<li>基于 MVC 概念:
+<ul class="org-ul">
+<li>Model (模型)</li>
+<li>View  (视图), 默认使用 Razor 作为页面的模板引擎</li>
+<li>Controller (控制器)</li>
+</ul></li>
+<li>约定大于配置 (CoC, Convention Over Configuration) 的理念</li>
+</ul>
+
+<p>
+项目文件夹:
+</p>
+<ul class="org-ul">
+<li>Controller</li>
+<li>View</li>
+<li>Model</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc171ad9" class="outline-3">
+<h3 id="orgc171ad9"><span class="section-number-3">5.2.</span> Lifecycle</h3>
+<div class="outline-text-3" id="text-5-2">
+
+<figure id="org1c1bcf9">
+<img src="img/mvc-lifecycle.png" alt="mvc-lifecycle.png">
+
+</figure>
+
+<p>
+首先，在 <code>UrlRoutingModule</code> 中获取路由数据，并找到要处理的 MvcHandler:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#36890;&#36807; RouteTable &#33719;&#21462;&#36335;&#30001;&#25968;&#25454;</span>
+<span style="color: #005a5f;">RouteData</span> <span style="color: #00538b;">routeData</span> = <span style="color: #5317ac;">this</span>.RouteCollection.<span style="color: #721045;">GetRouteData</span><span style="color: #000000;">(</span>context<span style="color: #000000;">)</span>;
+<span style="color: #505050;">// </span><span style="color: #505050;">&#20351;&#29992; MvcHandler &#22788;&#29702;&#25509;&#19979;&#26469;&#30340;&#35831;&#27714;</span>
+<span style="color: #005a5f;">IRouteHandler</span> <span style="color: #00538b;">routeHandler</span> = routeData.RouteHandler;
+<span style="color: #005a5f;">IHttpHandler</span> <span style="color: #00538b;">httpHandler</span> = routeHandler.<span style="color: #721045;">GetHttpHandler</span><span style="color: #000000;">(</span>requestContext<span style="color: #000000;">)</span>;
+context.<span style="color: #721045;">RemapHandler</span><span style="color: #000000;">(</span>httpHandler<span style="color: #000000;">)</span>;
+</pre>
+</div>
+
+<p>
+其次，在 <code>MvcHandler</code> 中，创建对应的 Controller 对象，并调用其 Execute 方法:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#21019;&#24314; Controller &#23545;&#35937;</span>
+<span style="color: #5317ac;">this</span>.<span style="color: #721045;">ProcessRequestInit</span><span style="color: #000000;">(</span><span style="color: #005a5f;">httpContext</span>, <span style="color: #5317ac;">out</span> <span style="color: #005a5f;">controller</span>, <span style="color: #5317ac;">out</span> <span style="color: #005a5f;">controllerFactory</span><span style="color: #000000;">)</span>;
+<span style="color: #505050;">// </span><span style="color: #505050;">&#35843;&#29992; Controller &#20013;&#30340; Execute &#26041;&#27861;</span>
+controller.<span style="color: #721045;">Execute</span><span style="color: #000000;">(</span><span style="color: #5317ac;">this</span>.RequestContext<span style="color: #000000;">)</span>;
+</pre>
+</div>
+
+<p>
+然后，通过 <code>Controller.InvokeAction</code> 调用对应的 Action 方法:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#33719;&#21462; Action &#19978;&#25152;&#26377;&#36807;&#28388;&#22120;</span>
+<span style="color: #005a5f;">FilterInfo</span> <span style="color: #00538b;">filters</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">GetFilters</span><span style="color: #000000;">(</span>controllerContext, actionDescriptor<span style="color: #000000;">)</span>;
+<span style="color: #5317ac;">try</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#25191;&#34892;&#20854;&#20013;&#30340; Authentication (&#35748;&#35777;) &#36807;&#28388;&#22120;</span>
+    <span style="color: #005a5f;">AuthenticationContext</span> <span style="color: #00538b;">authenticationContext</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">InvokeAuthenticationFilters</span><span style="color: #a8007f;">(</span>controllerContext, filters.AuthenticationFilters, actionDescriptor<span style="color: #a8007f;">)</span>;
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#25191;&#34892;&#20854;&#20013;&#30340; Authorization (&#25480;&#26435;) &#36807;&#28388;&#22120; </span>
+    <span style="color: #005a5f;">AuthorizationContext</span> <span style="color: #00538b;">authorizationContext</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">InvokeAuthorizationFilters</span><span style="color: #a8007f;">(</span>controllerContext, filters.AuthorizationFilters, actionDescriptor<span style="color: #a8007f;">)</span>;
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#33719;&#21462;&#24182;&#32465;&#23450;&#35831;&#27714;&#21442;&#25968;</span>
+    <span style="color: #005a5f;">IDictionary</span><span style="color: #a8007f;">&lt;</span><span style="color: #005a5f;">string</span>, <span style="color: #005a5f;">object</span><span style="color: #a8007f;">&gt;</span> <span style="color: #00538b;">parameterValues</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">GetParameterValues</span><span style="color: #a8007f;">(</span>controllerContext, actionDescriptor<span style="color: #a8007f;">)</span>;
+    <span style="color: #505050;">// </span><span style="color: #505050;">(&#25191;&#34892; ActionFilter.OnActionExecuting &#28982;&#21518;) &#25191;&#34892; Action &#26041;&#27861;&#65281;</span>
+    <span style="color: #005a5f;">ActionExecutedContext</span> <span style="color: #00538b;">actionExecutedContext</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">InvokeActionMethodWithFilters</span><span style="color: #a8007f;">(</span>controllerContext, filters.ActionFilters, actionDescriptor, parameterValues<span style="color: #a8007f;">)</span>;
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#25191;&#34892;&#21518;&#32622;&#36807;&#28388;&#22120;</span>
+    <span style="color: #005a5f;">AuthenticationChallengeContext</span> <span style="color: #00538b;">authenticationChallengeContext3</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">InvokeAuthenticationFiltersChallenge</span><span style="color: #a8007f;">(</span>controllerContext, filters.AuthenticationFilters, actionDescriptor, actionExecutedContext.Result<span style="color: #a8007f;">)</span>;
+    <span style="color: #5317ac;">this</span>.<span style="color: #721045;">InvokeActionResultWithFilters</span><span style="color: #a8007f;">(</span>controllerContext, filters.ResultFilters, authenticationChallengeContext3.<span style="color: #005a5f;">Result</span> ?? actionExecutedContext.<span style="color: #00538b;">Result</span><span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+<span style="color: #5317ac;">catch</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#25191;&#34892;&#24322;&#24120;&#36807;&#28388;&#22120;</span>
+    <span style="color: #005a5f;">ExceptionContext</span> <span style="color: #00538b;">exceptionContext</span> = <span style="color: #5317ac;">this</span>.<span style="color: #721045;">InvokeExceptionFilters</span><span style="color: #a8007f;">(</span>controllerContext, filters.ExceptionFilters, exception<span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+最后，通过 ViewEngines 选择合适的 IViewEngine，并根据结果类型调用响应的 <code>IView.Render</code> 方法，完成渲染:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #2a486a;">/// &#21487;&#20197;&#23450;&#20041;&#24182;&#20351;&#29992;&#33258;&#24049;&#30340; ViewEngine</span>
+<span style="color: #5317ac;">protected</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Application_Start</span><span style="color: #000000;">()</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #505050;">//</span><span style="color: #505050;">&#31227;&#38500;&#25152;&#26377;&#30340;View&#24341;&#25806;&#21253;&#25324;Webform&#21644;Razor</span>
+    ViewEngines.Engines.<span style="color: #721045;">Clear</span><span style="color: #a8007f;">()</span>;
+
+    <span style="color: #505050;">//</span><span style="color: #505050;">&#27880;&#20876;&#20320;&#33258;&#24049;&#30340;View&#24341;&#25806;</span>
+    ViewEngines.Engines.<span style="color: #721045;">Add</span><span style="color: #a8007f;">(</span><span style="color: #5317ac;">new</span> <span style="color: #005a5f;">CustomViewEngine</span><span style="color: #005f88;">()</span><span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+参考: <a href="https://www.cnblogs.com/PatrickLiu/p/15175388.html">https://www.cnblogs.com/PatrickLiu/p/15175388.html</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8e3af1b" class="outline-3">
+<h3 id="org8e3af1b"><span class="section-number-3">5.3.</span> Action</h3>
+<div class="outline-text-3" id="text-5-3">
+<ul class="org-ul">
+<li>Action 是 Controller 里面用来处理请求产生响应的一个方法</li>
+<li>返回值是一个普通的 string/int 等或者是一个 ActionResult</li>
+</ul>
+
+<p>
+ActionResult:
+</p>
+<ul class="org-ul">
+<li>Content 方法用来返回一个 ContentResult 对象，即返回字符串本身</li>
+<li>View 方法用来返回一个 ViewResult，利用 razor 引擎生成 html 字符串</li>
+<li>Json 方法用来返回一个 JsonResult 对象，即将数据序列化</li>
+<li>File 方法用来返回一个 FileResult 对象，用来处理文件的下载</li>
+<li>其他: HttpNotFound, new HttpNotFoundResult, new HttpStatusCodeResult(505)</li>
+<li>Redirect/RedirectToAction/RedirectToRoute</li>
+</ul>
+
+<p>
+传递数据的方式:
+</p>
+<ul class="org-ul">
+<li>ViewBag</li>
+<li>ViewData</li>
+<li>Model</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org592c73d" class="outline-3">
+<h3 id="org592c73d"><span class="section-number-3">5.4.</span> Razor</h3>
+<div class="outline-text-3" id="text-5-4">
+<ul class="org-ul">
+<li>Html 代码跟 CSharp 代码混编</li>
+<li>分解符: 遇到 @ 就是 csharp, 遇到 &lt; 就是 html 代码</li>
+<li>常用指令: @model, @functions 等</li>
+<li>常用的类: Html/Ajax/Url/Model/ViewBag/ViewData/Layout</li>
+<li>Q: ViewBag vs ViewData 有什么区别?</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org946e302" class="outline-3">
+<h3 id="org946e302"><span class="section-number-3">5.5.</span> Binding/Validation</h3>
+</div>
+
+<div id="outline-container-orgc3a6654" class="outline-3">
+<h3 id="orgc3a6654"><span class="section-number-3">5.6.</span> Filter</h3>
+<div class="outline-text-3" id="text-5-6">
+<p>
+接口、方法:
+</p>
+<ul class="org-ul">
+<li>IAuthenticationFilter/IAuthorizationFilter (AuthorizeAttribute)</li>
+<li>IActionFilter (ActionFilterAttribute)</li>
+<li>IResultFilter (ActionFilterAttribute)</li>
+<li>IExceptionFilter (HandleErrorAttribute)</li>
+</ul>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
