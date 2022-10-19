@@ -1,15 +1,55 @@
 #+TITLE: 任务和作业
 
 
-* [2022-10-17 Mon]
+* [2022-10-19 Wed]
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+- 总结: 栈 vs 堆
+- 总结: String vs StringBuilder
+
+#+begin_src csharp
+  class Student
+  {
+      int age;
+      string Name;
+      Room room;
+  }
+
+  class Room
+  {
+      string Name;
+      string Location;
+  }
+
+  // 1
+  var r = new Room("126", "bxl.....");
+  var s1 = new Student(22, "zs", r);
+  var s2 = new Student(22, "ls", r);
+  s1.Room.Name = "127";
+  Console.WriteLine(s2.Room.Name);
+
+  var s1 = new Student(22, "zs", new Room("126", "bxl....."));
+  var s2 = new Student(22, "ls", new Room("126", "bxl....."));
+  s1.Room.Name = "127";
+  Console.WriteLine(s2.Room.Name);
+
+  // 2
+  var students = db.Students.ToList();
+  var ret = students;
+  students[1].Name = "xxx";
+  return ret;
+#+end_src
+
+* [2022-10-17 Mon]
 
 - IEnumerable/foreach 可迭代对象
 - 请告诉我这两个概念的区别: override/overload, 重写 vs 重载
 - 泛型
 - 继续完成周末作业
+
+检查: 周末作业依旧 7 人完成。
 
 * [2022-10-14 Fri]
 
