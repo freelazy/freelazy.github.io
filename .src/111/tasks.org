@@ -8,6 +8,7 @@
 
 - 总结: 栈 vs 堆
 - 总结: String vs StringBuilder
+- 总结: Array vs List
 
 #+begin_src csharp
   class Student
