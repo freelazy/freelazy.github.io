@@ -71,6 +71,16 @@
   Console.WriteLine(sb.ToString());
 #+end_src
 
+#+begin_src csharp
+  // 容器: 类型一致; 空间占用“固定”; 空间连续
+  int[] ages = new int[3];
+  ages[2] = 3;
+  int[] ages = new int[] { 3, 4, 5 };
+
+  string[] names = new string[3];
+  Student[] students = new Student[3];
+#+end_src
+
 * [2022-10-17 Mon]
 
 - IEnumerable/foreach 可迭代对象
