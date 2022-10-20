@@ -71,6 +71,7 @@
   Console.WriteLine(sb.ToString());
 #+end_src
 
+List, 自动扩容的数组:
 #+begin_src csharp
   // 容器: 类型一致; 空间占用“固定”; 空间连续
   int[] ages = new int[3];
