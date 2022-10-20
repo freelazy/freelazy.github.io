@@ -98,11 +98,19 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 
 <span style="color: #505050;">// </span><span style="color: #505050;">2</span>
 <span style="color: #005a5f;">string</span> <span style="color: #00538b;">s</span> = <span style="color: #2544bb;">""</span>;
-<span style="color: #5317ac;">for</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">i</span> = 0; i &lt; 100; i++<span style="color: #000000;">)</span>
+<span style="color: #5317ac;">for</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">i</span> = 0; i &lt; 10; i++<span style="color: #000000;">)</span>
 <span style="color: #000000;">{</span>
     s += i;
 <span style="color: #000000;">}</span>
 Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>s<span style="color: #000000;">)</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">2</span>
+<span style="color: #005a5f;">StringBuilder</span> <span style="color: #00538b;">sb</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">StringBuilder</span><span style="color: #000000;">()</span>;
+<span style="color: #5317ac;">for</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">i</span> = 0; i &lt; 10; i++<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    sb.<span style="color: #721045;">Append</span><span style="color: #a8007f;">(</span>i<span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>sb.<span style="color: #721045;">ToString</span><span style="color: #a8007f;">()</span><span style="color: #000000;">)</span>;
 </pre>
 </div>
 
