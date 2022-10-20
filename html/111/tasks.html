@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-10-19 -->
+<!-- 2022-10-20 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>任务和作业</title>
@@ -86,6 +86,25 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 <span style="color: #005a5f;">var</span> <span style="color: #00538b;">ret</span> = students;
 students<span style="color: #000000;">[</span>1<span style="color: #000000;">]</span>.Name = <span style="color: #2544bb;">"xxx"</span>;
 <span style="color: #5317ac;">return</span> ret;
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">1</span>
+<span style="color: #005a5f;">string</span> <span style="color: #00538b;">html</span> = <span style="color: #2544bb;">"&lt;p&gt;"</span>;
+html += <span style="color: #2544bb;">"hello"</span>;
+html += <span style="color: #2544bb;">","</span>;
+html += <span style="color: #2544bb;">"world"</span>;
+html += <span style="color: #2544bb;">"&lt;/p&gt;"</span>
+Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>html<span style="color: #000000;">)</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">2</span>
+<span style="color: #005a5f;">string</span> <span style="color: #00538b;">s</span> = <span style="color: #2544bb;">""</span>;
+<span style="color: #5317ac;">for</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">i</span> = 0; i &lt; 100; i++<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    s += i;
+<span style="color: #000000;">}</span>
+Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>s<span style="color: #000000;">)</span>;
 </pre>
 </div>
 </div>
@@ -401,7 +420,7 @@ https://xxx.com/yyy?name=xxx#kkkk
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2022-10-19</p>
+<p class="date">Created: 2022-10-20</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

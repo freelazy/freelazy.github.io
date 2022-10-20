@@ -18,6 +18,7 @@
 - master/slaver: 主人/奴隶
 - Transfer: 转移
 - Genre: 类型
+- Gender: 性别
 
 * 简单单词
 
