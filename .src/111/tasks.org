@@ -10,6 +10,7 @@
 - 总结: String vs StringBuilder
 - 总结: Array vs List
 
+对象在内存中的表现形式是怎样的?
 #+begin_src csharp
   class Student
   {
@@ -43,6 +44,7 @@
   return ret;
 #+end_src
 
+为什么不建议使用 += 进行字符串的拼接?
 #+begin_src csharp
   // 1
   string html = "<p>";
