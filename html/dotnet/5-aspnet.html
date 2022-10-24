@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-10-18 -->
+<!-- 2022-10-24 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ASP.NET</title>
@@ -56,6 +56,15 @@
 <li><a href="#org592c73d">5.4. Razor</a></li>
 <li><a href="#org946e302">5.5. Binding/Validation</a></li>
 <li><a href="#orgc3a6654">5.6. Filter</a></li>
+</ul>
+</li>
+<li><a href="#org9b9ef2f">6. ASP.NET WebAPI</a>
+<ul>
+<li><a href="#orge8f9cc3">6.1. JSON</a></li>
+<li><a href="#org680ebb4">6.2. WebApiConfig.cs</a></li>
+<li><a href="#orgaf1b1de">6.3. Router</a></li>
+<li><a href="#org582ac9d">6.4. Action</a></li>
+<li><a href="#orgb8b8cf9">6.5. Help</a></li>
 </ul>
 </li>
 </ul>
@@ -411,7 +420,7 @@ Global.asax:
 <h3 id="orgeca96eb"><span class="section-number-3">4.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-4-3">
 
-<figure id="org40cadab">
+<figure id="org31d6244">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -601,7 +610,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org3e85205">
+<pre class="example" id="orgcd68dfb">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -658,7 +667,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org9d46923">
+<pre class="example" id="org1e3819b">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -985,7 +994,7 @@ ASP.NET MVC:
 <h3 id="orgc171ad9"><span class="section-number-3">5.2.</span> Lifecycle</h3>
 <div class="outline-text-3" id="text-5-2">
 
-<figure id="orgaf26cdb">
+<figure id="orgd13a7d7">
 <img src="img/mvc-lifecycle.png" alt="mvc-lifecycle.png">
 
 </figure>
@@ -1172,10 +1181,226 @@ ActionResult:
 </div>
 </div>
 </section>
+
+<section id="outline-container-org9b9ef2f" class="outline-2">
+<h2 id="org9b9ef2f"><span class="section-number-2">6.</span> ASP.NET WebAPI</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-orge8f9cc3" class="outline-3">
+<h3 id="orge8f9cc3"><span class="section-number-3">6.1.</span> JSON</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+JavaScript Object Notation.
+</p>
+
+<p>
+来源于 Javascript 的对象语法:
+</p>
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #5317ac;">var</span> <span style="color: #00538b;">i</span> = 1;
+<span style="color: #5317ac;">var</span> <span style="color: #00538b;">j</span> = <span style="color: #2544bb;">"hello"</span>;
+<span style="color: #5317ac;">var</span> <span style="color: #00538b;">arr</span> = <span style="color: #000000;">[</span>2, 3, 4<span style="color: #000000;">]</span>;
+<span style="color: #5317ac;">var</span> <span style="color: #00538b;">obj</span> = <span style="color: #000000;">{</span>
+    <span style="color: #2544bb;">"a"</span>: 1,
+    <span style="color: #2544bb;">"b"</span>: 2,
+    <span style="color: #2544bb;">"c"</span>: 3
+<span style="color: #000000;">}</span>;
+<span style="color: #5317ac;">var</span> <span style="color: #00538b;">students</span> = <span style="color: #000000;">[</span>
+    <span style="color: #a8007f;">{</span>
+        id: 1,
+        name: 222,
+        age: 333
+    <span style="color: #a8007f;">}</span>,
+    <span style="color: #a8007f;">{</span>
+        id: 2,
+        name: 222,
+        age: 333
+    <span style="color: #a8007f;">}</span>,
+    <span style="color: #a8007f;">{</span>
+        id: 3,
+        name: 222,
+        age: 333
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">]</span>;
+</pre>
+</div>
+
+<p>
+使用 JS 在 Json 字符串和对象之间进行转换:
+</p>
+<div class="org-src-container">
+<pre class="src src-javascript"><span style="color: #5317ac;">var</span> <span style="color: #00538b;">s1</span> = <span style="color: #000000;">[</span><span style="color: #a8007f;">{</span>id: 1, name: <span style="color: #2544bb;">'zs'</span><span style="color: #a8007f;">}</span>, <span style="color: #a8007f;">{</span>id:2, name:<span style="color: #2544bb;">'ls'</span><span style="color: #a8007f;">}</span><span style="color: #000000;">]</span>;
+<span style="color: #5317ac;">var</span> <span style="color: #00538b;">stringS1</span> = JSON.stringify<span style="color: #000000;">(</span>s1<span style="color: #000000;">)</span>;
+
+<span style="color: #5317ac;">var</span> <span style="color: #00538b;">s2</span> = <span style="color: #2544bb;">'[{"id": 3333, "name": "lisi"},{"id": 444, "name": "wangwu"}]'</span>;
+<span style="color: #5317ac;">var</span> <span style="color: #00538b;">jsonS2</span> = JSON.parse<span style="color: #000000;">(</span>s2<span style="color: #000000;">)</span>;
+</pre>
+</div>
+
+<p>
+使用 CSharp 在 Json 字符串和 C# 对象之间进行转换:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #005a5f;">var</span> <span style="color: #00538b;">students</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">List</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">Student</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Student</span> <span style="color: #a8007f;">{</span> Id = <span style="color: #2544bb;">"1"</span>, Name = <span style="color: #2544bb;">"zhangsan"</span> <span style="color: #a8007f;">}</span>,
+    <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Student</span> <span style="color: #a8007f;">{</span> <span style="color: #00538b;">Id</span> = <span style="color: #2544bb;">"2"</span>, <span style="color: #00538b;">Name</span> = <span style="color: #2544bb;">"lisi"</span> <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>;
+<span style="color: #005a5f;">string</span> <span style="color: #00538b;">s1</span> = JsonConvert.<span style="color: #721045;">SerializeObject</span><span style="color: #000000;">(</span>students<span style="color: #000000;">)</span>;
+<span style="color: #005a5f;">List</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">Student</span><span style="color: #000000;">&gt;</span> <span style="color: #00538b;">s2</span> = JsonConvert.DeserializeObject<span style="color: #000000;">&lt;</span><span style="color: #005a5f;">List</span><span style="color: #a8007f;">&lt;</span><span style="color: #005a5f;">Student</span><span style="color: #a8007f;">&gt;</span><span style="color: #000000;">&gt;(</span>s1<span style="color: #000000;">)</span>;
+s2.<span style="color: #721045;">Add</span><span style="color: #000000;">(</span><span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Student</span> <span style="color: #a8007f;">{</span> <span style="color: #00538b;">Id</span> = <span style="color: #2544bb;">"3"</span>, <span style="color: #00538b;">Name</span> = <span style="color: #2544bb;">"ww"</span> <span style="color: #a8007f;">}</span><span style="color: #000000;">)</span>;
+<span style="color: #5317ac;">return</span> JsonConvert.<span style="color: #721045;">SerializeObject</span><span style="color: #000000;">(</span>s2<span style="color: #000000;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org680ebb4" class="outline-3">
+<h3 id="org680ebb4"><span class="section-number-3">6.2.</span> WebApiConfig.cs</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+可以在这里配置 WebAPI 相关的选项。
+</p>
+
+<p>
+比如，设置返回数据格式:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#35753;&#40664;&#35748;&#24773;&#20917;&#19979;&#19981;&#36820;&#22238; xml &#32467;&#26524;&#30340;&#25968;&#25454;&#65292;&#32780;&#26159; JSON &#30340;</span>
+config.Formatters.XmlFormatter.SupportedMediaTypes.<span style="color: #721045;">Clear</span><span style="color: #000000;">()</span>;
+<span style="color: #505050;">// </span><span style="color: #505050;">&#23545; JSON &#25968;&#25454;&#20351;&#29992;&#28151;&#21512;&#22823;&#23567;&#20889;</span>
+config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">CamelCasePropertyNamesContractResolver</span><span style="color: #000000;">()</span>;
+<span style="color: #505050;">// </span><span style="color: #505050;">&#28155;&#21152;&#33258;&#23450;&#20041;&#30340; Formatter</span>
+config.Formatters.<span style="color: #721045;">Add</span><span style="color: #000000;">(</span><span style="color: #5317ac;">new</span> <span style="color: #005a5f;">YourFormatter</span><span style="color: #a8007f;">()</span><span style="color: #000000;">)</span>;
+</pre>
+</div>
+
+<p>
+比如，设置路由格式:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp">config.Routes.<span style="color: #721045;">MapHttpRoute</span><span style="color: #000000;">(</span>
+    name: <span style="color: #2544bb;">"DefaultApi"</span>,
+    routeTemplate: <span style="color: #2544bb;">"api/{controller}/{id}"</span>,
+    defaults: <span style="color: #5317ac;">new</span> <span style="color: #a8007f;">{</span> <span style="color: #00538b;">id</span> = RouteParameter.Optional <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgaf1b1de" class="outline-3">
+<h3 id="orgaf1b1de"><span class="section-number-3">6.3.</span> Router</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+默认的路由规则是在 WebApiConfig.cs 中定义的:
+</p>
+<pre class="example">
+api/{controller}/{id}
+</pre>
+
+
+<p>
+因此:
+</p>
+<ul class="org-ul">
+<li>请求 <code>GET /abc</code> 对应 AbcController 的 <code>GetXxx</code> 方法</li>
+<li>请求 <code>PUT /abc/3</code> 对应 AbcController 的 <code>PutXxx(id)</code> 方法</li>
+<li>默认情况是通过方法名的前缀判断 HTTP METHOD 的。可以通过在 Action 上添加 <code>[HttpGet]</code> 等特性显式指定</li>
+<li>可以将 <code>[Route("xxx")]</code> 添加到 Controller 或 Action 上，单独设置独立的路由</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org582ac9d" class="outline-3">
+<h3 id="org582ac9d"><span class="section-number-3">6.4.</span> Action</h3>
+<div class="outline-text-3" id="text-6-4">
+<p>
+方法名字 vs 请求方法:
+</p>
+<ul class="org-ul">
+<li>按照 CoC 的设计思想，GetBook 默认将处理 GET 请求，DeleteBook 默认将处理 Delete 请求，如此类推</li>
+<li>可以通过在 Action 上添加 [HttpXxx] 特性，显式指定请求方法</li>
+</ul>
+
+<p>
+返回类型:
+</p>
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">返回类型</th>
+<th scope="col" class="org-left">Web API 如何创建响应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">void</td>
+<td class="org-left">返回空 204 (无内容)</td>
+</tr>
+
+<tr>
+<td class="org-left">HttpResponseMessage</td>
+<td class="org-left">直接转换为 HTTP 响应消息。</td>
+</tr>
+
+<tr>
+<td class="org-left">IHttpActionResult</td>
+<td class="org-left">调用 ExecuteAsync 以创建 HttpResponseMessage，然后转换为 HTTP 响应消息。</td>
+</tr>
+
+<tr>
+<td class="org-left">其他类型的</td>
+<td class="org-left">将序列化的返回值写入响应正文;返回 200 (OK) 。</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#23558;&#20250;&#33258;&#21160;&#24207;&#21015;&#21270;&#20026; JSON &#36820;&#22238;</span>
+<span style="color: #5317ac;">public</span> <span style="color: #005a5f;">Book</span> <span style="color: #721045;">GetBook</span><span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">id</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">return</span> db.Books.<span style="color: #721045;">Find</span><span style="color: #a8007f;">(</span>id<span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#28789;&#27963;&#36827;&#34892;&#19981;&#21516;&#30340;&#21709;&#24212;</span>
+<span style="color: #5317ac;">public</span> <span style="color: #005a5f;">IHttpActionResult</span> <span style="color: #721045;">GetBook</span><span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">id</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">Book</span> <span style="color: #00538b;">book</span> = db.Books.<span style="color: #721045;">Find</span><span style="color: #a8007f;">(</span>id<span style="color: #a8007f;">)</span>;
+    <span style="color: #5317ac;">return</span> book == <span style="color: #0000c0;">null</span> ? <span style="color: #721045;">NotFound</span><span style="color: #a8007f;">()</span> : <span style="color: #721045;">Ok</span><span style="color: #a8007f;">(</span>book<span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb8b8cf9" class="outline-3">
+<h3 id="orgb8b8cf9"><span class="section-number-3">6.5.</span> Help</h3>
+<div class="outline-text-3" id="text-6-5">
+<p>
+在 Areas 下面存在一个 HelpPage 的域，里面实现了展示当前所有 API 文档的功能。
+</p>
+
+<p>
+可以通过 <code>https://localhost:23232/Help</code> 的方式进行访问。
+</p>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2022-10-18</p>
+<p class="date">Created: 2022-10-24</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
