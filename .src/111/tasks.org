@@ -1,10 +1,16 @@
 #+TITLE: 任务和作业
 
 
-* [2022-10-19 Wed]
+* [2022-10-25 Tue]
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+- 整理总结今天所讲内容
+- 安装 VSCode
+- 练习 dotnet 命令行工具的使用
+
+* [2022-10-19 Wed]
 
 - 总结: 栈 vs 堆
 - 总结: String vs StringBuilder

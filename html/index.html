@@ -42,91 +42,10 @@
 
 <h3>当前任务 <span style="font-size: 14px">(<a href="111/tasks.html">全部任务</a>)</span></h3>
 <ul class="org-ul">
-<li>总结: 栈 vs 堆</li>
-<li>总结: String vs StringBuilder</li>
-<li>总结: Array vs List</li>
+<li>整理总结今天所讲内容</li>
+<li>安装 VSCode</li>
+<li>练习 dotnet 命令行工具的使用</li>
 </ul>
-
-<p>
-对象在内存中的表现形式是怎样的?
-</p>
-<div class="org-src-container">
-<pre class="src src-csharp"><span style="color: #5317ac;">class</span> <span style="color: #005a5f;">Student</span>
-<span style="color: #000000;">{</span>
-    <span style="color: #005a5f;">int</span> <span style="color: #00538b;">age</span>;
-    <span style="color: #005a5f;">string</span> <span style="color: #00538b;">Name</span>;
-    <span style="color: #005a5f;">Room</span> <span style="color: #00538b;">room</span>;
-<span style="color: #000000;">}</span>
-
-<span style="color: #5317ac;">class</span> <span style="color: #005a5f;">Room</span>
-<span style="color: #000000;">{</span>
-    <span style="color: #005a5f;">string</span> <span style="color: #00538b;">Name</span>;
-    <span style="color: #005a5f;">string</span> <span style="color: #00538b;">Location</span>;
-<span style="color: #000000;">}</span>
-
-<span style="color: #505050;">// </span><span style="color: #505050;">1</span>
-<span style="color: #005a5f;">var</span> <span style="color: #00538b;">r</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Room</span><span style="color: #000000;">(</span><span style="color: #2544bb;">"126"</span>, <span style="color: #2544bb;">"bxl....."</span><span style="color: #000000;">)</span>;
-<span style="color: #005a5f;">var</span> <span style="color: #00538b;">s1</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Student</span><span style="color: #000000;">(</span>22, <span style="color: #2544bb;">"zs"</span>, r<span style="color: #000000;">)</span>;
-<span style="color: #005a5f;">var</span> <span style="color: #00538b;">s2</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Student</span><span style="color: #000000;">(</span>22, <span style="color: #2544bb;">"ls"</span>, r<span style="color: #000000;">)</span>;
-s1.Room.Name = <span style="color: #2544bb;">"127"</span>;
-Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>s2.Room.Name<span style="color: #000000;">)</span>;
-
-<span style="color: #005a5f;">var</span> <span style="color: #00538b;">s1</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Student</span><span style="color: #000000;">(</span>22, <span style="color: #2544bb;">"zs"</span>, <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Room</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"126"</span>, <span style="color: #2544bb;">"bxl....."</span><span style="color: #a8007f;">)</span><span style="color: #000000;">)</span>;
-<span style="color: #005a5f;">var</span> <span style="color: #00538b;">s2</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Student</span><span style="color: #000000;">(</span>22, <span style="color: #2544bb;">"ls"</span>, <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Room</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"126"</span>, <span style="color: #2544bb;">"bxl....."</span><span style="color: #a8007f;">)</span><span style="color: #000000;">)</span>;
-s1.Room.Name = <span style="color: #2544bb;">"127"</span>;
-Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>s2.Room.Name<span style="color: #000000;">)</span>;
-
-<span style="color: #505050;">// </span><span style="color: #505050;">2</span>
-<span style="color: #005a5f;">var</span> <span style="color: #00538b;">students</span> = db.Students.<span style="color: #721045;">ToList</span><span style="color: #000000;">()</span>;
-<span style="color: #005a5f;">var</span> <span style="color: #00538b;">ret</span> = students;
-students<span style="color: #000000;">[</span>1<span style="color: #000000;">]</span>.Name = <span style="color: #2544bb;">"xxx"</span>;
-<span style="color: #5317ac;">return</span> ret;
-</pre>
-</div>
-
-<p>
-为什么不建议使用 += 进行字符串的拼接?
-</p>
-<div class="org-src-container">
-<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">1</span>
-<span style="color: #005a5f;">string</span> <span style="color: #00538b;">html</span> = <span style="color: #2544bb;">"&lt;p&gt;"</span>;
-html += <span style="color: #2544bb;">"hello"</span>;
-html += <span style="color: #2544bb;">","</span>;
-html += <span style="color: #2544bb;">"world"</span>;
-html += <span style="color: #2544bb;">"&lt;/p&gt;"</span>
-Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>html<span style="color: #000000;">)</span>;
-
-<span style="color: #505050;">// </span><span style="color: #505050;">2</span>
-<span style="color: #005a5f;">string</span> <span style="color: #00538b;">s</span> = <span style="color: #2544bb;">""</span>;
-<span style="color: #5317ac;">for</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">i</span> = 0; i &lt; 10; i++<span style="color: #000000;">)</span>
-<span style="color: #000000;">{</span>
-    s += i;
-<span style="color: #000000;">}</span>
-Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>s<span style="color: #000000;">)</span>;
-
-<span style="color: #505050;">// </span><span style="color: #505050;">2</span>
-<span style="color: #005a5f;">StringBuilder</span> <span style="color: #00538b;">sb</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">StringBuilder</span><span style="color: #000000;">()</span>;
-<span style="color: #5317ac;">for</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">i</span> = 0; i &lt; 10; i++<span style="color: #000000;">)</span>
-<span style="color: #000000;">{</span>
-    sb.<span style="color: #721045;">Append</span><span style="color: #a8007f;">(</span>i<span style="color: #a8007f;">)</span>;
-<span style="color: #000000;">}</span>
-Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>sb.<span style="color: #721045;">ToString</span><span style="color: #a8007f;">()</span><span style="color: #000000;">)</span>;
-</pre>
-</div>
-
-<p>
-List, 自动扩容的数组:
-</p>
-<div class="org-src-container">
-<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#23481;&#22120;: &#31867;&#22411;&#19968;&#33268;; &#31354;&#38388;&#21344;&#29992;&#8220;&#22266;&#23450;&#8221;; &#31354;&#38388;&#36830;&#32493;</span>
-<span style="color: #005a5f;">int</span><span style="color: #000000;">[]</span> <span style="color: #00538b;">ages</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">int</span><span style="color: #000000;">[</span>3<span style="color: #000000;">]</span>;
-ages<span style="color: #000000;">[</span>2<span style="color: #000000;">]</span> = 3;
-<span style="color: #005a5f;">int</span><span style="color: #000000;">[]</span> <span style="color: #00538b;">ages</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">int</span><span style="color: #000000;">[]</span> <span style="color: #000000;">{</span> 3, 4, 5 <span style="color: #000000;">}</span>;
-
-<span style="color: #005a5f;">string</span><span style="color: #000000;">[]</span> <span style="color: #00538b;">names</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">string</span><span style="color: #000000;">[</span>3<span style="color: #000000;">]</span>;
-<span style="color: #005a5f;">Student</span><span style="color: #000000;">[]</span> <span style="color: #00538b;">students</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Student</span><span style="color: #000000;">[</span>3<span style="color: #000000;">]</span>;
-</pre>
-</div>
 
 <div><br>
 <h3>笔记目录 <small>(<a href="https://github.com/freelazy/" target="_blank">Github</a>)</small></h3>
