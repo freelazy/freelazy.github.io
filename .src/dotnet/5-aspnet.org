@@ -981,5 +981,44 @@ https://learn.microsoft.com/zh-cn/aspnet/web-api/overview/getting-started-with-a
 
 ** dotnet 命令行工具
 
-预习
+https://learn.microsoft.com/zh-cn/dotnet/core/tools/dotnet
+
+创建项目:
+#+begin_src shell
+  dotnet new --list  # 列出所有的项目模板
+  dotnet new console
+  dotnet new console -o first
+  dotnet new console --output first
+  dotnet new console -o "second console project"
+
+  dotnet new mvc
+  dotnet new webapi
+#+end_src
+
+构建项目:
+#+begin_src shell
+  dotnet build
+#+end_src
+
+运行构建完成的 dll 可执行文件:
+#+begin_src shell
+  dotnet exec myapp.dll
+  dotnet myapp.dll
+#+end_src
+
+为项目添加项目或 NuGet 依赖：
+#+begin_src shell
+  dotnet add reference lib1/lib1.csproj lib2/lib2.csproj
+  dotnet add package Microsoft.EntityFrameworkCore
+#+end_src
+
+其他命令:
+#+begin_src shell
+  dotnet restore
+  dotnet run
+  dotnet watch run
+  dotnet clean
+  dotnet publish
+  dotnet test
+#+end_src
 

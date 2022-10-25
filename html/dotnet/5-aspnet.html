@@ -58,7 +58,7 @@
 <ul>
 <li><a href="#orgf24ab64">6.1. MVC</a></li>
 <li><a href="#orgc171ad9">6.2. Lifecycle</a></li>
-<li><a href="#org70140cc">6.3. Action</a></li>
+<li><a href="#org3e6f0d2">6.3. Action</a></li>
 <li><a href="#org592c73d">6.4. Razor</a></li>
 <li><a href="#org946e302">6.5. Binding/Validation</a></li>
 <li><a href="#orgc3a6654">6.6. Filter</a></li>
@@ -69,7 +69,7 @@
 <li><a href="#orge8f9cc3">7.1. JSON</a></li>
 <li><a href="#org680ebb4">7.2. WebApiConfig.cs</a></li>
 <li><a href="#orgaf1b1de">7.3. Router</a></li>
-<li><a href="#org3e6f0d2">7.4. Action</a></li>
+<li><a href="#org7698a57">7.4. Action</a></li>
 <li><a href="#orgb8b8cf9">7.5. Help</a></li>
 </ul>
 </li>
@@ -518,7 +518,7 @@ Global.asax:
 <h3 id="orgeca96eb"><span class="section-number-3">5.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-5-3">
 
-<figure id="org982d64b">
+<figure id="org17b6351">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -708,7 +708,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="orgd3b6068">
+<pre class="example" id="orge84087a">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -765,7 +765,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org31fb4ad">
+<pre class="example" id="org4afb64a">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -1092,7 +1092,7 @@ ASP.NET MVC:
 <h3 id="orgc171ad9"><span class="section-number-3">6.2.</span> Lifecycle</h3>
 <div class="outline-text-3" id="text-6-2">
 
-<figure id="orgc6c938e">
+<figure id="org8b61fae">
 <img src="img/mvc-lifecycle.png" alt="mvc-lifecycle.png">
 
 </figure>
@@ -1171,8 +1171,8 @@ controller.<span style="color: #721045;">Execute</span><span style="color: #0000
 </div>
 </div>
 
-<div id="outline-container-org70140cc" class="outline-3">
-<h3 id="org70140cc"><span class="section-number-3">6.3.</span> Action</h3>
+<div id="outline-container-org3e6f0d2" class="outline-3">
+<h3 id="org3e6f0d2"><span class="section-number-3">6.3.</span> Action</h3>
 <div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
 <li>Action 是 Controller 里面用来处理请求产生响应的一个方法</li>
@@ -1410,8 +1410,8 @@ api/{controller}/{id}
 </div>
 </div>
 
-<div id="outline-container-org3e6f0d2" class="outline-3">
-<h3 id="org3e6f0d2"><span class="section-number-3">7.4.</span> Action</h3>
+<div id="outline-container-org7698a57" class="outline-3">
+<h3 id="org7698a57"><span class="section-number-3">7.4.</span> Action</h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
 方法名字 vs 请求方法:
@@ -1520,8 +1520,62 @@ api/{controller}/{id}
 <h3 id="org342f262"><span class="section-number-3">8.2.</span> dotnet 命令行工具</h3>
 <div class="outline-text-3" id="text-8-2">
 <p>
-预习
+<a href="https://learn.microsoft.com/zh-cn/dotnet/core/tools/dotnet">https://learn.microsoft.com/zh-cn/dotnet/core/tools/dotnet</a>
 </p>
+
+<p>
+创建项目:
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">dotnet new --list  <span style="color: #505050;"># </span><span style="color: #505050;">&#21015;&#20986;&#25152;&#26377;&#30340;&#39033;&#30446;&#27169;&#26495;</span>
+dotnet new console
+dotnet new console -o first
+dotnet new console --output first
+dotnet new console -o <span style="color: #2544bb;">"second console project"</span>
+
+dotnet new mvc
+dotnet new webapi
+</pre>
+</div>
+
+<p>
+构建项目:
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">dotnet build
+</pre>
+</div>
+
+<p>
+运行构建完成的 dll 可执行文件:
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">dotnet exec myapp.dll
+dotnet myapp.dll
+</pre>
+</div>
+
+<p>
+为项目添加项目或 NuGet 依赖：
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">dotnet add reference lib1/lib1.csproj lib2/lib2.csproj
+dotnet add package Microsoft.EntityFrameworkCore
+</pre>
+</div>
+
+<p>
+其他命令:
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">dotnet restore
+dotnet run
+dotnet watch run
+dotnet clean
+dotnet publish
+dotnet test
+</pre>
+</div>
 </div>
 </div>
 </section>
