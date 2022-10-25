@@ -58,7 +58,7 @@
 <ul>
 <li><a href="#orgf24ab64">6.1. MVC</a></li>
 <li><a href="#orgc171ad9">6.2. Lifecycle</a></li>
-<li><a href="#orgaaea312">6.3. Action</a></li>
+<li><a href="#orgc5ebf39">6.3. Action</a></li>
 <li><a href="#org592c73d">6.4. Razor</a></li>
 <li><a href="#org946e302">6.5. Binding/Validation</a></li>
 <li><a href="#orgc3a6654">6.6. Filter</a></li>
@@ -69,7 +69,7 @@
 <li><a href="#orge8f9cc3">7.1. JSON</a></li>
 <li><a href="#org680ebb4">7.2. WebApiConfig.cs</a></li>
 <li><a href="#orgaf1b1de">7.3. Router</a></li>
-<li><a href="#orgc5ebf39">7.4. Action</a></li>
+<li><a href="#orgc40bbdb">7.4. Action</a></li>
 <li><a href="#orgb8b8cf9">7.5. Help</a></li>
 </ul>
 </li>
@@ -156,11 +156,9 @@
 <li>通过 CLS (Common Language Specification) 阐述了运行在平台上的诸多语言需要遵循的基本规范</li>
 <li>通过 CTS (Common Type System) 定义了 .NET 平台上通用的内置类型，包括但不限于对象模型、基本元数组类型的库等</li>
 <li>通过 CIL (Common Intermedia Language) 规范了编译成的中间码的格式跟规范</li>
-<li>它还包括 CLR/BCL/Metadata 等的定义 (CLR 可以看做 CLI 规范的一个实现）
-<ul class="org-ul">
-<li>.NET = SDK (Software Development Kit, 开发工具包) + CLR (Common Language Runtime，通用运行时)</li>
-</ul></li>
-<li>后来 CLI 被提交到了国际化标准组织，形成了一个通用的国际标准</li>
+<li>它还包括 CLR/BCL/Metadata 等的定义 (CLR 可以看做 CLI 规范的一个实现）</li>
+<li>注: .NET = SDK (Software Development Kit, 开发工具包) + CLR (Common Language Runtime，通用运行时)</li>
+<li>后来 CLI 被提交到了国际化标准组织，成为了一个通用的国际标准</li>
 </ul>
 </div>
 </div>
@@ -514,7 +512,7 @@ Global.asax:
 <h3 id="orgeca96eb"><span class="section-number-3">5.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-5-3">
 
-<figure id="org2aaaa06">
+<figure id="org435638d">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -704,7 +702,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org991ef41">
+<pre class="example" id="org13cdef3">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -761,7 +759,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org491184b">
+<pre class="example" id="orgb01d115">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -1088,7 +1086,7 @@ ASP.NET MVC:
 <h3 id="orgc171ad9"><span class="section-number-3">6.2.</span> Lifecycle</h3>
 <div class="outline-text-3" id="text-6-2">
 
-<figure id="org8a00ca9">
+<figure id="orgd52405c">
 <img src="img/mvc-lifecycle.png" alt="mvc-lifecycle.png">
 
 </figure>
@@ -1167,8 +1165,8 @@ controller.<span style="color: #721045;">Execute</span><span style="color: #0000
 </div>
 </div>
 
-<div id="outline-container-orgaaea312" class="outline-3">
-<h3 id="orgaaea312"><span class="section-number-3">6.3.</span> Action</h3>
+<div id="outline-container-orgc5ebf39" class="outline-3">
+<h3 id="orgc5ebf39"><span class="section-number-3">6.3.</span> Action</h3>
 <div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
 <li>Action 是 Controller 里面用来处理请求产生响应的一个方法</li>
@@ -1406,8 +1404,8 @@ api/{controller}/{id}
 </div>
 </div>
 
-<div id="outline-container-orgc5ebf39" class="outline-3">
-<h3 id="orgc5ebf39"><span class="section-number-3">7.4.</span> Action</h3>
+<div id="outline-container-orgc40bbdb" class="outline-3">
+<h3 id="orgc40bbdb"><span class="section-number-3">7.4.</span> Action</h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
 方法名字 vs 请求方法:

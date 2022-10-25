@@ -46,8 +46,8 @@
 - 通过 CTS (Common Type System) 定义了 .NET 平台上通用的内置类型，包括但不限于对象模型、基本元数组类型的库等
 - 通过 CIL (Common Intermedia Language) 规范了编译成的中间码的格式跟规范
 - 它还包括 CLR/BCL/Metadata 等的定义 (CLR 可以看做 CLI 规范的一个实现）
-  + .NET = SDK (Software Development Kit, 开发工具包) + CLR (Common Language Runtime，通用运行时)
-- 后来 CLI 被提交到了国际化标准组织，形成了一个通用的国际标准
+- 注: .NET = SDK (Software Development Kit, 开发工具包) + CLR (Common Language Runtime，通用运行时)
+- 后来 CLI 被提交到了国际化标准组织，成为了一个通用的国际标准
 
 * 单机 到 CS 到 BS
 
