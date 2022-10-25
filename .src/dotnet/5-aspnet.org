@@ -28,7 +28,7 @@
   + 微软决定，留两个跨平台的运行时 (Mono + .Net Core)，Core 是从头实现的
   + Core:
     * 将 MVC 和 Web API 移植到了 Core 中，但是 Webform 和 WCF 等被移除了
-    * Entity Framework 多年以来背负了沉重的历史包袱，因此 Core 中将其精简了，并且加入了对非关系型数据库的之处
+    * Entity Framework 多年以来背负了沉重的历史包袱，因此 Core 中将其精简了，并且加入了对非关系型数据库的支持
     * 微软将很多 .NET 中自带的功能抽取剥离出来放到了 NuGet 包里。这样 .NET 的核心就变得更小，而且没有太多的依赖
     * 使用 Windows Desktop pack 的方法运行 Winform/WPF 等，从而可以让 Windows 上面支持更多未移植的功能
   + 2020.11，微软决定，将原本要推出的 .NET Core 3.1 改名为 .NET5，并承诺，

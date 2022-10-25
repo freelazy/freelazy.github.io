@@ -57,7 +57,7 @@
 <ul>
 <li><a href="#orgf24ab64">6.1. MVC</a></li>
 <li><a href="#orgc171ad9">6.2. Lifecycle</a></li>
-<li><a href="#org03a61c6">6.3. Action</a></li>
+<li><a href="#orgf464a9c">6.3. Action</a></li>
 <li><a href="#org592c73d">6.4. Razor</a></li>
 <li><a href="#org946e302">6.5. Binding/Validation</a></li>
 <li><a href="#orgc3a6654">6.6. Filter</a></li>
@@ -68,7 +68,7 @@
 <li><a href="#orge8f9cc3">7.1. JSON</a></li>
 <li><a href="#org680ebb4">7.2. WebApiConfig.cs</a></li>
 <li><a href="#orgaf1b1de">7.3. Router</a></li>
-<li><a href="#orgf464a9c">7.4. Action</a></li>
+<li><a href="#org6bc343e">7.4. Action</a></li>
 <li><a href="#orgb8b8cf9">7.5. Help</a></li>
 </ul>
 </li>
@@ -123,7 +123,7 @@
 <li>Core:
 <ul class="org-ul">
 <li>将 MVC 和 Web API 移植到了 Core 中，但是 Webform 和 WCF 等被移除了</li>
-<li>Entity Framework 多年以来背负了沉重的历史包袱，因此 Core 中将其精简了，并且加入了对非关系型数据库的之处</li>
+<li>Entity Framework 多年以来背负了沉重的历史包袱，因此 Core 中将其精简了，并且加入了对非关系型数据库的支持</li>
 <li>微软将很多 .NET 中自带的功能抽取剥离出来放到了 NuGet 包里。这样 .NET 的核心就变得更小，而且没有太多的依赖</li>
 <li>使用 Windows Desktop pack 的方法运行 Winform/WPF 等，从而可以让 Windows 上面支持更多未移植的功能</li>
 </ul></li>
@@ -485,7 +485,7 @@ Global.asax:
 <h3 id="orgeca96eb"><span class="section-number-3">5.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-5-3">
 
-<figure id="orgf507d3f">
+<figure id="org3f10ece">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -675,7 +675,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org6902ddb">
+<pre class="example" id="org9381cd6">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -732,7 +732,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org78cc0bb">
+<pre class="example" id="org0ded6a0">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -1059,7 +1059,7 @@ ASP.NET MVC:
 <h3 id="orgc171ad9"><span class="section-number-3">6.2.</span> Lifecycle</h3>
 <div class="outline-text-3" id="text-6-2">
 
-<figure id="org276e2be">
+<figure id="org5acc0a9">
 <img src="img/mvc-lifecycle.png" alt="mvc-lifecycle.png">
 
 </figure>
@@ -1138,8 +1138,8 @@ controller.<span style="color: #721045;">Execute</span><span style="color: #0000
 </div>
 </div>
 
-<div id="outline-container-org03a61c6" class="outline-3">
-<h3 id="org03a61c6"><span class="section-number-3">6.3.</span> Action</h3>
+<div id="outline-container-orgf464a9c" class="outline-3">
+<h3 id="orgf464a9c"><span class="section-number-3">6.3.</span> Action</h3>
 <div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
 <li>Action 是 Controller 里面用来处理请求产生响应的一个方法</li>
@@ -1377,8 +1377,8 @@ api/{controller}/{id}
 </div>
 </div>
 
-<div id="outline-container-orgf464a9c" class="outline-3">
-<h3 id="orgf464a9c"><span class="section-number-3">7.4.</span> Action</h3>
+<div id="outline-container-org6bc343e" class="outline-3">
+<h3 id="org6bc343e"><span class="section-number-3">7.4.</span> Action</h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
 方法名字 vs 请求方法:
