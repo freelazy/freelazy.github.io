@@ -25,6 +25,7 @@
 <li><a href="#org2f363e1">1. .Net</a>
 <ul>
 <li><a href="#org4d2e173">1.1. 历史</a></li>
+<li><a href="#org706c080">1.2. 规范</a></li>
 </ul>
 </li>
 <li><a href="#org2e46c72">2. 单机 到 CS 到 BS</a></li>
@@ -57,7 +58,7 @@
 <ul>
 <li><a href="#orgf24ab64">6.1. MVC</a></li>
 <li><a href="#orgc171ad9">6.2. Lifecycle</a></li>
-<li><a href="#org6bc343e">6.3. Action</a></li>
+<li><a href="#orgaaea312">6.3. Action</a></li>
 <li><a href="#org592c73d">6.4. Razor</a></li>
 <li><a href="#org946e302">6.5. Binding/Validation</a></li>
 <li><a href="#orgc3a6654">6.6. Filter</a></li>
@@ -68,7 +69,7 @@
 <li><a href="#orge8f9cc3">7.1. JSON</a></li>
 <li><a href="#org680ebb4">7.2. WebApiConfig.cs</a></li>
 <li><a href="#orgaf1b1de">7.3. Router</a></li>
-<li><a href="#orgaaea312">7.4. Action</a></li>
+<li><a href="#orgc5ebf39">7.4. Action</a></li>
 <li><a href="#orgb8b8cf9">7.5. Help</a></li>
 </ul>
 </li>
@@ -99,7 +100,7 @@
 </p>
 
 <p>
-发展至今，.NET 平台现在主要分为 3 部分：
+发展至今，.NET 平台现在主要有 3 个版本:
 </p>
 <ul class="org-ul">
 <li>.NET Framework
@@ -135,9 +136,35 @@
 </p>
 </div>
 </div>
+
+<div id="outline-container-org706c080" class="outline-3">
+<h3 id="org706c080"><span class="section-number-3">1.2.</span> 规范</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+为了保持多个平台之间的一致性，防止出现碎片化和分化，微软推出了 <b>.NET Standard</b> (标准/规范):
+</p>
+<ul class="org-ul">
+<li><a href="https://github.com/dotnet/standard/blob/v2.1.0/docs/versions/netstandard2.1.md">https://github.com/dotnet/standard/blob/v2.1.0/docs/versions/netstandard2.1.md</a></li>
+<li>它提供了一系列的 API 规范。要求所有的平台都要去实现这些 API</li>
+<li>.NET Framework 支持到了 Standard 2.0，Core 和 Mono 支持到了 2.1。C# 8 的一些特性需要 2.1 标准的支持</li>
+</ul>
+
+<p>
+为了让不同的编程语言都能在 .NET 平台上和谐有序协作运行，微软定义了一系列的规范，称作 <b>CLI</b> (Common Language Infrastructure，即通用语言基础设施):
+</p>
+<ul class="org-ul">
+<li>通过 CLS (Common Language Specification) 阐述了运行在平台上的诸多语言需要遵循的基本规范</li>
+<li>通过 CTS (Common Type System) 定义了 .NET 平台上通用的内置类型，包括但不限于对象模型、基本元数组类型的库等</li>
+<li>通过 CIL (Common Intermedia Language) 规范了编译成的中间码的格式跟规范</li>
+<li>它还包括 CLR/BCL/Metadata 等的定义 (CLR 可以看做 CLI 规范的一个实现）
+<ul class="org-ul">
+<li>.NET = SDK (Software Development Kit, 开发工具包) + CLR (Common Language Runtime，通用运行时)</li>
+</ul></li>
+<li>后来 CLI 被提交到了国际化标准组织，形成了一个通用的国际标准</li>
+</ul>
+</div>
+</div>
 </section>
-
-
 
 <section id="outline-container-org2e46c72" class="outline-2">
 <h2 id="org2e46c72"><span class="section-number-2">2.</span> 单机 到 CS 到 BS</h2>
@@ -487,7 +514,7 @@ Global.asax:
 <h3 id="orgeca96eb"><span class="section-number-3">5.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-5-3">
 
-<figure id="org5423b11">
+<figure id="org2aaaa06">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -677,7 +704,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org7f4d9b7">
+<pre class="example" id="org991ef41">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -734,7 +761,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org01ca76d">
+<pre class="example" id="org491184b">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -1061,7 +1088,7 @@ ASP.NET MVC:
 <h3 id="orgc171ad9"><span class="section-number-3">6.2.</span> Lifecycle</h3>
 <div class="outline-text-3" id="text-6-2">
 
-<figure id="orgf298055">
+<figure id="org8a00ca9">
 <img src="img/mvc-lifecycle.png" alt="mvc-lifecycle.png">
 
 </figure>
@@ -1140,8 +1167,8 @@ controller.<span style="color: #721045;">Execute</span><span style="color: #0000
 </div>
 </div>
 
-<div id="outline-container-org6bc343e" class="outline-3">
-<h3 id="org6bc343e"><span class="section-number-3">6.3.</span> Action</h3>
+<div id="outline-container-orgaaea312" class="outline-3">
+<h3 id="orgaaea312"><span class="section-number-3">6.3.</span> Action</h3>
 <div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
 <li>Action 是 Controller 里面用来处理请求产生响应的一个方法</li>
@@ -1379,8 +1406,8 @@ api/{controller}/{id}
 </div>
 </div>
 
-<div id="outline-container-orgaaea312" class="outline-3">
-<h3 id="orgaaea312"><span class="section-number-3">7.4.</span> Action</h3>
+<div id="outline-container-orgc5ebf39" class="outline-3">
+<h3 id="orgc5ebf39"><span class="section-number-3">7.4.</span> Action</h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
 方法名字 vs 请求方法:
