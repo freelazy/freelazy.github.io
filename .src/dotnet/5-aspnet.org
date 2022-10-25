@@ -1,6 +1,41 @@
 #+TITLE: ASP.NET
 
 
+* .Net
+** 历史
+
+上世纪 90 年代末，Windows 上的开发技术分化成了多个部分:
+- 精通 C/C++ 程序员，他们喜欢直接面对 Windows API 进行编程
+- 有一部分人就转向了 MFC (Microsoft Foundation Class)
+- COM 编程
+
+上述技术都存在一些问题或短板。为了应对 Internet 潮流的到来，微软决定推出新一代的技术框架。
+2002 年的时候，.NET 平台就出现了。刚开始主要使用 VB，后面全面转向了 C#。
+
+发展至今，.NET 平台现在主要分为 3 部分：
+- .NET Framework
+  + 微软把控
+  + 只能运行在 Windows 平台上面
+  + 最新的版本 (2022-10-25) 是 4.8
+  + 是内置在 Windows 操作系统下的平台
+- Mono
+  + 由 Ximian 公司主持创建的开源项目，2004 年推出第一个版本
+  + 目标是创建一个跨平台的 .NET 实现
+  + Unity3D 是基于 Mono
+  + Xamarin 框架也是基于 Mono
+- .NET Core
+  + 2016 年，微软决定将 .NET 平台开源并且跨平台。这时候将 Mono 收购了
+  + 微软决定，留两个跨平台的运行时 (Mono + .Net Core)，Core 是从头实现的
+  + Core:
+    * 将 MVC 和 Web API 移植到了 Core 中，但是 Webform 和 WCF 等被移除了
+    * Entity Framework 多年以来背负了沉重的历史包袱，因此 Core 中将其精简了，并且加入了对非关系型数据库的之处
+    * 微软将很多 .NET 中自带的功能抽取剥离出来放到了 NuGet 包里。这样 .NET 的核心就变得更小，而且没有太多的依赖
+    * 使用 Windows Desktop pack 的方法运行 Winform/WPF 等，从而可以让 Windows 上面支持更多未移植的功能
+  + 2020.11，微软决定，将原本要推出的 .NET Core 3.1 改名为 .NET5，并承诺，
+    未来只有一个 .NET 平台，每年将会推出一个新的版本
+  
+
+
 * 单机 到 CS 到 BS
 
 要注意，.NET 跟 C# 不是一样的概念：
