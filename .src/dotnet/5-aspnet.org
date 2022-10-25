@@ -1,7 +1,7 @@
 #+TITLE: ASP.NET
 
 
-* .Net
+* .NET
 ** 历史
 
 上世纪 90 年代末，Windows 上的开发技术分化成了多个部分:
@@ -48,6 +48,18 @@
 - 它还包括 CLR/BCL/Metadata 等的定义 (CLR 可以看做 CLI 规范的一个实现）
 - 注: .NET = *SDK* (Software Development Kit, 开发工具包) + *CLR* (Common Language Runtime，通用运行时)
 - 后来 CLI 被提交到了国际化标准组织，成为了一个通用的国际标准
+
+* .NET Core
+** 跨平台开发
+
+- 推出了跨平台的 VSCode (lsp, Language Server Prototol)
+- Windows 下面安装环境 (https://learn.microsoft.com/zh-cn/dotnet/core/install/windows?tabs=net60)
+- NuGet (https://www.nuget.org/)
+- dotnet 命令行工具
+
+** dotnet 命令行工具
+
+预习
 
 * 单机 到 CS 到 BS
 
