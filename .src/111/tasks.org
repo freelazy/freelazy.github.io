@@ -1,10 +1,17 @@
 #+TITLE: 任务和作业
 
 
-* [2022-10-25 Tue]
+* [2022-10-26 Wed]
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+- 将课本第一二章，看熟、练熟
+- 能够使用 MVC 独立完成简单的功能
+- 了解、总结 bootstrap.css 的基本使用
+
+
+* [2022-10-25 Tue]
 
 - 整理总结今天所讲内容
 - 安装 VSCode
