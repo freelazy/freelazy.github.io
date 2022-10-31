@@ -5519,7 +5519,7 @@ C# 5 中，出现了 async/await 关键词:
 - 异步方法的调用，本身不会创建任何线程的
 
 
-#+begin_src csharp
+#+begin_src csharp -n
   static async Task<int> GetUrlContentLengthAsync()
   {
       var client = new HttpClient();
