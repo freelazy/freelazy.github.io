@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-10-25 -->
+<!-- 2022-10-31 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ASP.NET</title>
@@ -58,7 +58,7 @@
 <ul>
 <li><a href="#orgf24ab64">6.1. MVC</a></li>
 <li><a href="#orgc171ad9">6.2. Lifecycle</a></li>
-<li><a href="#org3e6f0d2">6.3. Action</a></li>
+<li><a href="#org7698a57">6.3. Action</a></li>
 <li><a href="#org592c73d">6.4. Razor</a></li>
 <li><a href="#org946e302">6.5. Binding/Validation</a></li>
 <li><a href="#orgc3a6654">6.6. Filter</a></li>
@@ -69,7 +69,7 @@
 <li><a href="#orge8f9cc3">7.1. JSON</a></li>
 <li><a href="#org680ebb4">7.2. WebApiConfig.cs</a></li>
 <li><a href="#orgaf1b1de">7.3. Router</a></li>
-<li><a href="#org7698a57">7.4. Action</a></li>
+<li><a href="#orgf058782">7.4. Action</a></li>
 <li><a href="#orgb8b8cf9">7.5. Help</a></li>
 </ul>
 </li>
@@ -77,6 +77,21 @@
 <ul>
 <li><a href="#org00073ce">8.1. 跨平台开发</a></li>
 <li><a href="#org342f262">8.2. dotnet 命令行工具</a></li>
+<li><a href="#orgeb51a6b">8.3. C# 语法拾遗</a>
+<ul>
+<li><a href="#org2be1c7c">8.3.1. NULL</a></li>
+<li><a href="#org6716ac1">8.3.2. 自动属性</a></li>
+<li><a href="#orga4990fe">8.3.3. 插值字符串</a></li>
+<li><a href="#orgef21bee">8.3.4. 初始化器</a></li>
+<li><a href="#org6dff4ee">8.3.5. 模式匹配 (Patter-Match)</a></li>
+<li><a href="#org853755d">8.3.6. 扩展方法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgfe4d7fe">9. ASP.NET Core MVC</a>
+<ul>
+<li><a href="#orgcbf2bf2">9.1. Summary</a></li>
 </ul>
 </li>
 </ul>
@@ -518,7 +533,7 @@ Global.asax:
 <h3 id="orgeca96eb"><span class="section-number-3">5.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-5-3">
 
-<figure id="org17b6351">
+<figure id="org50e37df">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -708,7 +723,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="orge84087a">
+<pre class="example" id="orgd794fed">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -765,7 +780,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org4afb64a">
+<pre class="example" id="orgb939191">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -1092,7 +1107,7 @@ ASP.NET MVC:
 <h3 id="orgc171ad9"><span class="section-number-3">6.2.</span> Lifecycle</h3>
 <div class="outline-text-3" id="text-6-2">
 
-<figure id="org8b61fae">
+<figure id="orgbd93912">
 <img src="img/mvc-lifecycle.png" alt="mvc-lifecycle.png">
 
 </figure>
@@ -1171,8 +1186,8 @@ controller.<span style="color: #721045;">Execute</span><span style="color: #0000
 </div>
 </div>
 
-<div id="outline-container-org3e6f0d2" class="outline-3">
-<h3 id="org3e6f0d2"><span class="section-number-3">6.3.</span> Action</h3>
+<div id="outline-container-org7698a57" class="outline-3">
+<h3 id="org7698a57"><span class="section-number-3">6.3.</span> Action</h3>
 <div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
 <li>Action 是 Controller 里面用来处理请求产生响应的一个方法</li>
@@ -1410,8 +1425,8 @@ api/{controller}/{id}
 </div>
 </div>
 
-<div id="outline-container-org7698a57" class="outline-3">
-<h3 id="org7698a57"><span class="section-number-3">7.4.</span> Action</h3>
+<div id="outline-container-orgf058782" class="outline-3">
+<h3 id="orgf058782"><span class="section-number-3">7.4.</span> Action</h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
 方法名字 vs 请求方法:
@@ -1578,11 +1593,332 @@ dotnet test
 </div>
 </div>
 </div>
+
+
+<div id="outline-container-orgeb51a6b" class="outline-3">
+<h3 id="orgeb51a6b"><span class="section-number-3">8.3.</span> C# 语法拾遗</h3>
+<div class="outline-text-3" id="text-8-3">
+<p>
+语法糖 (Syntax Sugar), 用来锦上添花的。
+</p>
+</div>
+
+<div id="outline-container-org2be1c7c" class="outline-4">
+<h4 id="org2be1c7c"><span class="section-number-4">8.3.1.</span> NULL</h4>
+<div class="outline-text-4" id="text-8-3-1">
+<p>
+正则表达式
+</p>
+
+<ul class="org-ul">
+<li>可空类型 (decimal?), 为值类型增加一个 null 选项。用于区分默认值跟未赋值</li>
+<li><code>A?.X</code>, 其实是 <code>A =</code> null ? null : A.X= 的语法糖。主要用于避免 NullPointerException</li>
+</ul>
+
+<p>
+?. 语法糖:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #005a5f;">string</span> <span style="color: #00538b;">name</span>;
+<span style="color: #5317ac;">if</span> <span style="color: #000000;">(</span>p == <span style="color: #0000c0;">null</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    name = <span style="color: #0000c0;">null</span>;
+<span style="color: #000000;">}</span>
+<span style="color: #5317ac;">else</span>
+<span style="color: #000000;">{</span>
+    name = p.Name;
+<span style="color: #000000;">}</span>
+<span style="color: #005a5f;">decimal</span>? <span style="color: #00538b;">price</span> = <span style="color: #000000;">(</span>p == <span style="color: #0000c0;">null</span> ? <span style="color: #0000c0;">null</span> : p.Price<span style="color: #000000;">)</span>;
+<span style="color: #005a5f;">decimal</span>? <span style="color: #00538b;">price</span> = p?.Price;
+<span style="color: #005a5f;">string</span> <span style="color: #00538b;">rname</span> = p?.Related?.Name;
+results.<span style="color: #721045;">Add</span><span style="color: #000000;">(</span>$<span style="color: #2544bb;">"Name: {p?.Name}, Price: {p?.Price}, Related: {rname}"</span><span style="color: #000000;">)</span>;
+
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#20351;&#29992;&#20102; ?. &#35821;&#27861;&#31958;&#30340;&#20889;&#27861;</span>
+<span style="color: #005a5f;">string</span> <span style="color: #00538b;">rname</span> = p?.Related?.Name;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#19981;&#20351;&#29992;&#35821;&#27861;&#31958;&#30340;&#23454;&#29616;</span>
+<span style="color: #5317ac;">if</span> <span style="color: #000000;">(</span>p != <span style="color: #0000c0;">null</span> &amp;&amp; p.Related != <span style="color: #0000c0;">null</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    rname = p.Related.Name;
+<span style="color: #000000;">}</span>
+<span style="color: #5317ac;">else</span>
+<span style="color: #000000;">{</span>
+    rname = <span style="color: #0000c0;">null</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+?? 语法糖:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #005a5f;">string</span> <span style="color: #00538b;">author</span> = db.Authors.<span style="color: #721045;">Find</span><span style="color: #000000;">(</span>3<span style="color: #000000;">)</span>;
+<span style="color: #505050;">// </span><span style="color: #505050;">....</span>
+<span style="color: #5317ac;">if</span> <span style="color: #000000;">(</span>author == <span style="color: #0000c0;">null</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    author = <span style="color: #2544bb;">"&#26410;&#21517;"</span>;
+<span style="color: #000000;">}</span>
+Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>$<span style="color: #2544bb;">"{author}"</span><span style="color: #000000;">)</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#31616;&#21270;&#20026;</span>
+<span style="color: #005a5f;">string</span> <span style="color: #00538b;">author</span> = db.Authors.<span style="color: #721045;">Find</span><span style="color: #000000;">(</span>3<span style="color: #000000;">)</span>;
+<span style="color: #505050;">// </span><span style="color: #505050;">....</span>
+author ?? <span style="color: #2544bb;">"&#26410;&#21517;"</span>
+</pre>
+</div>
+
+<p>
+?. 和 ?? 混合使用:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #005a5f;">string</span> <span style="color: #00538b;">name</span> = p.Name;
+<span style="color: #005a5f;">decimal</span>? <span style="color: #00538b;">price</span> = p.Price;
+<span style="color: #005a5f;">string</span> <span style="color: #00538b;">relatedName</span> = p.Related.Name;
+
+<span style="color: #005a5f;">string</span> <span style="color: #00538b;">name</span> = p?.Name ?? <span style="color: #2544bb;">"&lt;No Name&gt;"</span>;
+<span style="color: #005a5f;">decimal</span>? <span style="color: #00538b;">price</span> = p?.Price ?? 9999;
+<span style="color: #005a5f;">string</span> <span style="color: #00538b;">relatedName</span> = p?.Related?.Name ?? <span style="color: #2544bb;">"&lt;none&gt;"</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6716ac1" class="outline-4">
+<h4 id="org6716ac1"><span class="section-number-4">8.3.2.</span> 自动属性</h4>
+<div class="outline-text-4" id="text-8-3-2">
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">DRY</span>
+<span style="color: #5317ac;">public</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">Suibian</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">private</span> <span style="color: #005a5f;">string</span> <span style="color: #00538b;">name</span>;
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">string</span> <span style="color: #00538b;">Name</span>
+    <span style="color: #a8007f;">{</span>
+        <span style="color: #5317ac;">get</span>
+        <span style="color: #005f88;">{</span>
+            <span style="color: #5317ac;">return</span> name;
+        <span style="color: #005f88;">}</span>
+        <span style="color: #5317ac;">set</span>
+        <span style="color: #005f88;">{</span>
+            name = <span style="color: #0000c0;">value</span>;
+        <span style="color: #005f88;">}</span>
+    <span style="color: #a8007f;">}</span>
+
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#22810;&#35874;&#32534;&#35793;&#22120;&#21733;&#21733;</span>
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">decimal</span>? <span style="color: #00538b;">Price</span> <span style="color: #a8007f;">{</span> <span style="color: #5317ac;">get</span>; <span style="color: #5317ac;">set</span>; <span style="color: #a8007f;">}</span>
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">Related</span> <span style="color: #00538b;">Suibian</span> <span style="color: #a8007f;">{</span> <span style="color: #5317ac;">get</span>; <span style="color: #5317ac;">private</span> <span style="color: #5317ac;">set</span>; <span style="color: #a8007f;">}</span>
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">decimal</span>? <span style="color: #00538b;">Price</span> <span style="color: #a8007f;">{</span> <span style="color: #5317ac;">get</span>; <span style="color: #5317ac;">set</span>; <span style="color: #a8007f;">}</span> = 9999M;
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">decimal</span>? <span style="color: #00538b;">Price</span> <span style="color: #a8007f;">{</span> <span style="color: #5317ac;">get</span>; <span style="color: #a8007f;">}</span> = 9999M;
+
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">decimal</span>? <span style="color: #00538b;">Price</span> <span style="color: #a8007f;">{</span> <span style="color: #5317ac;">get</span> <span style="color: #005f88;">{</span> <span style="color: #5317ac;">return</span> 33; <span style="color: #005f88;">}</span><span style="color: #a8007f;">}</span>;
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">decimal</span>? <span style="color: #00538b;">Price</span> =&gt; 33;   <span style="color: #505050;">// </span><span style="color: #505050;">&#23646;&#24615;&#23450;&#20041;</span>
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">decimal</span>? <span style="color: #00538b;">_price</span> = 33;   <span style="color: #505050;">// </span><span style="color: #505050;">&#23383;&#27573;&#23450;&#20041;</span>
+<span style="color: #000000;">}</span>
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga4990fe" class="outline-4">
+<h4 id="orga4990fe"><span class="section-number-4">8.3.3.</span> 插值字符串</h4>
+<div class="outline-text-4" id="text-8-3-3">
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #005a5f;">string</span> <span style="color: #00538b;">info</span> = <span style="color: #2544bb;">"hello"</span> + name + <span style="color: #2544bb;">", wo men yao dao "</span> + place + <span style="color: #2544bb;">"play"</span>;
+<span style="color: #505050;">// </span><span style="color: #505050;">StringBuilder sb = new(); sb.Append.....;</span>
+<span style="color: #005a5f;">string</span> <span style="color: #00538b;">info</span> = <span style="color: #005a5f;">string</span>.<span style="color: #721045;">Format</span><span style="color: #000000;">(</span><span style="color: #2544bb;">"hello {0}, wo men yao dao {1} play"</span>, name, place<span style="color: #000000;">)</span>;
+<span style="color: #005a5f;">string</span> <span style="color: #00538b;">info</span> = $<span style="color: #2544bb;">"hello {name}, wo men yao dao {place} play"</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgef21bee" class="outline-4">
+<h4 id="orgef21bee"><span class="section-number-4">8.3.4.</span> 初始化器</h4>
+<div class="outline-text-4" id="text-8-3-4">
+<p>
+对象初始化:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #005a5f;">Factory</span> <span style="color: #00538b;">f</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Factory</span><span style="color: #000000;">()</span>;
+f.Name = <span style="color: #2544bb;">"fsk"</span>;
+<span style="color: #005a5f;">Product</span> <span style="color: #00538b;">p</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Product</span><span style="color: #000000;">()</span>;
+p.Name = <span style="color: #2544bb;">"hello"</span>;
+p.Price = 333;
+f.Weixin = <span style="color: #2544bb;">"dkfjdkfj"</span>;
+p.Weixin = <span style="color: #2544bb;">"ksjdfksdjkfjdsk"</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#31616;&#21270;</span>
+<span style="color: #005a5f;">Factory</span> <span style="color: #00538b;">f</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Factory</span> <span style="color: #000000;">()</span>
+<span style="color: #000000;">{</span>
+    Name = <span style="color: #2544bb;">"fsk"</span>, Weixin = <span style="color: #2544bb;">"bzd"</span>
+<span style="color: #000000;">}</span>;
+<span style="color: #005a5f;">Product</span> <span style="color: #00538b;">p</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Product</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #00538b;">Name</span> = <span style="color: #2544bb;">"hello"</span>, <span style="color: #00538b;">Weixin</span> = <span style="color: #2544bb;">"kkk"</span>, <span style="color: #00538b;">Price</span> = 333
+<span style="color: #000000;">}</span>;
+<span style="color: #005a5f;">var</span> <span style="color: #00538b;">p</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Product</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #00538b;">Name</span> = <span style="color: #2544bb;">"hello"</span>, <span style="color: #00538b;">Weixin</span> = <span style="color: #2544bb;">"kkk"</span>, <span style="color: #00538b;">Price</span> = 333
+<span style="color: #000000;">}</span>;
+</pre>
+</div>
+
+<p>
+数组初始化:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #005a5f;">string</span><span style="color: #000000;">[]</span> <span style="color: #00538b;">names</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">string</span><span style="color: #000000;">[]</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #2544bb;">"aaa"</span>, <span style="color: #2544bb;">"bbb"</span>, <span style="color: #2544bb;">"ccc"</span>
+<span style="color: #000000;">}</span>;
+</pre>
+</div>
+
+<p>
+List 初始化:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #005a5f;">List</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">string</span><span style="color: #000000;">&gt;</span> <span style="color: #00538b;">r1</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">List</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">string</span><span style="color: #000000;">&gt;()</span>;
+r1.<span style="color: #721045;">Add</span><span style="color: #000000;">(</span><span style="color: #2544bb;">"aaa"</span><span style="color: #000000;">)</span>;
+r1.<span style="color: #721045;">Add</span><span style="color: #000000;">(</span><span style="color: #2544bb;">"bbb"</span><span style="color: #000000;">)</span>;
+r1.<span style="color: #721045;">Add</span><span style="color: #000000;">(</span><span style="color: #2544bb;">"ccc"</span><span style="color: #000000;">)</span>;
+<span style="color: #005a5f;">List</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">string</span><span style="color: #000000;">&gt;</span> <span style="color: #00538b;">r2</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">List</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">string</span><span style="color: #000000;">&gt;()</span>;
+<span style="color: #005a5f;">List</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">string</span><span style="color: #000000;">&gt;</span> <span style="color: #00538b;">r3</span> = <span style="color: #5317ac;">new</span><span style="color: #000000;">()</span>;
+<span style="color: #005a5f;">var</span> <span style="color: #00538b;">r4</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">List</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">string</span><span style="color: #000000;">&gt;()</span>;
+<span style="color: #005a5f;">var</span> <span style="color: #00538b;">r5</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">List</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">string</span><span style="color: #000000;">&gt;()</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #2544bb;">"aaa"</span>, <span style="color: #2544bb;">"bbb"</span>, <span style="color: #2544bb;">"ccc"</span>
+<span style="color: #000000;">}</span>;
+</pre>
+</div>
+
+<p>
+Dictionary 初始化:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #005a5f;">Dictionary</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">string</span>, <span style="color: #005a5f;">int</span><span style="color: #000000;">&gt;</span> <span style="color: #00538b;">scores1</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Dictionary</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">string</span>, <span style="color: #005a5f;">int</span><span style="color: #000000;">&gt;()</span>;
+scores1<span style="color: #000000;">[</span><span style="color: #2544bb;">"zs"</span><span style="color: #000000;">]</span> = 33;
+scores1<span style="color: #000000;">[</span><span style="color: #2544bb;">"ls"</span><span style="color: #000000;">]</span> = 66;
+<span style="color: #005a5f;">Dictionary</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">string</span>, <span style="color: #005a5f;">int</span><span style="color: #000000;">&gt;</span> <span style="color: #00538b;">scores2</span> = <span style="color: #5317ac;">new</span> <span style="color: #000000;">()</span>;
+<span style="color: #005a5f;">var</span> <span style="color: #00538b;">scores3</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Dictionary</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">string</span>, <span style="color: #005a5f;">int</span><span style="color: #000000;">&gt;()</span>;
+<span style="color: #005a5f;">var</span> <span style="color: #00538b;">scores4</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Dictionary</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">string</span>, <span style="color: #005a5f;">int</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #a8007f;">{</span><span style="color: #2544bb;">"zs"</span>, 33<span style="color: #a8007f;">}</span>, <span style="color: #a8007f;">{</span><span style="color: #2544bb;">"ls"</span>, 66<span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>;
+<span style="color: #005a5f;">var</span> <span style="color: #00538b;">scores5</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Dictionary</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">string</span>, <span style="color: #005a5f;">int</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #a8007f;">[</span><span style="color: #2544bb;">"zs"</span><span style="color: #a8007f;">]</span> = 33,
+    <span style="color: #a8007f;">[</span><span style="color: #2544bb;">"ls"</span><span style="color: #a8007f;">]</span> = 66
+<span style="color: #000000;">}</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6dff4ee" class="outline-4">
+<h4 id="org6dff4ee"><span class="section-number-4">8.3.5.</span> 模式匹配 (Patter-Match)</h4>
+<div class="outline-text-4" id="text-8-3-5">
+<p>
+模式匹配是函数型语言 (F#, Haskell) 的标配，微软将其引入了面向对象的 C# 中。
+</p>
+
+<p>
+switch -&gt; case when:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#21407;&#20889;&#27861;&#65292;&#20351;&#29992; if/else</span>
+<span style="color: #005a5f;">object</span><span style="color: #000000;">[]</span> <span style="color: #00538b;">arr</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">object</span><span style="color: #000000;">[]</span> <span style="color: #000000;">{</span> 333, <span style="color: #2544bb;">"hello"</span>, 444M, 1M, 223f <span style="color: #000000;">}</span>;
+<span style="color: #005a5f;">decimal</span> <span style="color: #00538b;">total</span> = 0;
+<span style="color: #5317ac;">foreach</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">item</span> <span style="color: #5317ac;">in</span> arr<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>item <span style="color: #5317ac;">is</span> <span style="color: #005a5f;">decimal</span> d<span style="color: #a8007f;">)</span>
+    <span style="color: #a8007f;">{</span>
+        total += d;
+    <span style="color: #a8007f;">}</span>
+    <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>item <span style="color: #5317ac;">is</span> <span style="color: #005a5f;">int</span> i<span style="color: #a8007f;">)</span>
+    <span style="color: #a8007f;">{</span>
+        total += i;
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#21407; switch/case</span>
+<span style="color: #005a5f;">string</span> <span style="color: #00538b;">aaa</span> = <span style="color: #2544bb;">"dkfjd"</span>;
+<span style="color: #5317ac;">switch</span> <span style="color: #000000;">(</span>aaa<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">case</span> <span style="color: #2544bb;">"hello"</span>:
+        System.Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"dkfj"</span><span style="color: #a8007f;">)</span>;
+        <span style="color: #5317ac;">break</span>;
+    <span style="color: #5317ac;">case</span> <span style="color: #2544bb;">"world"</span>:
+        System.Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"dkkfk"</span><span style="color: #a8007f;">)</span>;
+        <span style="color: #5317ac;">break</span>;
+<span style="color: #000000;">}</span>
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#20351;&#29992; switch...case...when &#35821;&#27861;&#36827;&#34892;&#27169;&#24335;&#21305;&#37197;</span>
+<span style="color: #005a5f;">object</span><span style="color: #000000;">[]</span> <span style="color: #00538b;">arr</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">object</span><span style="color: #000000;">[]</span> <span style="color: #000000;">{</span> 333, <span style="color: #2544bb;">"hello"</span>, 444M, 1M, 223f <span style="color: #000000;">}</span>;
+<span style="color: #005a5f;">decimal</span> <span style="color: #00538b;">total</span> = 0;
+<span style="color: #5317ac;">foreach</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">item</span> <span style="color: #5317ac;">in</span> arr<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">switch</span> <span style="color: #a8007f;">(</span>item<span style="color: #a8007f;">)</span>
+    <span style="color: #a8007f;">{</span>
+        <span style="color: #5317ac;">case</span> <span style="color: #005a5f;">decimal</span> d:
+            total += d;
+            <span style="color: #5317ac;">break</span>;
+        <span style="color: #5317ac;">case</span> <span style="color: #005a5f;">int</span> i <span style="color: #5317ac;">when</span> i &gt; 3:
+            total += i;
+            <span style="color: #5317ac;">break</span>;
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org853755d" class="outline-4">
+<h4 id="org853755d"><span class="section-number-4">8.3.6.</span> 扩展方法</h4>
+<div class="outline-text-4" id="text-8-3-6">
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">public</span> <span style="color: #5317ac;">static</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">MyKuozhanMethod</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">public</span> <span style="color: #5317ac;">static</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Eat</span><span style="color: #a8007f;">(</span><span style="color: #5317ac;">this</span> <span style="color: #005a5f;">IALive</span> <span style="color: #00538b;">d</span>, <span style="color: #005a5f;">string</span> <span style="color: #00538b;">food</span><span style="color: #a8007f;">)</span>
+    <span style="color: #a8007f;">{</span>
+        System.Console.<span style="color: #721045;">WriteLine</span><span style="color: #005f88;">(</span>$<span style="color: #2544bb;">"{food} zhenhaochi"</span><span style="color: #005f88;">)</span>;
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+
+<span style="color: #5317ac;">public</span> <span style="color: #5317ac;">interface</span> <span style="color: #005a5f;">IALive</span> <span style="color: #000000;">{</span> <span style="color: #000000;">}</span>
+<span style="color: #5317ac;">public</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">Dog</span> : <span style="color: #005a5f;">IALive</span> <span style="color: #000000;">{</span> <span style="color: #000000;">}</span>
+<span style="color: #5317ac;">public</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">Cat</span> : <span style="color: #005a5f;">IALive</span> <span style="color: #000000;">{</span> <span style="color: #000000;">}</span>
+<span style="color: #5317ac;">public</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">Person</span> : <span style="color: #005a5f;">IALive</span> <span style="color: #000000;">{</span> <span style="color: #000000;">}</span>
+
+<span style="color: #505050;">// </span><span style="color: #505050;">test</span>
+<span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Dog</span><span style="color: #000000;">()</span>.<span style="color: #721045;">Eat</span><span style="color: #000000;">(</span><span style="color: #2544bb;">"xiang"</span><span style="color: #000000;">)</span>;
+<span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Cat</span><span style="color: #000000;">()</span>.<span style="color: #721045;">Eat</span><span style="color: #000000;">(</span><span style="color: #2544bb;">"ksdfksjd"</span><span style="color: #000000;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgfe4d7fe" class="outline-2">
+<h2 id="orgfe4d7fe"><span class="section-number-2">9.</span> ASP.NET Core MVC</h2>
+<div class="outline-text-2" id="text-9">
+</div>
+<div id="outline-container-orgcbf2bf2" class="outline-3">
+<h3 id="orgcbf2bf2"><span class="section-number-3">9.1.</span> Summary</h3>
+<div class="outline-text-3" id="text-9-1">
+<ul class="org-ul">
+<li>IActionResult</li>
+<li>asp-for</li>
+</ul>
+</div>
+</div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2022-10-25</p>
+<p class="date">Created: 2022-10-31</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

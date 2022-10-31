@@ -3352,7 +3352,7 @@ Gender (男/女/未知)
           // 元组 (Tuple)
           Tuple<int, int> s6 = new Tuple<int, int>(111, 2222);
           Tuple<int, string, int, string> s61 = Tuple.Create(111, "小明", 67, "110");
-          xxx(s61);
+          xxx(s61); 
           Console.WriteLine(s61.Item1);
   
           // 使用 out 的方式，处理方法的多个返回值
@@ -5178,10 +5178,12 @@ C# 1.0 中加入的。
   Thread t = new Thread(() =>
   {
       Console.WriteLine("hello");
+      Console.WriteLine(Thread.CurrentThread);
   });
   t.Start();
   Console.WriteLine("world");
-  
+
+  Console.WriteLine(Thread.CurrentThread);
   Thread tc = Thread.CurrentThread;
   Console.WriteLine($"{t.ManagedThreadId} / {t.Name} / {t.IsAlive} / {t.IsBackground}");
   Console.WriteLine($"{tc.ManagedThreadId} / {tc.Name} / {tc.IsAlive} / {tc.IsBackground}");
@@ -5380,7 +5382,7 @@ C# 3/4 版本中，出现了更高一层的抽象:
   var cts = new CancellationTokenSource();
   cts.CancelAfter(1000);
   cts.Token.Register(() => Console.WriteLine("jieshule"));
-  
+
   Task t = Task.Run(() =>
   {
       // Task t = Task.Run(() =>
@@ -5391,20 +5393,20 @@ C# 3/4 版本中，出现了更高一层的抽象:
       //         Console.Write("O");
       //     }
       // }, cts.Token);
-  
+
       var i = 0;
       //while (!cts.Token.IsCancellationRequested && i++ < 10000)
       //{ 
       //    Console.Write("O");
       //}
-      
+
       do
       {
           cts.Token.ThrowIfCancellationRequested();
           Console.Write("O");
       } while (i++ < 1000);
   }, cts.Token);
-  
+
   for (int i = 0; i < 10000; i++)
   {
       if (i == 5)
@@ -5500,7 +5502,7 @@ C# 3/4 版本中，出现了更高一层的抽象:
   }).Wait();
 #+end_src
 
-** TAL (Task-based Asyncronize Pattern)
+** TAP (Task-based Asyncronize Pattern)
 
 C# 5 中，出现了 async/await 关键词:
 - *异步方法*，需要使用 ~async~ 来修饰
@@ -5521,31 +5523,48 @@ C# 5 中，出现了 async/await 关键词:
   static async Task<int> GetUrlContentLengthAsync()
   {
       var client = new HttpClient();
-  
+
       Task<string> getStringTask =
           client.GetStringAsync("https://docs.microsoft.com/dotnet");
-  
+
       DoIndependentWork();
-  
+
       string contents = await getStringTask; // 魔法之源。如果任务没结束，把方法挂起来
-  
+
       string cbaidu = await client.GetStringAsync("https://www.baidu.com");
       Console.WriteLine($"百度的访问结束: {cbaidu.Length}");
-  
+
       string cbing = await client.GetStringAsync("https://bing.com");
       Console.WriteLine($"bing的访问结束: {cbing.Length}");
-  
+
       Console.WriteLine("Finished.");
-  
+
       return contents.Length;
   }
-  
+
+  static async Task<int> GetUrlContentLength2Async()
+  {
+      var client = new HttpClient();
+    
+      var weiruanTask = client.GetStringAsync("https://docs.microsoft.com/dotnet");
+      var baiduTask = client.GetStringAsync("https://www.baidu.com");
+      var bingTask = client.GetStringAsync("https://cn.bing.com");
+
+      Console.WriteLine("请求发送中，请等候..");
+
+      var content = await weiruanTask;
+      Console.WriteLine($"Weiruan: {content.Length}");
+      Console.WriteLine($"百度的访问结束: {(await baiduTask).Length}");
+      Console.WriteLine($"bing的访问结束: {(await bingTask).Length}");
+
+      Console.WriteLine("Finished.");
+
+      return content.Length;
+  }
+
   static async Task Main()
   {
-      Console.WriteLine("111");
-      Task<int> t = GetUrlContentLengthAsync();
-      Console.WriteLine("222");
-      Console.WriteLine(await t); // Console.WriteLine(t.Result);
+      await GetUrlContentLengthAsync();
   }
 #+end_src  
 

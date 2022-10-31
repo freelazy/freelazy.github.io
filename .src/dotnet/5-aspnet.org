@@ -1022,3 +1022,258 @@ https://learn.microsoft.com/zh-cn/dotnet/core/tools/dotnet
   dotnet test
 #+end_src
 
+
+** C# 语法拾遗
+
+语法糖 (Syntax Sugar), 用来锦上添花的。
+
+*** NULL
+
+正则表达式
+
+- 可空类型 (decimal?), 为值类型增加一个 null 选项。用于区分默认值跟未赋值
+- =A?.X=, 其实是 =A == null ? null : A.X= 的语法糖。主要用于避免 NullPointerException
+  
+?. 语法糖:
+#+begin_src csharp
+  string name;
+  if (p == null)
+  {
+      name = null;
+  }
+  else
+  {
+      name = p.Name;
+  }
+  decimal? price = (p == null ? null : p.Price);
+  decimal? price = p?.Price;
+  string rname = p?.Related?.Name;
+  results.Add($"Name: {p?.Name}, Price: {p?.Price}, Related: {rname}");
+
+
+  // 使用了 ?. 语法糖的写法
+  string rname = p?.Related?.Name;
+
+  // 不使用语法糖的实现
+  if (p != null && p.Related != null)
+  {
+      rname = p.Related.Name;
+  }
+  else
+  {
+      rname = null;
+  }
+#+end_src
+
+?? 语法糖:
+#+begin_src csharp
+  string author = db.Authors.Find(3);
+  // ....
+  if (author == null)
+  {
+      author = "未名";
+  }
+  Console.WriteLine($"{author}");
+
+  // 简化为
+  string author = db.Authors.Find(3);
+  // ....
+  author ?? "未名"
+#+end_src
+
+?. 和 ?? 混合使用:
+#+begin_src csharp
+  string name = p.Name;
+  decimal? price = p.Price;
+  string relatedName = p.Related.Name;
+  
+  string name = p?.Name ?? "<No Name>";
+  decimal? price = p?.Price ?? 9999;
+  string relatedName = p?.Related?.Name ?? "<none>";
+#+end_src
+
+*** 自动属性
+
+#+begin_src csharp
+  // DRY
+  public class Suibian
+  {
+      private string name;
+      public string Name
+      {
+          get
+          {
+              return name;
+          }
+          set
+          {
+              name = value;
+          }
+      }
+
+      // 多谢编译器哥哥
+      public decimal? Price { get; set; }
+      public Related Suibian { get; private set; }
+      public decimal? Price { get; set; } = 9999M;
+      public decimal? Price { get; } = 9999M;
+
+      public decimal? Price { get { return 33; }};
+      public decimal? Price => 33;   // 属性定义
+      public decimal? _price = 33;   // 字段定义
+  }
+
+#+end_src
+
+*** 插值字符串
+
+#+begin_src csharp
+  string info = "hello" + name + ", wo men yao dao " + place + "play";
+  // StringBuilder sb = new(); sb.Append.....;
+  string info = string.Format("hello {0}, wo men yao dao {1} play", name, place);
+  string info = $"hello {name}, wo men yao dao {place} play";
+#+end_src
+
+*** 初始化器
+
+对象初始化:
+#+begin_src csharp
+  Factory f = new Factory();
+  f.Name = "fsk";
+  Product p = new Product();
+  p.Name = "hello";
+  p.Price = 333;
+  f.Weixin = "dkfjdkfj";
+  p.Weixin = "ksjdfksdjkfjdsk";
+
+  // 简化
+  Factory f = new Factory ()
+  {
+      Name = "fsk", Weixin = "bzd"
+  };
+  Product p = new Product
+  {
+      Name = "hello", Weixin = "kkk", Price = 333
+  };
+  var p = new Product
+  {
+      Name = "hello", Weixin = "kkk", Price = 333
+  };
+#+end_src
+
+数组初始化:
+#+begin_src csharp
+  string[] names = new string[]
+  {
+      "aaa", "bbb", "ccc"
+  };
+#+end_src
+
+List 初始化:
+#+begin_src csharp
+  List<string> r1 = new List<string>();
+  r1.Add("aaa");
+  r1.Add("bbb");
+  r1.Add("ccc");
+  List<string> r2 = new List<string>();
+  List<string> r3 = new();
+  var r4 = new List<string>();
+  var r5 = new List<string>()
+  {
+      "aaa", "bbb", "ccc"
+  };
+#+end_src
+
+Dictionary 初始化:
+#+begin_src csharp
+  Dictionary<string, int> scores1 = new Dictionary<string, int>();
+  scores1["zs"] = 33;
+  scores1["ls"] = 66;
+  Dictionary<string, int> scores2 = new ();
+  var scores3 = new Dictionary<string, int>();
+  var scores4 = new Dictionary<string, int>
+  {
+      {"zs", 33}, {"ls", 66}
+  };
+  var scores5 = new Dictionary<string, int>
+  {
+      ["zs"] = 33,
+      ["ls"] = 66 
+  };
+#+end_src
+
+*** 模式匹配 (Patter-Match)
+
+模式匹配是函数型语言 (F#, Haskell) 的标配，微软将其引入了面向对象的 C# 中。
+
+switch -> case when:
+#+begin_src csharp
+  // 原写法，使用 if/else
+  object[] arr = new object[] { 333, "hello", 444M, 1M, 223f };
+  decimal total = 0;
+  foreach (object item in arr)
+  {
+      if (item is decimal d)
+      {
+          total += d;
+      }
+      else if (item is int i)
+      {
+          total += i;
+      }
+  }
+
+  // 原 switch/case
+  string aaa = "dkfjd";
+  switch (aaa)
+  {
+      case "hello":
+          System.Console.WriteLine("dkfj");
+          break;
+      case "world":
+          System.Console.WriteLine("dkkfk");
+          break;
+  }
+
+  // 使用 switch...case...when 语法进行模式匹配
+  object[] arr = new object[] { 333, "hello", 444M, 1M, 223f };
+  decimal total = 0;
+  foreach (object item in arr)
+  {
+      switch (item)
+      {
+          case decimal d:
+              total += d;
+              break;
+          case int i when i > 3:
+              total += i;
+              break;
+      }
+  }
+#+end_src
+
+*** 扩展方法
+
+#+begin_src csharp
+  public static class MyKuozhanMethod
+  {
+      public static void Eat(this IALive d, string food)
+      {
+          System.Console.WriteLine($"{food} zhenhaochi");
+      }
+  }
+
+  public interface IALive { }
+  public class Dog : IALive { }
+  public class Cat : IALive { }
+  public class Person : IALive { }
+
+  // test
+  new Dog().Eat("xiang");
+  new Cat().Eat("ksdfksjd");
+#+end_src
+
+* ASP.NET Core MVC
+** Summary
+
+- IActionResult
+- asp-for
