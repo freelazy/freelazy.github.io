@@ -5524,10 +5524,9 @@ C# 5 中，出现了 async/await 关键词:
   {
       var client = new HttpClient();
 
-      Task<string> getStringTask =
-          client.GetStringAsync("https://docs.microsoft.com/dotnet");
+      Task<string> getStringTask = client.GetStringAsync("https://docs.microsoft.com/dotnet");
 
-      DoIndependentWork();
+      Console.WriteLine("请求发送中，请等候..");
 
       string contents = await getStringTask; // 魔法之源。如果任务没结束，把方法挂起来
 
@@ -5573,23 +5572,23 @@ C# 5 中，出现了 async/await 关键词:
 #+begin_src csharp
   //for (int i = 0; i < 1000; i++)
   //{
-  //    Console.WriteLine(i);
+  //    Console.WriteLine($"job: {i}");
   //}
   
   //Task.WaitAll(
   //    Enumerable.Range(0, 1000)
-  //        .Select(n => Task.Run(() => Console.WriteLine(n)))
+  //        .Select(n => Task.Run(() => Console.WriteLine($"job: {n}")))
   //        .ToArray()
   //        );
   
   //Parallel.For(0, 1000, (n) =>
   //{
-  //    Console.WriteLine(n);
+  //    Console.WriteLine($"job: {i}");
   //});
   
   List<int> numbers = Enumerable.Range(0, 1000).ToList();
-  //foreach (var n in numbers) Console.WriteLine(n);
-  //Parallel.ForEach(numbers, (n) => Console.WriteLine(n));
+  //foreach (var n in numbers) Console.WriteLine($"job: {n}");
+  //Parallel.ForEach(numbers, (n) => Console.WriteLine($"job: {n}"));
   
   Parallel.Invoke(
       () =>
