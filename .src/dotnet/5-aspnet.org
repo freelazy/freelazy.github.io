@@ -1296,7 +1296,7 @@ async/await
 
 ** 软件工程
 
-[[file:img/software-flow.svg]]
+[[file:img/software-flow.svg][软件开发流程]]
 
 * ASP.NET Core MVC
 ** Summary
