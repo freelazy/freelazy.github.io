@@ -49,6 +49,15 @@
 - 注: .NET = *SDK* (Software Development Kit, 开发工具包) + *CLR* (Common Language Runtime，通用运行时)
 - 后来 CLI 被提交到了国际化标准组织，成为了一个通用的国际标准
 
+** 其他
+*** JIT vs AOT
+
+- JIT (Just In Time)
+- AOT (Ahead Of Time)
+
+: .cs -> .dll (IL) -> 机器码
+: .cs   -----------> 机器码
+
 * 单机 到 CS 到 BS
 
 要注意，.NET 跟 C# 不是一样的概念：
@@ -1271,6 +1280,23 @@ switch -> case when:
   new Dog().Eat("xiang");
   new Cat().Eat("ksdfksjd");
 #+end_src
+
+*** 异步编程
+
+async/await
+
+*** nameof
+
+#+begin_src csharp
+  class Program {}
+
+  Console.WriteLine("Program");
+  Console.WriteLine(nameof(Program));
+#+end_src
+
+** 软件工程
+
+[[file:img/software-flow.svg]]
 
 * ASP.NET Core MVC
 ** Summary
