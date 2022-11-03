@@ -1298,6 +1298,46 @@ async/await
 
 [[file:img/software-flow.svg][软件开发流程]]
 
+*** xUnit/Moq
+
+xUnit:
+#+begin_src csharp
+  public int MyAdd(int a, int b)
+  {
+      a++;
+      a--;
+      a = a * a;
+      a = (int)Math.Sqrt(a);
+      return a + b;
+  }
+
+
+  public void TestMyAdd()
+  {
+      var p = new ConsoleApp4.Program();
+      Console.WriteLine($"{p.MyAdd(2, 3) == 5}");
+      Console.WriteLine($"{p.MyAdd(-2, 3) == 1}");
+      Console.WriteLine($"{p.MyAdd(-2, -3) == -5}");
+      Console.WriteLine($"{p.MyAdd(2, 33434334) == 33434336}");
+      Console.WriteLine($"{p.MyAdd(0, 3) == 3}");
+      Console.WriteLine($"{p.MyAdd(0, 0) == 0}");
+  }
+
+  [Fact]
+  public void MyAddIsRight ()
+  {
+      var p = new HomeController();
+      Assert.Equal(5, p.MyAdd(2, 3));
+      Assert.Equal(-5, p.MyAdd(-2, -3));
+      Assert.Equal(-1111, p.MyAdd(-2222, 1111));
+      Assert.Equal(0, p.MyAdd(0, 0));
+  }
+#+end_src
+
+Moq links:
+- https://github.com/Moq
+- https://learn.microsoft.com/en-us/shows/visual-studio-toolbox/unit-testing-moq-framework
+
 * ASP.NET Core MVC
 ** Summary
 

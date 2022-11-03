@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-11-01 -->
+<!-- 2022-11-03 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ASP.NET</title>
@@ -26,7 +26,7 @@
 <ul>
 <li><a href="#org4d2e173">1.1. 历史</a></li>
 <li><a href="#org706c080">1.2. 规范</a></li>
-<li><a href="#org10ddb67">1.3. 其他</a>
+<li><a href="#org838e187">1.3. 其他</a>
 <ul>
 <li><a href="#org13f3194">1.3.1. JIT vs AOT</a></li>
 </ul>
@@ -49,7 +49,7 @@
 </ul>
 </li>
 <li><a href="#org27e318c">5.6. 用户自定义控件</a></li>
-<li><a href="#org838e187">5.7. 其他</a>
+<li><a href="#org124540b">5.7. 其他</a>
 <ul>
 <li><a href="#org3ed183e">5.7.1. 路由 (Route)</a></li>
 <li><a href="#orgbb2d469">5.7.2. 捆绑 (Bundle)</a></li>
@@ -63,7 +63,7 @@
 <ul>
 <li><a href="#orgf24ab64">6.1. MVC</a></li>
 <li><a href="#orgc171ad9">6.2. Lifecycle</a></li>
-<li><a href="#orge3078c1">6.3. Action</a></li>
+<li><a href="#org792aec9">6.3. Action</a></li>
 <li><a href="#org592c73d">6.4. Razor</a></li>
 <li><a href="#org946e302">6.5. Binding/Validation</a></li>
 <li><a href="#orgc3a6654">6.6. Filter</a></li>
@@ -74,7 +74,7 @@
 <li><a href="#orge8f9cc3">7.1. JSON</a></li>
 <li><a href="#org680ebb4">7.2. WebApiConfig.cs</a></li>
 <li><a href="#orgaf1b1de">7.3. Router</a></li>
-<li><a href="#org792aec9">7.4. Action</a></li>
+<li><a href="#org350d6cf">7.4. Action</a></li>
 <li><a href="#orgb8b8cf9">7.5. Help</a></li>
 </ul>
 </li>
@@ -94,7 +94,11 @@
 <li><a href="#orgcc32f0e">8.3.8. nameof</a></li>
 </ul>
 </li>
-<li><a href="#orgf8529c6">8.4. 软件工程</a></li>
+<li><a href="#orgf8529c6">8.4. 软件工程</a>
+<ul>
+<li><a href="#org6c7ee03">8.4.1. xUnit/Moq</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#orgfe4d7fe">9. ASP.NET Core MVC</a>
@@ -192,8 +196,8 @@
 </div>
 </div>
 
-<div id="outline-container-org10ddb67" class="outline-3">
-<h3 id="org10ddb67"><span class="section-number-3">1.3.</span> 其他</h3>
+<div id="outline-container-org838e187" class="outline-3">
+<h3 id="org838e187"><span class="section-number-3">1.3.</span> 其他</h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
 <div id="outline-container-org13f3194" class="outline-4">
@@ -561,7 +565,7 @@ Global.asax:
 <h3 id="orgeca96eb"><span class="section-number-3">5.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-5-3">
 
-<figure id="org0fc41e7">
+<figure id="orga61a1b9">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -751,7 +755,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org6f78c5d">
+<pre class="example" id="org19d9c00">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -808,7 +812,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="orgc58eef1">
+<pre class="example" id="org56e7310">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -1027,8 +1031,8 @@ studentsGV.<span style="color: #721045;">DataBind</span><span style="color: #000
 </div>
 </div>
 
-<div id="outline-container-org838e187" class="outline-3">
-<h3 id="org838e187"><span class="section-number-3">5.7.</span> 其他</h3>
+<div id="outline-container-org124540b" class="outline-3">
+<h3 id="org124540b"><span class="section-number-3">5.7.</span> 其他</h3>
 <div class="outline-text-3" id="text-5-7">
 </div>
 <div id="outline-container-org3ed183e" class="outline-4">
@@ -1135,7 +1139,7 @@ ASP.NET MVC:
 <h3 id="orgc171ad9"><span class="section-number-3">6.2.</span> Lifecycle</h3>
 <div class="outline-text-3" id="text-6-2">
 
-<figure id="orga605f0c">
+<figure id="org87bbe42">
 <img src="img/mvc-lifecycle.png" alt="mvc-lifecycle.png">
 
 </figure>
@@ -1214,8 +1218,8 @@ controller.<span style="color: #721045;">Execute</span><span style="color: #0000
 </div>
 </div>
 
-<div id="outline-container-orge3078c1" class="outline-3">
-<h3 id="orge3078c1"><span class="section-number-3">6.3.</span> Action</h3>
+<div id="outline-container-org792aec9" class="outline-3">
+<h3 id="org792aec9"><span class="section-number-3">6.3.</span> Action</h3>
 <div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
 <li>Action 是 Controller 里面用来处理请求产生响应的一个方法</li>
@@ -1453,8 +1457,8 @@ api/{controller}/{id}
 </div>
 </div>
 
-<div id="outline-container-org792aec9" class="outline-3">
-<h3 id="org792aec9"><span class="section-number-3">7.4.</span> Action</h3>
+<div id="outline-container-org350d6cf" class="outline-3">
+<h3 id="org350d6cf"><span class="section-number-3">7.4.</span> Action</h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
 方法名字 vs 请求方法:
@@ -1957,6 +1961,56 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 <a href="img/software-flow.svg">软件开发流程</a>
 </p>
 </div>
+
+<div id="outline-container-org6c7ee03" class="outline-4">
+<h4 id="org6c7ee03"><span class="section-number-4">8.4.1.</span> xUnit/Moq</h4>
+<div class="outline-text-4" id="text-8-4-1">
+<p>
+xUnit:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">public</span> <span style="color: #005a5f;">int</span> <span style="color: #721045;">MyAdd</span><span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span>, <span style="color: #005a5f;">int</span> <span style="color: #00538b;">b</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    a++;
+    a--;
+    a = a * a;
+    a = <span style="color: #a8007f;">(</span><span style="color: #005a5f;">int</span><span style="color: #a8007f;">)</span>Math.<span style="color: #721045;">Sqrt</span><span style="color: #a8007f;">(</span>a<span style="color: #a8007f;">)</span>;
+    <span style="color: #5317ac;">return</span> a + b;
+<span style="color: #000000;">}</span>
+
+
+<span style="color: #5317ac;">public</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">TestMyAdd</span><span style="color: #000000;">()</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">var</span> <span style="color: #00538b;">p</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">ConsoleApp4</span>.<span style="color: #721045;">Program</span><span style="color: #a8007f;">()</span>;
+    Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">(</span>$<span style="color: #2544bb;">"{p.MyAdd(2, 3) == 5}"</span><span style="color: #a8007f;">)</span>;
+    Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">(</span>$<span style="color: #2544bb;">"{p.MyAdd(-2, 3) == 1}"</span><span style="color: #a8007f;">)</span>;
+    Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">(</span>$<span style="color: #2544bb;">"{p.MyAdd(-2, -3) == -5}"</span><span style="color: #a8007f;">)</span>;
+    Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">(</span>$<span style="color: #2544bb;">"{p.MyAdd(2, 33434334) == 33434336}"</span><span style="color: #a8007f;">)</span>;
+    Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">(</span>$<span style="color: #2544bb;">"{p.MyAdd(0, 3) == 3}"</span><span style="color: #a8007f;">)</span>;
+    Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">(</span>$<span style="color: #2544bb;">"{p.MyAdd(0, 0) == 0}"</span><span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+
+<span style="color: #000000;">[</span><span style="color: #00538b;">Fact</span><span style="color: #000000;">]</span>
+<span style="color: #5317ac;">public</span> <span style="color: #005a5f;">void</span> MyAddIsRight <span style="color: #000000;">()</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">var</span> <span style="color: #00538b;">p</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">HomeController</span><span style="color: #a8007f;">()</span>;
+    Assert.<span style="color: #721045;">Equal</span><span style="color: #a8007f;">(</span>5, p.<span style="color: #721045;">MyAdd</span><span style="color: #005f88;">(</span>2, 3<span style="color: #005f88;">)</span><span style="color: #a8007f;">)</span>;
+    Assert.<span style="color: #721045;">Equal</span><span style="color: #a8007f;">(</span>-5, p.<span style="color: #721045;">MyAdd</span><span style="color: #005f88;">(</span>-2, -3<span style="color: #005f88;">)</span><span style="color: #a8007f;">)</span>;
+    Assert.<span style="color: #721045;">Equal</span><span style="color: #a8007f;">(</span>-1111, p.<span style="color: #721045;">MyAdd</span><span style="color: #005f88;">(</span>-2222, 1111<span style="color: #005f88;">)</span><span style="color: #a8007f;">)</span>;
+    Assert.<span style="color: #721045;">Equal</span><span style="color: #a8007f;">(</span>0, p.<span style="color: #721045;">MyAdd</span><span style="color: #005f88;">(</span>0, 0<span style="color: #005f88;">)</span><span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+Moq links:
+</p>
+<ul class="org-ul">
+<li><a href="https://github.com/Moq">https://github.com/Moq</a></li>
+<li><a href="https://learn.microsoft.com/en-us/shows/visual-studio-toolbox/unit-testing-moq-framework">https://learn.microsoft.com/en-us/shows/visual-studio-toolbox/unit-testing-moq-framework</a></li>
+</ul>
+</div>
+</div>
 </div>
 </section>
 
@@ -1977,7 +2031,7 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2022-11-01</p>
+<p class="date">Created: 2022-11-03</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
