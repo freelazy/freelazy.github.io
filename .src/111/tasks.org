@@ -6,7 +6,7 @@
 :CUSTOM_ID: active
 :END:
 
-#+HTML: <div style="background-image: url(img/oimg_20221108_034512.png)">
+#+HTML: <div style="background-image: url(111/img/oimg_20221108_034512.png)">
 
 - 整理并理解概念: 
   * 面向接口编程
