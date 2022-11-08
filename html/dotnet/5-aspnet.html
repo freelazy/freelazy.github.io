@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-11-03 -->
+<!-- 2022-11-08 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ASP.NET</title>
@@ -26,7 +26,7 @@
 <ul>
 <li><a href="#org4d2e173">1.1. 历史</a></li>
 <li><a href="#org706c080">1.2. 规范</a></li>
-<li><a href="#org838e187">1.3. 其他</a>
+<li><a href="#org124540b">1.3. 其他</a>
 <ul>
 <li><a href="#org13f3194">1.3.1. JIT vs AOT</a></li>
 </ul>
@@ -49,7 +49,7 @@
 </ul>
 </li>
 <li><a href="#org27e318c">5.6. 用户自定义控件</a></li>
-<li><a href="#org124540b">5.7. 其他</a>
+<li><a href="#org988bd85">5.7. 其他</a>
 <ul>
 <li><a href="#org3ed183e">5.7.1. 路由 (Route)</a></li>
 <li><a href="#orgbb2d469">5.7.2. 捆绑 (Bundle)</a></li>
@@ -63,7 +63,7 @@
 <ul>
 <li><a href="#orgf24ab64">6.1. MVC</a></li>
 <li><a href="#orgc171ad9">6.2. Lifecycle</a></li>
-<li><a href="#org792aec9">6.3. Action</a></li>
+<li><a href="#org350d6cf">6.3. Action</a></li>
 <li><a href="#org592c73d">6.4. Razor</a></li>
 <li><a href="#org946e302">6.5. Binding/Validation</a></li>
 <li><a href="#orgc3a6654">6.6. Filter</a></li>
@@ -74,7 +74,7 @@
 <li><a href="#orge8f9cc3">7.1. JSON</a></li>
 <li><a href="#org680ebb4">7.2. WebApiConfig.cs</a></li>
 <li><a href="#orgaf1b1de">7.3. Router</a></li>
-<li><a href="#org350d6cf">7.4. Action</a></li>
+<li><a href="#org61a61b9">7.4. Action</a></li>
 <li><a href="#orgb8b8cf9">7.5. Help</a></li>
 </ul>
 </li>
@@ -97,6 +97,12 @@
 <li><a href="#orgf8529c6">8.4. 软件工程</a>
 <ul>
 <li><a href="#org6c7ee03">8.4.1. xUnit/Moq</a></li>
+</ul>
+</li>
+<li><a href="#org9596959">8.5. Dependency Inject</a>
+<ul>
+<li><a href="#org5d6bb87">8.5.1. 举例说明，分离是技术进步的象征</a></li>
+<li><a href="#orgdc58933">8.5.2. 面向对象语言</a></li>
 </ul>
 </li>
 </ul>
@@ -196,8 +202,8 @@
 </div>
 </div>
 
-<div id="outline-container-org838e187" class="outline-3">
-<h3 id="org838e187"><span class="section-number-3">1.3.</span> 其他</h3>
+<div id="outline-container-org124540b" class="outline-3">
+<h3 id="org124540b"><span class="section-number-3">1.3.</span> 其他</h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
 <div id="outline-container-org13f3194" class="outline-4">
@@ -565,7 +571,7 @@ Global.asax:
 <h3 id="orgeca96eb"><span class="section-number-3">5.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-5-3">
 
-<figure id="orga61a1b9">
+<figure id="org98d6df1">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -755,7 +761,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org19d9c00">
+<pre class="example" id="orgf79b9f9">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -812,7 +818,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org56e7310">
+<pre class="example" id="org3189129">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -1031,8 +1037,8 @@ studentsGV.<span style="color: #721045;">DataBind</span><span style="color: #000
 </div>
 </div>
 
-<div id="outline-container-org124540b" class="outline-3">
-<h3 id="org124540b"><span class="section-number-3">5.7.</span> 其他</h3>
+<div id="outline-container-org988bd85" class="outline-3">
+<h3 id="org988bd85"><span class="section-number-3">5.7.</span> 其他</h3>
 <div class="outline-text-3" id="text-5-7">
 </div>
 <div id="outline-container-org3ed183e" class="outline-4">
@@ -1139,7 +1145,7 @@ ASP.NET MVC:
 <h3 id="orgc171ad9"><span class="section-number-3">6.2.</span> Lifecycle</h3>
 <div class="outline-text-3" id="text-6-2">
 
-<figure id="org87bbe42">
+<figure id="orgb4a0053">
 <img src="img/mvc-lifecycle.png" alt="mvc-lifecycle.png">
 
 </figure>
@@ -1218,8 +1224,8 @@ controller.<span style="color: #721045;">Execute</span><span style="color: #0000
 </div>
 </div>
 
-<div id="outline-container-org792aec9" class="outline-3">
-<h3 id="org792aec9"><span class="section-number-3">6.3.</span> Action</h3>
+<div id="outline-container-org350d6cf" class="outline-3">
+<h3 id="org350d6cf"><span class="section-number-3">6.3.</span> Action</h3>
 <div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
 <li>Action 是 Controller 里面用来处理请求产生响应的一个方法</li>
@@ -1457,8 +1463,8 @@ api/{controller}/{id}
 </div>
 </div>
 
-<div id="outline-container-org350d6cf" class="outline-3">
-<h3 id="org350d6cf"><span class="section-number-3">7.4.</span> Action</h3>
+<div id="outline-container-org61a61b9" class="outline-3">
+<h3 id="org61a61b9"><span class="section-number-3">7.4.</span> Action</h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
 方法名字 vs 请求方法:
@@ -2012,6 +2018,220 @@ Moq links:
 </div>
 </div>
 </div>
+
+<div id="outline-container-org9596959" class="outline-3">
+<h3 id="org9596959"><span class="section-number-3">8.5.</span> Dependency Inject</h3>
+<div class="outline-text-3" id="text-8-5">
+</div>
+<div id="outline-container-org5d6bb87" class="outline-4">
+<h4 id="org5d6bb87"><span class="section-number-4">8.5.1.</span> 举例说明，分离是技术进步的象征</h4>
+<div class="outline-text-4" id="text-8-5-1">
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span>;
+a + b;
+<span style="color: #721045;">aaa</span><span style="color: #000000;">()</span>;
+
+<span style="color: #005a5f;">int</span> <span style="color: #721045;">nfit_173_ccc</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span>, <span style="color: #005a5f;">int</span> <span style="color: #00538b;">b</span><span style="color: #000000;">)</span> <span style="color: #000000;">{</span> bbb<span style="color: #a8007f;">(</span>a, b<span style="color: #a8007f;">)</span>; <span style="color: #000000;">}</span>
+<span style="color: #005a5f;">int</span> <span style="color: #721045;">ddd</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span>, <span style="color: #005a5f;">int</span> <span style="color: #00538b;">b</span><span style="color: #000000;">)</span> <span style="color: #000000;">{</span> ccc<span style="color: #a8007f;">(</span>a, b<span style="color: #a8007f;">)</span>; <span style="color: #000000;">}</span>
+<span style="color: #005a5f;">int</span> <span style="color: #721045;">abc</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span>, <span style="color: #005a5f;">int</span> <span style="color: #00538b;">b</span><span style="color: #000000;">)</span> <span style="color: #000000;">{</span> ccc<span style="color: #a8007f;">(</span>a, b<span style="color: #a8007f;">)</span>; <span style="color: #000000;">}</span>
+<span style="color: #005a5f;">int</span> <span style="color: #721045;">cba</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span>, <span style="color: #005a5f;">int</span> <span style="color: #00538b;">b</span><span style="color: #000000;">)</span> <span style="color: #000000;">{</span> ccc<span style="color: #a8007f;">(</span>a, b<span style="color: #a8007f;">)</span>; <span style="color: #000000;">}</span>
+<span style="color: #005a5f;">int</span> <span style="color: #721045;">cab</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span>, <span style="color: #005a5f;">int</span> <span style="color: #00538b;">b</span><span style="color: #000000;">)</span> <span style="color: #000000;">{</span> ccc<span style="color: #a8007f;">(</span>a, b<span style="color: #a8007f;">)</span>; <span style="color: #000000;">}</span>
+<span style="color: #a0132f;">#include</span> <span style="color: #2544bb;">"z.c"</span>;
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-cpp"><span style="color: #5317ac;">class</span> <span style="color: #005a5f;">xxx</span> <span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">int</span> <span style="color: #00538b;">b</span> = 2;
+    <span style="color: #005a5f;">int</span> <span style="color: #721045;">aa</span> <span style="color: #a8007f;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span><span style="color: #a8007f;">)</span> <span style="color: #a8007f;">{</span> <span style="color: #5317ac;">return</span> a + b; <span style="color: #a8007f;">}</span>
+    <span style="color: #005a5f;">int</span> <span style="color: #721045;">bb</span> <span style="color: #a8007f;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span><span style="color: #a8007f;">)</span> <span style="color: #a8007f;">{</span> b = a; <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>;
+<span style="color: #5317ac;">class</span> <span style="color: #005a5f;">yyy</span> <span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">int</span> <span style="color: #721045;">aaa</span> <span style="color: #a8007f;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span>, <span style="color: #005a5f;">int</span> <span style="color: #00538b;">b</span><span style="color: #a8007f;">)</span> <span style="color: #a8007f;">{</span> <span style="color: #5317ac;">return</span> a + b; <span style="color: #a8007f;">}</span>
+    <span style="color: #005a5f;">int</span> <span style="color: #721045;">bbb</span> <span style="color: #a8007f;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span>, <span style="color: #005a5f;">int</span> <span style="color: #00538b;">b</span><span style="color: #a8007f;">)</span> <span style="color: #a8007f;">{</span> <span style="color: #5317ac;">return</span> a + b; <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">namespace</span> xxx <span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">xxx</span> <span style="color: #a8007f;">{</span>
+        <span style="color: #005a5f;">int</span> <span style="color: #00538b;">b</span> = 2;
+        <span style="color: #005a5f;">int</span> <span style="color: #721045;">aa</span> <span style="color: #005f88;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span><span style="color: #005f88;">)</span> <span style="color: #005f88;">{</span> <span style="color: #5317ac;">return</span> a + b; <span style="color: #005f88;">}</span>
+        <span style="color: #005a5f;">int</span> <span style="color: #721045;">bb</span> <span style="color: #005f88;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span><span style="color: #005f88;">)</span> <span style="color: #005f88;">{</span> b = a; <span style="color: #005f88;">}</span>
+    <span style="color: #a8007f;">}</span>;
+    <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">yyy</span> <span style="color: #a8007f;">{</span>
+        <span style="color: #005a5f;">int</span> <span style="color: #721045;">aaa</span> <span style="color: #005f88;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span>, <span style="color: #005a5f;">int</span> <span style="color: #00538b;">b</span><span style="color: #005f88;">)</span> <span style="color: #005f88;">{</span> <span style="color: #5317ac;">return</span> a + b; <span style="color: #005f88;">}</span>
+        <span style="color: #005a5f;">int</span> <span style="color: #721045;">bbb</span> <span style="color: #005f88;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span>, <span style="color: #005a5f;">int</span> <span style="color: #00538b;">b</span><span style="color: #005f88;">)</span> <span style="color: #005f88;">{</span> <span style="color: #5317ac;">return</span> a + b; <span style="color: #005f88;">}</span>
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #00538b;">style</span>=<span style="color: #2544bb;">"dkfjdkjfkdjk"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">center</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">b</span><span style="color: #000000;">&gt;</span><span style="font-weight: bold;">ksdfjkd</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">b</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">u</span><span style="color: #000000;">&gt;</span><span style="text-decoration: underline;">skdfjksdj</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">u</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">i</span><span style="color: #000000;">&gt;</span><span style="font-style: italic;">ksdfjksdjf</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">i</span><span style="color: #000000;">&gt;</span>
+    ksdfjkd
+  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">center</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">font</span> <span style="color: #00538b;">name</span>=<span style="color: #2544bb;">"&#24494;&#36719;&#38597;&#40657;"</span><span style="color: #000000;">&gt;</span>kdfjkd<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">font</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">a</span> <span style="color: #00538b;">style</span>=<span style="color: #2544bb;">"kdjfdkfjkdj"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">a</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> <span style="color: #00538b;">style</span>=<span style="color: #2544bb;">"color: red; padding: 3em; border: 1px solid green; background=..."</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #00538b;">style</span>=<span style="color: #2544bb;">"dkfjdkjfkdjk"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">h3</span><span style="color: #000000;">&gt;</span><span style="font-style: italic; text-decoration: underline;">dkfjdkj</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h3</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> <span style="color: #00538b;">style</span>=<span style="color: #2544bb;">"font-weight: bold"</span><span style="color: #000000;">&gt;</span>ksdfjkd<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> <span style="color: #00538b;">style</span>=<span style="color: #2544bb;">"text-align: center"</span><span style="color: #000000;">&gt;</span>ksdfjkd<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> <span style="color: #00538b;">style</span>=<span style="color: #2544bb;">"font-family: &#24494;&#36719;&#38597;&#40657;"</span><span style="color: #000000;">&gt;</span>kdfjkd<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">a</span> <span style="color: #00538b;">style</span>=<span style="color: #2544bb;">"kdjfdkfjkdj"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">a</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> <span style="color: #00538b;">style</span>=<span style="color: #2544bb;">"color: red; padding: 3em; border: 1px solid green; background=..."</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #5317ac;">#headr </span><span style="color: #000000;">{</span> <span style="color: #005a5f;">color</span>: <span style="color: #ffffff; background-color: #ff0000;">red</span>; <span style="color: #000000;">}</span>
+  <span style="color: #5317ac;">.x </span><span style="color: #000000;">{</span> <span style="color: #005a5f;">color</span>: <span style="color: #ffffff; background-color: #008000;">green</span>; <span style="color: #000000;">}</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
+
+&#24456;&#22810;&#26679;&#24335;&#31867;&#21734;&#65292;&#36214;&#32039;&#26469;&#20351;&#29992;&#21543;
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #00538b;">id</span>=<span style="color: #2544bb;">"headr"</span> <span style="color: #00538b;">class</span>=<span style="color: #2544bb;">"x"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #00538b;">id</span>=<span style="color: #2544bb;">"main"</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>kdsfjk<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>kdjfkdjf<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #00538b;">id</span>=<span style="color: #2544bb;">"footer"</span> <span style="color: #00538b;">class</span>=<span style="color: #2544bb;">"x"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdc58933" class="outline-4">
+<h4 id="orgdc58933"><span class="section-number-4">8.5.2.</span> 面向对象语言</h4>
+<div class="outline-text-4" id="text-8-5-2">
+<p>
+分离，解耦合。
+</p>
+
+<p>
+亲自创建自己需要的对象，高耦合:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">public</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">HomeController</span> : <span style="color: #005a5f;">Controller</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">UserService</span> <span style="color: #00538b;">service</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">UserService</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"xxx"</span>, <span style="color: #2544bb;">"kdfjk"</span><span style="color: #a8007f;">)</span>;
+
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">IActionResult</span> <span style="color: #721045;">Index</span><span style="color: #a8007f;">()</span>
+    <span style="color: #a8007f;">{</span>
+        <span style="color: #005a5f;">var</span> <span style="color: #00538b;">users</span> = service.<span style="color: #721045;">GetUsers</span><span style="color: #005f88;">()</span>;
+        <span style="color: #5317ac;">return</span> <span style="color: #721045;">View</span><span style="color: #005f88;">(</span>users<span style="color: #005f88;">)</span>;
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+
+<span style="color: #5317ac;">public</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">UserService</span> <span style="color: #000000;">{</span> <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">List</span><span style="color: #a8007f;">&lt;</span><span style="color: #005a5f;">User</span><span style="color: #a8007f;">&gt;</span> <span style="color: #721045;">GetUsers</span><span style="color: #a8007f;">()</span> <span style="color: #a8007f;">{</span> <span style="color: #a8007f;">}</span> <span style="color: #000000;">}</span>
+
+<span style="color: #505050;">// </span><span style="color: #505050;">var controller = new HomeController();</span>
+</pre>
+</div>
+
+<p>
+不要写死了，需要用什么，直接传进去:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">public</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">HomeController</span> : <span style="color: #005a5f;">Controller</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">UserService</span> <span style="color: #00538b;">service</span>;
+
+    <span style="color: #5317ac;">public</span> <span style="color: #721045;">HomeController</span><span style="color: #a8007f;">(</span><span style="color: #005a5f;">UserService</span> <span style="color: #00538b;">s</span><span style="color: #a8007f;">)</span>
+    <span style="color: #a8007f;">{</span>
+        service = s;
+    <span style="color: #a8007f;">}</span>
+
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">IActionResult</span> <span style="color: #721045;">Index</span><span style="color: #a8007f;">()</span>
+    <span style="color: #a8007f;">{</span>
+        <span style="color: #005a5f;">var</span> <span style="color: #00538b;">users</span> = service.<span style="color: #721045;">GetUsers</span><span style="color: #005f88;">()</span>;
+        <span style="color: #5317ac;">return</span> <span style="color: #721045;">View</span><span style="color: #005f88;">(</span>users<span style="color: #005f88;">)</span>;
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+
+<span style="color: #505050;">// </span><span style="color: #505050;">var service = new UserService(....);</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">var controller = new HomeController(service);</span>
+</pre>
+</div>
+
+<p>
+放宽限制 (is -&gt; as) 利用接口，更加利于分工协作，灵活分离:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">public</span> <span style="color: #5317ac;">interface</span> <span style="color: #005a5f;">IUserService</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">List</span><span style="color: #a8007f;">&lt;</span><span style="color: #005a5f;">string</span><span style="color: #a8007f;">&gt;</span> <span style="color: #721045;">GetUsers</span><span style="color: #a8007f;">()</span>;
+<span style="color: #000000;">}</span>
+
+<span style="color: #5317ac;">public</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">HomeController</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">IUserService</span> <span style="color: #00538b;">service</span>;
+
+    <span style="color: #5317ac;">public</span> <span style="color: #721045;">HomeController</span><span style="color: #a8007f;">(</span><span style="color: #005a5f;">IUserService</span> <span style="color: #00538b;">s</span><span style="color: #a8007f;">)</span>
+    <span style="color: #a8007f;">{</span>
+        service = s;
+    <span style="color: #a8007f;">}</span>
+
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">List</span><span style="color: #a8007f;">&lt;</span><span style="color: #005a5f;">string</span><span style="color: #a8007f;">&gt;</span> <span style="color: #721045;">Index</span><span style="color: #a8007f;">()</span>
+    <span style="color: #a8007f;">{</span>
+        <span style="color: #5317ac;">return</span> service.<span style="color: #721045;">GetUsers</span><span style="color: #005f88;">()</span>;
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+使用对象管理器，简化对象的使用:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#21018;&#24320;&#22987;, &#27604;&#22914;:</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">om &#34920;&#31034;&#23545;&#35937;&#31649;&#29702;&#22120;&#65292;</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">&#26377;&#19968;&#20010; Add &#26041;&#27861;&#29992;&#26469;&#24448;&#37324;&#21021;&#22987;&#21270;&#23545;&#35937;</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">new A; new B; new C</span>
+om.<span style="color: #721045;">Add</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">UserDAO</span><span style="color: #000000;">&gt;()</span>; <span style="color: #505050;">// </span><span style="color: #505050;">&#23427;&#20250;&#21019;&#24314;&#19968;&#20010; UserDAO &#23545;&#35937;&#65292;&#24182;&#20445;&#23384;&#36215;&#26469;</span>
+om.<span style="color: #721045;">Add</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">UserService</span><span style="color: #000000;">&gt;()</span>;
+om.<span style="color: #721045;">Add</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">HomeController</span><span style="color: #000000;">&gt;()</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">Index</span>
+<span style="color: #005a5f;">HomeController</span> <span style="color: #00538b;">controller</span> = om.<span style="color: #721045;">Get</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">HomeController</span><span style="color: #000000;">&gt;()</span>;
+controller.<span style="color: #721045;">Index</span><span style="color: #000000;">()</span>;
+<span style="color: #005a5f;">IUserDAO</span> <span style="color: #00538b;">userDAO</span> = om.<span style="color: #721045;">Get</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">UserDAO</span><span style="color: #000000;">&gt;()</span>;
+userDAO.<span style="color: #721045;">GetUsers</span><span style="color: #000000;">()</span>;
+</pre>
+</div>
+
+<p>
+DI:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#23481;&#22120;&#30340;&#21021;&#22987;&#21270;</span>
+<span style="color: #005a5f;">var</span> <span style="color: #00538b;">collection</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">ServiceCollection</span><span style="color: #000000;">()</span>;
+collection.<span style="color: #721045;">AddSingleton</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">IUserDAO</span>, <span style="color: #005a5f;">UserDAO</span><span style="color: #000000;">&gt;()</span>;
+collection.<span style="color: #721045;">AddSingleton</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">IUserService</span>, <span style="color: #005a5f;">UserService</span><span style="color: #000000;">&gt;()</span>;
+collection.<span style="color: #721045;">AddSingleton</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">HomeController</span><span style="color: #000000;">&gt;()</span>;
+<span style="color: #005a5f;">var</span> <span style="color: #00538b;">provider</span> = collection.<span style="color: #721045;">BuildServiceProvider</span><span style="color: #000000;">()</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#20351;&#29992;&#30340;&#29615;&#33410;</span>
+<span style="color: #005a5f;">HomeController</span> <span style="color: #00538b;">c</span> = provider.<span style="color: #721045;">GetService</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">HomeController</span><span style="color: #000000;">&gt;()</span>;
+c.<span style="color: #721045;">Index</span><span style="color: #000000;">()</span>;
+</pre>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 <section id="outline-container-orgfe4d7fe" class="outline-2">
@@ -2031,7 +2251,7 @@ Moq links:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2022-11-03</p>
+<p class="date">Created: 2022-11-08</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

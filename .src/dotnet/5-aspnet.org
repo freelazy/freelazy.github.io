@@ -1338,6 +1338,189 @@ Moq links:
 - https://github.com/Moq
 - https://learn.microsoft.com/en-us/shows/visual-studio-toolbox/unit-testing-moq-framework
 
+** Dependency Inject
+*** 举例说明，分离是技术进步的象征
+
+#+begin_src c
+  int a;
+  a + b;
+  aaa();
+
+  int nfit_173_ccc (int a, int b) { bbb(a, b); }
+  int ddd (int a, int b) { ccc(a, b); }
+  int abc (int a, int b) { ccc(a, b); }
+  int cba (int a, int b) { ccc(a, b); }
+  int cab (int a, int b) { ccc(a, b); }
+  #include "z.c";
+#+end_src
+
+#+begin_src cpp
+  class xxx {
+      int b = 2;
+      int aa (int a) { return a + b; }
+      int bb (int a) { b = a; }
+  };
+  class yyy {
+      int aaa (int a, int b) { return a + b; }
+      int bbb (int a, int b) { return a + b; }
+  }
+#+end_src
+
+#+begin_src csharp
+  namespace xxx {
+      class xxx {
+          int b = 2;
+          int aa (int a) { return a + b; }
+          int bb (int a) { b = a; }
+      };
+      class yyy {
+          int aaa (int a, int b) { return a + b; }
+          int bbb (int a, int b) { return a + b; }
+      }
+  }
+#+end_src
+
+#+begin_src html
+  <div style="dkfjdkjfkdjk">
+    <center>
+      <b>ksdfjkd</b>
+      <u>skdfjksdj</u>
+      <i>ksdfjksdjf</i>
+      ksdfjkd
+    </center>
+    <font name="微软雅黑">kdfjkd</font>
+    <a style="kdjfdkfjkdj">
+    </a>
+    <p style="color: red; padding: 3em; border: 1px solid green; background=...">
+    </p>
+  </div>
+
+  <div style="dkfjdkjfkdjk">
+    <h3>dkfjdkj</h3>
+    <p style="font-weight: bold">ksdfjkd</p>
+    <p style="text-align: center">ksdfjkd</p>
+    <p style="font-family: 微软雅黑">kdfjkd</p>
+    <a style="kdjfdkfjkdj">
+    </a>
+    <p style="color: red; padding: 3em; border: 1px solid green; background=...">
+    </p>
+  </div>
+
+  <style>
+    #headr { color: red; }
+    .x { color: green; }
+  </style>
+
+  很多样式类哦，赶紧来使用吧
+
+  <div>
+    <div id="headr" class="x"></div>
+    <div id="main">
+      <div>kdsfjk</div>
+      <div>kdjfkdjf</div>
+    </div>
+    <div id="footer" class="x"></div>
+  </div>
+#+end_src
+
+*** 面向对象语言
+
+分离，解耦合。
+
+亲自创建自己需要的对象，高耦合:
+#+begin_src csharp
+  public class HomeController : Controller
+  {
+      UserService service = new UserService("xxx", "kdfjk");
+
+      public IActionResult Index()
+      {
+          var users = service.GetUsers();
+          return View(users);
+      }
+  }
+
+  public class UserService { public List<User> GetUsers() { } }
+
+  // var controller = new HomeController();
+#+end_src
+
+不要写死了，需要用什么，直接传进去:
+#+begin_src csharp
+  public class HomeController : Controller
+  {
+      UserService service;
+
+      public HomeController(UserService s)
+      {
+          service = s;
+      }
+
+      public IActionResult Index()
+      {
+          var users = service.GetUsers();
+          return View(users);
+      }
+  }
+
+  // var service = new UserService(....);
+  // var controller = new HomeController(service);
+#+end_src
+
+放宽限制 (is -> as) 利用接口，更加利于分工协作，灵活分离:
+#+begin_src csharp
+  public interface IUserService
+  {
+      List<string> GetUsers();
+  }
+
+  public class HomeController
+  {
+      IUserService service;
+
+      public HomeController(IUserService s)
+      {
+          service = s;
+      }
+
+      public List<string> Index()
+      {
+          return service.GetUsers();
+      }
+  }
+#+end_src
+
+使用对象管理器，简化对象的使用:
+#+begin_src csharp
+  // 刚开始, 比如:
+  // om 表示对象管理器，
+  // 有一个 Add 方法用来往里初始化对象
+  // new A; new B; new C
+  om.Add<UserDAO>(); // 它会创建一个 UserDAO 对象，并保存起来
+  om.Add<UserService>();
+  om.Add<HomeController>();
+
+  // Index
+  HomeController controller = om.Get<HomeController>();
+  controller.Index();
+  IUserDAO userDAO = om.Get<UserDAO>();
+  userDAO.GetUsers();
+#+end_src
+
+DI:
+#+begin_src csharp
+  // 容器的初始化
+  var collection = new ServiceCollection();
+  collection.AddSingleton<IUserDAO, UserDAO>();
+  collection.AddSingleton<IUserService, UserService>();
+  collection.AddSingleton<HomeController>();
+  var provider = collection.BuildServiceProvider();
+
+  // 使用的环节
+  HomeController c = provider.GetService<HomeController>();
+  c.Index();
+#+end_src
+
 * ASP.NET Core MVC
 ** Summary
 

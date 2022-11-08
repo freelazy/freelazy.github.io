@@ -41,6 +41,10 @@
         (:dbhost . "localhost")
         (:database . "TeachAssist")))
 
+(with-eval-after-load 'predist
+  (p/special
+   (go-translate . "e:/home/vvv/go-translate")))
+
 
 ;; Notes
 
@@ -58,6 +62,8 @@
    ;;   (im/git-commit-and-push "best_try_and_best_chance"))
    ))
 
+
+
 
 ;; Translate
 
@@ -65,8 +71,10 @@
  (require 'go-translate)
  (global-set-key [f5] 'gts-do-translate)
  (setq gts-translate-list '(("en" "zh")))
+ (setq gts-cache-enable nil)
  (setq gts-default-translator
        (gts-translator
+        :splitter (gts-paragraph-splitter)
 
         :picker
         ;;(gts-noprompt-picker)
@@ -77,16 +85,22 @@
         ;;(gts-prompt-picker :texter (gts-current-or-selection-texter) :single t)
 
         :engines
-        (list
-         (gts-bing-engine)
+         (lambda ()
+           (with-slots (text) gts-default-translator
+             (if (string-match-p "[ \n\t]" (string-trim text))
+                 (list (gts-bing-engine)
+                       (gts-google-engine))
+               (gts-google-engine :parser (gts-google-parser)))))
+        ;;(list
+        ;; (gts-bing-engine)
          ;;(gts-google-engine)
-         (gts-google-engine :parser (gts-google-summary-parser))
-         (gts-google-rpc-engine)
+        ;; (gts-google-engine :parser (gts-google-summary-parser))
+        ;; (gts-google-rpc-engine)
          ;;(gts-deepl-engine :auth-key "2e20bade-88e9-02f3-169f-ab3c445d7984:fx" :pro nil)
 
          ;;(gts-google-engine :parser (gts-google-parser))
          ;;(gts-google-rpc-engine :parser (gts-google-rpc-summary-parser))
-         )
+         ;;)
 
         :render
         (gts-buffer-render)
