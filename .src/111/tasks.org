@@ -6,8 +6,6 @@
 :CUSTOM_ID: active
 :END:
 
-#+HTML: <div style="background-image: url(111/img/oimg_20221108_034512.png); color: green; padding: 1em;">
-
 - 整理并理解概念: 
   * 面向接口编程
   * 解耦合
@@ -17,7 +15,8 @@
 - 预习 18 章，了解更多 DI 容器的知识
 - 务必保证每人第 8 章代码落实到位 (请组长做好监管)
 
-#+HTML: </div>
+[[file:img/oimg_20221108_034512.png]]
+
 
 * [2022-10-26 Wed]
 
