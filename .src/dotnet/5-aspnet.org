@@ -1532,11 +1532,10 @@ DI:
 - IOptions
 
 =IServiceCollection=:
-- 表示服务的结合。它主要用来注册、保存 Service。它实现了 IList 接口，是可迭代的
+- 表示服务的集合。它主要用来注册、保存 Service。它实现了 IList 接口，是可迭代的
 - 实现类 =ServiceCollection=, 主要有 =AddTransient/AddSingleton/AddScoped= 方法
 - 按照生命周期 (Lifetime) 划分，服务分为 Transient/Singleton/Scoped 三种
 
-实例:
 #+begin_src csharp
   // 注册服务
   ServiceCollection collection = new ServiceCollection();
@@ -1554,18 +1553,18 @@ DI:
   });
 
   // 其他生命周期的服务，注册语法类似
-  collection.AddScoped<IUserDAO>();
   collection.AddTransient<IUserDAO>();
+  collection.AddScoped<IUserDAO>();
 
   // 通过 ServiceCollection 可以生成 ServiceProvider 对象
   // 这个对象，用来在后面为程序运行提供 DI 服务
   ServiceProvider provider = collection.BuildServiceProvider();
 #+end_src
     
-=IServiceProvider=:
-- 通过 =IServiceCollection.BuildProvider()= 的方法生成
-- 其核心方法是 =GetService(serviceType)=, 用来返回一个可用服务
-- 其实现类 =ServiceProvicer= 有 =GetService/GetRequiredService/CreateScope= 等方法
+=IServideProvider=:
+- 通过 =IServideCollection.BuildProvider()= 的方法生成
+- 其核心方法是 =GetServide(serviceType)=, 用来返回一个可用服务
+- 其实现类 =ServiceProvider= 有 =GetService/GetRequiredService/CreateScope= 等方法
 
 #+begin_src csharp
   // Provider 是容器服务的提供者
@@ -1583,6 +1582,8 @@ DI:
   // 通过同一个 scope 获取的将是同一个对象；不同 scope 获取的将是不同的对象
   using IServiceScope scope = provider.CreateScope();
   IUserService s3 = scope.ServiceProvider.GetService<IUserService>();
+  IUserService s4 = scope.ServiceProvider.GetService<IUserService>();
+  IUserService s5 = scope.ServiceProvider.GetService<IUserService>();
 #+end_src
 
 可以使用 [[https://learn.microsoft.com/en-us/dotnet/core/extensions/options][IOptions Pattern]] 为容器中的对象提供额外参数:
@@ -1617,7 +1618,9 @@ DI:
   }
 #+end_src
 
-*** Autofrac
+*** Autofac
+
+https://autofac.org/
 
 * ASP.NET Core MVC
 ** Summary
