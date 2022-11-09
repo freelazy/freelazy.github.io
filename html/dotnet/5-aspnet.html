@@ -26,7 +26,7 @@
 <ul>
 <li><a href="#org4d2e173">1.1. 历史</a></li>
 <li><a href="#org706c080">1.2. 规范</a></li>
-<li><a href="#org988bd85">1.3. 其他</a>
+<li><a href="#org64de0fe">1.3. 其他</a>
 <ul>
 <li><a href="#org13f3194">1.3.1. JIT vs AOT</a></li>
 </ul>
@@ -49,7 +49,7 @@
 </ul>
 </li>
 <li><a href="#org27e318c">5.6. 用户自定义控件</a></li>
-<li><a href="#org64de0fe">5.7. 其他</a>
+<li><a href="#orged340ad">5.7. 其他</a>
 <ul>
 <li><a href="#org3ed183e">5.7.1. 路由 (Route)</a></li>
 <li><a href="#orgbb2d469">5.7.2. 捆绑 (Bundle)</a></li>
@@ -63,7 +63,7 @@
 <ul>
 <li><a href="#orgf24ab64">6.1. MVC</a></li>
 <li><a href="#orgc171ad9">6.2. Lifecycle</a></li>
-<li><a href="#org61a61b9">6.3. Action</a></li>
+<li><a href="#orgabf139c">6.3. Action</a></li>
 <li><a href="#org592c73d">6.4. Razor</a></li>
 <li><a href="#org946e302">6.5. Binding/Validation</a></li>
 <li><a href="#orgc3a6654">6.6. Filter</a></li>
@@ -74,7 +74,7 @@
 <li><a href="#orge8f9cc3">7.1. JSON</a></li>
 <li><a href="#org680ebb4">7.2. WebApiConfig.cs</a></li>
 <li><a href="#orgaf1b1de">7.3. Router</a></li>
-<li><a href="#orgabf139c">7.4. Action</a></li>
+<li><a href="#org277e3df">7.4. Action</a></li>
 <li><a href="#orgb8b8cf9">7.5. Help</a></li>
 </ul>
 </li>
@@ -101,8 +101,10 @@
 </li>
 <li><a href="#org96b4954">8.5. Dependency Injection</a>
 <ul>
-<li><a href="#org5d6bb87">8.5.1. 举例说明，分离是技术进步的象征</a></li>
-<li><a href="#orgdc58933">8.5.2. 面向对象语言</a></li>
+<li><a href="#org3f41ee7">8.5.1. 分离是技术进步的象征</a></li>
+<li><a href="#orgb825645">8.5.2. DI 容器是在解耦合的需求中，一步步发展出来的</a></li>
+<li><a href="#org63dadcb">8.5.3. DI 容器的基本使用</a></li>
+<li><a href="#orgca338f9">8.5.4. Autofrac</a></li>
 </ul>
 </li>
 </ul>
@@ -202,8 +204,8 @@
 </div>
 </div>
 
-<div id="outline-container-org988bd85" class="outline-3">
-<h3 id="org988bd85"><span class="section-number-3">1.3.</span> 其他</h3>
+<div id="outline-container-org64de0fe" class="outline-3">
+<h3 id="org64de0fe"><span class="section-number-3">1.3.</span> 其他</h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
 <div id="outline-container-org13f3194" class="outline-4">
@@ -571,7 +573,7 @@ Global.asax:
 <h3 id="orgeca96eb"><span class="section-number-3">5.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-5-3">
 
-<figure id="org4c654ab">
+<figure id="org57bbc1c">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -761,7 +763,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="orgd80a2d2">
+<pre class="example" id="org770a32d">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -818,7 +820,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org108c459">
+<pre class="example" id="org1d2da26">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -1037,8 +1039,8 @@ studentsGV.<span style="color: #721045;">DataBind</span><span style="color: #000
 </div>
 </div>
 
-<div id="outline-container-org64de0fe" class="outline-3">
-<h3 id="org64de0fe"><span class="section-number-3">5.7.</span> 其他</h3>
+<div id="outline-container-orged340ad" class="outline-3">
+<h3 id="orged340ad"><span class="section-number-3">5.7.</span> 其他</h3>
 <div class="outline-text-3" id="text-5-7">
 </div>
 <div id="outline-container-org3ed183e" class="outline-4">
@@ -1145,7 +1147,7 @@ ASP.NET MVC:
 <h3 id="orgc171ad9"><span class="section-number-3">6.2.</span> Lifecycle</h3>
 <div class="outline-text-3" id="text-6-2">
 
-<figure id="orged6cebf">
+<figure id="org0b4303b">
 <img src="img/mvc-lifecycle.png" alt="mvc-lifecycle.png">
 
 </figure>
@@ -1224,8 +1226,8 @@ controller.<span style="color: #721045;">Execute</span><span style="color: #0000
 </div>
 </div>
 
-<div id="outline-container-org61a61b9" class="outline-3">
-<h3 id="org61a61b9"><span class="section-number-3">6.3.</span> Action</h3>
+<div id="outline-container-orgabf139c" class="outline-3">
+<h3 id="orgabf139c"><span class="section-number-3">6.3.</span> Action</h3>
 <div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
 <li>Action 是 Controller 里面用来处理请求产生响应的一个方法</li>
@@ -1463,8 +1465,8 @@ api/{controller}/{id}
 </div>
 </div>
 
-<div id="outline-container-orgabf139c" class="outline-3">
-<h3 id="orgabf139c"><span class="section-number-3">7.4.</span> Action</h3>
+<div id="outline-container-org277e3df" class="outline-3">
+<h3 id="org277e3df"><span class="section-number-3">7.4.</span> Action</h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
 方法名字 vs 请求方法:
@@ -2031,8 +2033,8 @@ Moq links:
 </ul>
 </div>
 
-<div id="outline-container-org5d6bb87" class="outline-4">
-<h4 id="org5d6bb87"><span class="section-number-4">8.5.1.</span> 举例说明，分离是技术进步的象征</h4>
+<div id="outline-container-org3f41ee7" class="outline-4">
+<h4 id="org3f41ee7"><span class="section-number-4">8.5.1.</span> 分离是技术进步的象征</h4>
 <div class="outline-text-4" id="text-8-5-1">
 <div class="org-src-container">
 <pre class="src src-c"><span style="color: #005a5f;">int</span> <span style="color: #00538b;">a</span>;
@@ -2122,13 +2124,9 @@ a + b;
 </div>
 </div>
 
-<div id="outline-container-orgdc58933" class="outline-4">
-<h4 id="orgdc58933"><span class="section-number-4">8.5.2.</span> 面向对象语言</h4>
+<div id="outline-container-orgb825645" class="outline-4">
+<h4 id="orgb825645"><span class="section-number-4">8.5.2.</span> DI 容器是在解耦合的需求中，一步步发展出来的</h4>
 <div class="outline-text-4" id="text-8-5-2">
-<p>
-分离，解耦合。
-</p>
-
 <p>
 亲自创建自己需要的对象，高耦合:
 </p>
@@ -2238,6 +2236,127 @@ c.<span style="color: #721045;">Index</span><span style="color: #000000;">()</sp
 </pre>
 </div>
 </div>
+</div>
+
+<div id="outline-container-org63dadcb" class="outline-4">
+<h4 id="org63dadcb"><span class="section-number-4">8.5.3.</span> DI 容器的基本使用</h4>
+<div class="outline-text-4" id="text-8-5-3">
+<p>
+三个主要接口:
+</p>
+<ul class="org-ul">
+<li>IServiceCollection</li>
+<li>IServiceProvider</li>
+<li>IOptions</li>
+</ul>
+
+<p>
+<code>IServiceCollection</code>:
+</p>
+<ul class="org-ul">
+<li>表示服务的结合。它主要用来注册、保存 Service。它实现了 IList 接口，是可迭代的</li>
+<li>实现类 <code>ServiceCollection</code>, 主要有 <code>AddTransient/AddSingleton/AddScoped</code> 方法</li>
+<li>按照生命周期 (Lifetime) 划分，服务分为 Transient/Singleton/Scoped 三种</li>
+</ul>
+
+<p>
+实例:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#27880;&#20876;&#26381;&#21153;</span>
+<span style="color: #005a5f;">ServiceCollection</span> <span style="color: #00538b;">collection</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">ServiceCollection</span><span style="color: #000000;">()</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#30452;&#25509;&#27880;&#20876;&#26576;&#20010;&#31867;</span>
+collection.<span style="color: #721045;">AddSingleton</span><span style="color: #000000;">(</span><span style="color: #5317ac;">typeof</span><span style="color: #a8007f;">(</span>UserService<span style="color: #a8007f;">)</span><span style="color: #000000;">)</span>;
+collection.<span style="color: #721045;">AddSingleton</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">HomeController</span><span style="color: #000000;">&gt;()</span>;
+<span style="color: #505050;">// </span><span style="color: #505050;">&#22522;&#20110;&#25509;&#21475;&#36827;&#34892;&#27880;&#20876;</span>
+collection.<span style="color: #721045;">AddSingleton</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">IUserDAO</span>, <span style="color: #005a5f;">UserDAO</span><span style="color: #000000;">&gt;()</span>;
+collection.<span style="color: #721045;">AddSingleton</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">IUserService</span>, <span style="color: #005a5f;">UserService</span><span style="color: #000000;">&gt;()</span>;
+<span style="color: #505050;">// </span><span style="color: #505050;">&#36890;&#36807; lambda &#36827;&#34892;&#28789;&#27963;&#27880;&#20876;</span>
+collection.<span style="color: #721045;">AddSingleton</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">IUserDAO</span><span style="color: #000000;">&gt;(</span>provider =&gt;
+<span style="color: #a8007f;">{</span>
+    <span style="color: #5317ac;">return</span> <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">UserDAO</span><span style="color: #005f88;">()</span>;
+<span style="color: #a8007f;">}</span><span style="color: #000000;">)</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#20854;&#20182;&#29983;&#21629;&#21608;&#26399;&#30340;&#26381;&#21153;&#65292;&#27880;&#20876;&#35821;&#27861;&#31867;&#20284;</span>
+collection.<span style="color: #721045;">AddScoped</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">IUserDAO</span><span style="color: #000000;">&gt;()</span>;
+collection.<span style="color: #721045;">AddTransient</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">IUserDAO</span><span style="color: #000000;">&gt;()</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#36890;&#36807; ServiceCollection &#21487;&#20197;&#29983;&#25104; ServiceProvider &#23545;&#35937;</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">&#36825;&#20010;&#23545;&#35937;&#65292;&#29992;&#26469;&#22312;&#21518;&#38754;&#20026;&#31243;&#24207;&#36816;&#34892;&#25552;&#20379; DI &#26381;&#21153;</span>
+<span style="color: #005a5f;">ServiceProvider</span> <span style="color: #00538b;">provider</span> = collection.<span style="color: #721045;">BuildServiceProvider</span><span style="color: #000000;">()</span>;
+</pre>
+</div>
+
+<p>
+<code>IServiceProvider</code>:
+</p>
+<ul class="org-ul">
+<li>通过 <code>IServiceCollection.BuildProvider()</code> 的方法生成</li>
+<li>其核心方法是 <code>GetService(serviceType)</code>, 用来返回一个可用服务</li>
+<li>其实现类 <code>ServiceProvicer</code> 有 <code>GetService/GetRequiredService/CreateScope</code> 等方法</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">Provider &#26159;&#23481;&#22120;&#26381;&#21153;&#30340;&#25552;&#20379;&#32773;</span>
+<span style="color: #005a5f;">ServiceProvider</span> <span style="color: #00538b;">provider</span> = collection.<span style="color: #721045;">BuildServiceProvider</span><span style="color: #000000;">()</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#20197;&#19979;&#20004;&#21477;&#31561;&#20215;&#12290;&#21482;&#19981;&#36807;&#21518;&#38754;&#19968;&#20010;&#26159;&#22522;&#20110;&#27867;&#22411;&#65292;&#35821;&#27861;&#26356;&#31616;&#27905;</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">&#23581;&#35797;&#20174;&#23481;&#22120;&#37324;&#33719;&#21462; IUserService &#31867;&#22411;&#30340;&#19968;&#20010;&#23545;&#35937;&#12290;&#22914;&#26524;&#25214;&#19981;&#21040;&#65292;&#36820;&#22238; null</span>
+<span style="color: #005a5f;">IUserService</span> <span style="color: #00538b;">s0</span> = <span style="color: #000000;">(</span><span style="color: #005a5f;">IUserService</span><span style="color: #000000;">)</span>provider.<span style="color: #721045;">GetService</span><span style="color: #000000;">(</span><span style="color: #5317ac;">typeof</span><span style="color: #a8007f;">(</span>IUserService<span style="color: #a8007f;">)</span><span style="color: #000000;">)</span>;
+<span style="color: #005a5f;">IUserService</span> <span style="color: #00538b;">s1</span> = provider.<span style="color: #721045;">GetService</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">IUserService</span><span style="color: #000000;">&gt;()</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#36319; GetService &#31867;&#20284;&#65292;&#21482;&#19981;&#36807;&#22914;&#26524;&#25214;&#19981;&#21040;&#23601;&#25243;&#20986;&#24322;&#24120;</span>
+<span style="color: #005a5f;">IUserService</span> <span style="color: #00538b;">s2</span> = provider.<span style="color: #721045;">GetRequiredService</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">IUserService</span><span style="color: #000000;">&gt;()</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#33719;&#21462;&#24182;&#20351;&#29992;&#19968;&#20010;&#20351;&#29992; AddScoped &#28155;&#21152;&#36827;&#23481;&#22120;&#30340;&#23545;&#35937;</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">&#36890;&#36807;&#21516;&#19968;&#20010; scope &#33719;&#21462;&#30340;&#23558;&#26159;&#21516;&#19968;&#20010;&#23545;&#35937;&#65307;&#19981;&#21516; scope &#33719;&#21462;&#30340;&#23558;&#26159;&#19981;&#21516;&#30340;&#23545;&#35937;</span>
+<span style="color: #5317ac;">using</span> <span style="color: #00538b;">IServiceScope</span> s<span style="color: #00538b;">cope</span> = <span style="color: #00538b;">provider</span>.<span style="color: #00538b;">CreateScope</span><span style="color: #000000;">()</span>;
+<span style="color: #005a5f;">IUserService</span> <span style="color: #00538b;">s3</span> = scope.ServiceProvider.<span style="color: #721045;">GetService</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">IUserService</span><span style="color: #000000;">&gt;()</span>;
+</pre>
+</div>
+
+<p>
+可以使用 <a href="https://learn.microsoft.com/en-us/dotnet/core/extensions/options">IOptions Pattern</a> 为容器中的对象提供额外参数:
+</p>
+<ul class="org-ul">
+<li>需要向项目中添加 <b>Microsoft.Extensions.Options</b> 包</li>
+<li>上述的包，将会通过扩展方法的方式，为 ServiceCollection 添加了 <code>AddOptions/Configure</code> 等方法</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #505050;">// </span><span style="color: #505050;">&#39318;&#20808;&#65292;&#23450;&#20041;&#19968;&#20010;&#26222;&#36890;&#30340;&#31867; (POCO)&#65292;&#29992;&#26469;&#24403;&#20570;&#25968;&#25454;&#30340;&#36733;&#20307;</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">&#25353;&#29031;&#32422;&#23450;&#25104;&#20439;&#30340;&#20064;&#24815;&#65292;&#36825;&#20010;&#31867;&#26368;&#22909;&#20197; Options &#32467;&#23614;</span>
+<span style="color: #5317ac;">public</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">UserServiceOptions</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">string</span> <span style="color: #00538b;">Name</span> <span style="color: #a8007f;">{</span> <span style="color: #5317ac;">get</span>; <span style="color: #5317ac;">set</span>; <span style="color: #a8007f;">}</span>
+    <span style="color: #5317ac;">public</span> <span style="color: #005a5f;">string</span> <span style="color: #00538b;">Weixin</span> <span style="color: #a8007f;">{</span> <span style="color: #5317ac;">get</span>; <span style="color: #5317ac;">set</span>; <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#20351;&#29992; Options &#25552;&#20379;&#30340; Configure &#26041;&#27861;&#65292;&#21521;&#23481;&#22120;&#20013;&#27880;&#20876;&#25968;&#25454;</span>
+collection.<span style="color: #721045;">Configure</span><span style="color: #000000;">&lt;</span><span style="color: #005a5f;">MyUserOptions</span><span style="color: #000000;">&gt;(</span>option =&gt;
+<span style="color: #a8007f;">{</span>
+    option.Name = <span style="color: #2544bb;">"&#24352;&#19977;"</span>;
+    option.Weixin = <span style="color: #2544bb;">"sanzhang"</span>;
+<span style="color: #a8007f;">}</span><span style="color: #000000;">)</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">&#22312;&#26381;&#21153;&#30340;&#23454;&#29616;&#20013;&#65292;&#36890;&#36807;&#26500;&#36896;&#26041;&#27861;&#30340;&#26041;&#24335;&#25509;&#25910;&#25968;&#25454;</span>
+<span style="color: #5317ac;">public</span> <span style="color: #5317ac;">class</span> <span style="color: #005a5f;">UserService</span> : <span style="color: #005a5f;">IUserService</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">public</span> <span style="color: #721045;">UserService</span><span style="color: #a8007f;">(</span><span style="color: #005a5f;">IUserDAO</span> <span style="color: #00538b;">dao</span>, <span style="color: #005a5f;">IOptions</span><span style="color: #005f88;">&lt;</span><span style="color: #005a5f;">UserServiceOptions</span><span style="color: #005f88;">&gt;</span> <span style="color: #00538b;">options</span><span style="color: #a8007f;">)</span>
+    <span style="color: #a8007f;">{</span>
+        <span style="color: #005a5f;">UserServiceOptions</span> <span style="color: #00538b;">opt</span> = options.<span style="color: #0000c0;">value</span>;
+        Console.<span style="color: #721045;">WriteLine</span><span style="color: #005f88;">(</span>opt.Name<span style="color: #005f88;">)</span>;
+        Console.<span style="color: #721045;">WriteLine</span><span style="color: #005f88;">(</span>opt.Weixin<span style="color: #005f88;">)</span>;
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgca338f9" class="outline-4">
+<h4 id="orgca338f9"><span class="section-number-4">8.5.4.</span> Autofrac</h4>
 </div>
 </div>
 </section>

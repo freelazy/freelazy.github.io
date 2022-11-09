@@ -1344,7 +1344,7 @@ Moq links:
 - 官方文档: https://learn.microsoft.com/zh-cn/dotnet/core/extensions/dependency-injection
 - IoC: https://learn.microsoft.com/zh-cn/dotnet/architecture/modern-web-apps-azure/architectural-principles#dependency-inversion
 
-*** 举例说明，分离是技术进步的象征
+*** 分离是技术进步的象征
 
 #+begin_src c
   int a;
@@ -1428,9 +1428,7 @@ Moq links:
   </div>
 #+end_src
 
-*** 面向对象语言
-
-分离，解耦合。
+*** DI 容器是在解耦合的需求中，一步步发展出来的
 
 亲自创建自己需要的对象，高耦合:
 #+begin_src csharp
@@ -1525,6 +1523,101 @@ DI:
   HomeController c = provider.GetService<HomeController>();
   c.Index();
 #+end_src
+
+*** DI 容器的基本使用
+
+三个主要接口:
+- IServiceCollection
+- IServiceProvider
+- IOptions
+
+=IServiceCollection=:
+- 表示服务的结合。它主要用来注册、保存 Service。它实现了 IList 接口，是可迭代的
+- 实现类 =ServiceCollection=, 主要有 =AddTransient/AddSingleton/AddScoped= 方法
+- 按照生命周期 (Lifetime) 划分，服务分为 Transient/Singleton/Scoped 三种
+
+实例:
+#+begin_src csharp
+  // 注册服务
+  ServiceCollection collection = new ServiceCollection();
+
+  // 直接注册某个类
+  collection.AddSingleton(typeof(UserService));
+  collection.AddSingleton<HomeController>();
+  // 基于接口进行注册
+  collection.AddSingleton<IUserDAO, UserDAO>();
+  collection.AddSingleton<IUserService, UserService>();
+  // 通过 lambda 进行灵活注册
+  collection.AddSingleton<IUserDAO>(provider =>
+  {
+      return new UserDAO();
+  });
+
+  // 其他生命周期的服务，注册语法类似
+  collection.AddScoped<IUserDAO>();
+  collection.AddTransient<IUserDAO>();
+
+  // 通过 ServiceCollection 可以生成 ServiceProvider 对象
+  // 这个对象，用来在后面为程序运行提供 DI 服务
+  ServiceProvider provider = collection.BuildServiceProvider();
+#+end_src
+    
+=IServiceProvider=:
+- 通过 =IServiceCollection.BuildProvider()= 的方法生成
+- 其核心方法是 =GetService(serviceType)=, 用来返回一个可用服务
+- 其实现类 =ServiceProvicer= 有 =GetService/GetRequiredService/CreateScope= 等方法
+
+#+begin_src csharp
+  // Provider 是容器服务的提供者
+  ServiceProvider provider = collection.BuildServiceProvider();
+
+  // 以下两句等价。只不过后面一个是基于泛型，语法更简洁
+  // 尝试从容器里获取 IUserService 类型的一个对象。如果找不到，返回 null
+  IUserService s0 = (IUserService)provider.GetService(typeof(IUserService));
+  IUserService s1 = provider.GetService<IUserService>();
+
+  // 跟 GetService 类似，只不过如果找不到就抛出异常
+  IUserService s2 = provider.GetRequiredService<IUserService>();
+
+  // 获取并使用一个使用 AddScoped 添加进容器的对象
+  // 通过同一个 scope 获取的将是同一个对象；不同 scope 获取的将是不同的对象
+  using IServiceScope scope = provider.CreateScope();
+  IUserService s3 = scope.ServiceProvider.GetService<IUserService>();
+#+end_src
+
+可以使用 [[https://learn.microsoft.com/en-us/dotnet/core/extensions/options][IOptions Pattern]] 为容器中的对象提供额外参数:
+- 需要向项目中添加 *Microsoft.Extensions.Options* 包
+- 上述的包，将会通过扩展方法的方式，为 ServiceCollection 添加了 =AddOptions/Configure= 等方法
+
+#+begin_src csharp
+  // 首先，定义一个普通的类 (POCO)，用来当做数据的载体
+  // 按照约定成俗的习惯，这个类最好以 Options 结尾
+  public class UserServiceOptions
+  {
+      public string Name { get; set; }
+      public string Weixin { get; set; }
+  }
+
+  // 使用 Options 提供的 Configure 方法，向容器中注册数据
+  collection.Configure<MyUserOptions>(option =>
+  {
+      option.Name = "张三";
+      option.Weixin = "sanzhang";
+  });
+
+  // 在服务的实现中，通过构造方法的方式接收数据
+  public class UserService : IUserService
+  {
+      public UserService(IUserDAO dao, IOptions<UserServiceOptions> options)
+      {
+          UserServiceOptions opt = options.value;
+          Console.WriteLine(opt.Name);
+          Console.WriteLine(opt.Weixin);
+      }
+  }
+#+end_src
+
+*** Autofrac
 
 * ASP.NET Core MVC
 ** Summary
