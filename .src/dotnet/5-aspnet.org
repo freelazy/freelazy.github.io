@@ -1338,7 +1338,12 @@ Moq links:
 - https://github.com/Moq
 - https://learn.microsoft.com/en-us/shows/visual-studio-toolbox/unit-testing-moq-framework
 
-** Dependency Inject
+** Dependency Injection
+
+参考:
+- 官方文档: https://learn.microsoft.com/zh-cn/dotnet/core/extensions/dependency-injection
+- IoC: https://learn.microsoft.com/zh-cn/dotnet/architecture/modern-web-apps-azure/architectural-principles#dependency-inversion
+
 *** 举例说明，分离是技术进步的象征
 
 #+begin_src c

@@ -41,9 +41,6 @@
         (:dbhost . "localhost")
         (:database . "TeachAssist")))
 
-(with-eval-after-load 'predist
-  (p/special
-   (go-translate . "e:/home/vvv/go-translate")))
 
 
 ;; Notes
@@ -70,16 +67,16 @@
 (with-over
  (require 'go-translate)
  (global-set-key [f5] 'gts-do-translate)
+ (defvar gts-enable-paragraph nil)
  (setq gts-translate-list '(("en" "zh")))
  (setq gts-cache-enable nil)
  (setq gts-default-translator
        (gts-translator
-        :splitter (gts-paragraph-splitter)
+        :splitter (if gts-enable-paragraph (gts-paragraph-splitter))
 
         :picker
         ;;(gts-noprompt-picker)
         ;;(gts-noprompt-picker :texter (gts-whole-buffer-texter))
-
         (gts-prompt-picker)
         ;;(gts-prompt-picker :single t)
         ;;(gts-prompt-picker :texter (gts-current-or-selection-texter) :single t)
@@ -87,20 +84,20 @@
         :engines
          (lambda ()
            (with-slots (text) gts-default-translator
-             (if (string-match-p "[ \n\t]" (string-trim text))
-                 (list (gts-bing-engine)
-                       (gts-google-engine))
-               (gts-google-engine :parser (gts-google-parser)))))
+             (if gts-enable-paragraph
+                 (gts-bing-engine)
+               (list (gts-bing-engine)
+                     (gts-google-engine :parser (gts-google-parser))))))
         ;;(list
         ;; (gts-bing-engine)
-         ;;(gts-google-engine)
+        ;;(gts-google-engine)
         ;; (gts-google-engine :parser (gts-google-summary-parser))
         ;; (gts-google-rpc-engine)
-         ;;(gts-deepl-engine :auth-key "2e20bade-88e9-02f3-169f-ab3c445d7984:fx" :pro nil)
+        ;;(gts-deepl-engine :auth-key "2e20bade-88e9-02f3-169f-ab3c445d7984:fx" :pro nil)
 
-         ;;(gts-google-engine :parser (gts-google-parser))
-         ;;(gts-google-rpc-engine :parser (gts-google-rpc-summary-parser))
-         ;;)
+        ;;(gts-google-engine :parser (gts-google-parser))
+        ;;(gts-google-rpc-engine :parser (gts-google-rpc-summary-parser))
+        ;;)
 
         :render
         (gts-buffer-render)
@@ -116,7 +113,14 @@
         ))
 
  (define-key gts-prompt-for-translate-keymap [f5]
-   (lambda () (interactive) (exit-minibuffer))))
+   (lambda () (interactive) (exit-minibuffer)))
+
+ (global-set-key [C-f5]
+                 (lambda () (interactive)
+                   (setq gts-enable-paragraph (not gts-enable-paragraph))
+                   (message "Enable paragraph: %s" (if gts-enable-paragraph "yes" "no"))))
+ )
+
 
 
 (with-eval-after-load 'eglot
