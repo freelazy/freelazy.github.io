@@ -1611,7 +1611,7 @@ DI:
   {
       public UserService(IUserDAO dao, IOptions<UserServiceOptions> options)
       {
-          UserServiceOptions opt = options.value;
+          UserServiceOptions opt = options.Value;
           Console.WriteLine(opt.Name);
           Console.WriteLine(opt.Weixin);
       }
