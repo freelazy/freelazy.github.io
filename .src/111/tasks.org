@@ -9,6 +9,7 @@
 除了完成相关的代码外:
 - 确保整理了 DI 容器的基本知识。最好将 Autofac 的使用也简单整理下
 - 整理并学会 Font Awesome 的使用
+- 了解什么是 SVG 和 Canvas
 - 整理并学会 Newtonsoft.JSON 的基本使用
 - 整理、总结并比较购物车的不同实现方式: Cookie/Session/Database
 - 整理并学会在 MVC Core 中如何使用 Session
