@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-11-09 -->
+<!-- 2022-11-17 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ASP.NET</title>
@@ -26,7 +26,7 @@
 <ul>
 <li><a href="#org4d2e173">1.1. 历史</a></li>
 <li><a href="#org706c080">1.2. 规范</a></li>
-<li><a href="#org80eb935">1.3. 其他</a>
+<li><a href="#orga236d54">1.3. 其他</a>
 <ul>
 <li><a href="#org13f3194">1.3.1. JIT vs AOT</a></li>
 </ul>
@@ -49,7 +49,7 @@
 </ul>
 </li>
 <li><a href="#org27e318c">5.6. 用户自定义控件</a></li>
-<li><a href="#orga236d54">5.7. 其他</a>
+<li><a href="#org4ab534e">5.7. 其他</a>
 <ul>
 <li><a href="#org3ed183e">5.7.1. 路由 (Route)</a></li>
 <li><a href="#orgbb2d469">5.7.2. 捆绑 (Bundle)</a></li>
@@ -63,7 +63,7 @@
 <ul>
 <li><a href="#orgf24ab64">6.1. MVC</a></li>
 <li><a href="#orgc171ad9">6.2. Lifecycle</a></li>
-<li><a href="#orgaed3d7e">6.3. Action</a></li>
+<li><a href="#org30f263f">6.3. Action</a></li>
 <li><a href="#org592c73d">6.4. Razor</a></li>
 <li><a href="#org946e302">6.5. Binding/Validation</a></li>
 <li><a href="#orgc3a6654">6.6. Filter</a></li>
@@ -74,7 +74,7 @@
 <li><a href="#orge8f9cc3">7.1. JSON</a></li>
 <li><a href="#org680ebb4">7.2. WebApiConfig.cs</a></li>
 <li><a href="#orgaf1b1de">7.3. Router</a></li>
-<li><a href="#org30f263f">7.4. Action</a></li>
+<li><a href="#orga1a5111">7.4. Action</a></li>
 <li><a href="#orgb8b8cf9">7.5. Help</a></li>
 </ul>
 </li>
@@ -107,6 +107,7 @@
 <li><a href="#orgc0de2a0">8.5.4. Autofac</a></li>
 </ul>
 </li>
+<li><a href="#orgb4b5e87">8.6. 加密、解密</a></li>
 </ul>
 </li>
 <li><a href="#orgfe4d7fe">9. ASP.NET Core MVC</a>
@@ -204,8 +205,8 @@
 </div>
 </div>
 
-<div id="outline-container-org80eb935" class="outline-3">
-<h3 id="org80eb935"><span class="section-number-3">1.3.</span> 其他</h3>
+<div id="outline-container-orga236d54" class="outline-3">
+<h3 id="orga236d54"><span class="section-number-3">1.3.</span> 其他</h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
 <div id="outline-container-org13f3194" class="outline-4">
@@ -573,7 +574,7 @@ Global.asax:
 <h3 id="orgeca96eb"><span class="section-number-3">5.3.</span> Page 的生命周期</h3>
 <div class="outline-text-3" id="text-5-3">
 
-<figure id="org5b0129e">
+<figure id="orgcfe2342">
 <img src="img/oimg_20220928_005325.png" alt="oimg_20220928_005325.png">
 
 </figure>
@@ -763,7 +764,7 @@ Unload:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="org456e773">
+<pre class="example" id="org3b48a63">
 ----------------------    -------
 | .                  |    | 验证 |
 ----------------------    -------
@@ -820,7 +821,7 @@ Code Action Task:
 <p>
 Code Action Task:
 </p>
-<pre class="example" id="orga01f1a0">
+<pre class="example" id="org41b80c1">
 在页面中，显示:
 : 这是本页面在 Page 生命中，被访问的第 N 次。
 
@@ -1039,8 +1040,8 @@ studentsGV.<span style="color: #721045;">DataBind</span><span style="color: #000
 </div>
 </div>
 
-<div id="outline-container-orga236d54" class="outline-3">
-<h3 id="orga236d54"><span class="section-number-3">5.7.</span> 其他</h3>
+<div id="outline-container-org4ab534e" class="outline-3">
+<h3 id="org4ab534e"><span class="section-number-3">5.7.</span> 其他</h3>
 <div class="outline-text-3" id="text-5-7">
 </div>
 <div id="outline-container-org3ed183e" class="outline-4">
@@ -1147,7 +1148,7 @@ ASP.NET MVC:
 <h3 id="orgc171ad9"><span class="section-number-3">6.2.</span> Lifecycle</h3>
 <div class="outline-text-3" id="text-6-2">
 
-<figure id="org14c39e5">
+<figure id="org56e49a3">
 <img src="img/mvc-lifecycle.png" alt="mvc-lifecycle.png">
 
 </figure>
@@ -1226,8 +1227,8 @@ controller.<span style="color: #721045;">Execute</span><span style="color: #0000
 </div>
 </div>
 
-<div id="outline-container-orgaed3d7e" class="outline-3">
-<h3 id="orgaed3d7e"><span class="section-number-3">6.3.</span> Action</h3>
+<div id="outline-container-org30f263f" class="outline-3">
+<h3 id="org30f263f"><span class="section-number-3">6.3.</span> Action</h3>
 <div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
 <li>Action 是 Controller 里面用来处理请求产生响应的一个方法</li>
@@ -1465,8 +1466,8 @@ api/{controller}/{id}
 </div>
 </div>
 
-<div id="outline-container-org30f263f" class="outline-3">
-<h3 id="org30f263f"><span class="section-number-3">7.4.</span> Action</h3>
+<div id="outline-container-orga1a5111" class="outline-3">
+<h3 id="orga1a5111"><span class="section-number-3">7.4.</span> Action</h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
 方法名字 vs 请求方法:
@@ -2363,6 +2364,38 @@ collection.<span style="color: #721045;">Configure</span><span style="color: #00
 </div>
 </div>
 </div>
+
+<div id="outline-container-orgb4b5e87" class="outline-3">
+<h3 id="orgb4b5e87"><span class="section-number-3">8.6.</span> 加密、解密</h3>
+<div class="outline-text-3" id="text-8-6">
+<p>
+使用 SHA256 进行加密的过程:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">using</span> <span style="color: #00538b;">System</span>;
+<span style="color: #5317ac;">using</span> <span style="color: #00538b;">System</span>.<span style="color: #00538b;">Text</span>;
+<span style="color: #5317ac;">using</span> <span style="color: #00538b;">System</span>.<span style="color: #00538b;">Linq</span>;
+<span style="color: #5317ac;">using</span> <span style="color: #00538b;">System</span>.<span style="color: #00538b;">Security</span>.<span style="color: #00538b;">Cryptography</span>;
+
+<span style="color: #005a5f;">var</span> <span style="color: #00538b;">s</span> = <span style="color: #2544bb;">"hello&#19981;&#24212;&#35813;"</span>;
+
+<span style="color: #005a5f;">byte</span><span style="color: #000000;">[]</span> <span style="color: #00538b;">hash</span> = SHA256.<span style="color: #721045;">Create</span><span style="color: #000000;">()</span>.<span style="color: #721045;">ComputeHash</span><span style="color: #000000;">(</span>Encoding.UTF8.<span style="color: #721045;">GetBytes</span><span style="color: #a8007f;">(</span>s<span style="color: #a8007f;">)</span><span style="color: #000000;">)</span>;
+
+<span style="color: #505050;">// </span><span style="color: #505050;">var sb = new StringBuilder();</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">foreach(var b in hash)</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">{</span>
+<span style="color: #505050;">//     </span><span style="color: #505050;">sb.Append(b.ToString("X2"));</span>
+<span style="color: #505050;">// </span><span style="color: #505050;">}</span>
+
+<span style="color: #005a5f;">var</span> <span style="color: #00538b;">sb</span> = <span style="color: #005a5f;">string</span>.<span style="color: #721045;">Join</span><span style="color: #000000;">(</span><span style="color: #2544bb;">""</span>, hash.<span style="color: #721045;">Select</span><span style="color: #a8007f;">(</span>b =&gt; b.<span style="color: #721045;">ToString</span><span style="color: #005f88;">(</span><span style="color: #2544bb;">"X2"</span><span style="color: #005f88;">)</span><span style="color: #a8007f;">)</span><span style="color: #000000;">)</span>;
+<span style="color: #005a5f;">var</span> <span style="color: #00538b;">base64Result</span> = Convert.<span style="color: #721045;">ToBase64String</span><span style="color: #000000;">(</span>hash<span style="color: #000000;">)</span>;
+
+Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>base64Result<span style="color: #000000;">)</span>;
+Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>sb.<span style="color: #721045;">ToString</span><span style="color: #a8007f;">()</span><span style="color: #000000;">)</span>;
+</pre>
+</div>
+</div>
+</div>
 </section>
 
 <section id="outline-container-orgfe4d7fe" class="outline-2">
@@ -2382,7 +2415,7 @@ collection.<span style="color: #721045;">Configure</span><span style="color: #00
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2022-11-09</p>
+<p class="date">Created: 2022-11-17</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

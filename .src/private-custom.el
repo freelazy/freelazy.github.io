@@ -87,6 +87,7 @@
              (if gts-enable-paragraph
                  (gts-bing-engine)
                (list (gts-bing-engine)
+                     ;;(gts-youdao-dict-engine)
                      (gts-google-engine :parser (gts-google-parser))))))
         ;;(list
         ;; (gts-bing-engine)

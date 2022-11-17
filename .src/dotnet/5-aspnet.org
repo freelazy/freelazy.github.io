@@ -1622,6 +1622,32 @@ DI:
 
 https://autofac.org/
 
+** 加密、解密
+
+使用 SHA256 进行加密的过程:
+#+begin_src csharp
+  using System;
+  using System.Text;
+  using System.Linq;
+  using System.Security.Cryptography;
+
+  var s = "hello不应该";
+
+  byte[] hash = SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(s));
+
+  // var sb = new StringBuilder();
+  // foreach(var b in hash)
+  // {
+  //     sb.Append(b.ToString("X2"));
+  // }
+
+  var sb = string.Join("", hash.Select(b => b.ToString("X2")));
+  var base64Result = Convert.ToBase64String(hash);
+
+  Console.WriteLine(base64Result);
+  Console.WriteLine(sb.ToString());
+#+end_src
+
 * ASP.NET Core MVC
 ** Summary
 
