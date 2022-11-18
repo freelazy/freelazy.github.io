@@ -5,8 +5,122 @@
 
 skip
 
+* CSS
+** 网页布局 (Layout)
+*** Display/Position (盒子模型/文档流)
+
+每一个元素可以通过 display 设置其在盒子模型中的默认渲染行为:
+- block
+- inline
+
+页面的布局基于文档流。通过设置 position 可以改变文档流的一些行为:
+- static
+- relative
+- absolute
+- fixed
+
+*** Float, 浮动
+
+一种将元素脱离正常的文档流，单独为其设置位置的方式。
+
+#+begin_src css
+  div { float: right; }
+#+end_src
+
+*** Flexbox, 弹性盒子
+
+#+begin_src css
+  .container
+  {
+      display: flex;
+      justify-content: center;
+  }
+  .item
+  {
+      flex-flow: 1;
+  }
+#+end_src
+
+*** Grid, 网格布局
+
+#+begin_src css
+  .container
+  {
+      display: grid;
+      grid-template-columns: 1fr 2fr auto;
+      grid-gap: 1em;
+  }
+  .itemX
+  {
+      grid-row: 1 / 5;
+  }  
+#+end_src
+** Viewport
+
+对于这样的 CSS 样式:
+: body { width: 1024px }
+
+以前的 PC 上是按照真实分辨率渲染的，自然没问题。
+
+可是后来出现了移动设备，屏幕普遍小。只能通过缩放将页面展示到上，因此字体会特别小，难以看清。
+
+如何解决这个问题？苹果当初引入了 Viewport 的概念 (虚拟的屏幕 ---> 实际的屏幕):
+1. 创建一个虚拟的的区域 ~Layout Viewport~ 宽度近乎 PC，然后将网页中内容渲染到上面
+2. 将上述 Viewport 中的内容，映射呈现到真实的屏幕上
+
+于是我们就可以看到一个可以缩放、带滚动条的页面，甚至可以呈现跟 PC 一样的效果:
+- 可以通过调整 Viewport 的各种参数，达到不同的渲染效果
+- 如果将 width 设置为 device-width，PC 端几乎不受影响，绝大多数手机端的 viewport 将会有 320px 左右的宽度。
+  那么如果一个按钮，设置其 width=80px，那么它渲染出的效果是占 1/4 个屏幕宽度的空间。
+- 当然，不同设备的 device-width 是不一样的，比如 iPad 大约是 700px+。这种情况下，就需要借助 Media Type 为不同设备适配单独的 CSS 样式了
+
+代码:  
+#+begin_src html
+  <meta name="viewport" content="width=2000px, initial-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width">
+#+end_src
+
+** Media Type
+
+为了在不同设备上渲染不同的样式，CSS 推出了 Media Type 的概念。
+
+媒体查询，语法:
+: @media not|only MediaType and (MediaFeatureExpressions) { CSS }
+
+示例:
+#+begin_src css
+  div
+  {
+      color: red;
+  }
+
+  @media screen and (max-device-with: 960px)
+  {
+      div
+      {
+          color: green;
+      }
+  }
+
+  @media (min-width: 1024px)
+  {
+      div
+      {
+          color: yellow;
+      }
+  }
+
+  @media print {
+      div
+      {
+          color: purple;
+      }
+  }
+#+end_src
+
 * bootstrap.css
 
 https://www.bootcss.com/
 
-流行的、经典的、引领了一代潮流的、非前端开发人员必须掌握的一个 CSS 框架。
+流行的、经典的、引领了一代潮流的、 +非前端开发人员+ 必须掌握的一个 CSS 框架。
+

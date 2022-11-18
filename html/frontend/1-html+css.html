@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-10-26 -->
+<!-- 2022-11-18 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>HTML/CSS</title>
@@ -23,7 +23,21 @@
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#org58f8a97">1. html</a></li>
-<li><a href="#org68801f2">2. bootstrap.css</a></li>
+<li><a href="#orgaa12a5b">2. CSS</a>
+<ul>
+<li><a href="#org3dcdd4b">2.1. 网页布局 (Layout)</a>
+<ul>
+<li><a href="#orga644afc">2.1.1. Display/Position (盒子模型/文档流)</a></li>
+<li><a href="#org4010622">2.1.2. Float, 浮动</a></li>
+<li><a href="#org76d24ce">2.1.3. Flexbox, 弹性盒子</a></li>
+<li><a href="#org4377907">2.1.4. Grid, 网格布局</a></li>
+</ul>
+</li>
+<li><a href="#org2626c7d">2.2. Viewport</a></li>
+<li><a href="#org79252e9">2.3. Media Type</a></li>
+</ul>
+</li>
+<li><a href="#org68801f2">3. bootstrap.css</a></li>
 </ul>
 </div>
 </nav>
@@ -38,22 +52,204 @@ skip
 </div>
 </section>
 
-<section id="outline-container-org68801f2" class="outline-2">
-<h2 id="org68801f2"><span class="section-number-2">2.</span> bootstrap.css</h2>
+<section id="outline-container-orgaa12a5b" class="outline-2">
+<h2 id="orgaa12a5b"><span class="section-number-2">2.</span> CSS</h2>
 <div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org3dcdd4b" class="outline-3">
+<h3 id="org3dcdd4b"><span class="section-number-3">2.1.</span> 网页布局 (Layout)</h3>
+<div class="outline-text-3" id="text-2-1">
+</div>
+<div id="outline-container-orga644afc" class="outline-4">
+<h4 id="orga644afc"><span class="section-number-4">2.1.1.</span> Display/Position (盒子模型/文档流)</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+每一个元素可以通过 display 设置其在盒子模型中的默认渲染行为:
+</p>
+<ul class="org-ul">
+<li>block</li>
+<li>inline</li>
+</ul>
+
+<p>
+页面的布局基于文档流。通过设置 position 可以改变文档流的一些行为:
+</p>
+<ul class="org-ul">
+<li>static</li>
+<li>relative</li>
+<li>absolute</li>
+<li>fixed</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4010622" class="outline-4">
+<h4 id="org4010622"><span class="section-number-4">2.1.2.</span> Float, 浮动</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<p>
+一种将元素脱离正常的文档流，单独为其设置位置的方式。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #5317ac;">div </span><span style="color: #000000;">{</span> <span style="color: #005a5f;">float</span>: right; <span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org76d24ce" class="outline-4">
+<h4 id="org76d24ce"><span class="section-number-4">2.1.3.</span> Flexbox, 弹性盒子</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #5317ac;">.container</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">display</span>: flex;
+    <span style="color: #005a5f;">justify-content</span>: center;
+<span style="color: #000000;">}</span>
+<span style="color: #5317ac;">.item</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">flex-flow</span>: 1;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4377907" class="outline-4">
+<h4 id="org4377907"><span class="section-number-4">2.1.4.</span> Grid, 网格布局</h4>
+<div class="outline-text-4" id="text-2-1-4">
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #5317ac;">.container</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">display</span>: grid;
+    <span style="color: #005a5f;">grid-template-columns</span>: 1fr 2fr auto;
+    <span style="color: #005a5f;">grid-gap</span>: 1em;
+<span style="color: #000000;">}</span>
+<span style="color: #5317ac;">.itemX</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">grid-row</span>: 1 / 5;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org2626c7d" class="outline-3">
+<h3 id="org2626c7d"><span class="section-number-3">2.2.</span> Viewport</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+对于这样的 CSS 样式:
+</p>
+<pre class="example">
+body { width: 1024px }
+</pre>
+
+
+<p>
+以前的 PC 上是按照真实分辨率渲染的，自然没问题。
+</p>
+
+<p>
+可是后来出现了移动设备，屏幕普遍小。只能通过缩放将页面展示到上，因此字体会特别小，难以看清。
+</p>
+
+<p>
+如何解决这个问题？苹果当初引入了 Viewport 的概念 (虚拟的屏幕 &#x2014;&gt; 实际的屏幕):
+</p>
+<ol class="org-ol">
+<li>创建一个虚拟的的区域 <code>Layout Viewport</code> 宽度近乎 PC，然后将网页中内容渲染到上面</li>
+<li>将上述 Viewport 中的内容，映射呈现到真实的屏幕上</li>
+</ol>
+
+<p>
+于是我们就可以看到一个可以缩放、带滚动条的页面，甚至可以呈现跟 PC 一样的效果:
+</p>
+<ul class="org-ul">
+<li>可以通过调整 Viewport 的各种参数，达到不同的渲染效果</li>
+<li>如果将 width 设置为 device-width，PC 端几乎不受影响，绝大多数手机端的 viewport 将会有 320px 左右的宽度。
+那么如果一个按钮，设置其 width=80px，那么它渲染出的效果是占 1/4 个屏幕宽度的空间。</li>
+<li>当然，不同设备的 device-width 是不一样的，比如 iPad 大约是 700px+。这种情况下，就需要借助 Media Type 为不同设备适配单独的 CSS 样式了</li>
+</ul>
+
+<p>
+代码:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">meta</span> <span style="color: #00538b;">name</span>=<span style="color: #2544bb;">"viewport"</span> <span style="color: #00538b;">content</span>=<span style="color: #2544bb;">"width=2000px, initial-scale=1, user-scalable=no"</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">meta</span> <span style="color: #00538b;">name</span>=<span style="color: #2544bb;">"viewport"</span> <span style="color: #00538b;">content</span>=<span style="color: #2544bb;">"width=device-width"</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org79252e9" class="outline-3">
+<h3 id="org79252e9"><span class="section-number-3">2.3.</span> Media Type</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+为了在不同设备上渲染不同的样式，CSS 推出了 Media Type 的概念。
+</p>
+
+<p>
+媒体查询，语法:
+</p>
+<pre class="example">
+@media not|only MediaType and (MediaFeatureExpressions) { CSS }
+</pre>
+
+
+<p>
+示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span style="color: #5317ac;">div</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #005a5f;">color</span>: <span style="color: #ffffff; background-color: #ff0000;">red</span>;
+<span style="color: #000000;">}</span>
+
+<span style="color: #8f0075;">@media</span> screen and <span style="color: #000000;">(</span>max-device-with: 960px<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">div</span>
+<span style="color: #5317ac;">    </span><span style="color: #a8007f;">{</span>
+        <span style="color: #005a5f;">color</span>: <span style="color: #ffffff; background-color: #008000;">green</span>;
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+
+<span style="color: #8f0075;">@media</span> <span style="color: #000000;">(</span>min-width: 1024px<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">div</span>
+<span style="color: #5317ac;">    </span><span style="color: #a8007f;">{</span>
+        <span style="color: #005a5f;">color</span>: <span style="color: #000000; background-color: #ffff00;">yellow</span>;
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+
+<span style="color: #8f0075;">@media</span> print <span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">div</span>
+<span style="color: #5317ac;">    </span><span style="color: #a8007f;">{</span>
+        <span style="color: #005a5f;">color</span>: <span style="color: #ffffff; background-color: #800080;">purple</span>;
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org68801f2" class="outline-2">
+<h2 id="org68801f2"><span class="section-number-2">3.</span> bootstrap.css</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 <a href="https://www.bootcss.com/">https://www.bootcss.com/</a>
 </p>
 
 <p>
-流行的、经典的、引领了一代潮流的、非前端开发人员必须掌握的一个 CSS 框架。
+流行的、经典的、引领了一代潮流的、 <del>非前端开发人员</del> 必须掌握的一个 CSS 框架。
 </p>
 </div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2022-10-26</p>
+<p class="date">Created: 2022-11-18</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
