@@ -80,9 +80,9 @@ skip
   <meta name="viewport" content="width=device-width">
 #+end_src
 
-** Media Type
+** Media Query
 
-为了在不同设备上渲染不同的样式，CSS 推出了 Media Type 的概念。
+为了在不同设备上渲染不同的样式，CSS 推出了 Media Query 的概念。
 
 媒体查询，语法:
 : @media not|only MediaType and (MediaFeatureExpressions) { CSS }
@@ -102,7 +102,7 @@ skip
       }
   }
 
-  @media (min-width: 1024px)
+  @media (min-width: 2000px)
   {
       div
       {
