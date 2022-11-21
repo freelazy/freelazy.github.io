@@ -118,9 +118,12 @@ skip
   }
 #+end_src
 
+** CDN (Content Delivery Network)
+
 * bootstrap.css
 
 https://www.bootcss.com/
 
 流行的、经典的、引领了一代潮流的、 +非前端开发人员+ 必须掌握的一个 CSS 框架。
 
+- 提供了更好的默认样式
