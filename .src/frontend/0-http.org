@@ -3,6 +3,7 @@
 HTTP (超文本传输协议) 是一个简单的请求-响应协议，它通常运行在 TCP 之上。
 
 * HTTP (Hyper Text Transfer Protocol)
+** HTTP 是一种基于请求响应的文本协议
 
 基本特点:
 - 基于请求-响应 (Request - Response)
@@ -25,13 +26,30 @@ HTTP 是无状态的:
   而其他跟这个【身份】相关的数据，都可以让服务器自行处理。
   这时，就出现了 Session 的概念。
 
-* 请求方法
+** 请求方法
 
-- GET/POST
+- GET
+- POST
+- PUT
+- DELETE
+- HEAD
+- OPTION
 
-* 响应码
+** 响应码 (Status Code)
 
-- 20X
-- 30X
-- 404
+- 20X: 200, 201
+- 30X: 301, 302, 304
+- 40X: 403, 404
 - 50X
+
+常见响应码:
+- 200, 正常返回
+- 301/302, 永久重定向/临时重定向，结合响应头的 Location 进行页面的重定向
+- 304, 内容未改动 (缓存机制)
+- 403, Request Method not Found
+- 404, Request Url Not Found
+
+* HTTPS
+* HTTP2
+* Websocket
+* AJAX

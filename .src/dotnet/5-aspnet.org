@@ -1649,6 +1649,19 @@ https://autofac.org/
 #+end_src
 
 * ASP.NET Core MVC
+** 配置文件
+
+- xxx.proj
+- Program.cs
+- Startup.cs
+
+增加 package 的方法:
+1. 直接在 xxx.proj 中添加:
+   : <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
+2. 使用 VS 的【管理 Nuget 包】添加
+3. 使用 dotnet 命令行添加:
+   : dotnet package add Microsoft.EntityFrameworkCore.Tools
+   
 ** Summary
 
 - IActionResult

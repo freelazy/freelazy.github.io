@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-10-24 -->
+<!-- 2022-11-25 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>HTTP</title>
@@ -22,9 +22,17 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8aff3c0">1. HTTP (Hyper Text Transfer Protocol)</a></li>
-<li><a href="#orgd069db4">2. 请求方法</a></li>
-<li><a href="#orge6d5970">3. 响应码</a></li>
+<li><a href="#org8aff3c0">1. HTTP (Hyper Text Transfer Protocol)</a>
+<ul>
+<li><a href="#org207f7a4">1.1. HTTP 是一种基于请求响应的文本协议</a></li>
+<li><a href="#orgd069db4">1.2. 请求方法</a></li>
+<li><a href="#org9e3f71a">1.3. 响应码 (Status Code)</a></li>
+</ul>
+</li>
+<li><a href="#orga90fe0c">2. HTTPS</a></li>
+<li><a href="#org5944784">3. HTTP2</a></li>
+<li><a href="#org7a1e755">4. Websocket</a></li>
+<li><a href="#org081cc94">5. AJAX</a></li>
 </ul>
 </div>
 </nav>
@@ -35,6 +43,10 @@ HTTP (超文本传输协议) 是一个简单的请求-响应协议，它通常�
 <section id="outline-container-org8aff3c0" class="outline-2">
 <h2 id="org8aff3c0"><span class="section-number-2">1.</span> HTTP (Hyper Text Transfer Protocol)</h2>
 <div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org207f7a4" class="outline-3">
+<h3 id="org207f7a4"><span class="section-number-3">1.1.</span> HTTP 是一种基于请求响应的文本协议</h3>
+<div class="outline-text-3" id="text-1-1">
 <p>
 基本特点:
 </p>
@@ -68,32 +80,62 @@ HTTP 是无状态的:
 这时，就出现了 Session 的概念。</li>
 </ul>
 </div>
-</section>
+</div>
 
-<section id="outline-container-orgd069db4" class="outline-2">
-<h2 id="orgd069db4"><span class="section-number-2">2.</span> 请求方法</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgd069db4" class="outline-3">
+<h3 id="orgd069db4"><span class="section-number-3">1.2.</span> 请求方法</h3>
+<div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
-<li>GET/POST</li>
+<li>GET</li>
+<li>POST</li>
+<li>PUT</li>
+<li>DELETE</li>
+<li>HEAD</li>
+<li>OPTION</li>
 </ul>
 </div>
-</section>
+</div>
 
-<section id="outline-container-orge6d5970" class="outline-2">
-<h2 id="orge6d5970"><span class="section-number-2">3.</span> 响应码</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org9e3f71a" class="outline-3">
+<h3 id="org9e3f71a"><span class="section-number-3">1.3.</span> 响应码 (Status Code)</h3>
+<div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
-<li>20X</li>
-<li>30X</li>
-<li>404</li>
+<li>20X: 200, 201</li>
+<li>30X: 301, 302, 304</li>
+<li>40X: 403, 404</li>
 <li>50X</li>
 </ul>
+
+<p>
+常见响应码:
+</p>
+<ul class="org-ul">
+<li>200, 正常返回</li>
+<li>301/302, 永久重定向/临时重定向，结合响应头的 Location 进行页面的重定向</li>
+<li>304, 内容未改动 (缓存机制)</li>
+<li>403, Request Method not Found</li>
+<li>404, Request Url Not Found</li>
+</ul>
 </div>
+</div>
+</section>
+
+<section id="outline-container-orga90fe0c" class="outline-2">
+<h2 id="orga90fe0c"><span class="section-number-2">2.</span> HTTPS</h2>
+</section>
+<section id="outline-container-org5944784" class="outline-2">
+<h2 id="org5944784"><span class="section-number-2">3.</span> HTTP2</h2>
+</section>
+<section id="outline-container-org7a1e755" class="outline-2">
+<h2 id="org7a1e755"><span class="section-number-2">4.</span> Websocket</h2>
+</section>
+<section id="outline-container-org081cc94" class="outline-2">
+<h2 id="org081cc94"><span class="section-number-2">5.</span> AJAX</h2>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2022-10-24</p>
+<p class="date">Created: 2022-11-25</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
