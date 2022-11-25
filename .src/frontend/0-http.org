@@ -69,3 +69,150 @@ HTTP 是无状态的:
   
 * Websocket
 * AJAX
+** XMLHttpRequest
+
+#+begin_src html
+  <body>
+      <div id="products">
+          没有加载完毕...
+      </div>
+      <div id="comments"></div>
+      <div id="related"></div>
+
+      <script>
+         function loadXxxFragment() {
+              const request = new XMLHttpRequest();
+              request.open("get", "/ajax/products");
+              request.send();
+              request.onload = function() {
+                  // this.response
+                  // this.responseText
+                  // this.responseType
+                  // this.status
+                  // this.statusText
+                  // console.log(this.responseText)
+                  var res = this.responseText;
+                  var json = JSON.parse(res);
+                  var h = "<table border=1>";   
+                  json.forEach(x => {
+                      h += `<tr><td>${x.name}</td><td>${x.description}</td><td>${x.price}</td></tr>`;
+                  })
+                  h += "</table>"
+                  document.querySelector("#products").innerHTML = h;
+              };
+          }
+
+          loadXxxFragment();
+      </script>
+  </body>
+#+end_src
+
+回调地狱:
+#+begin_src js
+  function myinit() {
+      var xhr1 = new XMLHttpRequest();
+      xhr1.open("GET", "/top");
+      xhr1.send();
+      xhr1.onload = function () {
+          xxxx.innerHTML = this.responseText;
+          var xhr2 = new XMLHttpRequest();
+          xhr2.open("GET", "/bottomLeft");
+          xhr2.send();
+          xhr2.onload = function () {
+              yyy.innerHTML = this.responseText;
+              var xhr3 = new XMLHttpRequest();
+              xhr3.open("GET", "/bottomRight");
+              xhr3.send();
+          }
+      };
+  }
+#+end_src
+
+Promise/async,await。
+
+** Fetch API
+
+新的 AJAX 标准，是为了取代 XMLHttpRequest 才出现的。
+
+#+begin_src js
+  function loadXxxFragment() {
+      fetch("/ajax/products", { method: "get" })
+          .then(resp => resp.json())
+          .then(res => {
+              console.log(res);
+              var h = "<table border=1 style='color: red'>";
+              res.forEach(x => {
+                  h += `<tr><td>${x.name}</td><td>${x.description}</td><td>${x.price}</td></tr>`;
+              })
+              h += "</table>"
+              document.querySelector("#products").innerHTML = h;
+          }).catch(err => {
+              console.log(err);
+              document.querySelector("#products").innerHTML = "加载失败";
+          });
+  }
+#+end_src
+
+** jQuery
+
+#+begin_src js
+  function loadXxxFragment() {
+      $.ajax({
+          url: "/ajax/products",
+          method: "get"
+      }).done(function (res) {
+          console.log(res);
+          var h = "<table border=1 style='color: green'>";
+          res.forEach(x => {
+              h += `<tr><td>${x.name}</td><td>${x.description}</td><td>${x.price}</td></tr>`;
+          })
+          h += "</table>"
+          document.querySelector("#products").innerHTML = h;
+      }).fail(function (err) {
+          document.querySelector("#products").innerHTML = "加载失败";
+      });
+
+      // $.get("/ajax/products").done.fail;
+      // $.post/getJson
+      // $.load("/ajax/product", document.querySelector("#products"));
+  }
+#+end_src
+
+** axios.js
+
+https://www.axios-http.cn/
+
+#+begin_src js
+  function loadXxxFragment() {
+      axios({
+          url: "/ajax/products",
+          method: "get"
+      }).then(function (resp) {
+          var res = resp.data;
+          var h = "<table border=1 style='color: purple'>";
+          res.forEach(x => {
+              h += `<tr><td>${x.name}</td><td>${x.description}</td><td>${x.price}</td></tr>`;
+          })
+          h += "</table>"
+          document.querySelector("#products").innerHTML = h;
+      }).catch(function () {
+          document.querySelector("#products").innerHTML = "加载失败";
+      });
+  }
+#+end_src
+
+#+begin_src js
+  async function loadXxxFragment() {
+      try {
+          const resp = await axios.get("/ajax/products");
+          var h = "<table border=1 style='color: blue'>";
+          resp.data.forEach(x => {
+              h += `<tr><td>${x.name}</td><td>${x.description}</td><td>${x.price}</td></tr>`;
+          })
+          h += "</table>"
+          document.querySelector("#products").innerHTML = h;
+      } catch {
+          // 省略掉
+      }
+  }
+#+end_src
