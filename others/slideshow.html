@@ -383,6 +383,17 @@ const myTheme1 = {
     space: [10, 8, 20],
     sizes: { width: "80%" }
 }
+const myTheme2 = {
+    fontSizes: {
+        text: "34px",
+        monospace: "34px"
+    },
+    fonts: {
+        text: "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
+    },
+    space: [10, 8, 20],
+    sizes: { width: "80%" }
+}
 console.log(defaultTheme);
 
 
@@ -814,6 +825,134 @@ while(reader.Read())
 `}
 </${CodePane}>
 </${Slide}>
+
+
+<!------ slide (2_8) begin ------>
+
+<${Slide} theme=${myTheme2}><${Text}>写一个 SQL 存储过程:</${Text}>
+<${UnorderedList}>
+<${ListItem}>建立一个表 Books, 字段是编号、书名、价格、库存、入库日期 （如果表不存在）</${ListItem}>
+<${ListItem}>向里面插入 6 条数据 (如果不存在数据)</${ListItem}>
+<${ListItem}>然后查询出除了价格最高的书之外的价格最高的 3 条数据</${ListItem}>
+</${UnorderedList}>
+
+<${Text}>学生信息管理系统中有张表 STUDENT，其中，有字段 ID、NAME、SEX、BIRTH。
+请回答如下问题：</${Text}>
+<${OrderedList}>
+<${ListItem}>找出 NAME 相同的学生（用一句SQL语句）</${ListItem}>
+<${ListItem}>用一句 SQL 语句把学生 SEX 为男的改为女，女的改为男</${ListItem}>
+</${OrderedList}>
+</${Slide}>
+
+
+
+<!------ slide (2_9) begin ------>
+
+<${Slide}><${Text}>Case When 在 SQL 中的使用。</${Text}>
+
+<div className='example'>
+<${CodePane} showLineNumbers=${false}>
+${`
+   student
+   name      sex addr weixin
+   zhangsan  1,2 ..
+
+   "select name, sex from student;"
+
+   string displaySex;
+   if (sex == 1) displaySex = "男"; else displaySex = "女";
+
+   label1.Text = displaySex;
+
+   -----
+   x = 3; 赋值。 x == 3; 判断
+   x := 3; x = 3
+   select x = 3 ...., 歧义. where x = 3 and y = 4;
+   -----
+
+   select name, case when sex = 1 then '男' case when sex = 2 then '女' else '未知' end from student;
+   update student set sex = case when sex = 1 then 2 else 1 end;
+
+
+`}
+</${CodePane}>
+</div>
+
+<${Text}>SQL 行列转换</${Text}>
+</${Slide}>
+
+
+<!------ slide (2_10) begin ------>
+
+<${Slide}><${Grid} gridTemplateColumns="1fr 1fr"><${Box}><${Box}><${Text}>游标, Cursor。</${Text}>
+
+<${Text}>var books = db.Books.Where(x => x.Name.Length > 3).ToList(); // lazy</${Text}>
+
+<${Text}>select * from students where like 'xxx%';</${Text}>
+
+
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+  using (SqlDataReader reader = command.ExecuteReader())
+  {
+      if (reader.HasRows)
+      {
+          while (reader.Read())
+          {
+              if (reader[0] > 3) {
+                 Console.WriteLine("{0}: {1:C}", reader[0], reader[1]);
+              }
+          }
+      }
+  }
+
+  var dt = new DataTable();
+  var adapter = new SqlDataAdapter("select * from orders", conn);
+  adapter.Fill(dt);
+
+`}
+</${CodePane}>
+ </${Box}}></${Box}>
+
+<${Box}><${Box}><${Text}>当执行一条语句时，Oracle 会打开一片工作区，将结果保存在里面。
+在这片工作区，存在一个指针，默认指向第一条记录。我们可以通过移动指针获取不同记录。</${Text}>
+
+<${Text}>这个指针，就是游标。</${Text}>
+
+<${Text}>游标分为隐式游标和显式游标。</${Text}>
+<${UnorderedList}>
+<${ListItem}>隐式游标是 Oracle 自动管理的，比如我们进行一次 update，Oracle 会打开一个游标定位到数据，我们更新结束后，Oracle 就会把游标给关闭。</${ListItem}>
+<${ListItem}>显式游标，就是我们要自定义的游标，主要用来处理有多条数据返回的查询。</${ListItem}>
+</${UnorderedList}>
+
+<${Box} marginTop="1em">
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+declare
+  vemp emp%rowtype;
+  -- 定义游标
+  cursor c_emp is select * from emp where sal > 2000;
+begin
+  -- 打开游标
+  open c_emp;
+
+  -- 提取游标当前数据
+  fetch c_emp into vemp;
+  loop
+    dbms_output.put_line(vemp.ename || '的工资是' || vemp.sal);
+    fetch c_emp into vemp;
+    exit when c_emp%notfound;
+  end loop;
+
+  -- 关闭游标
+  close c_emp;
+end;
+
+`}
+</${CodePane}>
+</${Box}>
+ </${Box}}></${Box}>
+ </${Grid}}></${Slide}>
 
 </${Deck}>`;
 
