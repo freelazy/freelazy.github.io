@@ -495,8 +495,23 @@ ${`
 <${ListItem}>使用存储过程有什么优点和缺点?</${ListItem}>
 </${UnorderedList}>
 
+<${Quote}>存储过程是一组预编译的 SQL 语句，它可以包含数据操作语句和变量逻辑等。<br />
+它保存在数据库中，通过名字可以反复使用。
+<br />
+<br />
+优点:
+<${UnorderedList}>
+<${ListItem}>效率高</${ListItem}>
+<${ListItem}>提高系统的安全性</${ListItem}>
+<${ListItem}>技术成本</${ListItem}>
+</${UnorderedList}>
 
-<${Box} height="3em" />
+缺点:
+<${UnorderedList}>
+<${ListItem}>禁止使用存储过程，存储过程难以调试和扩展，更没有移植性</${ListItem}>
+</${UnorderedList}>
+</${Quote}>
+
 
 <${Text}>SQL (Sequence Query Language)</${Text}>
 <div className="example fixed-width"><${CodePane} showLineNumbers=${false}>
@@ -691,6 +706,113 @@ end
 </${CodePane}>
 </${Box}>
  </${Appear}}></${Box}>
+</${Slide}>
+
+
+<!------ slide (2_6) begin ------>
+
+<${Slide}><${Grid} gridTemplateColumns="1fr 1fr"><${Box}><${Box}><${Text}>数据库中的其他对象:</${Text}>
+<${UnorderedList}>
+<${ListItem}>Table/Index</${ListItem}>
+<${ListItem}>View 视图，虚表</${ListItem}>
+<${ListItem}>Function 函数</${ListItem}>
+<${ListItem}>Trigger 触发器</${ListItem}>
+</${UnorderedList}>
+
+<${Box} margin="2em 0">
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+-- 视图
+create view zh_works as select * from works where city = '珠海';
+select * from zh_works where sal > 2000;
+select * from works where city = '珠海' and sal > 2000;
+
+-- 函数，返回值
+select getdate();
+select 32000/datediff(day,'2019-08-05','2020-08-07');
+select rand() + 3333;
+
+`}
+</${CodePane}>
+</${Box}>
+ </${Box}}></${Box}>
+
+<${Box}><${Box}><${Text}>对于函数，一定要有返回值:</${Text}>
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+create function pingjungongzi (@deptno int) returns int
+as
+begin
+  declare @avgsal int;
+  select @avgsal = avg(sal) from emp where deptno = @deptno;
+  return @avgsal;
+end;
+
+-- 调用刚才的函数
+select dbo.pingjungongzi(20);
+
+-- 另外调用方式
+declare @s int;
+exec @s = pingjungongzi 20;
+
+`}
+</${CodePane}>
+
+<${Text}>触发器:</${Text}>
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+-- 触发器被自动执行
+create trigger tri_emp_insert_jiagongzi
+  on emp
+  after insert
+as -- inserted 表示插入的数据形成的临时表，名字就叫 inserted
+  update emp set sal = sal + 100 where empno = (select mgr from inserted);
+
+-- 测试
+select * from emp;
+insert into emp (empno, ename, mgr, deptno, sal)
+  values (999, 'ganmaoling', 7902, 10, 2000);
+
+`}
+</${CodePane}>
+ </${Box}}></${Box}>
+ </${Grid}}></${Slide}>
+
+
+<!------ slide (2_7) begin ------>
+
+<${Slide}><${Text}>首先，确保存储过程已存在:</${Text}>
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+create procedure [CSharp].[GetBooks] @name nvarchar(20)
+   as select * from books where name = @name
+
+`}
+</${CodePane}>
+
+<${Text}>使用 ADO.NET 的语法操作存储过程:</${Text}>
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+var command = conn.CreateCommand();
+command.CommandText = "[CSharp].[GetBooks]";
+command.CommandType = CommandType.StoredProcedure;
+
+var p1 = command.CreateParameter();
+p1.SqlDbType = SqlDbType.NvarChar;
+p1.ParameterName = "@name";
+p1.Value = "xxx";
+command.Parameters.Add(p1);
+
+conn.Open();
+
+using var reader = command.ExecuteReader();
+while(reader.Read())
+{
+    Console.WriteLine($"{(int)reader[1]}");
+}
+
+`}
+</${CodePane}>
 </${Slide}>
 
 </${Deck}>`;
