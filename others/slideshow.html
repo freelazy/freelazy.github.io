@@ -372,7 +372,8 @@ pre { margin: 5px 1em !important; }
 
     /* user scripts defined in org file */
 
-const myTheme1 = {
+const t1 = {
+    ...defaultTheme,
     fontSizes: {
         text: "14px",
         monospace: "14px"
@@ -381,25 +382,20 @@ const myTheme1 = {
         text: "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
     },
     space: [10, 8, 20],
-    sizes: { width: "80%" }
+    size: { width: "100%", height: "100%" }
 }
-const myTheme2 = {
+const t2 = {
+    ...t1,
     fontSizes: {
         text: "34px",
         monospace: "34px"
     },
-    fonts: {
-        text: "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
-    },
-    space: [10, 8, 20],
-    sizes: { width: "80%" }
 }
-console.log(defaultTheme);
 
 
     /* presentation definition begin */
 
-    const Presentation = () => html`<${Deck} theme=${myTheme1} template=${template}>
+    const Presentation = () => html`<${Deck} theme=${t1} template=${template}>
 
 <!------ slide (1) begin ------>
 
@@ -829,7 +825,7 @@ while(reader.Read())
 
 <!------ slide (2_8) begin ------>
 
-<${Slide} theme=${myTheme2}><${Text}>写一个 SQL 存储过程:</${Text}>
+<${Slide} theme=${t2}><${Text}>写一个 SQL 存储过程:</${Text}>
 <${UnorderedList}>
 <${ListItem}>建立一个表 Books, 字段是编号、书名、价格、库存、入库日期 （如果表不存在）</${ListItem}>
 <${ListItem}>向里面插入 6 条数据 (如果不存在数据)</${ListItem}>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-09-21 -->
+<!-- 2022-12-15 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>每天很多小技巧</title>
-<meta name="author" content="悟饭" />
+<meta name="author" content="1a2y" />
 <meta name="generator" content="Org Mode" />
 <link rel='stylesheet' href='/html/asset/common.css?3344' />
 <link rel='stylesheet' href='/yaoliuyao/html/asset/common.css?3344' />
@@ -22,14 +22,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org4798cd4">1. Form 表单中的 Button 乱象治理</a></li>
+<li><a href="#org5fd1c11">1. Form 表单中的 Button 乱象治理</a></li>
 </ul>
 </div>
 </nav>
 
 
-<section id="outline-container-org4798cd4" class="outline-2">
-<h2 id="org4798cd4"><span class="section-number-2">1.</span> Form 表单中的 Button 乱象治理</h2>
+<section id="outline-container-org5fd1c11" class="outline-2">
+<h2 id="org5fd1c11"><span class="section-number-2">1.</span> Form 表单中的 Button 乱象治理</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 表现: 如果在 Form 表单中有 Button，点击后竟然自作主张提交了表单，给我造成了巨大困惑！
@@ -39,38 +39,38 @@
 回复:
 </p>
 <div class="org-src-container">
-<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">form</span> <span style="color: #00538b;">method</span>=<span style="color: #2544bb;">"get"</span> <span style="color: #00538b;">action</span>=<span style="color: #2544bb;">"xxx"</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #00538b;">name</span>=<span style="color: #2544bb;">"xxx"</span> <span style="color: #00538b;">value</span>=<span style="color: #2544bb;">"."</span> /<span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #00538b;">onclick</span>=<span style="color: #2544bb;">"changge()"</span><span style="color: #000000;">&gt;</span>&#21809;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #00538b;">onclick</span>=<span style="color: #2544bb;">"fangfa1(); return false;"</span><span style="color: #000000;">&gt;</span>&#19968;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #00538b;">onclick</span>=<span style="color: #2544bb;">"return fangfa2()"</span><span style="color: #000000;">&gt;</span>&#20108;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #00538b;">onclick</span>=<span style="color: #2544bb;">"fangfa3(event)"</span><span style="color: #000000;">&gt;</span>&#19977;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #00538b;">onclick</span>=<span style="color: #2544bb;">"fangfa4()"</span><span style="color: #000000;">&gt;</span>&#22235;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #00538b;">type</span>=<span style="color: #2544bb;">"submit"</span> <span style="color: #00538b;">value</span>=<span style="color: #2544bb;">"eee"</span> /<span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">form</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
-   <span style="color: #5317ac;">function</span> <span style="color: #721045;">changge</span><span style="color: #000000;">()</span> <span style="color: #000000;">{</span> alert<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&#21862;&#21862;&#21862;&#21862;&#21862;&#21862;"</span><span style="color: #a8007f;">)</span> <span style="color: #000000;">}</span>
-   <span style="color: #5317ac;">function</span> <span style="color: #721045;">fangfa1</span><span style="color: #000000;">()</span> <span style="color: #000000;">{</span> alert<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&#21862;&#21862;&#21862;&#21862;&#21862;&#21862;"</span><span style="color: #a8007f;">)</span> <span style="color: #000000;">}</span>
-   <span style="color: #5317ac;">function</span> <span style="color: #721045;">fangfa2</span><span style="color: #000000;">()</span> <span style="color: #000000;">{</span> alert<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&#21862;&#21862;&#21862;&#21862;&#21862;&#21862;"</span><span style="color: #a8007f;">)</span>; <span style="color: #5317ac;">return</span> <span style="color: #0000c0;">false</span>; <span style="color: #000000;">}</span>
-   <span style="color: #5317ac;">function</span> <span style="color: #721045;">fangfa3</span><span style="color: #000000;">(</span><span style="color: #00538b;">ev</span><span style="color: #000000;">)</span> <span style="color: #000000;">{</span>
-       ev.preventDefault<span style="color: #a8007f;">()</span>;
-       alert<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&#21862;&#21862;&#21862;&#21862;&#21862;&#21862;"</span><span style="color: #a8007f;">)</span>;
-   <span style="color: #000000;">}</span>
-   <span style="color: #5317ac;">function</span> <span style="color: #721045;">fangfa4</span><span style="color: #000000;">()</span> <span style="color: #000000;">{</span>
-       event.preventDefault<span style="color: #a8007f;">()</span>;
-       alert<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&#21862;&#21862;&#21862;&#21862;&#21862;&#21862;"</span><span style="color: #a8007f;">)</span>;
-   <span style="color: #000000;">}</span>
-  <span style="color: #000000;">&lt;</span>/script<span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
+<pre class="src src-html"><span style="color: #707183;">&lt;</span><span style="color: #0000ff;">html</span><span style="color: #707183;">&gt;</span>
+  <span style="color: #707183;">&lt;</span><span style="color: #0000ff;">form</span> <span style="color: #a0522d;">method</span>=<span style="color: #8b2252;">"get"</span> <span style="color: #a0522d;">action</span>=<span style="color: #8b2252;">"xxx"</span><span style="color: #707183;">&gt;</span>
+    <span style="color: #707183;">&lt;</span><span style="color: #0000ff;">input</span> <span style="color: #a0522d;">name</span>=<span style="color: #8b2252;">"xxx"</span> <span style="color: #a0522d;">value</span>=<span style="color: #8b2252;">"."</span> /<span style="color: #707183;">&gt;</span>
+    <span style="color: #707183;">&lt;</span><span style="color: #0000ff;">button</span> <span style="color: #a0522d;">onclick</span>=<span style="color: #8b2252;">"changge()"</span><span style="color: #707183;">&gt;</span>&#21809;<span style="color: #707183;">&lt;</span>/<span style="color: #0000ff;">button</span><span style="color: #707183;">&gt;</span>
+    <span style="color: #707183;">&lt;</span><span style="color: #0000ff;">button</span> <span style="color: #a0522d;">onclick</span>=<span style="color: #8b2252;">"fangfa1(); return false;"</span><span style="color: #707183;">&gt;</span>&#19968;<span style="color: #707183;">&lt;</span>/<span style="color: #0000ff;">button</span><span style="color: #707183;">&gt;</span>
+    <span style="color: #707183;">&lt;</span><span style="color: #0000ff;">button</span> <span style="color: #a0522d;">onclick</span>=<span style="color: #8b2252;">"return fangfa2()"</span><span style="color: #707183;">&gt;</span>&#20108;<span style="color: #707183;">&lt;</span>/<span style="color: #0000ff;">button</span><span style="color: #707183;">&gt;</span>
+    <span style="color: #707183;">&lt;</span><span style="color: #0000ff;">button</span> <span style="color: #a0522d;">onclick</span>=<span style="color: #8b2252;">"fangfa3(event)"</span><span style="color: #707183;">&gt;</span>&#19977;<span style="color: #707183;">&lt;</span>/<span style="color: #0000ff;">button</span><span style="color: #707183;">&gt;</span>
+    <span style="color: #707183;">&lt;</span><span style="color: #0000ff;">button</span> <span style="color: #a0522d;">onclick</span>=<span style="color: #8b2252;">"fangfa4()"</span><span style="color: #707183;">&gt;</span>&#22235;<span style="color: #707183;">&lt;</span>/<span style="color: #0000ff;">button</span><span style="color: #707183;">&gt;</span>
+    <span style="color: #707183;">&lt;</span><span style="color: #0000ff;">input</span> <span style="color: #a0522d;">type</span>=<span style="color: #8b2252;">"submit"</span> <span style="color: #a0522d;">value</span>=<span style="color: #8b2252;">"eee"</span> /<span style="color: #707183;">&gt;</span>
+  <span style="color: #707183;">&lt;</span>/<span style="color: #0000ff;">form</span><span style="color: #707183;">&gt;</span>
+  <span style="color: #707183;">&lt;</span><span style="color: #0000ff;">script</span><span style="color: #707183;">&gt;</span>
+   <span style="color: #a020f0;">function</span> <span style="color: #0000ff;">changge</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span> alert<span style="color: #7388d6;">(</span><span style="color: #8b2252;">"&#21862;&#21862;&#21862;&#21862;&#21862;&#21862;"</span><span style="color: #7388d6;">)</span> <span style="color: #707183;">}</span>
+   <span style="color: #a020f0;">function</span> <span style="color: #0000ff;">fangfa1</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span> alert<span style="color: #7388d6;">(</span><span style="color: #8b2252;">"&#21862;&#21862;&#21862;&#21862;&#21862;&#21862;"</span><span style="color: #7388d6;">)</span> <span style="color: #707183;">}</span>
+   <span style="color: #a020f0;">function</span> <span style="color: #0000ff;">fangfa2</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span> alert<span style="color: #7388d6;">(</span><span style="color: #8b2252;">"&#21862;&#21862;&#21862;&#21862;&#21862;&#21862;"</span><span style="color: #7388d6;">)</span>; <span style="color: #a020f0;">return</span> <span style="color: #008b8b;">false</span>; <span style="color: #707183;">}</span>
+   <span style="color: #a020f0;">function</span> <span style="color: #0000ff;">fangfa3</span><span style="color: #707183;">(</span><span style="color: #a0522d;">ev</span><span style="color: #707183;">)</span> <span style="color: #707183;">{</span>
+       ev.preventDefault<span style="color: #7388d6;">()</span>;
+       alert<span style="color: #7388d6;">(</span><span style="color: #8b2252;">"&#21862;&#21862;&#21862;&#21862;&#21862;&#21862;"</span><span style="color: #7388d6;">)</span>;
+   <span style="color: #707183;">}</span>
+   <span style="color: #a020f0;">function</span> <span style="color: #0000ff;">fangfa4</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span>
+       event.preventDefault<span style="color: #7388d6;">()</span>;
+       alert<span style="color: #7388d6;">(</span><span style="color: #8b2252;">"&#21862;&#21862;&#21862;&#21862;&#21862;&#21862;"</span><span style="color: #7388d6;">)</span>;
+   <span style="color: #707183;">}</span>
+  <span style="color: #707183;">&lt;</span>/script<span style="color: #707183;">&gt;</span>
+<span style="color: #707183;">&lt;</span>/<span style="color: #0000ff;">html</span><span style="color: #707183;">&gt;</span>
 </pre>
 </div>
 </div>
 </section>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: 悟饭</p>
-<p class="date">Created: 2022-09-21</p>
+<p class="author">Author: 1a2y</p>
+<p class="date">Created: 2022-12-15</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

@@ -1,0 +1,493 @@
+#+TITLE: Database
+
+* Overview
+:PROPERTIES:
+:layout: Center
+:END:
+
+#+ATTR_HTML: :type Heading
+使用 .NET 操作数据库
+
+#+ATTR_HTML: :theme {{ fontSizes: { text: "50px" }}} :style {{ margin: "1em 2em" }}
+- ADO.NET
+- Entity Framework
+- Entity Framework Core
+- Dapper/FreeSQL
+
+* ADO.NET
+:PROPERTIES:
+:layout: top
+:END:
+** ADO.NET         <Grid gridTemplateColumns="1fr 1fr">
+*** <Box>
+
+ADO.NET:
+- System.Data.dll
+- DbConnection, DbCommand, DataReader, DataAdapter, DataSet
+- SqlConnection (SqlServer)
+
+\\
+\\
+
+Entity Framework:
+
+#+begin_example
+  
+ 你 SQL 语句  ---->   SQL 服务器
+            <-----
+
+
+ EF  --object---> 翻译 --sql---->  SQL 服务器
+     <--object--- 封装 ---data---
+
+#+end_example
+
+优点缺点:
+1. 多了中间环节。CPU 内存
+2. 翻译质量怎么样?
+
+ChatGPT
+
+*** <Box>
+
+首先，添加依赖:
+#+begin_src shell
+  dotnet add package System.Data.SqlClient # SqlServer
+  dotnet add package MySql.Data            # MySQL
+  dotnet add package Microsoft.Data.Sqlite # SQLite
+#+end_src
+
+其次，直接使用相关对象完成数据库操作:
+#+begin_src csharp
+
+  // Connection 对象，通道
+  using var conn = new SqlConnection("lianjiezifuchuan");
+  conn.Open();
+
+  // Command 对象，用来描述我们的任务
+  var cmd = new SqlCommand("select * from xxx where id=@id", conn);
+  cmd.Parameters.AddWithValue("id", 3);
+
+  // 执行、发布任务
+  int num = cmd.ExecuteNonQuery();      // 增删改
+  var reader = cmd.ExecuteReader();     // 基于游标的对象
+  var object = cmd.ExecuteScalar();     // 第一行的第一列
+  new DataAdapter(cmd).Fill(dataTable); // 一次到位封装到既定对象中
+#+end_src
+
+整理总结，Sql 连接字符串的写法:
+#+begin_src csharp
+  "server=localhost;database=BookDB;uid=sa;pwd=sa1234";        // 用户名密码登陆
+  "server=127.0.0.1;database=BookDB;integrated security=SSPI"; // Windows 用户登陆
+  "server=.;database=BookDB;integrated security=SSPI";         // 使用 . 代表 localhost
+  "Data Source=localhost;initial catalog=BookDB;integrated security=True;Connect Timeout=30";
+#+end_src
+
+** Procedure       <Grid gridTemplateColumns="1fr 1fr">
+*** <Box>
+
+存储过程:
+- 什么是存储过程?
+- 使用存储过程有什么优点和缺点?
+
+#+begin_quote
+存储过程是一组预编译的 SQL 语句，它可以包含数据操作语句和变量逻辑等。\\
+它保存在数据库中，通过名字可以反复使用。
+\\
+\\
+优点:
+- 效率高
+- 提高系统的安全性
+- 技术成本
+
+缺点:
+- 禁止使用存储过程，存储过程难以调试和扩展，更没有移植性
+#+end_quote
+
+
+SQL (Sequence Query Language)
+:   -- 发送一句话
+:   -- 回应一句话
+
+不是标准。PLSQL/TSQL
+
+[shengchengdingdan] -> 查询 -- 生成 -- 插入订单 -.......
+
+C# -> shengchengdingdan
+
+*** <Box>
+
+编写存储过程:
+#+begin_src sql
+  -- 创建
+  create procedure p_aa1 as
+    create table xxx (a int, b varchar(20));
+    insert into xxx values (1, 2), (2, 3), (3, 4);
+    select * from xxx;
+    waitfor delay '00:00:20' drop table xxx;
+  GO
+
+  -- 执行
+  exec p_aa1;
+  GO
+
+  -- 删除
+  drop procedure p_aa1;
+  drop proc p_aa1;
+
+  -- 修改
+  alter procedure p_aa1 as
+    select * from emp;
+#+end_src
+
+** 存储过程代码示例 <Grid gridTemplateColumns="1fr 1fr 1fr">
+*** 1
+
+没有参数:
+#+begin_src sql
+  create procedure p_aaa as select * from xxx;
+  exec p_aaa;
+#+end_src
+
+*** 2
+
+带有参数:
+#+begin_src sql
+  create procedure
+    p_aaa @name varchar(20) 
+  as
+    select * from xxx where name < @name;
+
+  exec p_aaa 30;
+#+end_src
+
+*** 3
+
+带有参数，还有默认值:
+#+begin_src sql
+  create procedure p_aaa
+    @name varchar(20) = 'Tom'
+  as
+    select * from xxx where name < @name;
+
+  exec p_aaa;
+  exec p_aaa 'xxx';
+#+end_src
+
+*** 4
+
+带 output 参数的存储过程:
+#+begin_src sql
+  create procedure p_aaa
+    @r int output
+  as
+    select @r = count(*) from xxx;
+
+  -- 调用
+  declare @rrr int;
+  exec p_aaa @rrr output;
+#+end_src
+
+*** 5
+
+混合各种参数:
+#+begin_src sql
+  create procedure p_aaa
+    @n varchar(20) = 'TOM',
+    @r int output
+  as
+    select @r = count(*) from xxx where name < @n;
+
+  -- 调用
+  declare @rrr int;
+  exec p_aaa 'Cat', @rrr output;
+
+  -- 查看返回的结果
+  select @rrr;
+#+end_src
+
+** 系统存储过程
+
+系统内置的存储过程，一般是 sp_ 开始 (system procedure):
+#+begin_src sql
+  exec sp_databases;
+  exec sp_help;
+  exec sp_helptext sp_databases;
+  exec sp_helptext sp_helptext; -- 查看存储过程怎么写的
+
+  exec sp_tables;
+  exec sp_columns emp;
+#+end_src
+
+扩展出来的存储过程以 xp_ 开始 (extenstion procedure):
+#+begin_src sql
+  exec xp_cmdshell 'mkdir e:\hello';
+  exec xp_fileexist 'e:\hello';
+
+  -- xp_enumgroups;
+  -- xp_loginconfig
+  -- xp_msver
+  -- xp_grantlogin;
+  -- ...
+#+end_src
+
+** 使用存储过程实现报表
+
+为 emp 生成统计数据，统计所有部门的平均工资、最小工资和最大工资，将结果保存到 tj_emp 表中。要求:
+- 如果这张表不存在，那么创建
+- 如果这张表存在，但是里面有数据，清空它
+- 如果插入完成，在日志表 (my_log) 插入一条信息
+
+*** <Appear>
+
+写法示例，仅供参考:
+
+#+ATTR_HTML: :style {{ margin: "2em" }}
+#+begin_src sql
+  create procedure p_tj_emp
+    @lowsal int = 1000,
+    @highsal int = 10000
+  as
+  begin
+    -- 如果不存在，创建之
+    if not exists (select * from sys.tables where name = 'tj_emp')
+       create table tj_emp (deptno int, a float, b float, c float);
+    -- 清空数据
+    truncate table tj_emp;
+    -- 插入新的数据
+    insert into tj_emp select deptno, avg(sal) as a, max(sal) as b, min(sal) as c from emp
+      where sal >= @lowsal and sal <= @highsal
+      group by deptno;
+    -- 记录日志
+    insert into my_log (message) values ('统计完成 - ' + convert(varchar(200), getdate(), 20));
+    -- 结束
+    print 'hello, finished.';
+  end
+#+end_src
+
+** 数据库中的其他对象 <Grid gridTemplateColumns="1fr 1fr">
+*** <Box>
+
+数据库中的其他对象:
+- Table/Index
+- View 视图，虚表
+- Function 函数
+- Trigger 触发器
+
+#+ATTR_HTML: :margin 2em 0
+#+begin_src sql
+  -- 视图
+  create view zh_works as select * from works where city = '珠海';
+  select * from zh_works where sal > 2000;
+  select * from works where city = '珠海' and sal > 2000;
+
+  -- 函数，返回值
+  select getdate();
+  select 32000/datediff(day,'2019-08-05','2020-08-07');
+  select rand() + 3333;
+#+end_src
+
+*** <Box>
+
+对于函数，一定要有返回值:
+#+begin_src sql
+  create function pingjungongzi (@deptno int) returns int
+  as
+  begin
+    declare @avgsal int;
+    select @avgsal = avg(sal) from emp where deptno = @deptno;
+    return @avgsal;
+  end;
+
+  -- 调用刚才的函数
+  select dbo.pingjungongzi(20);
+
+  -- 另外调用方式
+  declare @s int;
+  exec @s = pingjungongzi 20;
+#+end_src
+
+触发器:
+#+begin_src sql
+  -- 触发器被自动执行
+  create trigger tri_emp_insert_jiagongzi
+    on emp
+    after insert
+  as -- inserted 表示插入的数据形成的临时表，名字就叫 inserted
+    update emp set sal = sal + 100 where empno = (select mgr from inserted);
+
+  -- 测试
+  select * from emp;
+  insert into emp (empno, ename, mgr, deptno, sal)
+    values (999, 'ganmaoling', 7902, 10, 2000);
+#+end_src
+
+** 使用 ADO.NET 操作存储过程
+
+首先，确保存储过程已存在:
+#+begin_src sql
+  create procedure [CSharp].[GetBooks] @name nvarchar(20)
+     as select * from books where name = @name
+#+end_src
+
+使用 ADO.NET 的语法操作存储过程:
+#+begin_src csharp
+  var command = conn.CreateCommand();
+  command.CommandText = "[CSharp].[GetBooks]";
+  command.CommandType = CommandType.StoredProcedure;
+
+  var p1 = command.CreateParameter();
+  p1.SqlDbType = SqlDbType.NvarChar;
+  p1.ParameterName = "@name";
+  p1.Value = "xxx";
+  command.Parameters.Add(p1);
+
+  conn.Open();
+
+  using var reader = command.ExecuteReader();
+  while(reader.Read())
+  {
+      Console.WriteLine($"{(int)reader[1]}");
+  }
+#+end_src
+
+** Q & A
+:PROPERTIES:
+:props: theme={t2}
+:END:
+
+写一个 SQL 存储过程:
+- 建立一个表 Books, 字段是编号、书名、价格、库存、入库日期 （如果表不存在）
+- 向里面插入 6 条数据 (如果不存在数据)
+- 然后查询出除了价格最高的书之外的价格最高的 3 条数据
+
+学生信息管理系统中有张表 STUDENT，其中，有字段 ID、NAME、SEX、BIRTH。
+请回答如下问题： 
+1. 找出 NAME 相同的学生（用一句SQL语句）
+2. 用一句 SQL 语句把学生 SEX 为男的改为女，女的改为男
+
+
+** Case when
+
+Case When 在 SQL 中的使用。
+
+#+begin_example
+   student
+   name      sex addr weixin
+   zhangsan  1,2 ..
+
+   "select name, sex from student;"
+   
+   string displaySex;
+   if (sex == 1) displaySex = "男"; else displaySex = "女";
+
+   label1.Text = displaySex;
+
+   -----
+   x = 3; 赋值。 x == 3; 判断
+   x := 3; x = 3
+   select x = 3 ...., 歧义. where x = 3 and y = 4;
+   -----
+
+   select name, case when sex = 1 then '男' case when sex = 2 then '女' else '未知' end from student;
+   update student set sex = case when sex = 1 then 2 else 1 end;
+
+#+end_example
+
+   SQL 行列转换
+
+** Cursor <Grid gridTemplateColumns="1fr 1fr">
+*** <Box>
+
+游标, Cursor。
+
+   var books = db.Books.Where(x => x.Name.Length > 3).ToList(); // lazy
+
+   select * from students where like 'xxx%';
+
+   
+  #+begin_src csharp
+    using (SqlDataReader reader = command.ExecuteReader())
+    {
+        if (reader.HasRows)
+        {
+            while (reader.Read())
+            {
+                if (reader[0] > 3) {
+                   Console.WriteLine("{0}: {1:C}", reader[0], reader[1]);
+                }   
+            }
+        }
+    }
+
+    var dt = new DataTable();
+    var adapter = new SqlDataAdapter("select * from orders", conn);
+    adapter.Fill(dt);
+  #+end_src
+  
+*** <Box>
+  
+当执行一条语句时，Oracle 会打开一片工作区，将结果保存在里面。
+在这片工作区，存在一个指针，默认指向第一条记录。我们可以通过移动指针获取不同记录。
+
+这个指针，就是游标。
+
+游标分为隐式游标和显式游标。
+- 隐式游标是 Oracle 自动管理的，比如我们进行一次 update，Oracle 会打开一个游标定位到数据，我们更新结束后，Oracle 就会把游标给关闭。
+- 显式游标，就是我们要自定义的游标，主要用来处理有多条数据返回的查询。
+
+#+ATTR_HTML: :marginTop 1em
+#+begin_src sql
+  declare
+    vemp emp%rowtype;
+    -- 定义游标
+    cursor c_emp is select * from emp where sal > 2000;
+  begin
+    -- 打开游标
+    open c_emp;
+
+    -- 提取游标当前数据
+    fetch c_emp into vemp;
+    loop
+      dbms_output.put_line(vemp.ename || '的工资是' || vemp.sal);
+      fetch c_emp into vemp;
+      exit when c_emp%notfound;
+    end loop;
+
+    -- 关闭游标
+    close c_emp;
+  end;
+#+end_src
+  
+
+* <config>                                                           :NOEXPORT:
+
+#+THEME: t1
+#+EXPORT_LEVEL: 1
+
+#+begin_src js
+  const t1 = {
+      ...defaultTheme,
+      fontSizes: {
+          text: "14px",
+          monospace: "14px"
+      },
+      fonts: {
+          text: "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      },
+      space: [10, 8, 20],
+      size: { width: "100%", height: "100%" }
+  }
+  const t2 = {
+      ...t1,
+      fontSizes: {
+          text: "34px",
+          monospace: "34px"
+      },
+  }
+#+end_src
+
+#+begin_src css
+  pre { margin: 5px 1em !important; }
+  .example pre { background-color:transparent !important; margin: 0 2em !important; }
+#+end_src
