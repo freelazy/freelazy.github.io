@@ -18,7 +18,7 @@
 :PROPERTIES:
 :layout: top
 :END:
-** ADO.NET         <Grid gridTemplateColumns="1fr 1fr">
+** ADO.NET         <RowGrid>
 *** <Box>
 
 ADO.NET:
@@ -83,7 +83,7 @@ ChatGPT
   "Data Source=localhost;initial catalog=BookDB;integrated security=True;Connect Timeout=30";
 #+end_src
 
-** Procedure       <Grid gridTemplateColumns="1fr 1fr">
+** Procedure       <RowGrid>
 *** <Box>
 
 存储过程:
@@ -140,7 +140,7 @@ C# -> shengchengdingdan
     select * from emp;
 #+end_src
 
-** 存储过程代码示例 <Grid gridTemplateColumns="1fr 1fr 1fr">
+** 存储过程代码示例  <ColFlexBox>
 *** 1
 
 没有参数:
@@ -242,7 +242,7 @@ C# -> shengchengdingdan
 
 写法示例，仅供参考:
 
-#+ATTR_HTML: :style {{ margin: "2em" }}
+#+ATTR_HTML: :style {{ margin: "1em" }}
 #+begin_src sql
   create procedure p_tj_emp
     @lowsal int = 1000,
@@ -265,7 +265,7 @@ C# -> shengchengdingdan
   end
 #+end_src
 
-** 数据库中的其他对象 <Grid gridTemplateColumns="1fr 1fr">
+** 数据库中的其他对象 <RowGrid>
 *** <Box>
 
 数据库中的其他对象:
@@ -366,7 +366,6 @@ C# -> shengchengdingdan
 1. 找出 NAME 相同的学生（用一句SQL语句）
 2. 用一句 SQL 语句把学生 SEX 为男的改为女，女的改为男
 
-
 ** Case when
 
 Case When 在 SQL 中的使用。
@@ -396,7 +395,7 @@ Case When 在 SQL 中的使用。
 
    SQL 行列转换
 
-** Cursor <Grid gridTemplateColumns="1fr 1fr">
+** Cursor           <RowGrid>
 *** <Box>
 
 游标, Cursor。
@@ -490,4 +489,27 @@ Case When 在 SQL 中的使用。
 #+begin_src css
   pre { margin: 5px 1em !important; }
   .example pre { background-color:transparent !important; margin: 0 2em !important; }
+#+end_src
+
+** Components
+
+#+EXTERN_COMPONENTS: ColFlexBox RowFlexBox RowGrid
+
+#+begin_src js
+  const ColFlexBox = (props) => {
+      return html`<${FlexBox} 
+           style=${{flexFlow: "column wrap", justifyContent: "flex-start", alignItems: "stretch", height: "90%"}}
+           ...${props}>
+        </${FlexBox}>`
+  };
+  const RowFlexBox = (props) => {
+      return html`<${FlexBox}
+           style=${{flexFlow: "row nowrap", justifyContent: "flex-start", alignItems: "stretch", alignContent: "stretch" }}
+           ...${props}>
+        </${FlexBox}>`
+  };
+  const RowGrid = (props) => {
+      const n = props.n || 2;
+      return html `<${Grid} gridTemplateColumns=${"1fr ".repeat(n).trim()} ...${props}></${Grid}>`
+  };
 #+end_src

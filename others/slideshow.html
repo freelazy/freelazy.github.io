@@ -392,6 +392,23 @@ const t2 = {
     },
 }
 
+const ColFlexBox = (props) => {
+    return html`<${FlexBox} 
+         style=${{flexFlow: "column wrap", justifyContent: "flex-start", alignItems: "stretch", height: "90%"}}
+         ...${props}>
+      </${FlexBox}>`
+};
+const RowFlexBox = (props) => {
+    return html`<${FlexBox}
+         style=${{flexFlow: "row nowrap", justifyContent: "flex-start", alignItems: "stretch", alignContent: "stretch" }}
+         ...${props}>
+      </${FlexBox}>`
+};
+const RowGrid = (props) => {
+    const n = props.n || 2;
+    return html `<${Grid} gridTemplateColumns=${"1fr ".repeat(n).trim()} ...${props}></${Grid}>`
+};
+
 
     /* presentation definition begin */
 
@@ -412,7 +429,7 @@ const t2 = {
 
 <!------ slide (2_1) begin ------>
 
-<${Slide}><${Grid} gridTemplateColumns="1fr 1fr"><${Box}><${Box}><${Text}>ADO.NET:</${Text}>
+<${Slide}><${RowGrid}><${Box}><${Text}>ADO.NET:</${Text}>
 <${UnorderedList}>
 <${ListItem}>System.Data.dll</${ListItem}>
 <${ListItem}>DbConnection, DbCommand, DataReader, DataAdapter, DataSet</${ListItem}>
@@ -427,7 +444,7 @@ const t2 = {
 <div className='example'>
 <${CodePane} showLineNumbers=${false}>
 ${`
-
+  
  你 SQL 语句  ---->   SQL 服务器
             <-----
 
@@ -447,9 +464,9 @@ ${`
 </${OrderedList}>
 
 <${Text}>ChatGPT</${Text}>
- </${Box}}></${Box}>
+</${Box}>
 
-<${Box}><${Box}><${Text}>首先，添加依赖:</${Text}>
+<${Box}><${Text}>首先，添加依赖:</${Text}>
 <${CodePane} language='shell' showLineNumbers=${false}>
 ${`
 dotnet add package System.Data.SqlClient # SqlServer
@@ -490,13 +507,13 @@ ${`
 
 `}
 </${CodePane}>
- </${Box}}></${Box}>
- </${Grid}}></${Slide}>
+</${Box}>
+ </${RowGrid}></${Slide}>
 
 
 <!------ slide (2_2) begin ------>
 
-<${Slide}><${Grid} gridTemplateColumns="1fr 1fr"><${Box}><${Box}><${Text}>存储过程:</${Text}>
+<${Slide}><${RowGrid}><${Box}><${Text}>存储过程:</${Text}>
 <${UnorderedList}>
 <${ListItem}>什么是存储过程?</${ListItem}>
 <${ListItem}>使用存储过程有什么优点和缺点?</${ListItem}>
@@ -532,9 +549,9 @@ ${`
 <${Text}>[shengchengdingdan] -> 查询 -- 生成 -- 插入订单 -.......</${Text}>
 
 <${Text}>C# -> shengchengdingdan</${Text}>
- </${Box}}></${Box}>
+</${Box}>
 
-<${Box}><${Box}><${Text}>编写存储过程:</${Text}>
+<${Box}><${Text}>编写存储过程:</${Text}>
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 -- 创建
@@ -559,13 +576,13 @@ alter procedure p_aa1 as
 
 `}
 </${CodePane}>
- </${Box}}></${Box}>
- </${Grid}}></${Slide}>
+</${Box}>
+ </${RowGrid}></${Slide}>
 
 
 <!------ slide (2_3) begin ------>
 
-<${Slide}><${Grid} gridTemplateColumns="1fr 1fr 1fr"><${Box}><${Text}>没有参数:</${Text}>
+<${Slide}><${ColFlexBox}><${Box}><${Text}>没有参数:</${Text}>
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure p_aaa as select * from xxx;
@@ -579,7 +596,7 @@ exec p_aaa;
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure
-  p_aaa @name varchar(20)
+  p_aaa @name varchar(20) 
 as
   select * from xxx where name < @name;
 
@@ -639,7 +656,7 @@ select @rrr;
 `}
 </${CodePane}>
 </${Box}>
- </${Grid}}></${Slide}>
+ </${ColFlexBox}></${Slide}>
 
 
 <!------ slide (2_4) begin ------>
@@ -684,9 +701,9 @@ exec xp_fileexist 'e:\hello';
 <${ListItem}>如果插入完成，在日志表 (my_log) 插入一条信息</${ListItem}>
 </${UnorderedList}>
 
-<${Box}><${Appear}><${Text}>写法示例，仅供参考:</${Text}>
+<${Appear}><${Text}>写法示例，仅供参考:</${Text}>
 
-<${Box} style=${{ margin: "2em" }}>
+<${Box} style=${{ margin: "1em" }}>
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure p_tj_emp
@@ -712,13 +729,13 @@ end
 `}
 </${CodePane}>
 </${Box}>
- </${Appear}}></${Box}>
+</${Appear}>
 </${Slide}>
 
 
 <!------ slide (2_6) begin ------>
 
-<${Slide}><${Grid} gridTemplateColumns="1fr 1fr"><${Box}><${Box}><${Text}>数据库中的其他对象:</${Text}>
+<${Slide}><${RowGrid}><${Box}><${Text}>数据库中的其他对象:</${Text}>
 <${UnorderedList}>
 <${ListItem}>Table/Index</${ListItem}>
 <${ListItem}>View 视图，虚表</${ListItem}>
@@ -742,9 +759,9 @@ select rand() + 3333;
 `}
 </${CodePane}>
 </${Box}>
- </${Box}}></${Box}>
+</${Box}>
 
-<${Box}><${Box}><${Text}>对于函数，一定要有返回值:</${Text}>
+<${Box}><${Text}>对于函数，一定要有返回值:</${Text}>
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create function pingjungongzi (@deptno int) returns int
@@ -782,8 +799,8 @@ insert into emp (empno, ename, mgr, deptno, sal)
 
 `}
 </${CodePane}>
- </${Box}}></${Box}>
- </${Grid}}></${Slide}>
+</${Box}>
+ </${RowGrid}></${Slide}>
 
 
 <!------ slide (2_7) begin ------>
@@ -854,7 +871,7 @@ ${`
    zhangsan  1,2 ..
 
    "select name, sex from student;"
-
+   
    string displaySex;
    if (sex == 1) displaySex = "男"; else displaySex = "女";
 
@@ -880,7 +897,7 @@ ${`
 
 <!------ slide (2_10) begin ------>
 
-<${Slide}><${Grid} gridTemplateColumns="1fr 1fr"><${Box}><${Box}><${Text}>游标, Cursor。</${Text}>
+<${Slide}><${RowGrid}><${Box}><${Text}>游标, Cursor。</${Text}>
 
 <${Text}>var books = db.Books.Where(x => x.Name.Length > 3).ToList(); // lazy</${Text}>
 
@@ -897,7 +914,7 @@ ${`
           {
               if (reader[0] > 3) {
                  Console.WriteLine("{0}: {1:C}", reader[0], reader[1]);
-              }
+              }   
           }
       }
   }
@@ -908,9 +925,9 @@ ${`
 
 `}
 </${CodePane}>
- </${Box}}></${Box}>
+</${Box}>
 
-<${Box}><${Box}><${Text}>当执行一条语句时，Oracle 会打开一片工作区，将结果保存在里面。
+<${Box}><${Text}>当执行一条语句时，Oracle 会打开一片工作区，将结果保存在里面。
 在这片工作区，存在一个指针，默认指向第一条记录。我们可以通过移动指针获取不同记录。</${Text}>
 
 <${Text}>这个指针，就是游标。</${Text}>
@@ -947,8 +964,8 @@ end;
 `}
 </${CodePane}>
 </${Box}>
- </${Box}}></${Box}>
- </${Grid}}></${Slide}>
+</${Box}>
+ </${RowGrid}></${Slide}>
 
 </${Deck}>`;
 
