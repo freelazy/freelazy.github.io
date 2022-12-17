@@ -892,7 +892,7 @@ ${`
 -- 勿以善小而不为，勿以恶小而为之。从细节做起，别妥协，不要养成不好的习惯
 
 if exists (select * from sys.objects where name  ='p_selects_books')
-  drop procedure p_selects_books   -- 风险性提醒
+    drop procedure p_selects_books   -- 风险性提醒
 
 go
 
@@ -900,15 +900,33 @@ create procedure p_selects_books
 as
 begin
     if not exists (select * from sys.objects where name  ='t_books')
-      create table t_books (...);
-    if not exists (select * from t_books)
-      insert into t_books values (..), (..), (..), (..), (..), (..);
+      create table t_books (
+        isbn varchar(100) primary key,
+        name varchar(100) not null, 
+        price money not null check(price > 0),
+        amount int default 0,
+        category varchar(20),
+        updated_at datetime default getdate()
+    );
+
+    if not exists (select top 1 * from t_books)
+      insert into t_books (isbn, name, price, amount, category) values
+        ('110', 'aaa', 234, 23, 'a'),
+        ('111', 'bbb', 25, 3, 'a'),
+        ('112', 'ccc', 76, 100, 'b'),
+        ('113', 'ddd', 111, 99, 'b'),
+        ('114', 'eee', 981, 98, 'a'),
+        ('115', 'fff', 2, 96, 'a');
 
     select top 3 * from (
-       select top 4 * from t_books order by book_price desc
-    ) t_books order by book_price;
+       select top 4 * from t_books order by price desc
+    ) t_books order by price;
 
-    -- 基于排序的进一步筛选，通用的方案是 row_number() 窗口函数
+    select * from (
+       select row_number() over (order by price desc) n, * from t_books
+    ) x where n between 2 and 4;
+
+    select * from t_books order by price desc offset 1 rows fetch next 3 rows only;
 end
 
 go
