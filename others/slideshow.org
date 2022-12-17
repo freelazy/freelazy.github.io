@@ -350,19 +350,45 @@ C# -> shengchengdingdan
   }
 #+end_src
 
-** Q & A  <ColFlexBox>
-:PROPERTIES:
-:props: theme={t2}
-:END:
+** Q & A (row_number/pagination)
+*** <Box backgroundColor="rgba(0,0,0,0.2)">
 
 写一个 SQL 存储过程:
 - 建立一个表 Books, 字段是编号、书名、价格、库存、入库日期 （如果表不存在）
 - 向里面插入 6 条数据 (如果不存在数据)
 - 然后查询出除了价格最高的书之外的价格最高的 3 条数据
 
+*** <ColFlexBox>
+:PROPERTIES:
+:props: theme={t2}
+:END:
+
+分页的基本实现方式:
+1. Top
+2. row_number 窗口函数
+3. offset fetch next
+
+#+begin_example
+row_number:
+- 先分区 (partition by, 如果没有，那么将整个数据集作为一个分区)
+- 再基于每个分区执行排序 (order by)
+- 再给每个分区的每条数据添加行号
+#+end_example
+
+返回: 所有的书籍，每种类型价格排第二的数据:
+#+begin_src sql
+  select * from (
+    select row_number()
+             over
+             (partition by category order by price desc) n, * from t_books
+  ) x where n = 2;
+#+end_src
+
+#+SPLIT: t
+
 参考答案:
 
-#+ATTR_HTML: :style {{overflow: "auto", height: "500px"}}
+#+ATTR_HTML: :style {{overflow: "auto", height: "450px"}}
 #+begin_src sql
   -- 数据库一般是不区分大小写的，所以最好不要使用驼峰命名
   -- 命名的时候，最好遵循一定的规范。比如存储过程 p 开始，触发器 tr/tri;
@@ -413,14 +439,18 @@ C# -> shengchengdingdan
   go
 #+end_src
 
-#+SPLIT: t
+** Q & A (case when)
+*** <Box backgroundColor="rgba(0,0,0,0.2)">
 
 学生信息管理系统中有张表 STUDENT，其中，有字段 ID、NAME、SEX、BIRTH。
 请回答如下问题： 
 1. 找出 NAME 相同的学生（用一句SQL语句）
 2. 用一句 SQL 语句把学生 SEX 为男的改为女，女的改为男
 
-** Case when
+*** <RowGrid>
+:PROPERTIES:
+:props: theme={t2}
+:END:
 
 Case When 在 SQL 中的使用。
 
@@ -442,12 +472,43 @@ Case When 在 SQL 中的使用。
    select x = 3 ...., 歧义. where x = 3 and y = 4;
    -----
 
-   select name, case when sex = 1 then '男' case when sex = 2 then '女' else '未知' end from student;
+   select name, case when sex = 1 then '男' 
+                case when sex = 2 then '女'
+                else '未知' end from student;
    update student set sex = case when sex = 1 then 2 else 1 end;
-
 #+end_example
 
-   SQL 行列转换
+SQL 行列转换
+
+#+SPLIT: t
+
+参考答案:
+#+begin_src sql
+  create procedure p_stu as
+  if not exists(select * from sys.tables where name='student')
+    create table student (id int primary key, name varchar(20), sex varchar(20), birth datetime/datetime2);
+
+  truncate table student;
+  insert into student values
+      (1, '张三','男','2001-02-12')
+    , (2, '李四','男','2004-06-11')
+    , (3, '张三','女','2001-06-14')
+    , (4, '李四','女','2003-11-21')
+    , (5, '张三风','男','2001-06-12');
+
+  -- in vs exists
+  -- where... order by .. group by... having..
+  select * from student where name in 
+    (select name from student group by name having count(*) > 1);
+
+  -- case when
+  update student set sex= case when sex='男' then'女' when sex='女' then '男' end;
+  
+  -- 定时删除
+  waitfor delay '00:00:20' drop table student;
+
+  GO
+#+end_src
 
 ** Cursor           <RowGrid>
 *** <Box>
@@ -529,7 +590,7 @@ Case When 在 SQL 中的使用。
           text: "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
       },
       space: [10, 8, 20],
-      size: { width: "100%", height: "100%" }
+      size: { width: "100%", height: "100%", maxCodePaneHeight: 100 }
   }
   const t2 = {
       ...t1,
@@ -538,6 +599,7 @@ Case When 在 SQL 中的使用。
           monospace: "34px"
       },
   }
+  console.log(defaultTheme);
 #+end_src
 
 #+begin_src css

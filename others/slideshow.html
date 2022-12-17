@@ -407,7 +407,7 @@ const t1 = {
         text: "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
     },
     space: [10, 8, 20],
-    size: { width: "100%", height: "100%" }
+    size: { width: "100%", height: "100%", maxCodePaneHeight: 100 }
 }
 const t2 = {
     ...t1,
@@ -416,6 +416,7 @@ const t2 = {
         monospace: "34px"
     },
 }
+console.log(defaultTheme);
 
 const ColFlexBox = (props) => {
     return html`<${FlexBox} 
@@ -873,18 +874,52 @@ while(reader.Read())
 
 <!------ slide (2_8) begin ------>
 
-<${Slide} theme=${t2}><${ColFlexBox}>
-<${Box}>
-<${Text}>写一个 SQL 存储过程:</${Text}>
+<${Slide}><${Box} backgroundColor="rgba(0,0,0,0.2)"><${Text}>写一个 SQL 存储过程:</${Text}>
 <${UnorderedList}>
 <${ListItem}>建立一个表 Books, 字段是编号、书名、价格、库存、入库日期 （如果表不存在）</${ListItem}>
 <${ListItem}>向里面插入 6 条数据 (如果不存在数据)</${ListItem}>
 <${ListItem}>然后查询出除了价格最高的书之外的价格最高的 3 条数据</${ListItem}>
 </${UnorderedList}>
+</${Box}>
 
+<${ColFlexBox} theme=${t2}>
+<${Box}>
+<${Text}>分页的基本实现方式:</${Text}>
+<${OrderedList}>
+<${ListItem}>Top</${ListItem}>
+<${ListItem}>row_number 窗口函数</${ListItem}>
+<${ListItem}>offset fetch next</${ListItem}>
+</${OrderedList}>
+
+<div className='example'>
+<${CodePane} showLineNumbers=${false}>
+${`
+row_number:
+- 先分区 (partition by, 如果没有，那么将整个数据集作为一个分区)
+- 再基于每个分区执行排序 (order by)
+- 再给每个分区的每条数据添加行号
+
+`}
+</${CodePane}>
+</div>
+
+<${Text}>返回: 所有的书籍，每种类型价格排第二的数据:</${Text}>
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+select * from (
+  select row_number()
+           over
+           (partition by category order by price desc) n, * from t_books
+) x where n = 2;
+
+`}
+</${CodePane}>
+</${Box}>
+
+<${Box}>
 <${Text}>参考答案:</${Text}>
 
-<${Box} style=${{overflow: "auto", height: "500px"}}>
+<${Box} style=${{overflow: "auto", height: "450px"}}>
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 -- 数据库一般是不区分大小写的，所以最好不要使用驼峰命名
@@ -939,21 +974,23 @@ go
 </${CodePane}>
 </${Box}>
 </${Box}>
+</${ColFlexBox}>
+</${Slide}>
 
-<${Box}>
-<${Text}>学生信息管理系统中有张表 STUDENT，其中，有字段 ID、NAME、SEX、BIRTH。
+
+<!------ slide (2_9) begin ------>
+
+<${Slide}><${Box} backgroundColor="rgba(0,0,0,0.2)"><${Text}>学生信息管理系统中有张表 STUDENT，其中，有字段 ID、NAME、SEX、BIRTH。
 请回答如下问题：</${Text}>
 <${OrderedList}>
 <${ListItem}>找出 NAME 相同的学生（用一句SQL语句）</${ListItem}>
 <${ListItem}>用一句 SQL 语句把学生 SEX 为男的改为女，女的改为男</${ListItem}>
 </${OrderedList}>
 </${Box}>
- </${ColFlexBox}></${Slide}>
 
-
-<!------ slide (2_9) begin ------>
-
-<${Slide}><${Text}>Case When 在 SQL 中的使用。</${Text}>
+<${RowGrid} theme=${t2}>
+<${Box}>
+<${Text}>Case When 在 SQL 中的使用。</${Text}>
 
 <div className='example'>
 <${CodePane} showLineNumbers=${false}>
@@ -975,15 +1012,51 @@ ${`
    select x = 3 ...., 歧义. where x = 3 and y = 4;
    -----
 
-   select name, case when sex = 1 then '男' case when sex = 2 then '女' else '未知' end from student;
+   select name, case when sex = 1 then '男' 
+                case when sex = 2 then '女'
+                else '未知' end from student;
    update student set sex = case when sex = 1 then 2 else 1 end;
-
 
 `}
 </${CodePane}>
 </div>
 
 <${Text}>SQL 行列转换</${Text}>
+</${Box}>
+
+<${Box}>
+<${Text}>参考答案:</${Text}>
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+create procedure p_stu as
+if not exists(select * from sys.tables where name='student')
+  create table student (id int primary key, name varchar(20), sex varchar(20), birth datetime/datetime2);
+
+truncate table student;
+insert into student values
+    (1, '张三','男','2001-02-12')
+  , (2, '李四','男','2004-06-11')
+  , (3, '张三','女','2001-06-14')
+  , (4, '李四','女','2003-11-21')
+  , (5, '张三风','男','2001-06-12');
+
+-- in vs exists
+-- where... order by .. group by... having..
+select * from student where name in 
+  (select name from student group by name having count(*) > 1);
+
+-- case when
+update student set sex= case when sex='男' then'女' when sex='女' then '男' end;
+
+-- 定时删除
+waitfor delay '00:00:20' drop table student;
+
+GO
+
+`}
+</${CodePane}>
+</${Box}>
+</${RowGrid}>
 </${Slide}>
 
 
