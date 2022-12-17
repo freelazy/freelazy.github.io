@@ -336,6 +336,31 @@ a.getModuleId)?!0:!1};b.typeOf=c});
 <style>
 pre { margin: 5px 1em !important; }
 .example pre { background-color:transparent !important; margin: 0 2em !important; }
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 80%;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(179, 177, 177);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(136, 136, 136);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(100, 100, 100);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgb(68, 68, 68);
+  border-radius: 5px;
+}
 </style>
 
 </head>
@@ -546,7 +571,7 @@ ${`
 
 <${Text}>不是标准。PLSQL/TSQL</${Text}>
 
-<${Text}>[shengchengdingdan] -> 查询 -- 生成 -- 插入订单 -.......</${Text}>
+<${Text}>[shengchengdingdan] -> 查询 &#x2013; 生成 &#x2013; 插入订单 -&#x2026;&#x2026;.</${Text}>
 
 <${Text}>C# -> shengchengdingdan</${Text}>
 </${Box}>
@@ -582,7 +607,9 @@ alter procedure p_aa1 as
 
 <!------ slide (2_3) begin ------>
 
-<${Slide}><${ColFlexBox}><${Box}><${Text}>没有参数:</${Text}>
+<${Slide}><${ColFlexBox}>
+<${Box}>
+<${Text}>没有参数:</${Text}>
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure p_aaa as select * from xxx;
@@ -592,7 +619,8 @@ exec p_aaa;
 </${CodePane}>
 </${Box}>
 
-<${Box}><${Text}>带有参数:</${Text}>
+<${Box}>
+<${Text}>带有参数:</${Text}>
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure
@@ -606,7 +634,8 @@ exec p_aaa 30;
 </${CodePane}>
 </${Box}>
 
-<${Box}><${Text}>带有参数，还有默认值:</${Text}>
+<${Box}>
+<${Text}>带有参数，还有默认值:</${Text}>
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure p_aaa
@@ -621,7 +650,8 @@ exec p_aaa 'xxx';
 </${CodePane}>
 </${Box}>
 
-<${Box}><${Text}>带 output 参数的存储过程:</${Text}>
+<${Box}>
+<${Text}>带 output 参数的存储过程:</${Text}>
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure p_aaa
@@ -637,7 +667,8 @@ exec p_aaa @rrr output;
 </${CodePane}>
 </${Box}>
 
-<${Box}><${Text}>混合各种参数:</${Text}>
+<${Box}>
+<${Text}>混合各种参数:</${Text}>
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure p_aaa
@@ -842,21 +873,64 @@ while(reader.Read())
 
 <!------ slide (2_8) begin ------>
 
-<${Slide} theme=${t2}><${Text}>写一个 SQL 存储过程:</${Text}>
+<${Slide} theme=${t2}><${ColFlexBox}>
+<${Box}>
+<${Text}>写一个 SQL 存储过程:</${Text}>
 <${UnorderedList}>
 <${ListItem}>建立一个表 Books, 字段是编号、书名、价格、库存、入库日期 （如果表不存在）</${ListItem}>
 <${ListItem}>向里面插入 6 条数据 (如果不存在数据)</${ListItem}>
 <${ListItem}>然后查询出除了价格最高的书之外的价格最高的 3 条数据</${ListItem}>
 </${UnorderedList}>
 
+<${Text}>参考答案:</${Text}>
+
+<${Box} style=${{overflow: "auto", height: "500px"}}>
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+-- 数据库一般是不区分大小写的，所以最好不要使用驼峰命名
+-- 命名的时候，最好遵循一定的规范。比如存储过程 p 开始，触发器 tr/tri;
+-- 勿以善小而不为，勿以恶小而为之。从细节做起，别妥协，不要养成不好的习惯
+
+if exists (select * from sys.objects where name  ='p_selects_books')
+  drop procedure p_selects_books   -- 风险性提醒
+
+go
+
+create procedure p_selects_books
+as
+begin
+    if not exists (select * from sys.objects where name  ='t_books')
+      create table t_books (...);
+    if not exists (select * from t_books)
+      insert into t_books values (..), (..), (..), (..), (..), (..);
+
+    select top 3 * from (
+       select top 4 * from t_books order by book_price desc
+    ) t_books order by book_price;
+
+    -- 基于排序的进一步筛选，通用的方案是 row_number() 窗口函数
+end
+
+go
+
+--调用，执行存储过程
+exec p_selects_books;
+go
+
+`}
+</${CodePane}>
+</${Box}>
+</${Box}>
+
+<${Box}>
 <${Text}>学生信息管理系统中有张表 STUDENT，其中，有字段 ID、NAME、SEX、BIRTH。
 请回答如下问题：</${Text}>
 <${OrderedList}>
 <${ListItem}>找出 NAME 相同的学生（用一句SQL语句）</${ListItem}>
 <${ListItem}>用一句 SQL 语句把学生 SEX 为男的改为女，女的改为男</${ListItem}>
 </${OrderedList}>
-</${Slide}>
-
+</${Box}>
+ </${ColFlexBox}></${Slide}>
 
 
 <!------ slide (2_9) begin ------>

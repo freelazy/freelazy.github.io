@@ -141,7 +141,6 @@ C# -> shengchengdingdan
 #+end_src
 
 ** 存储过程代码示例  <ColFlexBox>
-*** 1
 
 没有参数:
 #+begin_src sql
@@ -149,7 +148,7 @@ C# -> shengchengdingdan
   exec p_aaa;
 #+end_src
 
-*** 2
+#+SPLIT: t
 
 带有参数:
 #+begin_src sql
@@ -161,7 +160,7 @@ C# -> shengchengdingdan
   exec p_aaa 30;
 #+end_src
 
-*** 3
+#+SPLIT: t
 
 带有参数，还有默认值:
 #+begin_src sql
@@ -174,7 +173,7 @@ C# -> shengchengdingdan
   exec p_aaa 'xxx';
 #+end_src
 
-*** 4
+#+SPLIT: t
 
 带 output 参数的存储过程:
 #+begin_src sql
@@ -188,7 +187,7 @@ C# -> shengchengdingdan
   exec p_aaa @rrr output;
 #+end_src
 
-*** 5
+#+SPLIT: t
 
 混合各种参数:
 #+begin_src sql
@@ -351,7 +350,7 @@ C# -> shengchengdingdan
   }
 #+end_src
 
-** Q & A
+** Q & A  <ColFlexBox>
 :PROPERTIES:
 :props: theme={t2}
 :END:
@@ -360,6 +359,61 @@ C# -> shengchengdingdan
 - 建立一个表 Books, 字段是编号、书名、价格、库存、入库日期 （如果表不存在）
 - 向里面插入 6 条数据 (如果不存在数据)
 - 然后查询出除了价格最高的书之外的价格最高的 3 条数据
+
+参考答案:
+
+#+ATTR_HTML: :style {{overflow: "auto", height: "500px"}}
+#+begin_src sql
+  -- 数据库一般是不区分大小写的，所以最好不要使用驼峰命名
+  -- 命名的时候，最好遵循一定的规范。比如存储过程 p 开始，触发器 tr/tri;
+  -- 勿以善小而不为，勿以恶小而为之。从细节做起，别妥协，不要养成不好的习惯
+
+  if exists (select * from sys.objects where name  ='p_selects_books')
+      drop procedure p_selects_books   -- 风险性提醒
+
+  go
+
+  create procedure p_selects_books
+  as
+  begin
+      if not exists (select * from sys.objects where name  ='t_books')
+        create table t_books (
+          isbn varchar(100) primary key,
+          name varchar(100) not null, 
+          price money not null check(price > 0),
+          amount int default 0,
+          category varchar(20),
+          updated_at datetime default getdate()
+      );
+
+      if not exists (select top 1 * from t_books)
+        insert into t_books (isbn, name, price, amount, category) values
+          ('110', 'aaa', 234, 23, 'a'),
+          ('111', 'bbb', 25, 3, 'a'),
+          ('112', 'ccc', 76, 100, 'b'),
+          ('113', 'ddd', 111, 99, 'b'),
+          ('114', 'eee', 981, 98, 'a'),
+          ('115', 'fff', 2, 96, 'a');
+    
+      select top 3 * from (
+         select top 4 * from t_books order by price desc
+      ) t_books order by price;
+
+      select * from (
+         select row_number() over (order by price desc) n, * from t_books
+      ) x where n between 2 and 4;
+
+      select * from t_books order by price desc offset 1 rows fetch next 3 rows only;
+  end
+
+  go
+
+  --调用，执行存储过程
+  exec p_selects_books;
+  go
+#+end_src
+
+#+SPLIT: t
 
 学生信息管理系统中有张表 STUDENT，其中，有字段 ID、NAME、SEX、BIRTH。
 请回答如下问题： 
@@ -489,6 +543,31 @@ Case When 在 SQL 中的使用。
 #+begin_src css
   pre { margin: 5px 1em !important; }
   .example pre { background-color:transparent !important; margin: 0 2em !important; }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 80%;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgb(179, 177, 177);
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(136, 136, 136);
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(100, 100, 100);
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background: rgb(68, 68, 68);
+    border-radius: 5px;
+  }
 #+end_src
 
 ** Components
