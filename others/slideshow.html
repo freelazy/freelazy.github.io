@@ -361,6 +361,11 @@ pre { margin: 5px 1em !important; }
   background: rgb(68, 68, 68);
   border-radius: 5px;
 }
+
+.code-scroll pre {
+    height: 450px;
+    overflow: auto;
+}
 </style>
 
 </head>
@@ -432,8 +437,14 @@ const RowFlexBox = (props) => {
 };
 const RowGrid = (props) => {
     const n = props.n || 2;
-    return html `<${Grid} gridTemplateColumns=${"1fr ".repeat(n).trim()} ...${props}></${Grid}>`
+    return html`<${Grid} gridTemplateColumns=${"1fr ".repeat(n).trim()} ...${props}></${Grid}>`
 };
+const TaskBox = (props) => {
+    return html`<${Box}  backgroundColor="rgba(0,0,0,0.2)" padding="10px" ...${props}></${Box}>`
+};
+const ScCodePane = (props) => {
+    return html`<${Box} className="code-scroll"><${CodePane} ...${props}></${CodePane}></${Box}>`;
+}
 
 
     /* presentation definition begin */
@@ -442,7 +453,7 @@ const RowGrid = (props) => {
 
 <!------ slide (1) begin ------>
 
-<${SlideLayout.Center}><${Heading}>使用 .NET 操作数据库</${Heading}>
+<${SlideLayout.Center}><${Heading} fontFamily="kaiti">使用 .NET 操作数据库</${Heading}>
 
 <${UnorderedList} theme=${{ fontSizes: { text: "50px" }}} style=${{ margin: "1em 2em" }}>
 <${ListItem}>ADO.NET</${ListItem}>
@@ -462,12 +473,12 @@ const RowGrid = (props) => {
 <${ListItem}>SqlConnection (SqlServer)</${ListItem}>
 </${UnorderedList}>
 
-<${Text}><br />
-<br /></${Text}>
+<${Box} height="2em"></${Box}>
 
 <${Text}>Entity Framework:</${Text}>
 
 <div className='example'>
+
 <${CodePane} showLineNumbers=${false}>
 ${`
   
@@ -493,6 +504,7 @@ ${`
 </${Box}>
 
 <${Box}><${Text}>首先，添加依赖:</${Text}>
+
 <${CodePane} language='shell' showLineNumbers=${false}>
 ${`
 dotnet add package System.Data.SqlClient # SqlServer
@@ -503,6 +515,7 @@ dotnet add package Microsoft.Data.Sqlite # SQLite
 </${CodePane}>
 
 <${Text}>其次，直接使用相关对象完成数据库操作:</${Text}>
+
 <${CodePane} language='csharp' showLineNumbers=${false}>
 ${`
 
@@ -524,6 +537,7 @@ new DataAdapter(cmd).Fill(dataTable); // 一次到位封装到既定对象中
 </${CodePane}>
 
 <${Text}>整理总结，Sql 连接字符串的写法:</${Text}>
+
 <${CodePane} language='csharp' showLineNumbers=${false}>
 ${`
 "server=localhost;database=BookDB;uid=sa;pwd=sa1234";        // 用户名密码登陆
@@ -547,8 +561,9 @@ ${`
 
 <${Quote}>存储过程是一组预编译的 SQL 语句，它可以包含数据操作语句和变量逻辑等。<br />
 它保存在数据库中，通过名字可以反复使用。
-<br />
-<br />
+
+<${Box} height="2em"></${Box}>
+
 优点:
 <${UnorderedList}>
 <${ListItem}>效率高</${ListItem}>
@@ -572,12 +587,13 @@ ${`
 
 <${Text}>不是标准。PLSQL/TSQL</${Text}>
 
-<${Text}>[shengchengdingdan] -> 查询 &#x2013; 生成 &#x2013; 插入订单 -&#x2026;&#x2026;.</${Text}>
+<${Text}>[shengchengdingdan] -> 查询 -- 生成 -- 插入订单 -.......</${Text}>
 
 <${Text}>C# -> shengchengdingdan</${Text}>
 </${Box}>
 
 <${Box}><${Text}>编写存储过程:</${Text}>
+
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 -- 创建
@@ -611,6 +627,7 @@ alter procedure p_aa1 as
 <${Slide}><${ColFlexBox}>
 <${Box}>
 <${Text}>没有参数:</${Text}>
+
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure p_aaa as select * from xxx;
@@ -622,6 +639,7 @@ exec p_aaa;
 
 <${Box}>
 <${Text}>带有参数:</${Text}>
+
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure
@@ -637,6 +655,7 @@ exec p_aaa 30;
 
 <${Box}>
 <${Text}>带有参数，还有默认值:</${Text}>
+
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure p_aaa
@@ -653,6 +672,7 @@ exec p_aaa 'xxx';
 
 <${Box}>
 <${Text}>带 output 参数的存储过程:</${Text}>
+
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure p_aaa
@@ -670,6 +690,7 @@ exec p_aaa @rrr output;
 
 <${Box}>
 <${Text}>混合各种参数:</${Text}>
+
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure p_aaa
@@ -694,6 +715,7 @@ select @rrr;
 <!------ slide (2_4) begin ------>
 
 <${Slide}><${Text}>系统内置的存储过程，一般是 sp_ 开始 (system procedure):</${Text}>
+
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 exec sp_databases;
@@ -708,6 +730,7 @@ exec sp_columns emp;
 </${CodePane}>
 
 <${Text}>扩展出来的存储过程以 xp_ 开始 (extenstion procedure):</${Text}>
+
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 exec xp_cmdshell 'mkdir e:\hello';
@@ -734,6 +757,7 @@ exec xp_fileexist 'e:\hello';
 </${UnorderedList}>
 
 <${Appear}><${Text}>写法示例，仅供参考:</${Text}>
+
 
 <${Box} style=${{ margin: "1em" }}>
 <${CodePane} language='sql' showLineNumbers=${false}>
@@ -775,6 +799,7 @@ end
 <${ListItem}>Trigger 触发器</${ListItem}>
 </${UnorderedList}>
 
+
 <${Box} margin="2em 0">
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
@@ -794,6 +819,7 @@ select rand() + 3333;
 </${Box}>
 
 <${Box}><${Text}>对于函数，一定要有返回值:</${Text}>
+
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create function pingjungongzi (@deptno int) returns int
@@ -815,6 +841,7 @@ exec @s = pingjungongzi 20;
 </${CodePane}>
 
 <${Text}>触发器:</${Text}>
+
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 -- 触发器被自动执行
@@ -838,6 +865,7 @@ insert into emp (empno, ename, mgr, deptno, sal)
 <!------ slide (2_7) begin ------>
 
 <${Slide}><${Text}>首先，确保存储过程已存在:</${Text}>
+
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 create procedure [CSharp].[GetBooks] @name nvarchar(20)
@@ -847,6 +875,7 @@ create procedure [CSharp].[GetBooks] @name nvarchar(20)
 </${CodePane}>
 
 <${Text}>使用 ADO.NET 的语法操作存储过程:</${Text}>
+
 <${CodePane} language='csharp' showLineNumbers=${false}>
 ${`
 var command = conn.CreateCommand();
@@ -874,13 +903,13 @@ while(reader.Read())
 
 <!------ slide (2_8) begin ------>
 
-<${Slide}><${Box} backgroundColor="rgba(0,0,0,0.2)"><${Text}>写一个 SQL 存储过程:</${Text}>
+<${Slide}><${TaskBox}><${Text}>写一个 SQL 存储过程:</${Text}>
 <${UnorderedList}>
 <${ListItem}>建立一个表 Books, 字段是编号、书名、价格、库存、入库日期 （如果表不存在）</${ListItem}>
 <${ListItem}>向里面插入 6 条数据 (如果不存在数据)</${ListItem}>
 <${ListItem}>然后查询出除了价格最高的书之外的价格最高的 3 条数据</${ListItem}>
 </${UnorderedList}>
-</${Box}>
+</${TaskBox}>
 
 <${ColFlexBox} theme=${t2}>
 <${Box}>
@@ -892,6 +921,7 @@ while(reader.Read())
 </${OrderedList}>
 
 <div className='example'>
+
 <${CodePane} showLineNumbers=${false}>
 ${`
 row_number:
@@ -904,12 +934,12 @@ row_number:
 </div>
 
 <${Text}>返回: 所有的书籍，每种类型价格排第二的数据:</${Text}>
+
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 select * from (
-  select row_number()
-           over
-           (partition by category order by price desc) n, * from t_books
+  select row_number() over (partition by category order by price desc) n,
+         * from t_books
 ) x where n = 2;
 
 `}
@@ -919,8 +949,8 @@ select * from (
 <${Box}>
 <${Text}>参考答案:</${Text}>
 
-<${Box} style=${{overflow: "auto", height: "450px"}}>
-<${CodePane} language='sql' showLineNumbers=${false}>
+
+<${ScCodePane} language='sql' showLineNumbers=${false}>
 ${`
 -- 数据库一般是不区分大小写的，所以最好不要使用驼峰命名
 -- 命名的时候，最好遵循一定的规范。比如存储过程 p 开始，触发器 tr/tri;
@@ -971,8 +1001,7 @@ exec p_selects_books;
 go
 
 `}
-</${CodePane}>
-</${Box}>
+</${ScCodePane}>
 </${Box}>
 </${ColFlexBox}>
 </${Slide}>
@@ -980,19 +1009,20 @@ go
 
 <!------ slide (2_9) begin ------>
 
-<${Slide}><${Box} backgroundColor="rgba(0,0,0,0.2)"><${Text}>学生信息管理系统中有张表 STUDENT，其中，有字段 ID、NAME、SEX、BIRTH。
+<${Slide}><${TaskBox}><${Text}>学生信息管理系统中有张表 STUDENT，其中，有字段 ID、NAME、SEX、BIRTH。
 请回答如下问题：</${Text}>
 <${OrderedList}>
 <${ListItem}>找出 NAME 相同的学生（用一句SQL语句）</${ListItem}>
 <${ListItem}>用一句 SQL 语句把学生 SEX 为男的改为女，女的改为男</${ListItem}>
 </${OrderedList}>
-</${Box}>
+</${TaskBox}>
 
 <${RowGrid} theme=${t2}>
 <${Box}>
 <${Text}>Case When 在 SQL 中的使用。</${Text}>
 
 <div className='example'>
+
 <${CodePane} showLineNumbers=${false}>
 ${`
    student
@@ -1026,13 +1056,12 @@ ${`
 
 <${Box}>
 <${Text}>参考答案:</${Text}>
-<${CodePane} language='sql' showLineNumbers=${false}>
-${`
-create procedure p_stu as
-if not exists(select * from sys.tables where name='student')
-  create table student (id int primary key, name varchar(20), sex varchar(20), birth datetime/datetime2);
 
-truncate table student;
+
+<${ScCodePane} language='sql' showLineNumbers=${false}>
+${`
+-- 准备工作
+create table student (id int primary key, name varchar(20), sex varchar(20), birth datetime/datetime2);
 insert into student values
     (1, '张三','男','2001-02-12')
   , (2, '李四','男','2004-06-11')
@@ -1040,21 +1069,29 @@ insert into student values
   , (4, '李四','女','2003-11-21')
   , (5, '张三风','男','2001-06-12');
 
--- in vs exists
--- where... order by .. group by... having..
+-- 第一题
 select * from student where name in 
   (select name from student group by name having count(*) > 1);
 
--- case when
+-- 第二题
 update student set sex= case when sex='男' then'女' when sex='女' then '男' end;
 
--- 定时删除
-waitfor delay '00:00:20' drop table student;
 
-GO
+---------------------------------------
+
+-- 很多人不愿意用 exists，而是喜欢用 in，因为 in 更容易理解并且语句更简短
+-- 实际上，更推荐使用 exists，因为在很多场合 exists 更有效率
+   -- 高额的空间占用
+   -- 巨大的对比次数
+-- ANY/SOME/ALL 是 exists 的语法糖，在某些场景之下，更加直观
+
+select * from student where cardid in
+   (select id from renkoubiao where shengfen='广东');
+select * from student s where
+   exists (select * from renkoubiao r where r.id = s.cardid and r.shenfen = '广东');
 
 `}
-</${CodePane}>
+</${ScCodePane}>
 </${Box}>
 </${RowGrid}>
 </${Slide}>
@@ -1067,6 +1104,7 @@ GO
 <${Text}>var books = db.Books.Where(x => x.Name.Length > 3).ToList(); // lazy</${Text}>
 
 <${Text}>select * from students where like 'xxx%';</${Text}>
+
 
 
 <${CodePane} language='csharp' showLineNumbers=${false}>
@@ -1103,6 +1141,7 @@ ${`
 <${ListItem}>显式游标，就是我们要自定义的游标，主要用来处理有多条数据返回的查询。</${ListItem}>
 </${UnorderedList}>
 
+
 <${Box} marginTop="1em">
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
@@ -1131,6 +1170,168 @@ end;
 </${Box}>
 </${Box}>
  </${RowGrid}></${Slide}>
+
+
+
+<!------ slide (2_11) begin ------>
+
+<${Slide}><${RowGrid}>
+<${Box}>
+<${Heading} fontSize=${40}>SQL 练习题</${Heading}>
+
+<${Text}>题目 (必做):</${Text}>
+<${OrderedList}>
+<${ListItem}>查询每个部门下有多少员工</${ListItem}>
+<${ListItem}>查询除去 salesman 所有平均工资超过 1500 的部门</${ListItem}>
+<${ListItem}>查询在 new york 工作的所有员工的姓名，部门名称和工资信息</${ListItem}>
+<${ListItem}>查询姓名为 King 的员工的编号，名称跟部门</${ListItem}>
+<${ListItem}>查询各种工作的最低工资</${ListItem}>
+<${ListItem}>查询工龄大于 10 年的所有员工信息</${ListItem}>
+<${ListItem}>查询每个部门员工数量，平均工资和平均工作年限</${ListItem}>
+<${ListItem}>统计各部门每个工种的人数，平均工资</${ListItem}>
+<${ListItem}>查询从事同一种工作但不属于同一部门的员工信息</${ListItem}>
+<${ListItem}>查询所有员工工资都大于 1000 的部门的信息及员工信息</${ListItem}>
+</${OrderedList}>
+</${Box}>
+
+<${Box}>
+<${ScCodePane} language='sql' showLineNumbers=${false}>
+${`
+CREATE DATABASE oa;
+use oa;
+
+CREATE TABLE dept ( -- department
+  deptno int,
+  dname  VARCHAR(14),
+  loc    VARCHAR(13), -- location/address
+  CONSTRAINT pk_dept PRIMARY KEY (deptno)
+);
+
+CREATE TABLE emp ( -- employee
+  empno    int,
+  ename    VARCHAR(10),
+  job      VARCHAR(9),
+  mgr      int,
+  hiredate DATE,
+  sal      money,
+  comm     money,
+  deptno   int,
+  CONSTRAINT pk_emp PRIMARY KEY (empno),
+  CONSTRAINT fk_deptno FOREIGN KEY (deptno) REFERENCES dept (deptno)
+);
+
+CREATE TABLE bonus ( -- bonus
+  ename VARCHAR(10),
+  job   VARCHAR(9),
+  sal   float,
+  comm  float
+);
+
+CREATE TABLE salgrade ( -- salary grade
+  grade int,
+  losal float,
+  hisal float
+);
+
+INSERT INTO dept VALUES(10, 'ACCOUNTING', 'NEW YORK');
+INSERT INTO dept VALUES(20, 'RESEARCH', 'DALLAS');
+INSERT INTO dept VALUES(30, 'SALES', 'CHICAGO');
+INSERT INTO dept VALUES(40, 'OPERATIONS', 'BOSTON');
+
+INSERT INTO emp VALUES( 7839, 'KING', 'PRESIDENT', null, '1981-11-17', 5000, null, 10 );
+INSERT INTO emp VALUES( 7698, 'BLAKE', 'MANAGER', 7839, '1981-05-01', 2850, null, 30);
+INSERT INTO emp VALUES( 7782, 'CLARK', 'MANAGER', 7839, '1981-06-09', 2450, null, 10);
+INSERT INTO emp VALUES( 7566, 'JONES', 'MANAGER', 7839, '1981-04-02', 2975, null, 20);
+INSERT INTO emp VALUES( 7788, 'SCOTT', 'ANALYST', 7566, '1987-07-13', 3000, null, 20);
+INSERT INTO emp VALUES( 7902, 'FORD', 'ANALYST', 7566, '1981-12-03', 3000, null, 20 );
+INSERT INTO emp VALUES( 7369, 'SMITH', 'CLERK', 7902, '1980-12-17', 800, null, 20 );
+INSERT INTO emp VALUES( 7499, 'ALLEN', 'SALESMAN', 7698, '1981-02-20', 1600, 300, 30);
+INSERT INTO emp VALUES( 7521, 'WARD', 'SALESMAN', 7698, '1981-02-22', 1250, 500, 30 );
+INSERT INTO emp VALUES( 7654, 'MARTIN', 'SALESMAN', 7698, '1981-09-28', 1250, 1400, 30 );
+INSERT INTO emp VALUES( 7844, 'TURNER', 'SALESMAN', 7698, '1981-09-08', 1500, 0, 30);
+INSERT INTO emp VALUES( 7876, 'ADAMS', 'CLERK', 7788, '1987-07-13', 1100, null, 20 );
+INSERT INTO emp VALUES( 7900, 'JAMES', 'CLERK', 7698, '1981-12-03', 950, null, 30 );
+INSERT INTO emp VALUES( 7934, 'MILLER', 'CLERK', 7782, '1982-01-23', 1300, null, 10 );
+
+INSERT INTO salgrade VALUES (1, 700, 1200);
+INSERT INTO salgrade VALUES (2, 1201, 1400);
+INSERT INTO salgrade VALUES (3, 1401, 2000);
+INSERT INTO salgrade VALUES (4, 2001, 3000);
+INSERT INTO salgrade VALUES (5, 3001, 9999);
+
+go
+
+`}
+</${ScCodePane}>
+</${Box}>
+</${RowGrid}>
+
+<${Box}><${Text}>其他题目 (选作):</${Text}>
+
+<${RowGrid}>
+<${Box}>
+<${UnorderedList}>
+<${ListItem}>查询入职日期早于其直接上级的所有员工信息。</${ListItem}>
+<${ListItem}>列出雇员中（除去mgr为空的人)工资第二高的人。</${ListItem}>
+<${ListItem}>列出1981年来公司所有员工的总收入（包括sal和comm）</${ListItem}>
+<${ListItem}>查询部门编号为 10 和 30 的所有人（用不同方式查询）</${ListItem}>
+<${ListItem}>查询部门编号为 10 和 30 中名字中不含有 ‘C’ 的所有人</${ListItem}>
+<${ListItem}>查询部门编号为 10 和 30 中名字首字母之外不含有 ‘C’ 的所有人</${ListItem}>
+</${UnorderedList}>
+</${Box}>
+
+<${Box}>
+<${UnorderedList}>
+<${ListItem}>查询部门编号为 10 和 30 中所有的经理以及名字首字母之外不含有 ‘C’ 的所有人</${ListItem}>
+<${ListItem}>查询纽约和芝加哥地区所有的经理以及名字首字母之外不含有 ‘C’ 的所有人</${ListItem}>
+<${ListItem}>查询纽约和芝加哥地区所有的经理以及顶头上司名字的首字母之外不含有 ‘C’ 的所有人</${ListItem}>
+<${ListItem}>查询每个人的工资等级</${ListItem}>
+<${ListItem}>查询每个部门的平均工资的等级</${ListItem}>
+<${ListItem}>查询每个组最高工资的那些人</${ListItem}>
+</${UnorderedList}>
+</${Box}>
+</${RowGrid}>
+</${Box}>
+</${Slide}>
+
+
+<!------ slide (2_12) begin ------>
+
+<${Slide}><${Text}>查询除去 salesman 所有平均工资超过 2000 的部门:</${Text}>
+
+
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+-- 查询所有部门的平均工资
+select sal from emp;
+select avg(sal) from emp;
+select deptno, avg(sal) from emp group by deptno;
+
+-- 除去 saleman 之外的，所有部门的平均工资
+select deptno, avg(sal) from emp where job <> 'SALESMAN' group by deptno;
+
+-- 除去 saleman 之外的，所有部门的平均工资，超过 2000 的
+select * from (select deptno, avg(sal) as v from emp where job <> 'SALESMAN' group by deptno) x
+   where v > 2000;
+select deptno, avg(sal) from emp where job <> 'SALESMAN' group by deptno having avg(sal) > 2000;
+
+-- 关联 dept 信息
+select * from dept where deptno in (
+    select deptno from emp where job <> 'SALESMAN' group by deptno having avg(sal) > 2000
+);
+
+select dept.dname, avg(sal) from emp
+    join dept on emp.deptno = dept.deptno
+    where job <> 'SALESMAN'
+    group by dept.dname
+    having avg(sal) > 2000;
+
+select d.* from (select deptno from emp where job <> 'SALESMAN' group by deptno having avg(sal) > 2000) t 
+  join dept d on t.deptno = d.deptno;
+
+`}
+</${CodePane}>
+</${Slide}>
 
 </${Deck}>`;
 

@@ -5,7 +5,7 @@
 :layout: Center
 :END:
 
-#+ATTR_HTML: :type Heading
+#+ATTR_HTML: :type Heading :fontFamily kaiti
 使用 .NET 操作数据库
 
 #+ATTR_HTML: :theme {{ fontSizes: { text: "50px" }}} :style {{ margin: "1em 2em" }}
@@ -26,8 +26,7 @@ ADO.NET:
 - DbConnection, DbCommand, DataReader, DataAdapter, DataSet
 - SqlConnection (SqlServer)
 
-\\
-\\
+#+SPLIT: 2
 
 Entity Framework:
 
@@ -93,8 +92,9 @@ ChatGPT
 #+begin_quote
 存储过程是一组预编译的 SQL 语句，它可以包含数据操作语句和变量逻辑等。\\
 它保存在数据库中，通过名字可以反复使用。
-\\
-\\
+
+#+SPLIT: 2
+
 优点:
 - 效率高
 - 提高系统的安全性
@@ -351,7 +351,7 @@ C# -> shengchengdingdan
 #+end_src
 
 ** Q & A (row_number/pagination)
-*** <Box backgroundColor="rgba(0,0,0,0.2)">
+*** <TaskBox>
 
 写一个 SQL 存储过程:
 - 建立一个表 Books, 字段是编号、书名、价格、库存、入库日期 （如果表不存在）
@@ -378,9 +378,8 @@ row_number:
 返回: 所有的书籍，每种类型价格排第二的数据:
 #+begin_src sql
   select * from (
-    select row_number()
-             over
-             (partition by category order by price desc) n, * from t_books
+    select row_number() over (partition by category order by price desc) n,
+           ,* from t_books
   ) x where n = 2;
 #+end_src
 
@@ -388,7 +387,7 @@ row_number:
 
 参考答案:
 
-#+ATTR_HTML: :style {{overflow: "auto", height: "450px"}}
+#+ATTR_HTML: :type ScCodePane
 #+begin_src sql
   -- 数据库一般是不区分大小写的，所以最好不要使用驼峰命名
   -- 命名的时候，最好遵循一定的规范。比如存储过程 p 开始，触发器 tr/tri;
@@ -440,7 +439,7 @@ row_number:
 #+end_src
 
 ** Q & A (case when)
-*** <Box backgroundColor="rgba(0,0,0,0.2)">
+*** <TaskBox>
 
 学生信息管理系统中有张表 STUDENT，其中，有字段 ID、NAME、SEX、BIRTH。
 请回答如下问题： 
@@ -483,12 +482,11 @@ SQL 行列转换
 #+SPLIT: t
 
 参考答案:
-#+begin_src sql
-  create procedure p_stu as
-  if not exists(select * from sys.tables where name='student')
-    create table student (id int primary key, name varchar(20), sex varchar(20), birth datetime/datetime2);
 
-  truncate table student;
+#+ATTR_HTML: :type ScCodePane
+#+begin_src sql
+  -- 准备工作
+  create table student (id int primary key, name varchar(20), sex varchar(20), birth datetime/datetime2);
   insert into student values
       (1, '张三','男','2001-02-12')
     , (2, '李四','男','2004-06-11')
@@ -496,18 +494,26 @@ SQL 行列转换
     , (4, '李四','女','2003-11-21')
     , (5, '张三风','男','2001-06-12');
 
-  -- in vs exists
-  -- where... order by .. group by... having..
+  -- 第一题
   select * from student where name in 
     (select name from student group by name having count(*) > 1);
 
-  -- case when
+  -- 第二题
   update student set sex= case when sex='男' then'女' when sex='女' then '男' end;
-  
-  -- 定时删除
-  waitfor delay '00:00:20' drop table student;
 
-  GO
+
+  ---------------------------------------
+
+  -- 很多人不愿意用 exists，而是喜欢用 in，因为 in 更容易理解并且语句更简短
+  -- 实际上，更推荐使用 exists，因为在很多场合 exists 更有效率
+     -- 高额的空间占用
+     -- 巨大的对比次数
+  -- ANY/SOME/ALL 是 exists 的语法糖，在某些场景之下，更加直观
+
+  select * from student where cardid in
+     (select id from renkoubiao where shengfen='广东');
+  select * from student s where
+     exists (select * from renkoubiao r where r.id = s.cardid and r.shenfen = '广东');
 #+end_src
 
 ** Cursor           <RowGrid>
@@ -574,6 +580,148 @@ SQL 行列转换
 #+end_src
   
 
+** 练习题
+*** 示例数据库和题目 <RowGrid>
+
+#+ATTR_HTML: :type Heading :fontSize {40}
+SQL 练习题
+
+题目 (必做):
+1. 查询每个部门下有多少员工
+2. 查询除去 salesman 所有平均工资超过 1500 的部门
+3. 查询在 new york 工作的所有员工的姓名，部门名称和工资信息
+4. 查询姓名为 King 的员工的编号，名称跟部门
+5. 查询各种工作的最低工资
+6. 查询工龄大于 10 年的所有员工信息
+7. 查询每个部门员工数量，平均工资和平均工作年限
+8. 统计各部门每个工种的人数，平均工资
+9. 查询从事同一种工作但不属于同一部门的员工信息
+10. 查询所有员工工资都大于 1000 的部门的信息及员工信息
+
+#+SPLIT: t
+
+#+ATTR_HTML: :type ScCodePane
+#+begin_src sql
+  CREATE DATABASE oa;
+  use oa;
+
+  CREATE TABLE dept ( -- department
+    deptno int,
+    dname  VARCHAR(14),
+    loc    VARCHAR(13), -- location/address
+    CONSTRAINT pk_dept PRIMARY KEY (deptno)
+  );
+
+  CREATE TABLE emp ( -- employee
+    empno    int,
+    ename    VARCHAR(10),
+    job      VARCHAR(9),
+    mgr      int,
+    hiredate DATE,
+    sal      money,
+    comm     money,
+    deptno   int,
+    CONSTRAINT pk_emp PRIMARY KEY (empno),
+    CONSTRAINT fk_deptno FOREIGN KEY (deptno) REFERENCES dept (deptno)
+  );
+
+  CREATE TABLE bonus ( -- bonus
+    ename VARCHAR(10),
+    job   VARCHAR(9),
+    sal   float,
+    comm  float
+  );
+
+  CREATE TABLE salgrade ( -- salary grade
+    grade int,
+    losal float,
+    hisal float
+  );
+
+  INSERT INTO dept VALUES(10, 'ACCOUNTING', 'NEW YORK');
+  INSERT INTO dept VALUES(20, 'RESEARCH', 'DALLAS');
+  INSERT INTO dept VALUES(30, 'SALES', 'CHICAGO');
+  INSERT INTO dept VALUES(40, 'OPERATIONS', 'BOSTON');
+
+  INSERT INTO emp VALUES( 7839, 'KING', 'PRESIDENT', null, '1981-11-17', 5000, null, 10 );
+  INSERT INTO emp VALUES( 7698, 'BLAKE', 'MANAGER', 7839, '1981-05-01', 2850, null, 30);
+  INSERT INTO emp VALUES( 7782, 'CLARK', 'MANAGER', 7839, '1981-06-09', 2450, null, 10);
+  INSERT INTO emp VALUES( 7566, 'JONES', 'MANAGER', 7839, '1981-04-02', 2975, null, 20);
+  INSERT INTO emp VALUES( 7788, 'SCOTT', 'ANALYST', 7566, '1987-07-13', 3000, null, 20);
+  INSERT INTO emp VALUES( 7902, 'FORD', 'ANALYST', 7566, '1981-12-03', 3000, null, 20 );
+  INSERT INTO emp VALUES( 7369, 'SMITH', 'CLERK', 7902, '1980-12-17', 800, null, 20 );
+  INSERT INTO emp VALUES( 7499, 'ALLEN', 'SALESMAN', 7698, '1981-02-20', 1600, 300, 30);
+  INSERT INTO emp VALUES( 7521, 'WARD', 'SALESMAN', 7698, '1981-02-22', 1250, 500, 30 );
+  INSERT INTO emp VALUES( 7654, 'MARTIN', 'SALESMAN', 7698, '1981-09-28', 1250, 1400, 30 );
+  INSERT INTO emp VALUES( 7844, 'TURNER', 'SALESMAN', 7698, '1981-09-08', 1500, 0, 30);
+  INSERT INTO emp VALUES( 7876, 'ADAMS', 'CLERK', 7788, '1987-07-13', 1100, null, 20 );
+  INSERT INTO emp VALUES( 7900, 'JAMES', 'CLERK', 7698, '1981-12-03', 950, null, 30 );
+  INSERT INTO emp VALUES( 7934, 'MILLER', 'CLERK', 7782, '1982-01-23', 1300, null, 10 );
+
+  INSERT INTO salgrade VALUES (1, 700, 1200);
+  INSERT INTO salgrade VALUES (2, 1201, 1400);
+  INSERT INTO salgrade VALUES (3, 1401, 2000);
+  INSERT INTO salgrade VALUES (4, 2001, 3000);
+  INSERT INTO salgrade VALUES (5, 3001, 9999);
+
+  go
+#+end_src
+
+*** 其他题目
+
+其他题目 (选作):
+
+**** <RowGrid>
+
+- 查询入职日期早于其直接上级的所有员工信息。
+- 列出雇员中（除去mgr为空的人)工资第二高的人。
+- 列出1981年来公司所有员工的总收入（包括sal和comm）
+- 查询部门编号为 10 和 30 的所有人（用不同方式查询）
+- 查询部门编号为 10 和 30 中名字中不含有 ‘C’ 的所有人
+- 查询部门编号为 10 和 30 中名字首字母之外不含有 ‘C’ 的所有人
+
+#+SPLIT: t
+  
+- 查询部门编号为 10 和 30 中所有的经理以及名字首字母之外不含有 ‘C’ 的所有人
+- 查询纽约和芝加哥地区所有的经理以及名字首字母之外不含有 ‘C’ 的所有人
+- 查询纽约和芝加哥地区所有的经理以及顶头上司名字的首字母之外不含有 ‘C’ 的所有人
+- 查询每个人的工资等级
+- 查询每个部门的平均工资的等级
+- 查询每个组最高工资的那些人
+
+** 练习题 题目1 的答案
+
+查询除去 salesman 所有平均工资超过 2000 的部门:
+ 
+#+begin_src sql
+  -- 查询所有部门的平均工资
+  select sal from emp;
+  select avg(sal) from emp;
+  select deptno, avg(sal) from emp group by deptno;
+
+  -- 除去 saleman 之外的，所有部门的平均工资
+  select deptno, avg(sal) from emp where job <> 'SALESMAN' group by deptno;
+
+  -- 除去 saleman 之外的，所有部门的平均工资，超过 2000 的
+  select * from (select deptno, avg(sal) as v from emp where job <> 'SALESMAN' group by deptno) x
+     where v > 2000;
+  select deptno, avg(sal) from emp where job <> 'SALESMAN' group by deptno having avg(sal) > 2000;
+
+  -- 关联 dept 信息
+  select * from dept where deptno in (
+      select deptno from emp where job <> 'SALESMAN' group by deptno having avg(sal) > 2000
+  );
+
+  select dept.dname, avg(sal) from emp
+      join dept on emp.deptno = dept.deptno
+      where job <> 'SALESMAN'
+      group by dept.dname
+      having avg(sal) > 2000;
+
+  select d.* from (select deptno from emp where job <> 'SALESMAN' group by deptno having avg(sal) > 2000) t 
+    join dept d on t.deptno = d.deptno;
+#+end_src
+
 * <config>                                                           :NOEXPORT:
 
 #+THEME: t1
@@ -634,7 +782,7 @@ SQL 行列转换
 
 ** Components
 
-#+EXTERN_COMPONENTS: ColFlexBox RowFlexBox RowGrid
+#+EXTERN_COMPONENTS: ColFlexBox RowFlexBox RowGrid TaskBox
 
 #+begin_src js
   const ColFlexBox = (props) => {
@@ -651,6 +799,19 @@ SQL 行列转换
   };
   const RowGrid = (props) => {
       const n = props.n || 2;
-      return html `<${Grid} gridTemplateColumns=${"1fr ".repeat(n).trim()} ...${props}></${Grid}>`
+      return html`<${Grid} gridTemplateColumns=${"1fr ".repeat(n).trim()} ...${props}></${Grid}>`
   };
+  const TaskBox = (props) => {
+      return html`<${Box}  backgroundColor="rgba(0,0,0,0.2)" padding="10px" ...${props}></${Box}>`
+  };
+  const ScCodePane = (props) => {
+      return html`<${Box} className="code-scroll"><${CodePane} ...${props}></${CodePane}></${Box}>`;
+  }
+#+end_src
+
+#+begin_src css
+  .code-scroll pre {
+      height: 450px;
+      overflow: auto;
+  }
 #+end_src
