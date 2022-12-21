@@ -19,7 +19,7 @@
 :layout: top
 :END:
 ** ADO.NET         <RowGrid>
-*** <Box>
+*** What
 
 ADO.NET:
 - System.Data.dll
@@ -47,7 +47,7 @@ Entity Framework:
 
 ChatGPT
 
-*** <Box>
+*** Code
 
 首先，添加依赖:
 #+begin_src shell
@@ -83,7 +83,7 @@ ChatGPT
 #+end_src
 
 ** Procedure       <RowGrid>
-*** <Box>
+*** What
 
 存储过程:
 - 什么是存储过程?
@@ -115,7 +115,7 @@ SQL (Sequence Query Language)
 
 C# -> shengchengdingdan
 
-*** <Box>
+*** Code
 
 编写存储过程:
 #+begin_src sql
@@ -140,15 +140,13 @@ C# -> shengchengdingdan
     select * from emp;
 #+end_src
 
-** 存储过程代码示例  <ColFlexBox>
+** 存储过程代码示例  <RowGrid>
 
 没有参数:
 #+begin_src sql
   create procedure p_aaa as select * from xxx;
   exec p_aaa;
 #+end_src
-
-#+SPLIT: t
 
 带有参数:
 #+begin_src sql
@@ -159,8 +157,6 @@ C# -> shengchengdingdan
 
   exec p_aaa 30;
 #+end_src
-
-#+SPLIT: t
 
 带有参数，还有默认值:
 #+begin_src sql
@@ -186,8 +182,6 @@ C# -> shengchengdingdan
   declare @rrr int;
   exec p_aaa @rrr output;
 #+end_src
-
-#+SPLIT: t
 
 混合各种参数:
 #+begin_src sql
@@ -237,8 +231,6 @@ C# -> shengchengdingdan
 - 如果这张表存在，但是里面有数据，清空它
 - 如果插入完成，在日志表 (my_log) 插入一条信息
 
-*** <Appear>
-
 写法示例，仅供参考:
 
 #+ATTR_HTML: :style {{ margin: "1em" }}
@@ -265,7 +257,6 @@ C# -> shengchengdingdan
 #+end_src
 
 ** 数据库中的其他对象 <RowGrid>
-*** <Box>
 
 数据库中的其他对象:
 - Table/Index
@@ -286,7 +277,7 @@ C# -> shengchengdingdan
   select rand() + 3333;
 #+end_src
 
-*** <Box>
+#+SPLIT: t
 
 对于函数，一定要有返回值:
 #+begin_src sql
@@ -358,13 +349,13 @@ C# -> shengchengdingdan
 - 向里面插入 6 条数据 (如果不存在数据)
 - 然后查询出除了价格最高的书之外的价格最高的 3 条数据
 
-*** <ColFlexBox>
+*** <RowGrid>
 :PROPERTIES:
 :props: theme={t2}
 :END:
 
 分页的基本实现方式:
-1. Top
+1. top
 2. row_number 窗口函数
 3. offset fetch next
 
@@ -516,36 +507,35 @@ SQL 行列转换
      exists (select * from renkoubiao r where r.id = s.cardid and r.shenfen = '广东');
 #+end_src
 
-** Cursor           <RowGrid>
-*** <Box>
+** 游标 (Cursor)  <RowGrid>
 
 游标, Cursor。
 
-   var books = db.Books.Where(x => x.Name.Length > 3).ToList(); // lazy
+ var books = db.Books.Where(x => x.Name.Length > 3).ToList(); // lazy
 
-   select * from students where like 'xxx%';
+ select * from students where like 'xxx%';
 
-   
-  #+begin_src csharp
-    using (SqlDataReader reader = command.ExecuteReader())
-    {
-        if (reader.HasRows)
-        {
-            while (reader.Read())
-            {
-                if (reader[0] > 3) {
-                   Console.WriteLine("{0}: {1:C}", reader[0], reader[1]);
-                }   
-            }
-        }
-    }
+ 
+#+begin_src csharp
+  using (SqlDataReader reader = command.ExecuteReader())
+  {
+      if (reader.HasRows)
+      {
+          while (reader.Read())
+          {
+              if (reader[0] > 3) {
+                 Console.WriteLine("{0}: {1:C}", reader[0], reader[1]);
+              }   
+          }
+      }
+  }
 
-    var dt = new DataTable();
-    var adapter = new SqlDataAdapter("select * from orders", conn);
-    adapter.Fill(dt);
-  #+end_src
-  
-*** <Box>
+  var dt = new DataTable();
+  var adapter = new SqlDataAdapter("select * from orders", conn);
+  adapter.Fill(dt);
+#+end_src
+
+#+SPLIT: t
   
 当执行一条语句时，Oracle 会打开一片工作区，将结果保存在里面。
 在这片工作区，存在一个指针，默认指向第一条记录。我们可以通过移动指针获取不同记录。
@@ -556,7 +546,8 @@ SQL 行列转换
 - 隐式游标是 Oracle 自动管理的，比如我们进行一次 update，Oracle 会打开一个游标定位到数据，我们更新结束后，Oracle 就会把游标给关闭。
 - 显式游标，就是我们要自定义的游标，主要用来处理有多条数据返回的查询。
 
-#+ATTR_HTML: :marginTop 1em
+#+SPLIT: 1
+  
 #+begin_src sql
   declare
     vemp emp%rowtype;
@@ -579,12 +570,87 @@ SQL 行列转换
   end;
 #+end_src
   
+** Join Query     <RowGrid n={3}>
 
-** 练习题
-*** 示例数据库和题目 <RowGrid>
+朴素的数据表达，一张表:
+#+begin_example
+aaa (直观。浪费，维护麻烦)
+zhang nan jishu  shanghai xx
+li    nv  jishu  shanghai xx
+wang  nan xiaoshou zhuangzhou yy
+xx    nv  jishu  shanghai xx
+yy    nv  jishu  zhuhai xx
+#+end_example
 
-#+ATTR_HTML: :type Heading :fontSize {40}
-SQL 练习题
+三大范式，分解 (如果没印象，自行总结):
+#+begin_example
+emp               dept
+zhang nan 1        1   jishu     zhuhai
+li    nv  1        2   xiaoshou  guangzhou
+wang  nan 2        8   weizhi    huoxing
+zhao  nv  9
+#+end_example
+
+#+SPLIT: t
+
+笛卡尔积 (叉乘):
+#+begin_example
+zhang nan 1  1 jishu zhuhai
+zhang nan 1  2 xiaoshou guangzhou
+zhang nan 1  8   weizhi    huoxing
+li    nv  1  1 jishu zhuhai
+li    nv  1  2 xiaoshou guangzhou
+li    nv  1  8   weizhi    huoxing
+wang  nan 2  1 jishu zhuhai
+wang  nan 2  2 xiaoshou guangzhou
+wang  nan 2  8   weizhi    huoxing
+zhao  nv  9  1 jishu zhuhai
+zhao  nv  9  2 xiaoshou guangzhou
+zhao  nv  9  8   weizhi    huoxing
+#+end_example
+
+#+SPLIT: t
+
+内连接:
+#+begin_src sql
+select * from emp e
+  join dept d on e.deptno = d.deptno;
+#+end_src
+
+#+begin_example
+zhang nan 1  1 jishu zhuhai
+li    nv  1  1 jishu zhuhai
+wang  nan 2  2 xiaoshou guangzhou
+#+end_example
+
+左连接 (请列出所有人及他们的部门信息):
+#+begin_src sql
+select * from emp e
+  left join dept d on e.deptno = d.deptno;
+#+end_src
+
+#+begin_example
+zhang nan 1  1 jishu zhuhai
+li    nv  1  1 jishu zhuhai
+wang  nan 2  2 xiaoshou guangzhou
+zhao  nv  9  null null null
+#+end_example
+
+右连接 (请列出所有部门的人):
+#+begin_src sql
+select * from emp e
+  right join dept d on e.deptno = d.deptno;
+#+end_src
+
+#+begin_example
+zhang nan 1      1 jishu zhuhai
+li    nv  1      1 jishu zhuhai
+wang  nan 2      2 xiaoshou guangzhou
+null  null null  8 weizhi huoxing 
+#+end_example
+
+** SQL 练习题      <Box>
+*** 示例数据库和题目 <RowGrid className="pre2">
 
 题目 (必做):
 1. 查询每个部门下有多少员工
@@ -600,7 +666,6 @@ SQL 练习题
 
 #+SPLIT: t
 
-#+ATTR_HTML: :type ScCodePane
 #+begin_src sql
   CREATE DATABASE oa;
   use oa;
@@ -689,7 +754,23 @@ SQL 练习题
 - 查询每个部门的平均工资的等级
 - 查询每个组最高工资的那些人
 
-** 练习题 题目1 的答案
+** 练习题答疑      <RowGrid className="ans1">
+
+查询每个部门下有多少员工:
+
+#+begin_src sql
+  select * from emp;
+  select count(*) from emp;
+  select count(*) from emp group by deptno;
+  select deptno, count(*) from emp group by deptno;
+
+  select dept.*, x.cnt from (select deptno, count(*) cnt from emp group by deptno) x
+     join dept on dept.deptno = x.deptno; 
+
+  select d.dname, count(*) from emp e
+    join dept d on e.deptno = d.deptno
+    group by d.dname;
+#+end_src
 
 查询除去 salesman 所有平均工资超过 2000 的部门:
  
@@ -722,7 +803,361 @@ SQL 练习题
     join dept d on t.deptno = d.deptno;
 #+end_src
 
+查询在 new york 工作的所有员工的姓名，部门名称和工资信息
+
+#+begin_src sql
+  select ename, d.dname, sal, d.loc from emp e
+     join dept d on e.deptno = d.deptno
+     where d.loc = 'NEW YORK'
+#+end_src
+
+查询姓名为 King 的员工的编号，名称跟部门
+
+#+begin_src sql
+  select e.empno, e.ename, d.deptno, d.dname, d.loc from emp e 
+    join dept d on e.deptno = d.deptno
+    where e.ename = 'KING';
+#+end_src
+
+查询各种工作的最低工资
+
+#+begin_src sql
+  select job, min(sal) minsal from emp group by job;
+#+end_src
+
+#+SPLIT: t
+
+查询工龄大于 10 年的所有员工信息
+
+#+begin_src sql
+  select * from emp where
+    datediff(year, hiredate, getdate()) > 10;
+#+end_src
+
+查询每个部门员工数量，平均工资和平均工作年限
+
+#+begin_src sql
+  select
+      d.dname, 
+      count(*),
+      avg(e.sal),
+      avg(datediff(year, e.hiredate, getdate()))
+    from emp e join dept d on e.deptno = d.deptno
+    group by d.dname;
+#+end_src
+
+统计各部门每个工种的人数，平均工资
+
+#+begin_src sql
+  select deptno, job, count(*), avg(sal) from emp
+    group by deptno, job;
+#+end_src
+
+查询从事同一种工作但不属于同一部门的员工信息
+
+#+begin_src sql
+  -- 此类问题的解决方案基本都是这样的
+  select * from emp a join emp b
+    on a.job = b.job
+    where a.empno > b.empno
+      and a.deptno <> b.deptno;
+#+end_src
+
+查询所有员工工资都大于 1000 的部门的信息及员工信息
+
+#+begin_src sql
+  select * from dept d join emp e on e.deptno = d.deptno 
+    where e.deptno in (select deptno from emp
+                         group by deptno having min(sal) > 1000);
+
+  select * from dept d join emp e on e.deptno = d.deptno 
+    where exists (select deptno from emp 
+                    group by deptno having min(sal) > 1000 and deptno = d.deptno);
+#+end_src
+
+* Entity Framework
+:PROPERTIES:
+:layout: top
+:END:
+** Entity Framework 简介 <RowGrid>
+
+ORM (Object - Relationship, Mapping)
+- Hibernate/Jpa
+- EF
+
+EF1:
+- 适用于 .NET3.5
+- EF1 是基于 Provider 的; 另一个产品 LINQ to SQL 提供了跟 EF1 类似的功能，它更简单但只能用于 SqlServer
+- 模型必须要派生自 EntityObject, 使用一个包含 XML 的 EDMX 文件进行对象和关系映射
+
+EF4:
+- 适用于 .NET4，进行了重大改进。因为改动大，所以版本跳过了 2/3 直接到 4
+- 增加了懒加载，设计模型后可以使用 SQL 创建数据库，不需要派生 EntityObject
+- 支持两个模型: Database First 和 Model First
+- 后来的更新使用 NuGet 包添加了额外功能。4.1 增加了 Code First 模型，不再使用 EDMX 定义映射。4.3 增加了 Migrate 功能
+
+EF5:
+- EF5 的 NuGet 包，支持 .NET4.0 和 .NET4.5。它仍基于安装在系统上的类型和 .NET Framework 4.5
+- 新增了功能改进，如支持新的 SqlServer 功能，比如空间数据库
+
+#+SPLIT: t
+
+EF6:
+- 解决了 EF5 中的一些问题，并完全移植到了 NuGet 包中
+- 为了避免冲突，使用了新的命名空间
+
+EF Core:
+- 是对 EF 的完全重写
+- 可以支持 Linux 和 Mac，
+- 支持关系数据库和 NoSQL (No only sql, no sql. Redis, Mongodb)
+- EF Core2 不支持 XML 映射于 CSDL/SSDL/MSL，只支持 Code First
+- https://docs.microsoft.com/zh-cn/ef/
+
+特点:
+- 开发效率高；跨平台，跨数据库的能力强大
+- 相对来说，性能问题
+
+** EF Core 基本使用       <RowGrid>
+
+创建项目:
+#+begin_src sh
+  dotnet new console MyConsoleWithEFC
+#+end_src
+
+添加相关依赖:
+#+begin_src shell
+  dotnet add package Microsoft.EntityFrameworkCore
+
+  dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+  dotnet add package Microsoft.EntityFrameworkCore.SQLite
+  dotnet add package MySQL.Data.EntityFrameworkCore
+  dotnet add package Microsoft.EntityFrameworkCore.InMemory
+#+end_src
+
+创建模型和 DbContext:
+#+begin_src csharp
+  public class Book
+  {
+      public int BookId { get;set; }
+      public string Name { get; set; }
+      public string Author { get; set; }
+  }
+  public class MyDbContext : DbContext 
+  {
+      public DbSet<Book>? Books {get; set;}
+
+      protected override void OnConfiguring(DbContextOptionsBuilder builder) {
+          base.OnConfiguring(builder);
+          builder.UseSqlServer("server=.;database=mytest2;uid=sa;pwd=sa1234;Trust Server Certificate=true");
+      }
+  }
+#+end_src
+
+#+SPLIT: t
+
+开始使用:
+#+begin_src csharp
+  using var db = new MyDbContext();
+  db.Database.EnsureDeleted();
+  db.Database.EnsureCreated();
+
+  db.Books.Add(new Book { Name = "呐喊", Author = "鲁迅"});
+  db.Books.Add(new Book { Name = "彷徨", Author = "鲁迅"});
+  db.Books.Add(new Book { Name = "野草", Author = "鲁迅"});
+  db.Books.Add(new Book { Name = "阿Q正传", Author = "鲁迅"});
+  db.Books.Add(new Book { Name = "茶馆", Author = "老舍"});
+
+  db.SaveChanges();
+
+  Book book = db.Books.Where(b => b.Name != "鲁迅").First();
+  System.Console.WriteLine($"shuming: {book.Name}, zuozhe: {book.Author}");
+
+  db.Books.Where(p => p.Name == "野草").First().Name = "野草集";
+  db.SaveChanges();
+
+  DB.Books.First(p => p.Name == "彷徨").Remove();
+  db.SaveChanges();
+
+  System.Console.WriteLine("结束了");
+#+end_src
+
+** EF 中进行建模          <ColFlexBox>
+
+有两种方式在 EF 中进行建模:
+1. 基于 edmx 1) 从模型生成数据库，Model-First 2) 从数据库生成模型，Database-First
+   - EDMX (Entity Data Model Xml) 方式可以可视化建模
+   - 它使用后缀为 .edmx 的 XML 格式的文件对模型进行描述
+   - .edmx 文件很复杂，主要包括 csdl/ssdl/msl 三部分
+   - EF Core 中，不支持 edmx 建模方式
+2. 基于 C# 代码 3) 称作 Code-First
+
+
+示例代码:
+#+begin_src csharp
+  [Table("my_books")]
+  public class Book
+  {
+      public int BookId {get;set;}
+      public string Name {get; set;}
+      public string Author {get; set;}
+  }
+
+  public class MyDbContext : DbContext 
+  {
+      protected override void OnModelCreating(ModelBuilder modelBuilder)
+      {
+          modelBuilder.Entity<Book>().ToTable("table_book_hahaha");
+      }
+  }
+#+end_src
+
+#+SPLIT: t
+
+模型定义，分为三个层面:
+1. CoC 原则 (约定大于配置)
+   - DbContext 类中 DbSet 属性的名称，映射为表的名称
+   - 类中的属性名称，映射为表的字段名称
+   - string 映射为 nvarchar; int 映射为 int
+   - Id 后缀命名的 int/Guid 类型，自动映射到主键
+   - 字段或只有 get 或私有的属性并不能被映射到数据库。但是可以使用 HasField 方法进行强制映射
+   - 可以使用 Fluent API 中使用字符串的方式设置阴影属性，这样的属性只存在于数据库而不用于模型
+2. 基于注解 (System.ComponentModel.DataAnnotations.Schema):
+   - ~[Table/Column/ComplexType/NotMapped]~
+   - ~[Required/MaxLength/StringLength]~
+   - ~[Key], HasKey, HasName, HasPrincipalKey, HasAlternateKey~, 指定主键、备用键
+   - ~[Index], HasIndex~, 指定索引
+   - ~[ForeignKey], HasForeignKey, HasConstraintName~, 放在导航属性上，用于显式指定 ref 的字段。当主键的名字不是约定的 XxId 格式需要
+   - ~[InverseProperty] HasOne, WithMany~, 放在导航属性多的一端，用于显式指定 ref 的字段。当两个模型定义了多个导航属性，且导航关系不明确时使用，解决歧义
+   - ~[ConcurrencyCheck], IsConcurrencyToken~, 并发性检查，如果更新的时候发现当前字段已经被别人修改过，那么会抛出错误
+   - ~[TimeStamp], IsRowVersion~, 类似于 ConcurrencyCheck，只不过使用时间戳的方式，利用一个单独的字段表达数据是否被修改
+   - ~[DatabaseGenerated] ValueGeneratedOnAdd, ValueGeneratedNever, HasDefaultValue, HasDefaultSql, HasComputedColumnSql~, 用来指定初始值的产生方式
+3. Fluent API
+   - 我们可以在 DbContext 的 OnModelCreating 中添加逻辑，从而替代 [注解] 的方式进行数据库的配置
+   - 使用 Entity/Property 返回要操作的实体或属性，使用 ToTable 为数据库设定名字, 使用 HasData 播种
+     
+** 三种层次建模的示例      <FlexBox>
+
+#+begin_src csharp
+  class MenuCard
+  {
+      public int MenuCardId { get; set; }
+      public string Title { get; set; }
+      public List<Menu> Menus { get; } = new List<Menu>();
+      public override string ToString() => Title;
+  }
+
+  [Table("Menus", Schema = "mc")]
+  class Menu
+  {
+      public int MenuId { get; set; }
+      [MaxLength(50)]
+      public string Text { get; set; }
+      [Column(TypeName = "Money")]
+      public decimal Price { get; set; }
+      public MenuCard MenuCard { get; set; }
+      public override string ToString() => Text;
+  }
+
+  class BooksContext : DbContext
+  {
+      protected override void OnModelCreating(ModelBuilder builder)
+      {
+          base.OnModelCreating(builder);
+          builder.HasDefaultSchema("mc");
+          builder.Entity<MenuCard>().ToTable("MenuCards").HasKey(c => c.MenuCardId);
+          builder.Entity<MenuCard>().Property(c => c.MenuCardId).ValueGeneratedOnAdd();
+          builder.Entity<MenuCard>().Property(c => c.Title).HasMaxLength(50);
+          //builder.ApplyConfiguration(new YourConfigurationFromIEntityTypeConfigurationSinceEFCore2ToSeperateCode());
+      }
+  }
+#+end_src
+
+** 构建模型关系的示例      <RowGrid>
+
+#+begin_src csharp
+  public class Book
+  {
+      public int BookdId { get; set; }
+      public int Title { get; set; }
+      public List<Chapter> Chapters { get; } = new List<Chapter>();
+  
+      public int? AuthorId { get; set; }
+      [ForeignKey(nameof(AuthorId))]
+      public User Author { get; set; }
+      public int? ReviewerId { get; set; }
+      [ForeignKey(nameof(ReviewerId))]
+      public User Reviewer { get; set; }
+      public int? ProjectEditorId { get; set; }
+      [ForeignKey(nameof(ProjectEditorId))]
+      public User ProjectEditor { get; set; }
+  }
+  
+  public class User
+  {
+      public int UserId { get; set; }
+      public string Name { get; set; }
+      [InverseProperty("Author")]
+      public List<Book> WrittenBooks { get; set; }
+      [InverseProperty("Reviewer")]
+      public List<Book> ReviewedBooks { get; set; }
+      [InverseProperty("ProjectEditor")]
+      public List<Book> EditedBooks { get; set; }
+  }
+#+end_src
+
+#+SPLIT: t
+
+#+ATTR_HTML: :className codeheight80
+#+begin_src csharp
+  public class Book
+  {
+      public int BookdId { get; set; }
+      public int Title { get; set; }
+      public List<Chapter> Chapters { get; } = new List<Chapter>();
+
+      public User Author { get; set; }
+      public User Reviewer { get; set; }
+      public User ProjectEditor { get; set; }
+  }
+
+  public class User
+  {
+      public int UserId { get; set; }
+      public string Name { get; set; }
+      public List<Book> WrittenBooks { get; set; }
+      public List<Book> ReviewedBooks { get; set; }
+      public List<Book> EditedBooks { get; set; }
+  }
+
+  public class Chapter
+  {
+      public int ChapterId { get; set; }
+      public int Number { get; set; }
+      public string Title { get; set; }
+      public int BookId { get; set; }
+      public Book Book { get; set; }
+  }
+
+  builder.Entity<Book>().HasMany(b => b.Chapters).WithOne(c => c.Book);
+  builder.Entity<Book>().HasOne(b => b.Author).WithMany(a => a.WrittenBooks);
+  builder.Entity<Book>().HasOne(b => b.Reviewer).WithMany(r => r.ReviewedBooks);
+  builder.Entity<Book>().HasOne(b => b.ProjectEditor).WithMany(r => r.EditedBooks);
+  builder.Entity<Chapter>().HasOne(c =>c.Book).WithMany(b => b.Chapters).HasForeignKey(c => c.BookId);
+  builder.Entity<User>().HasMany(a => a.WrittenBooks).WIthOne(b => b.Author);
+  builder.Entity<User>().HasMany(a => a.ReviewedBooks).WIthOne(b => b.Reviewer);
+  builder.Entity<User>().HasMany(a => a.EditedBooks).WIthOne(b => b.ProjectEditor);
+#+end_src
+
+** EF 练习题
+*** <TaskBox>
+
+使用 EF 为一个博客系统建模:
+- 至少包括三个实体: Blog 表示某个人的博客; Post 表示其中一篇博客; Comment 表示某篇博客的评论
+- 按照实际场景，确定实体之间的关系。请自行分析
+- 使用 EF 的 Code First 方式进行建模。无其他要求，须结果正确即可
+
 * <config>                                                           :NOEXPORT:
+** global styles
 
 #+THEME: t1
 #+EXPORT_LEVEL: 1
@@ -753,6 +1188,13 @@ SQL 练习题
 #+begin_src css
   pre { margin: 5px 1em !important; }
   .example pre { background-color:transparent !important; margin: 0 2em !important; }
+  .ans1 pre { max-height: 55px !important; }
+  .pre2 pre { max-height: 300px !important; margin: 3em 2em 0 0 !important; }
+  .codeheight60 pre { max-height: 60vh !important; }
+  .codeheight70 pre { max-height: 70vh !important; }
+  .codeheight80 pre { max-height: 80vh !important; }
+
+  li>ul { padding: 0 }
 
   ::-webkit-scrollbar {
     width: 5px;
@@ -799,7 +1241,7 @@ SQL 练习题
   };
   const RowGrid = (props) => {
       const n = props.n || 2;
-      return html`<${Grid} gridTemplateColumns=${"1fr ".repeat(n).trim()} ...${props}></${Grid}>`
+      return html`<${Grid} gridTemplateColumns=${"minmax(100px, 1fr) ".repeat(n).trim()} ...${props}></${Grid}>`
   };
   const TaskBox = (props) => {
       return html`<${Box}  backgroundColor="rgba(0,0,0,0.2)" padding="10px" ...${props}></${Box}>`
@@ -813,5 +1255,32 @@ SQL 练习题
   .code-scroll pre {
       height: 450px;
       overflow: auto;
+  }
+#+end_src
+
+** Slide Component
+
+#+EXTERN_COMPONENTS: MySlide
+
+#+slide_opts: MySlide
+
+#+begin_src js
+  const MySlide = (props) => {
+      const colors = ["red", "orange", "yellow", "green", "blue", "cyan", "purple"];
+      let bg = "linear-gradient(135deg, ";
+      for (let i = 0; i < 19; i++) {
+          const c = colors[i%7];
+          bg = bg + c + " " + (i*5) + "%, " + c + " " + ((i+1)*5) + "%, ";
+      }
+      bg += "white 100%)";
+      let bg2 = "linear-gradient(150deg, darkred, 20%, rgba(100,100,0,0.5), 30%, rgba(0,0,0,0), 70%, transparent)";
+      return html`<${Slide} ...${props}>
+  <${Text} fontFamily="kaiti" fontSize=${20} margin="-20px -20px 1em -20px" padding="5px 1em" style=${{ backgroundImage: bg2}}>
+    ${props.title}
+  </{Text}>
+  <div>
+    ${props.children}
+  </div>
+  </${Slide}>`;
   }
 #+end_src

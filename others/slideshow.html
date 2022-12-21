@@ -336,6 +336,13 @@ a.getModuleId)?!0:!1};b.typeOf=c});
 <style>
 pre { margin: 5px 1em !important; }
 .example pre { background-color:transparent !important; margin: 0 2em !important; }
+.ans1 pre { max-height: 55px !important; }
+.pre2 pre { max-height: 300px !important; margin: 3em 2em 0 0 !important; }
+.codeheight60 pre { max-height: 60vh !important; }
+.codeheight70 pre { max-height: 70vh !important; }
+.codeheight80 pre { max-height: 80vh !important; }
+
+li>ul { padding: 0 }
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -437,13 +444,32 @@ const RowFlexBox = (props) => {
 };
 const RowGrid = (props) => {
     const n = props.n || 2;
-    return html`<${Grid} gridTemplateColumns=${"1fr ".repeat(n).trim()} ...${props}></${Grid}>`
+    return html`<${Grid} gridTemplateColumns=${"minmax(100px, 1fr) ".repeat(n).trim()} ...${props}></${Grid}>`
 };
 const TaskBox = (props) => {
     return html`<${Box}  backgroundColor="rgba(0,0,0,0.2)" padding="10px" ...${props}></${Box}>`
 };
 const ScCodePane = (props) => {
     return html`<${Box} className="code-scroll"><${CodePane} ...${props}></${CodePane}></${Box}>`;
+}
+
+const MySlide = (props) => {
+    const colors = ["red", "orange", "yellow", "green", "blue", "cyan", "purple"];
+    let bg = "linear-gradient(135deg, ";
+    for (let i = 0; i < 19; i++) {
+        const c = colors[i%7];
+        bg = bg + c + " " + (i*5) + "%, " + c + " " + ((i+1)*5) + "%, ";
+    }
+    bg += "white 100%)";
+    let bg2 = "linear-gradient(150deg, darkred, 20%, rgba(100,100,0,0.5), 30%, rgba(0,0,0,0), 70%, transparent)";
+    return html`<${Slide} ...${props}>
+<${Text} fontFamily="kaiti" fontSize=${20} margin="-20px -20px 1em -20px" padding="5px 1em" style=${{ backgroundImage: bg2}}>
+  ${props.title}
+</{Text}>
+<div>
+  ${props.children}
+</div>
+</${Slide}>`;
 }
 
 
@@ -453,7 +479,8 @@ const ScCodePane = (props) => {
 
 <!------ slide (1) begin ------>
 
-<${SlideLayout.Center}><${Heading} fontFamily="kaiti">使用 .NET 操作数据库</${Heading}>
+<${SlideLayout.Center}>
+<${Heading} fontFamily="kaiti">使用 .NET 操作数据库</${Heading}>
 
 <${UnorderedList} theme=${{ fontSizes: { text: "50px" }}} style=${{ margin: "1em 2em" }}>
 <${ListItem}>ADO.NET</${ListItem}>
@@ -466,7 +493,9 @@ const ScCodePane = (props) => {
 
 <!------ slide (2_1) begin ------>
 
-<${Slide}><${RowGrid}><${Box}><${Text}>ADO.NET:</${Text}>
+<${MySlide} title="ADO.NET" num=${[2,1]}>
+<${RowGrid}><${Box}>
+<${Text}>ADO.NET:</${Text}>
 <${UnorderedList}>
 <${ListItem}>System.Data.dll</${ListItem}>
 <${ListItem}>DbConnection, DbCommand, DataReader, DataAdapter, DataSet</${ListItem}>
@@ -503,7 +532,8 @@ ${`
 <${Text}>ChatGPT</${Text}>
 </${Box}>
 
-<${Box}><${Text}>首先，添加依赖:</${Text}>
+<${Box}>
+<${Text}>首先，添加依赖:</${Text}>
 
 <${CodePane} language='shell' showLineNumbers=${false}>
 ${`
@@ -548,12 +578,14 @@ ${`
 `}
 </${CodePane}>
 </${Box}>
- </${RowGrid}></${Slide}>
+ </${RowGrid}></${MySlide}>
 
 
 <!------ slide (2_2) begin ------>
 
-<${Slide}><${RowGrid}><${Box}><${Text}>存储过程:</${Text}>
+<${MySlide} title="Procedure" num=${[2,2]}>
+<${RowGrid}><${Box}>
+<${Text}>存储过程:</${Text}>
 <${UnorderedList}>
 <${ListItem}>什么是存储过程?</${ListItem}>
 <${ListItem}>使用存储过程有什么优点和缺点?</${ListItem}>
@@ -592,7 +624,8 @@ ${`
 <${Text}>C# -> shengchengdingdan</${Text}>
 </${Box}>
 
-<${Box}><${Text}>编写存储过程:</${Text}>
+<${Box}>
+<${Text}>编写存储过程:</${Text}>
 
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
@@ -619,12 +652,13 @@ alter procedure p_aa1 as
 `}
 </${CodePane}>
 </${Box}>
- </${RowGrid}></${Slide}>
+ </${RowGrid}></${MySlide}>
 
 
 <!------ slide (2_3) begin ------>
 
-<${Slide}><${ColFlexBox}>
+<${MySlide} title="存储过程代码示例" num=${[2,3]}>
+<${RowGrid}>
 <${Box}>
 <${Text}>没有参数:</${Text}>
 
@@ -635,9 +669,7 @@ exec p_aaa;
 
 `}
 </${CodePane}>
-</${Box}>
 
-<${Box}>
 <${Text}>带有参数:</${Text}>
 
 <${CodePane} language='sql' showLineNumbers=${false}>
@@ -651,9 +683,7 @@ exec p_aaa 30;
 
 `}
 </${CodePane}>
-</${Box}>
 
-<${Box}>
 <${Text}>带有参数，还有默认值:</${Text}>
 
 <${CodePane} language='sql' showLineNumbers=${false}>
@@ -686,9 +716,7 @@ exec p_aaa @rrr output;
 
 `}
 </${CodePane}>
-</${Box}>
 
-<${Box}>
 <${Text}>混合各种参数:</${Text}>
 
 <${CodePane} language='sql' showLineNumbers=${false}>
@@ -709,12 +737,13 @@ select @rrr;
 `}
 </${CodePane}>
 </${Box}>
- </${ColFlexBox}></${Slide}>
+ </${RowGrid}></${MySlide}>
 
 
 <!------ slide (2_4) begin ------>
 
-<${Slide}><${Text}>系统内置的存储过程，一般是 sp_ 开始 (system procedure):</${Text}>
+<${MySlide} title="系统存储过程" num=${[2,4]}>
+<${Text}>系统内置的存储过程，一般是 sp_ 开始 (system procedure):</${Text}>
 
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
@@ -744,19 +773,20 @@ exec xp_fileexist 'e:\hello';
 
 `}
 </${CodePane}>
-</${Slide}>
+</${MySlide}>
 
 
 <!------ slide (2_5) begin ------>
 
-<${Slide}><${Text}>为 emp 生成统计数据，统计所有部门的平均工资、最小工资和最大工资，将结果保存到 tj_emp 表中。要求:</${Text}>
+<${MySlide} title="使用存储过程实现报表" num=${[2,5]}>
+<${Text}>为 emp 生成统计数据，统计所有部门的平均工资、最小工资和最大工资，将结果保存到 tj_emp 表中。要求:</${Text}>
 <${UnorderedList}>
 <${ListItem}>如果这张表不存在，那么创建</${ListItem}>
 <${ListItem}>如果这张表存在，但是里面有数据，清空它</${ListItem}>
 <${ListItem}>如果插入完成，在日志表 (my_log) 插入一条信息</${ListItem}>
 </${UnorderedList}>
 
-<${Appear}><${Text}>写法示例，仅供参考:</${Text}>
+<${Text}>写法示例，仅供参考:</${Text}>
 
 
 <${Box} style=${{ margin: "1em" }}>
@@ -785,13 +815,15 @@ end
 `}
 </${CodePane}>
 </${Box}>
-</${Appear}>
-</${Slide}>
+</${MySlide}>
 
 
 <!------ slide (2_6) begin ------>
 
-<${Slide}><${RowGrid}><${Box}><${Text}>数据库中的其他对象:</${Text}>
+<${MySlide} title="数据库中的其他对象" num=${[2,6]}>
+<${RowGrid}>
+<${Box}>
+<${Text}>数据库中的其他对象:</${Text}>
 <${UnorderedList}>
 <${ListItem}>Table/Index</${ListItem}>
 <${ListItem}>View 视图，虚表</${ListItem}>
@@ -818,7 +850,8 @@ select rand() + 3333;
 </${Box}>
 </${Box}>
 
-<${Box}><${Text}>对于函数，一定要有返回值:</${Text}>
+<${Box}>
+<${Text}>对于函数，一定要有返回值:</${Text}>
 
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
@@ -859,12 +892,13 @@ insert into emp (empno, ename, mgr, deptno, sal)
 `}
 </${CodePane}>
 </${Box}>
- </${RowGrid}></${Slide}>
+ </${RowGrid}></${MySlide}>
 
 
 <!------ slide (2_7) begin ------>
 
-<${Slide}><${Text}>首先，确保存储过程已存在:</${Text}>
+<${MySlide} title="使用 ADO.NET 操作存储过程" num=${[2,7]}>
+<${Text}>首先，确保存储过程已存在:</${Text}>
 
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
@@ -898,12 +932,14 @@ while(reader.Read())
 
 `}
 </${CodePane}>
-</${Slide}>
+</${MySlide}>
 
 
 <!------ slide (2_8) begin ------>
 
-<${Slide}><${TaskBox}><${Text}>写一个 SQL 存储过程:</${Text}>
+<${MySlide} title="Q & A (row_number/pagination)" num=${[2,8]}>
+<${TaskBox}>
+<${Text}>写一个 SQL 存储过程:</${Text}>
 <${UnorderedList}>
 <${ListItem}>建立一个表 Books, 字段是编号、书名、价格、库存、入库日期 （如果表不存在）</${ListItem}>
 <${ListItem}>向里面插入 6 条数据 (如果不存在数据)</${ListItem}>
@@ -911,11 +947,12 @@ while(reader.Read())
 </${UnorderedList}>
 </${TaskBox}>
 
-<${ColFlexBox} theme=${t2}>
+<${RowGrid} theme=${t2}>
+
 <${Box}>
 <${Text}>分页的基本实现方式:</${Text}>
 <${OrderedList}>
-<${ListItem}>Top</${ListItem}>
+<${ListItem}>top</${ListItem}>
 <${ListItem}>row_number 窗口函数</${ListItem}>
 <${ListItem}>offset fetch next</${ListItem}>
 </${OrderedList}>
@@ -1003,13 +1040,15 @@ go
 `}
 </${ScCodePane}>
 </${Box}>
-</${ColFlexBox}>
-</${Slide}>
+</${RowGrid}>
+</${MySlide}>
 
 
 <!------ slide (2_9) begin ------>
 
-<${Slide}><${TaskBox}><${Text}>学生信息管理系统中有张表 STUDENT，其中，有字段 ID、NAME、SEX、BIRTH。
+<${MySlide} title="Q & A (case when)" num=${[2,9]}>
+<${TaskBox}>
+<${Text}>学生信息管理系统中有张表 STUDENT，其中，有字段 ID、NAME、SEX、BIRTH。
 请回答如下问题：</${Text}>
 <${OrderedList}>
 <${ListItem}>找出 NAME 相同的学生（用一句SQL语句）</${ListItem}>
@@ -1018,6 +1057,7 @@ go
 </${TaskBox}>
 
 <${RowGrid} theme=${t2}>
+
 <${Box}>
 <${Text}>Case When 在 SQL 中的使用。</${Text}>
 
@@ -1094,12 +1134,15 @@ select * from student s where
 </${ScCodePane}>
 </${Box}>
 </${RowGrid}>
-</${Slide}>
+</${MySlide}>
 
 
 <!------ slide (2_10) begin ------>
 
-<${Slide}><${RowGrid}><${Box}><${Text}>游标, Cursor。</${Text}>
+<${MySlide} title="游标 (Cursor)" num=${[2,10]}>
+<${RowGrid}>
+<${Box}>
+<${Text}>游标, Cursor。</${Text}>
 
 <${Text}>var books = db.Books.Where(x => x.Name.Length > 3).ToList(); // lazy</${Text}>
 
@@ -1109,28 +1152,29 @@ select * from student s where
 
 <${CodePane} language='csharp' showLineNumbers=${false}>
 ${`
-  using (SqlDataReader reader = command.ExecuteReader())
-  {
-      if (reader.HasRows)
-      {
-          while (reader.Read())
-          {
-              if (reader[0] > 3) {
-                 Console.WriteLine("{0}: {1:C}", reader[0], reader[1]);
-              }   
-          }
-      }
-  }
+using (SqlDataReader reader = command.ExecuteReader())
+{
+    if (reader.HasRows)
+    {
+        while (reader.Read())
+        {
+            if (reader[0] > 3) {
+               Console.WriteLine("{0}: {1:C}", reader[0], reader[1]);
+            }   
+        }
+    }
+}
 
-  var dt = new DataTable();
-  var adapter = new SqlDataAdapter("select * from orders", conn);
-  adapter.Fill(dt);
+var dt = new DataTable();
+var adapter = new SqlDataAdapter("select * from orders", conn);
+adapter.Fill(dt);
 
 `}
 </${CodePane}>
 </${Box}>
 
-<${Box}><${Text}>当执行一条语句时，Oracle 会打开一片工作区，将结果保存在里面。
+<${Box}>
+<${Text}>当执行一条语句时，Oracle 会打开一片工作区，将结果保存在里面。
 在这片工作区，存在一个指针，默认指向第一条记录。我们可以通过移动指针获取不同记录。</${Text}>
 
 <${Text}>这个指针，就是游标。</${Text}>
@@ -1141,8 +1185,9 @@ ${`
 <${ListItem}>显式游标，就是我们要自定义的游标，主要用来处理有多条数据返回的查询。</${ListItem}>
 </${UnorderedList}>
 
+<${Box} height="1em"></${Box}>
 
-<${Box} marginTop="1em">
+
 <${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 declare
@@ -1168,17 +1213,148 @@ end;
 `}
 </${CodePane}>
 </${Box}>
-</${Box}>
- </${RowGrid}></${Slide}>
-
+ </${RowGrid}></${MySlide}>
 
 
 <!------ slide (2_11) begin ------>
 
-<${Slide}><${RowGrid}>
+<${MySlide} title="Join Query" num=${[2,11]}>
+<${RowGrid} n=${3}>
 <${Box}>
-<${Heading} fontSize=${40}>SQL 练习题</${Heading}>
+<${Text}>朴素的数据表达，一张表:</${Text}>
+<div className='example'>
 
+<${CodePane} showLineNumbers=${false}>
+${`
+aaa (直观。浪费，维护麻烦)
+zhang nan jishu  shanghai xx
+li    nv  jishu  shanghai xx
+wang  nan xiaoshou zhuangzhou yy
+xx    nv  jishu  shanghai xx
+yy    nv  jishu  zhuhai xx
+
+`}
+</${CodePane}>
+</div>
+
+<${Text}>三大范式，分解 (如果没印象，自行总结):</${Text}>
+<div className='example'>
+
+<${CodePane} showLineNumbers=${false}>
+${`
+emp               dept
+zhang nan 1        1   jishu     zhuhai
+li    nv  1        2   xiaoshou  guangzhou
+wang  nan 2        8   weizhi    huoxing
+zhao  nv  9
+
+`}
+</${CodePane}>
+</div>
+</${Box}>
+
+<${Box}>
+<${Text}>笛卡尔积 (叉乘):</${Text}>
+<div className='example'>
+
+<${CodePane} showLineNumbers=${false}>
+${`
+zhang nan 1  1 jishu zhuhai
+zhang nan 1  2 xiaoshou guangzhou
+zhang nan 1  8   weizhi    huoxing
+li    nv  1  1 jishu zhuhai
+li    nv  1  2 xiaoshou guangzhou
+li    nv  1  8   weizhi    huoxing
+wang  nan 2  1 jishu zhuhai
+wang  nan 2  2 xiaoshou guangzhou
+wang  nan 2  8   weizhi    huoxing
+zhao  nv  9  1 jishu zhuhai
+zhao  nv  9  2 xiaoshou guangzhou
+zhao  nv  9  8   weizhi    huoxing
+
+`}
+</${CodePane}>
+</div>
+</${Box}>
+
+<${Box}>
+<${Text}>内连接:</${Text}>
+
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+select * from emp e
+  join dept d on e.deptno = d.deptno;
+
+`}
+</${CodePane}>
+
+<div className='example'>
+
+<${CodePane} showLineNumbers=${false}>
+${`
+zhang nan 1  1 jishu zhuhai
+li    nv  1  1 jishu zhuhai
+wang  nan 2  2 xiaoshou guangzhou
+
+`}
+</${CodePane}>
+</div>
+
+<${Text}>左连接 (请列出所有人及他们的部门信息):</${Text}>
+
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+select * from emp e
+  left join dept d on e.deptno = d.deptno;
+
+`}
+</${CodePane}>
+
+<div className='example'>
+
+<${CodePane} showLineNumbers=${false}>
+${`
+zhang nan 1  1 jishu zhuhai
+li    nv  1  1 jishu zhuhai
+wang  nan 2  2 xiaoshou guangzhou
+zhao  nv  9  null null null
+
+`}
+</${CodePane}>
+</div>
+
+<${Text}>右连接 (请列出所有部门的人):</${Text}>
+
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+select * from emp e
+  right join dept d on e.deptno = d.deptno;
+
+`}
+</${CodePane}>
+
+<div className='example'>
+
+<${CodePane} showLineNumbers=${false}>
+${`
+zhang nan 1      1 jishu zhuhai
+li    nv  1      1 jishu zhuhai
+wang  nan 2      2 xiaoshou guangzhou
+null  null null  8 weizhi huoxing 
+
+`}
+</${CodePane}>
+</div>
+</${Box}>
+ </${RowGrid}></${MySlide}>
+
+
+<!------ slide (2_12) begin ------>
+
+<${MySlide} title="SQL 练习题" num=${[2,12]}>
+<${Box}><${RowGrid} className="pre2">
+
+<${Box}>
 <${Text}>题目 (必做):</${Text}>
 <${OrderedList}>
 <${ListItem}>查询每个部门下有多少员工</${ListItem}>
@@ -1195,7 +1371,7 @@ end;
 </${Box}>
 
 <${Box}>
-<${ScCodePane} language='sql' showLineNumbers=${false}>
+<${CodePane} language='sql' showLineNumbers=${false}>
 ${`
 CREATE DATABASE oa;
 use oa;
@@ -1262,13 +1438,15 @@ INSERT INTO salgrade VALUES (5, 3001, 9999);
 go
 
 `}
-</${ScCodePane}>
+</${CodePane}>
 </${Box}>
 </${RowGrid}>
 
-<${Box}><${Text}>其他题目 (选作):</${Text}>
+<${Box}>
+<${Text}>其他题目 (选作):</${Text}>
 
 <${RowGrid}>
+
 <${Box}>
 <${UnorderedList}>
 <${ListItem}>查询入职日期早于其直接上级的所有员工信息。</${ListItem}>
@@ -1292,12 +1470,35 @@ go
 </${Box}>
 </${RowGrid}>
 </${Box}>
-</${Slide}>
+ </${Box}></${MySlide}>
 
 
-<!------ slide (2_12) begin ------>
+<!------ slide (2_13) begin ------>
 
-<${Slide}><${Text}>查询除去 salesman 所有平均工资超过 2000 的部门:</${Text}>
+<${MySlide} title="练习题答疑" num=${[2,13]}>
+<${RowGrid} className="ans1">
+<${Box}>
+<${Text}>查询每个部门下有多少员工:</${Text}>
+
+
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+select * from emp;
+select count(*) from emp;
+select count(*) from emp group by deptno;
+select deptno, count(*) from emp group by deptno;
+
+select dept.*, x.cnt from (select deptno, count(*) cnt from emp group by deptno) x
+   join dept on dept.deptno = x.deptno; 
+
+select d.dname, count(*) from emp e
+  join dept d on e.deptno = d.deptno
+  group by d.dname;
+
+`}
+</${CodePane}>
+
+<${Text}>查询除去 salesman 所有平均工资超过 2000 的部门:</${Text}>
 
 
 <${CodePane} language='sql' showLineNumbers=${false}>
@@ -1331,7 +1532,479 @@ select d.* from (select deptno from emp where job <> 'SALESMAN' group by deptno 
 
 `}
 </${CodePane}>
-</${Slide}>
+
+<${Text}>查询在 new york 工作的所有员工的姓名，部门名称和工资信息</${Text}>
+
+
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+select ename, d.dname, sal, d.loc from emp e
+   join dept d on e.deptno = d.deptno
+   where d.loc = 'NEW YORK'
+
+`}
+</${CodePane}>
+
+<${Text}>查询姓名为 King 的员工的编号，名称跟部门</${Text}>
+
+
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+select e.empno, e.ename, d.deptno, d.dname, d.loc from emp e 
+  join dept d on e.deptno = d.deptno
+  where e.ename = 'KING';
+
+`}
+</${CodePane}>
+
+<${Text}>查询各种工作的最低工资</${Text}>
+
+
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+select job, min(sal) minsal from emp group by job;
+
+`}
+</${CodePane}>
+</${Box}>
+
+<${Box}>
+<${Text}>查询工龄大于 10 年的所有员工信息</${Text}>
+
+
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+select * from emp where
+  datediff(year, hiredate, getdate()) > 10;
+
+`}
+</${CodePane}>
+
+<${Text}>查询每个部门员工数量，平均工资和平均工作年限</${Text}>
+
+
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+select
+    d.dname, 
+    count(*),
+    avg(e.sal),
+    avg(datediff(year, e.hiredate, getdate()))
+  from emp e join dept d on e.deptno = d.deptno
+  group by d.dname;
+
+`}
+</${CodePane}>
+
+<${Text}>统计各部门每个工种的人数，平均工资</${Text}>
+
+
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+select deptno, job, count(*), avg(sal) from emp
+  group by deptno, job;
+
+`}
+</${CodePane}>
+
+<${Text}>查询从事同一种工作但不属于同一部门的员工信息</${Text}>
+
+
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+-- 此类问题的解决方案基本都是这样的
+select * from emp a join emp b
+  on a.job = b.job
+  where a.empno > b.empno
+    and a.deptno <> b.deptno;
+
+`}
+</${CodePane}>
+
+<${Text}>查询所有员工工资都大于 1000 的部门的信息及员工信息</${Text}>
+
+
+<${CodePane} language='sql' showLineNumbers=${false}>
+${`
+select * from dept d join emp e on e.deptno = d.deptno 
+  where e.deptno in (select deptno from emp
+                       group by deptno having min(sal) > 1000);
+
+select * from dept d join emp e on e.deptno = d.deptno 
+  where exists (select deptno from emp 
+                  group by deptno having min(sal) > 1000 and deptno = d.deptno);
+
+`}
+</${CodePane}>
+</${Box}>
+ </${RowGrid}></${MySlide}>
+
+
+<!------ slide (3_1) begin ------>
+
+<${MySlide} title="Entity Framework 简介" num=${[3,1]}>
+<${RowGrid}>
+<${Box}>
+<${Text}>ORM (Object - Relationship, Mapping)</${Text}>
+<${UnorderedList}>
+<${ListItem}>Hibernate/Jpa</${ListItem}>
+<${ListItem}>EF</${ListItem}>
+</${UnorderedList}>
+
+<${Text}>EF1:</${Text}>
+<${UnorderedList}>
+<${ListItem}>适用于 .NET3.5</${ListItem}>
+<${ListItem}>EF1 是基于 Provider 的; 另一个产品 LINQ to SQL 提供了跟 EF1 类似的功能，它更简单但只能用于 SqlServer</${ListItem}>
+<${ListItem}>模型必须要派生自 EntityObject, 使用一个包含 XML 的 EDMX 文件进行对象和关系映射</${ListItem}>
+</${UnorderedList}>
+
+<${Text}>EF4:</${Text}>
+<${UnorderedList}>
+<${ListItem}>适用于 .NET4，进行了重大改进。因为改动大，所以版本跳过了 2/3 直接到 4</${ListItem}>
+<${ListItem}>增加了懒加载，设计模型后可以使用 SQL 创建数据库，不需要派生 EntityObject</${ListItem}>
+<${ListItem}>支持两个模型: Database First 和 Model First</${ListItem}>
+<${ListItem}>后来的更新使用 NuGet 包添加了额外功能。4.1 增加了 Code First 模型，不再使用 EDMX 定义映射。4.3 增加了 Migrate 功能</${ListItem}>
+</${UnorderedList}>
+
+<${Text}>EF5:</${Text}>
+<${UnorderedList}>
+<${ListItem}>EF5 的 NuGet 包，支持 .NET4.0 和 .NET4.5。它仍基于安装在系统上的类型和 .NET Framework 4.5</${ListItem}>
+<${ListItem}>新增了功能改进，如支持新的 SqlServer 功能，比如空间数据库</${ListItem}>
+</${UnorderedList}>
+</${Box}>
+
+<${Box}>
+<${Text}>EF6:</${Text}>
+<${UnorderedList}>
+<${ListItem}>解决了 EF5 中的一些问题，并完全移植到了 NuGet 包中</${ListItem}>
+<${ListItem}>为了避免冲突，使用了新的命名空间</${ListItem}>
+</${UnorderedList}>
+
+<${Text}>EF Core:</${Text}>
+<${UnorderedList}>
+<${ListItem}>是对 EF 的完全重写</${ListItem}>
+<${ListItem}>可以支持 Linux 和 Mac，</${ListItem}>
+<${ListItem}>支持关系数据库和 NoSQL (No only sql, no sql. Redis, Mongodb)</${ListItem}>
+<${ListItem}>EF Core2 不支持 XML 映射于 CSDL/SSDL/MSL，只支持 Code First</${ListItem}>
+<${ListItem}><${Link} href="https://docs.microsoft.com/zh-cn/ef/">https://docs.microsoft.com/zh-cn/ef/</${Link}></${ListItem}>
+</${UnorderedList}>
+
+<${Text}>特点:</${Text}>
+<${UnorderedList}>
+<${ListItem}>开发效率高；跨平台，跨数据库的能力强大</${ListItem}>
+<${ListItem}>相对来说，性能问题</${ListItem}>
+</${UnorderedList}>
+</${Box}>
+ </${RowGrid}></${MySlide}>
+
+
+<!------ slide (3_2) begin ------>
+
+<${MySlide} title="EF Core 基本使用" num=${[3,2]}>
+<${RowGrid}>
+<${Box}>
+<${Text}>创建项目:</${Text}>
+
+<${CodePane} language='sh' showLineNumbers=${false}>
+${`
+dotnet new console MyConsoleWithEFC
+
+`}
+</${CodePane}>
+
+<${Text}>添加相关依赖:</${Text}>
+
+<${CodePane} language='shell' showLineNumbers=${false}>
+${`
+dotnet add package Microsoft.EntityFrameworkCore
+
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.SQLite
+dotnet add package MySQL.Data.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.InMemory
+
+`}
+</${CodePane}>
+
+<${Text}>创建模型和 DbContext:</${Text}>
+
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+public class Book
+{
+    public int BookId { get;set; }
+    public string Name { get; set; }
+    public string Author { get; set; }
+}
+public class MyDbContext : DbContext 
+{
+    public DbSet<Book>? Books {get; set;}
+
+    protected override void OnConfiguring(DbContextOptionsBuilder builder) {
+        base.OnConfiguring(builder);
+        builder.UseSqlServer("server=.;database=mytest2;uid=sa;pwd=sa1234;Trust Server Certificate=true");
+    }
+}
+
+`}
+</${CodePane}>
+</${Box}>
+
+<${Box}>
+<${Text}>开始使用:</${Text}>
+
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+using var db = new MyDbContext();
+db.Database.EnsureDeleted();
+db.Database.EnsureCreated();
+
+db.Books.Add(new Book { Name = "呐喊", Author = "鲁迅"});
+db.Books.Add(new Book { Name = "彷徨", Author = "鲁迅"});
+db.Books.Add(new Book { Name = "野草", Author = "鲁迅"});
+db.Books.Add(new Book { Name = "阿Q正传", Author = "鲁迅"});
+db.Books.Add(new Book { Name = "茶馆", Author = "老舍"});
+
+db.SaveChanges();
+
+Book book = db.Books.Where(b => b.Name != "鲁迅").First();
+System.Console.WriteLine($"shuming: {book.Name}, zuozhe: {book.Author}");
+
+db.Books.Where(p => p.Name == "野草").First().Name = "野草集";
+db.SaveChanges();
+
+DB.Books.First(p => p.Name == "彷徨").Remove();
+db.SaveChanges();
+
+System.Console.WriteLine("结束了");
+
+`}
+</${CodePane}>
+</${Box}>
+ </${RowGrid}></${MySlide}>
+
+
+<!------ slide (3_3) begin ------>
+
+<${MySlide} title="EF 中进行建模" num=${[3,3]}>
+<${ColFlexBox}>
+<${Box}>
+<${Text}>有两种方式在 EF 中进行建模:</${Text}>
+<${OrderedList}>
+<${ListItem}>基于 edmx 1) 从模型生成数据库，Model-First 2) 从数据库生成模型，Database-First
+<${UnorderedList}>
+<${ListItem}>EDMX (Entity Data Model Xml) 方式可以可视化建模</${ListItem}>
+<${ListItem}>它使用后缀为 .edmx 的 XML 格式的文件对模型进行描述</${ListItem}>
+<${ListItem}>.edmx 文件很复杂，主要包括 csdl/ssdl/msl 三部分</${ListItem}>
+<${ListItem}>EF Core 中，不支持 edmx 建模方式</${ListItem}>
+</${UnorderedList}></${ListItem}>
+<${ListItem}>基于 C# 代码 3) 称作 Code-First</${ListItem}>
+</${OrderedList}>
+
+
+<${Text}>示例代码:</${Text}>
+
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+[Table("my_books")]
+public class Book
+{
+    public int BookId {get;set;}
+    public string Name {get; set;}
+    public string Author {get; set;}
+}
+
+public class MyDbContext : DbContext 
+{
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Book>().ToTable("table_book_hahaha");
+    }
+}
+
+`}
+</${CodePane}>
+</${Box}>
+
+<${Box}>
+<${Text}>模型定义，分为三个层面:</${Text}>
+<${OrderedList}>
+<${ListItem}>CoC 原则 (约定大于配置)
+<${UnorderedList}>
+<${ListItem}>DbContext 类中 DbSet 属性的名称，映射为表的名称</${ListItem}>
+<${ListItem}>类中的属性名称，映射为表的字段名称</${ListItem}>
+<${ListItem}>string 映射为 nvarchar; int 映射为 int</${ListItem}>
+<${ListItem}>Id 后缀命名的 int/Guid 类型，自动映射到主键</${ListItem}>
+<${ListItem}>字段或只有 get 或私有的属性并不能被映射到数据库。但是可以使用 HasField 方法进行强制映射</${ListItem}>
+<${ListItem}>可以使用 Fluent API 中使用字符串的方式设置阴影属性，这样的属性只存在于数据库而不用于模型</${ListItem}>
+</${UnorderedList}></${ListItem}>
+<${ListItem}>基于注解 (System.ComponentModel.DataAnnotations.Schema):
+<${UnorderedList}>
+<${ListItem}><${CodeSpan}>${`[Table/Column/ComplexType/NotMapped]`}</${CodeSpan}></${ListItem}>
+<${ListItem}><${CodeSpan}>${`[Required/MaxLength/StringLength]`}</${CodeSpan}></${ListItem}>
+<${ListItem}><${CodeSpan}>${`[Key], HasKey, HasName, HasPrincipalKey, HasAlternateKey`}</${CodeSpan}>, 指定主键、备用键</${ListItem}>
+<${ListItem}><${CodeSpan}>${`[Index], HasIndex`}</${CodeSpan}>, 指定索引</${ListItem}>
+<${ListItem}><${CodeSpan}>${`[ForeignKey], HasForeignKey, HasConstraintName`}</${CodeSpan}>, 放在导航属性上，用于显式指定 ref 的字段。当主键的名字不是约定的 XxId 格式需要</${ListItem}>
+<${ListItem}><${CodeSpan}>${`[InverseProperty] HasOne, WithMany`}</${CodeSpan}>, 放在导航属性多的一端，用于显式指定 ref 的字段。当两个模型定义了多个导航属性，且导航关系不明确时使用，解决歧义</${ListItem}>
+<${ListItem}><${CodeSpan}>${`[ConcurrencyCheck], IsConcurrencyToken`}</${CodeSpan}>, 并发性检查，如果更新的时候发现当前字段已经被别人修改过，那么会抛出错误</${ListItem}>
+<${ListItem}><${CodeSpan}>${`[TimeStamp], IsRowVersion`}</${CodeSpan}>, 类似于 ConcurrencyCheck，只不过使用时间戳的方式，利用一个单独的字段表达数据是否被修改</${ListItem}>
+<${ListItem}><${CodeSpan}>${`[DatabaseGenerated] ValueGeneratedOnAdd, ValueGeneratedNever, HasDefaultValue, HasDefaultSql, HasComputedColumnSql`}</${CodeSpan}>, 用来指定初始值的产生方式</${ListItem}>
+</${UnorderedList}></${ListItem}>
+<${ListItem}>Fluent API
+<${UnorderedList}>
+<${ListItem}>我们可以在 DbContext 的 OnModelCreating 中添加逻辑，从而替代 [注解] 的方式进行数据库的配置</${ListItem}>
+<${ListItem}>使用 Entity/Property 返回要操作的实体或属性，使用 ToTable 为数据库设定名字, 使用 HasData 播种</${ListItem}>
+</${UnorderedList}></${ListItem}>
+</${OrderedList}>
+</${Box}>
+ </${ColFlexBox}></${MySlide}>
+
+
+<!------ slide (3_4) begin ------>
+
+<${MySlide} title="三种层次建模的示例" num=${[3,4]}>
+<${FlexBox}>
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+class MenuCard
+{
+    public int MenuCardId { get; set; }
+    public string Title { get; set; }
+    public List<Menu> Menus { get; } = new List<Menu>();
+    public override string ToString() => Title;
+}
+
+[Table("Menus", Schema = "mc")]
+class Menu
+{
+    public int MenuId { get; set; }
+    [MaxLength(50)]
+    public string Text { get; set; }
+    [Column(TypeName = "Money")]
+    public decimal Price { get; set; }
+    public MenuCard MenuCard { get; set; }
+    public override string ToString() => Text;
+}
+
+class BooksContext : DbContext
+{
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+        builder.HasDefaultSchema("mc");
+        builder.Entity<MenuCard>().ToTable("MenuCards").HasKey(c => c.MenuCardId);
+        builder.Entity<MenuCard>().Property(c => c.MenuCardId).ValueGeneratedOnAdd();
+        builder.Entity<MenuCard>().Property(c => c.Title).HasMaxLength(50);
+        //builder.ApplyConfiguration(new YourConfigurationFromIEntityTypeConfigurationSinceEFCore2ToSeperateCode());
+    }
+}
+
+`}
+</${CodePane}>
+ </${FlexBox}></${MySlide}>
+
+
+<!------ slide (3_5) begin ------>
+
+<${MySlide} title="构建模型关系的示例" num=${[3,5]}>
+<${RowGrid}>
+<${Box}>
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+public class Book
+{
+    public int BookdId { get; set; }
+    public int Title { get; set; }
+    public List<Chapter> Chapters { get; } = new List<Chapter>();
+
+    public int? AuthorId { get; set; }
+    [ForeignKey(nameof(AuthorId))]
+    public User Author { get; set; }
+    public int? ReviewerId { get; set; }
+    [ForeignKey(nameof(ReviewerId))]
+    public User Reviewer { get; set; }
+    public int? ProjectEditorId { get; set; }
+    [ForeignKey(nameof(ProjectEditorId))]
+    public User ProjectEditor { get; set; }
+}
+
+public class User
+{
+    public int UserId { get; set; }
+    public string Name { get; set; }
+    [InverseProperty("Author")]
+    public List<Book> WrittenBooks { get; set; }
+    [InverseProperty("Reviewer")]
+    public List<Book> ReviewedBooks { get; set; }
+    [InverseProperty("ProjectEditor")]
+    public List<Book> EditedBooks { get; set; }
+}
+
+`}
+</${CodePane}>
+</${Box}>
+
+<${Box}>
+<${Box} className="codeheight80">
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+public class Book
+{
+    public int BookdId { get; set; }
+    public int Title { get; set; }
+    public List<Chapter> Chapters { get; } = new List<Chapter>();
+
+    public User Author { get; set; }
+    public User Reviewer { get; set; }
+    public User ProjectEditor { get; set; }
+}
+
+public class User
+{
+    public int UserId { get; set; }
+    public string Name { get; set; }
+    public List<Book> WrittenBooks { get; set; }
+    public List<Book> ReviewedBooks { get; set; }
+    public List<Book> EditedBooks { get; set; }
+}
+
+public class Chapter
+{
+    public int ChapterId { get; set; }
+    public int Number { get; set; }
+    public string Title { get; set; }
+    public int BookId { get; set; }
+    public Book Book { get; set; }
+}
+
+builder.Entity<Book>().HasMany(b => b.Chapters).WithOne(c => c.Book);
+builder.Entity<Book>().HasOne(b => b.Author).WithMany(a => a.WrittenBooks);
+builder.Entity<Book>().HasOne(b => b.Reviewer).WithMany(r => r.ReviewedBooks);
+builder.Entity<Book>().HasOne(b => b.ProjectEditor).WithMany(r => r.EditedBooks);
+builder.Entity<Chapter>().HasOne(c =>c.Book).WithMany(b => b.Chapters).HasForeignKey(c => c.BookId);
+builder.Entity<User>().HasMany(a => a.WrittenBooks).WIthOne(b => b.Author);
+builder.Entity<User>().HasMany(a => a.ReviewedBooks).WIthOne(b => b.Reviewer);
+builder.Entity<User>().HasMany(a => a.EditedBooks).WIthOne(b => b.ProjectEditor);
+
+`}
+</${CodePane}>
+</${Box}>
+</${Box}>
+ </${RowGrid}></${MySlide}>
+
+
+<!------ slide (3_6) begin ------>
+
+<${MySlide} title="EF 练习题" num=${[3,6]}>
+<${TaskBox}>
+<${Text}>使用 EF 为一个博客系统建模:</${Text}>
+<${UnorderedList}>
+<${ListItem}>至少包括三个实体: Blog 表示某个人的博客; Post 表示其中一篇博客; Comment 表示某篇博客的评论</${ListItem}>
+<${ListItem}>按照实际场景，确定实体之间的关系。请自行分析</${ListItem}>
+<${ListItem}>使用 EF 的 Code First 方式进行建模。无其他要求，须结果正确即可</${ListItem}>
+</${UnorderedList}>
+</${TaskBox}>
+</${MySlide}>
 
 </${Deck}>`;
 
