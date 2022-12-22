@@ -338,6 +338,7 @@ pre { margin: 5px 1em !important; }
 .example pre { background-color:transparent !important; margin: 0 2em !important; }
 .ans1 pre { max-height: 55px !important; }
 .pre2 pre { max-height: 300px !important; margin: 3em 2em 0 0 !important; }
+.codeheight50 pre { max-height: 50vh !important; }
 .codeheight60 pre { max-height: 60vh !important; }
 .codeheight70 pre { max-height: 70vh !important; }
 .codeheight80 pre { max-height: 80vh !important; }
@@ -1786,7 +1787,46 @@ System.Console.WriteLine("结束了");
 
 <!------ slide (3_3) begin ------>
 
-<${MySlide} title="EF 中进行建模" num=${[3,3]}>
+<${MySlide} title="DbContext" num=${[3,3]}>
+<${Text}>DbContext 代表数据库的上下文环境。你需要自己实现一个类，继承自 DbContext:</${Text}>
+<${UnorderedList}>
+<${ListItem}>通过 <${CodeSpan}>${`DbSet<T>`}</${CodeSpan}> 属性，用来注册模型</${ListItem}>
+<${ListItem}>通过 override <${CodeSpan}>${`OnConfiguring`}</${CodeSpan}> 方法进行数据库的初始化工作</${ListItem}>
+<${ListItem}>通过 override <${CodeSpan}>${`OnModelCreating`}</${CodeSpan}> 方法对模型进行相关配置</${ListItem}>
+</${UnorderedList}>
+
+<${Text}>示例:</${Text}>
+
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+public class MyDbContext : DbContext 
+{
+    public DbSet<Book>? Books {get; set;}
+
+    protected override void OnConfiguring(DbContextOptionsBuilder builder)
+    {
+        base.OnConfiguring(builder);
+        // 配置数据库链接
+        builder.UseSqlServer("server=.;database=mytest2;integrated security=SSPI;Trust Server Certificate=true");
+        // 添加日志
+        builder.LogTo(Console.WriteLine, LogLevel.Infomation);
+    }
+
+    protected override void OnModelCreating(ModelBuilder mb)
+    {
+        base.OnModelCreating(mb);
+        //mb.Entity<Book>().ToTable("table_book_hahaha");
+    }
+}
+
+`}
+</${CodePane}>
+</${MySlide}>
+
+
+<!------ slide (3_4) begin ------>
+
+<${MySlide} title="EF 中进行建模" num=${[3,4]}>
 <${ColFlexBox}>
 <${Box}>
 <${Text}>有两种方式在 EF 中进行建模:</${Text}>
@@ -1860,9 +1900,44 @@ public class MyDbContext : DbContext
  </${ColFlexBox}></${MySlide}>
 
 
-<!------ slide (3_4) begin ------>
+<!------ slide (3_5) begin ------>
 
-<${MySlide} title="三种层次建模的示例" num=${[3,4]}>
+<${MySlide} title="对数据库进行迁移 (Migrations)" num=${[3,5]}>
+<${Text}>可以通过 NuGet 命令完成 (NuGet 控制台)</${Text}>
+<${OrderedList}>
+<${ListItem}>Enable-Migrations</${ListItem}>
+<${ListItem}>Add-Migration 名字</${ListItem}>
+<${ListItem}>Update-Database</${ListItem}>
+</${OrderedList}>
+
+<${Text}>如果想使用 dotnet ef 命令，需要手动安装通过 dotnet-ef 工具:</${Text}>
+
+<${CodePane} language='sh' showLineNumbers=${false}>
+${`
+dotnet tool list -g   # 查看系统所有已安装的系统工具
+dotnet tool install dotnet-ef -g # 安装 dotnet-ef 工具
+dotnet ef ...
+
+`}
+</${CodePane}>
+
+<${Text}>进行迁移 (模型 -> 数据库):</${Text}>
+
+<${CodePane} language='sh' showLineNumbers=${false}>
+${`
+dotnet ef migrations add xxxx
+dotnet ef database update
+
+`}
+</${CodePane}>
+
+<${Text}>更多参考 <${Link} href="https://learn.microsoft.com/zh-cn/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli">链接</${Link}> 。</${Text}>
+</${MySlide}>
+
+
+<!------ slide (3_6) begin ------>
+
+<${MySlide} title="三种层次建模的示例" num=${[3,6]}>
 <${FlexBox}>
 <${CodePane} language='csharp' showLineNumbers=${false}>
 ${`
@@ -1904,9 +1979,9 @@ class BooksContext : DbContext
  </${FlexBox}></${MySlide}>
 
 
-<!------ slide (3_5) begin ------>
+<!------ slide (3_7) begin ------>
 
-<${MySlide} title="构建模型关系的示例" num=${[3,5]}>
+<${MySlide} title="构建模型关系的示例" num=${[3,7]}>
 <${RowGrid}>
 <${Box}>
 <${CodePane} language='csharp' showLineNumbers=${false}>
@@ -1993,15 +2068,217 @@ builder.Entity<User>().HasMany(a => a.EditedBooks).WIthOne(b => b.ProjectEditor)
  </${RowGrid}></${MySlide}>
 
 
-<!------ slide (3_6) begin ------>
+<!------ slide (3_8) begin ------>
 
-<${MySlide} title="EF 练习题" num=${[3,6]}>
+<${MySlide} title="EF 建模练习题" num=${[3,8]}>
 <${TaskBox}>
 <${Text}>使用 EF 为一个博客系统建模:</${Text}>
 <${UnorderedList}>
 <${ListItem}>至少包括三个实体: Blog 表示某个人的博客; Post 表示其中一篇博客; Comment 表示某篇博客的评论</${ListItem}>
 <${ListItem}>按照实际场景，确定实体之间的关系。请自行分析</${ListItem}>
 <${ListItem}>使用 EF 的 Code First 方式进行建模。无其他要求，须结果正确即可</${ListItem}>
+</${UnorderedList}>
+</${TaskBox}>
+
+<${Box}>
+<${Text}>仅供参考.</${Text}>
+
+<${RowGrid}>
+
+<${Box} className="codeheight50">
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+[Comment("这是一个表注释")]
+public class Blog
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string BriefIntroduction { get; set; } //简介
+    public List<Post> Posts { get; set; }
+}
+
+public class Post
+{
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public int Id { get; set; }
+    public string Title { get; set; } //标题
+    public string Body { get; set; }
+    public Blog Blog { get; set; }
+    public List<Comment> Comments{get;set;}
+}
+
+public class Comment
+{
+    public int Id { get; set; }
+    public string Content { get; set; }//内容
+    public DateTime  PublishTime{ get; set; }//发表时间
+    public Post Post { get; set; }
+    [Precision(14,2)]
+    public decimal Score{get;set;}
+    [Precision(3)]
+    public DateTime LastUpdate{get;set;}
+}
+
+`}
+</${CodePane}>
+</${Box}>
+
+
+<${Box} className="codeheight50">
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+public class MyContext : DbContext
+{
+    public DbSet<Blog> Blogs { get; set; }
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.UseSqlServer("...");
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        BlogConfig(modelBuilder.Entity<Blog>());
+        PostConfig(modelBuilder.Entity<Post>());
+        CommentConfig(modelBuilder.Entity<Comment>());
+        modelBuilder.Entity<Book>().Property<DateTime>("LastUpdated");
+    }
+
+    public void BlogConfig(EntityTypeBuilder<Blog> blog)
+    {
+        blog.ToTable("my_blog", schema: "blogging"); //数据表名为：blogging.my_blog;
+        blog.Property(x => x.Name).HasMaxLength(50).HasColumnName("b_name").IsRequired().IsUnicode();
+        blog.Property(x => x.Birthday).HasColumnType("date").HasColumnName("b_birthday");
+        blog.Property(x => x.BriefIntroduction).HasMaxLength(300).IsUnicode().HasColumnName("brief_Introduction");
+        blog.HasQueryFilter(x => x.IsDelete == false); //全局查询过滤器--查询该表时会sql语句会添加一句where判断条件
+    }
+
+    public void PostConfig(EntityTypeBuilder<Post> post)
+    {
+        post.ToTable("my_post");
+        post.Property(x => x.Title).HasMaxLength(100).HasColumnName("p_title").IsRequired().IsUnicode();
+        post.Property(x => x.Describe).HasMaxLength(2000).IsUnicode().HasColumnName("p_describe");
+        post.Property<DateTime>("LastUpdated").HasDefaultValueSql("getdate()"); //配置阴影属性
+        post.HasOne<Blog>(c => c.Blog).WithMany(a => a.Posts).IsRequired();
+    }
+
+    public void CommentConfig(EntityTypeBuilder<Comment> comment)
+    {
+        comment.ToTable("my_comment");
+        comment.Property(x => x.Id).HasColumnOrder(-1);
+        comment.Property(x => x.Content).HasMaxLength(300).HasColumnName("p_content").IsRequired().IsUnicode().HasColumnOrder(0);
+        comment.Property(x => x.PublishTime).HasColumnType("datetime").HasColumnName("p_publish_time").HasColumnOrder(1);
+        comment.Property(x => x.LastUpdate).HasColumnName("p_LastUpdate").HasColumnOrder(2).HasDefaultValueSql("getDate()");
+        comment.Property(x => x.Score).HasColumnName("p_score").HasColumnOrder(3)//.HasDefaultValue(30.3).HasComputedColumnSql("100+66+0.3");
+        comment.HasOne<Post>(c => c.Post).WithMany(a => a.Comments).IsRequired();
+    }
+}
+
+`}
+</${CodePane}>
+</${Box}>
+</${RowGrid}>
+</${Box}>
+</${MySlide}>
+
+
+<!------ slide (3_9) begin ------>
+
+<${MySlide} title="使用 EF 进行查询" num=${[3,9]}>
+<${RowGrid}>
+<${Box}>
+<${Text}>基本查询语法:</${Text}>
+
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+// 1
+List<Book> books = await context.Books.ToListAsync();
+foreach (var book in books) Console.WriteLine(book);
+
+// 2, ForEach
+await context.Books.ToAsyncEnumerable().ForEachAsync(b => Console.WriteLine(b));
+
+// 3, From Id
+Book book = await context.Books.FindAsync(id);
+
+// 4, Single
+Book book = await context.Books.SingleOrDefaultAsync(b => b.Title == "xxx");
+
+// 5, Linq
+List<Book> books = await context.Books.Where(b => b.Title.Contains("xxx")).ToListAsync();
+
+// 6, RawSql
+IList<Book> books = await context.Books.FromSql($"select * from Books where id > @a", new SqlParameter("a", 3)).ToListAsync();
+
+// 7, Compiled for reuse
+var query = EF.CompileQuery<BooksContext, string, Book>((c, t) => c.Books.Where(b => b.Title == t));
+IEnumerable<Book> books = query(context, "nahan");
+
+// 8, Like
+IList<Book> books = await context.Books.Where(b => EF.Functions.Like(b.Title, "%sss")).ToListAsync();
+
+`}
+</${CodePane}>
+</${Box}>
+
+<${Box}>
+<${Text}>通过 <b>Include</b> 指定 Eager 加载:</${Text}>
+
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+var blogs = context.Blogs
+    .Include(blog => blog.Posts).ThenInclude(post => post.Author).ThenInclude(author => author.Photo)
+    .Include(blog => blog.Owner).ThenInclude(owner => owner.Photo)
+    .ToList();
+
+var filteredBlogs = context.Blogs
+    .Include(blog => blog.Posts.Where(post => post.BlogId == 1)).ThenInclude(post => post.Author)
+    .Include(blog => blog.Posts.Where(post => post.BlogId == 1)).ThenInclude(post => post.Tags.OrderBy(postTag => postTag.TagId).Skip(3))
+    .ToList();
+
+`}
+</${CodePane}>
+
+<${Text}>可以 <b>Explicit</b> 加载导航属性:</${Text}>
+
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+var book = context.Books.Where(b => b.Title.StartsWith("xxx")).FirstOrDefault();
+context.Entry(book).Collection(b => b.Charapters).Load();
+context.Entry(book).Reference(b => b.Author).Load();
+
+var blog = context.Blogs.Single(b => b.BlogId == 1);
+var goodPosts = context.Entry(blog).Collection(b => b.Posts).Query().Where(p => p.Rating > 3).ToList();
+
+`}
+</${CodePane}>
+
+<${Text}>使用 Proxies 方式设置为 <b>Lazy</b> 按需加载:</${Text}>
+
+<${CodePane} language='csharp' showLineNumbers=${false}>
+${`
+// dotnet add package Microsoft.EntityFrameworkCore.Proxies
+// builder.UseLazyLoadingProxies().UseSqlite(...);
+var book = context.Books.Where(b => b.Title.StartsWith("xxx")).FirstOrDefault();
+
+`}
+</${CodePane}>
+</${Box}>
+ </${RowGrid}></${MySlide}>
+
+
+<!------ slide (3_10) begin ------>
+
+<${MySlide} title="数据库设计练习题" num=${[3,10]}>
+<${TaskBox}>
+<${Text}>研究下一个真正的类博客园的网站，数据库应该怎么设计。要求:</${Text}>
+<${UnorderedList}>
+<${ListItem}>通过网络或其他途径，尽量多收集资料</${ListItem}>
+<${ListItem}>根据收集到的资料，汇总并整理，得到一套真实可用的数据库设计方案</${ListItem}>
+<${ListItem}>通过 EF 建模的方式，尝试将总结到的数据库设计表达出来</${ListItem}>
 </${UnorderedList}>
 </${TaskBox}>
 </${MySlide}>
