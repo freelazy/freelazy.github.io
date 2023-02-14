@@ -2,6 +2,7 @@
 
 - [[file:index.org][173.NET]]
 - 111
+  - [[file:111/notes.org][Tips]]
   - [[file:111/tasks.org][任务和作业]]
 - database
   - [[file:database/1-sqlserver.org][SqlServer]]

@@ -30,22 +30,28 @@
 
 ;;(setq-default left-fringe-width 20)
 
-(setq ic/favorites '(("tasks.org"               "e:/home/notes/.src/111/tasks.org")
-                     ("host: Github"            "https://github.com/yaoliuyao")
-                     ("host/note: YaoliuYao"    "https://yaoliuyao.github.io")))
+
+;;; favors
 
-(setq org-babel-default-header-args:sql
-      '((:engine . "mssql")
-        (:dbuser . "sa")
-        (:dbpassword . "sa")
-        (:dbhost . "localhost")
-        (:database . "TeachAssist")))
+(setq ic/rfiles '(("tasks.org"               "e:/home/notes/.src/111/tasks.org")
+                  ("host: Github"            "https://github.com/yaoliuyao")
+                  ("host/note: YaoliuYao"    "https://yaoliuyao.github.io")))
 
+(with-over
+ (defreference sites-1
+   :force
+   "DOCS/ASP.NET: https://learn.microsoft.com/zh-cn/aspnet"
+   "Github: https://github.com/freelazy"
+   "NuGet: https://www.nuget.org"
+   ".NET API: https://learn.microsoft.com/zh-cn/dotnet/api/"
+   ".NET Reference Source: https://referencesource.microsoft.com"))
 
 
-;; Notes
+;; Org
 
 (setq org-directory "e:/Home/notes.173/.src/"
+
+      ic/gtd-dir (loco "111")
       note-publish-directory "e:/Home/notes.173/html/"
       org-roam-directory "e:/home/notes.173/.src"
       org-agenda-notes (append
@@ -59,7 +65,12 @@
    ;;   (im/git-commit-and-push "best_try_and_best_chance"))
    ))
 
-
+(setq org-babel-default-header-args:sql
+      '((:engine . "mssql")
+        (:dbuser . "sa")
+        (:dbpassword . "sa")
+        (:dbhost . "localhost")
+        (:database . "TeachAssist")))
 
 
 ;; Translate
@@ -124,20 +135,13 @@
 
 
 
-(with-eval-after-load 'eglot
-  ;;  (aset eglot--uri-path-allowed-chars ?: t)
-  )
-
-(with-eval-after-load 'eglot-cls
-  ;;(add-to-list 'eglot-server-programs '(csharp-mode . ("Omnisharp.exe" "-lsp")))
-  )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(ztree yasnippet yaml-mode xterm-color which-key web-mode web-beautify vundo vlf vertico uuidgen use-package udev-mode typescript-mode systemd syntax-subword sx ssh-agency srcery-theme sql-indent sis sharper session scala-mode sass-mode rust-mode robe rime rg rainbow-mode rainbow-delimiters pyim-basedict pyim powershell poly-org poly-markdown plantuml-mode php-mode page-break-lines package-lint ox-pandoc org-roam-ui org-present org-noter-pdftools org-contrib orderless ob-typescript ob-restclient ob-powershell ob-fsharp nov nhexl-mode nano-theme mpv modus-themes memory-usage markdown-toc marginalia macrostep lua-mode lsp-ui lsp-java license-templates leaf-keywords kubernetes kotlin-mode know-your-http-well keycast json-mode jdecomp hyperbole httprepl htmlize hindent hide-lines haskell-mode gruvbox-theme groovy-mode graphviz-dot-mode go-translate go-mode gnuplot gitignore-templates git-timemachine git-modes forge flycheck evil erlang erc-hl-nicks engine-mode emms emmet-mode embark-consult editorconfig edit-indirect eat dockerfile-mode docker-tramp docker dired-dups delight csv-mode csproj-mode csharp-mode cowsay corfu consult-eglot cmake-mode clojure-mode citre cape c-eldoc blackout bbdb auctex attrap android-mode all-the-icons alchemist aes)))
+   '(org-reverse-datetree ztree yasnippet yaml-mode xterm-color which-key web-mode web-beautify vundo vlf vertico uuidgen use-package udev-mode typescript-mode systemd syntax-subword sx ssh-agency srcery-theme sql-indent sis sharper session scala-mode sass-mode rust-mode robe rime rg rainbow-mode rainbow-delimiters pyim-basedict pyim powershell poly-org poly-markdown plantuml-mode php-mode page-break-lines package-lint ox-pandoc org-roam-ui org-present org-noter-pdftools org-contrib orderless ob-typescript ob-restclient ob-powershell ob-fsharp nov nhexl-mode nano-theme mpv modus-themes memory-usage markdown-toc marginalia macrostep lua-mode lsp-ui lsp-java license-templates leaf-keywords kubernetes kotlin-mode know-your-http-well keycast json-mode jdecomp hyperbole httprepl htmlize hindent hide-lines haskell-mode gruvbox-theme groovy-mode graphviz-dot-mode go-translate go-mode gnuplot gitignore-templates git-timemachine git-modes forge flycheck evil erlang erc-hl-nicks engine-mode emms emmet-mode embark-consult editorconfig edit-indirect eat dockerfile-mode docker-tramp docker dired-dups delight csv-mode csproj-mode csharp-mode cowsay corfu consult-eglot cmake-mode clojure-mode citre cape c-eldoc blackout bbdb auctex attrap android-mode all-the-icons alchemist aes)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
