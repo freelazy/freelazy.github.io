@@ -117,7 +117,7 @@ https://www.mongodb.com/
 *** API Refs
 
 Database API (db.xxx):
-#+begin_quote
+#+begin_example
     adminCommand                               Runs an arbitrary command against the admin database.
     aggregate                                  Runs a specified admin/diagnostic pipeline which does not require an underlying collection.
     auth                                       Allows a user to authenticate to the database from within the shell.
@@ -189,10 +189,10 @@ Database API (db.xxx):
     updateUser                                 Updates the user’s profile on the database on which you run the method. An update to a field completely replaces the previous field’s values. This includes updates to the user’s roles array.
     version                                    returns the db version. uses the buildinfo command
     watch                                      Opens a change stream cursor on the database
-#+end_quote
+#+end_example
 
 Collection API (db.books.xxx):
-#+begin_quote
+#+begin_example
     aggregate                                  Calculates aggregate values for the data in a collection or a view.
     bulkWrite                                  Performs multiple write operations with controls for order of execution.
     compactStructuredEncryptionData            Compacts structured encryption data
@@ -253,7 +253,7 @@ Collection API (db.books.xxx):
     updateOne                                  Updates a single document within the collection based on the filter.
     validate                                   Calls the validate command. Default full value is false
     watch                                      Opens a change stream cursor on the collection
-#+end_quote
+#+end_example
 
 ** 客户端 (.NET MongoDB.Driver)
 

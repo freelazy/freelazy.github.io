@@ -220,8 +220,7 @@ db.users.remove<span style="color: #000000;">(</span><span style="color: #dd22dd
 <p>
 Database API (db.xxx):
 </p>
-<blockquote>
-<p>
+<pre class="example" id="org6aed8c4">
 adminCommand                               Runs an arbitrary command against the admin database.
 aggregate                                  Runs a specified admin/diagnostic pipeline which does not require an underlying collection.
 auth                                       Allows a user to authenticate to the database from within the shell.
@@ -293,14 +292,12 @@ updateRole                                 Updates the role’s profile on the d
 updateUser                                 Updates the user’s profile on the database on which you run the method. An update to a field completely replaces the previous field’s values. This includes updates to the user’s roles array.
 version                                    returns the db version. uses the buildinfo command
 watch                                      Opens a change stream cursor on the database
-</p>
-</blockquote>
+</pre>
 
 <p>
 Collection API (db.books.xxx):
 </p>
-<blockquote>
-<p>
+<pre class="example" id="org9862a90">
 aggregate                                  Calculates aggregate values for the data in a collection or a view.
 bulkWrite                                  Performs multiple write operations with controls for order of execution.
 compactStructuredEncryptionData            Compacts structured encryption data
@@ -361,8 +358,7 @@ updateMany                                 Updates all documents that match the 
 updateOne                                  Updates a single document within the collection based on the filter.
 validate                                   Calls the validate command. Default full value is false
 watch                                      Opens a change stream cursor on the collection
-</p>
-</blockquote>
+</pre>
 </div>
 </div>
 </div>
