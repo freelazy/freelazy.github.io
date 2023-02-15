@@ -54,6 +54,10 @@ https://www.mongodb.com/
 : mongosh --host yaoqisan --port 27017
 : mongosh [options] [db address] [file names (ending in .js or .mongodb)]
 
+** 基本使用
+
+db -- collection -- document
+
 * Redis
 
 https://github.com/tporadowski/redis
