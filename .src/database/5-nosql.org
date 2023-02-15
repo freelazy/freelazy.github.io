@@ -25,6 +25,35 @@ NoSQL 数据库:
 - HBase 擅长读写和做离线计算
 - ElasticSearch 更强于索引和检索
 
-* 111
+* MongoDB
 
-skip
+https://www.mongodb.com/
+
+** 安装
+
+- 服务器: https://www.mongodb.com/try/download/community
+- 客户端: https://www.mongodb.com/try/download/shell
+
+** 运行服务
+
+如果你安装了服务，那么可以通过在 services.msc 中开启 MongoDb。或者通过命令行:
+: net start MongoDB
+
+如果你没安装服务，那么通过如下命令开启服务:
+: mongod --conf "e:\mongodb\mg.conf" --dbpath "e:\mongodb\data"
+
+因为 MongoDB 也是采取的 CS 模式，所以只有开启了服务端，才能正常使用。
+
+** 客户端连接
+
+客户端，可以安装使用 mongosh 或者安装使用图形界面版的 compass。
+
+如果使用 mongosh，连接的话使用如下语法:
+: mongosh
+: mongosh --host 127.0.0.1 --port 27017
+: mongosh --host yaoqisan --port 27017
+: mongosh [options] [db address] [file names (ending in .js or .mongodb)]
+
+* Redis
+
+https://github.com/tporadowski/redis

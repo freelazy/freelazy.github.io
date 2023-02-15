@@ -23,7 +23,14 @@
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#org34307f1">1. NoSQL</a></li>
-<li><a href="#org061c46b">2. 111</a></li>
+<li><a href="#orgd4c7b7f">2. MongoDB</a>
+<ul>
+<li><a href="#org31df017">2.1. 安装</a></li>
+<li><a href="#org7ff0d27">2.2. 运行服务</a></li>
+<li><a href="#org6ca0f24">2.3. 客户端连接</a></li>
+</ul>
+</li>
+<li><a href="#orga661eca">3. Redis</a></li>
 </ul>
 </div>
 </nav>
@@ -72,11 +79,74 @@ NoSQL 数据库:
 </div>
 </section>
 
-<section id="outline-container-org061c46b" class="outline-2">
-<h2 id="org061c46b"><span class="section-number-2">2.</span> 111</h2>
+<section id="outline-container-orgd4c7b7f" class="outline-2">
+<h2 id="orgd4c7b7f"><span class="section-number-2">2.</span> MongoDB</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-skip
+<a href="https://www.mongodb.com/">https://www.mongodb.com/</a>
+</p>
+</div>
+
+<div id="outline-container-org31df017" class="outline-3">
+<h3 id="org31df017"><span class="section-number-3">2.1.</span> 安装</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>服务器: <a href="https://www.mongodb.com/try/download/community">https://www.mongodb.com/try/download/community</a></li>
+<li>客户端: <a href="https://www.mongodb.com/try/download/shell">https://www.mongodb.com/try/download/shell</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7ff0d27" class="outline-3">
+<h3 id="org7ff0d27"><span class="section-number-3">2.2.</span> 运行服务</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+如果你安装了服务，那么可以通过在 services.msc 中开启 MongoDb。或者通过命令行:
+</p>
+<pre class="example">
+net start MongoDB
+</pre>
+
+
+<p>
+如果你没安装服务，那么通过如下命令开启服务:
+</p>
+<pre class="example">
+mongod --conf "e:\mongodb\mg.conf" --dbpath "e:\mongodb\data"
+</pre>
+
+
+<p>
+因为 MongoDB 也是采取的 CS 模式，所以只有开启了服务端，才能正常使用。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6ca0f24" class="outline-3">
+<h3 id="org6ca0f24"><span class="section-number-3">2.3.</span> 客户端连接</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+客户端，可以安装使用 mongosh 或者安装使用图形界面版的 compass。
+</p>
+
+<p>
+如果使用 mongosh，连接的话使用如下语法:
+</p>
+<pre class="example">
+mongosh
+mongosh --host 127.0.0.1 --port 27017
+mongosh --host yaoqisan --port 27017
+mongosh [options] [db address] [file names (ending in .js or .mongodb)]
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orga661eca" class="outline-2">
+<h2 id="orga661eca"><span class="section-number-2">3.</span> Redis</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+<a href="https://github.com/tporadowski/redis">https://github.com/tporadowski/redis</a>
 </p>
 </div>
 </section>
