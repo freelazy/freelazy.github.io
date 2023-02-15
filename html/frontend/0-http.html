@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-11-25 -->
+<!-- 2022-12-15 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>HTTP</title>
@@ -22,22 +22,22 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8aff3c0">1. HTTP (Hyper Text Transfer Protocol)</a>
+<li><a href="#orgd432a14">1. HTTP (Hyper Text Transfer Protocol)</a>
 <ul>
-<li><a href="#org207f7a4">1.1. HTTP 是一种基于请求响应的文本协议</a></li>
-<li><a href="#orgd069db4">1.2. 请求方法</a></li>
-<li><a href="#org9e3f71a">1.3. 响应码 (Status Code)</a></li>
+<li><a href="#org7882fc5">1.1. HTTP 是一种基于请求响应的文本协议</a></li>
+<li><a href="#org177b69a">1.2. 请求方法</a></li>
+<li><a href="#org19bb726">1.3. 响应码 (Status Code)</a></li>
 </ul>
 </li>
-<li><a href="#orga90fe0c">2. HTTPS</a></li>
-<li><a href="#org5944784">3. HTTP2</a></li>
-<li><a href="#org7a1e755">4. Websocket</a></li>
-<li><a href="#org081cc94">5. AJAX</a>
+<li><a href="#orgca07c2d">2. HTTPS</a></li>
+<li><a href="#org0b2dccb">3. HTTP2</a></li>
+<li><a href="#org90e580d">4. Websocket</a></li>
+<li><a href="#org504502a">5. AJAX</a>
 <ul>
-<li><a href="#orga806546">5.1. XMLHttpRequest</a></li>
-<li><a href="#orgd54ae21">5.2. Fetch API</a></li>
-<li><a href="#org2a84c74">5.3. jQuery</a></li>
-<li><a href="#orge3e558c">5.4. axios.js</a></li>
+<li><a href="#org57bab32">5.1. XMLHttpRequest</a></li>
+<li><a href="#org34e6feb">5.2. Fetch API</a></li>
+<li><a href="#org1780c66">5.3. jQuery</a></li>
+<li><a href="#org6e91461">5.4. axios.js</a></li>
 </ul>
 </li>
 </ul>
@@ -47,12 +47,12 @@
 HTTP (超文本传输协议) 是一个简单的请求-响应协议，它通常运行在 TCP 之上。
 </p>
 
-<section id="outline-container-org8aff3c0" class="outline-2">
-<h2 id="org8aff3c0"><span class="section-number-2">1.</span> HTTP (Hyper Text Transfer Protocol)</h2>
+<section id="outline-container-orgd432a14" class="outline-2">
+<h2 id="orgd432a14"><span class="section-number-2">1.</span> HTTP (Hyper Text Transfer Protocol)</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org207f7a4" class="outline-3">
-<h3 id="org207f7a4"><span class="section-number-3">1.1.</span> HTTP 是一种基于请求响应的文本协议</h3>
+<div id="outline-container-org7882fc5" class="outline-3">
+<h3 id="org7882fc5"><span class="section-number-3">1.1.</span> HTTP 是一种基于请求响应的文本协议</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 基本特点:
@@ -89,8 +89,8 @@ HTTP 是无状态的:
 </div>
 </div>
 
-<div id="outline-container-orgd069db4" class="outline-3">
-<h3 id="orgd069db4"><span class="section-number-3">1.2.</span> 请求方法</h3>
+<div id="outline-container-org177b69a" class="outline-3">
+<h3 id="org177b69a"><span class="section-number-3">1.2.</span> 请求方法</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>GET</li>
@@ -103,8 +103,8 @@ HTTP 是无状态的:
 </div>
 </div>
 
-<div id="outline-container-org9e3f71a" class="outline-3">
-<h3 id="org9e3f71a"><span class="section-number-3">1.3.</span> 响应码 (Status Code)</h3>
+<div id="outline-container-org19bb726" class="outline-3">
+<h3 id="org19bb726"><span class="section-number-3">1.3.</span> 响应码 (Status Code)</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>20X: 200, 201</li>
@@ -127,8 +127,8 @@ HTTP 是无状态的:
 </div>
 </section>
 
-<section id="outline-container-orga90fe0c" class="outline-2">
-<h2 id="orga90fe0c"><span class="section-number-2">2.</span> HTTPS</h2>
+<section id="outline-container-orgca07c2d" class="outline-2">
+<h2 id="orgca07c2d"><span class="section-number-2">2.</span> HTTPS</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 在 HTTP 的基础上，对收发端的数据基于 TLS 或 SSL 协议进行加密、解密，
@@ -141,8 +141,8 @@ HTTP 是无状态的:
 </div>
 </section>
 
-<section id="outline-container-org5944784" class="outline-2">
-<h2 id="org5944784"><span class="section-number-2">3.</span> HTTP2</h2>
+<section id="outline-container-org0b2dccb" class="outline-2">
+<h2 id="org0b2dccb"><span class="section-number-2">3.</span> HTTP2</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 对原来的 HTTP 协议进行的 <b>改进、升级</b> 版本，主要是提高性能:
@@ -165,50 +165,50 @@ HTTP 是无状态的:
 </div>
 </section>
 
-<section id="outline-container-org7a1e755" class="outline-2">
-<h2 id="org7a1e755"><span class="section-number-2">4.</span> Websocket</h2>
+<section id="outline-container-org90e580d" class="outline-2">
+<h2 id="org90e580d"><span class="section-number-2">4.</span> Websocket</h2>
 </section>
-<section id="outline-container-org081cc94" class="outline-2">
-<h2 id="org081cc94"><span class="section-number-2">5.</span> AJAX</h2>
+<section id="outline-container-org504502a" class="outline-2">
+<h2 id="org504502a"><span class="section-number-2">5.</span> AJAX</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-orga806546" class="outline-3">
-<h3 id="orga806546"><span class="section-number-3">5.1.</span> XMLHttpRequest</h3>
+<div id="outline-container-org57bab32" class="outline-3">
+<h3 id="org57bab32"><span class="section-number-3">5.1.</span> XMLHttpRequest</h3>
 <div class="outline-text-3" id="text-5-1">
 <div class="org-src-container">
-<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">body</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #00538b;">id</span>=<span style="color: #2544bb;">"products"</span><span style="color: #000000;">&gt;</span>
+<pre class="src src-html"><span style="color: #707183;">&lt;</span><span style="color: #0000ff;">body</span><span style="color: #707183;">&gt;</span>
+    <span style="color: #707183;">&lt;</span><span style="color: #0000ff;">div</span> <span style="color: #a0522d;">id</span>=<span style="color: #8b2252;">"products"</span><span style="color: #707183;">&gt;</span>
         &#27809;&#26377;&#21152;&#36733;&#23436;&#27605;...
-    <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #00538b;">id</span>=<span style="color: #2544bb;">"comments"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #00538b;">id</span>=<span style="color: #2544bb;">"related"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #707183;">&lt;</span>/<span style="color: #0000ff;">div</span><span style="color: #707183;">&gt;</span>
+    <span style="color: #707183;">&lt;</span><span style="color: #0000ff;">div</span> <span style="color: #a0522d;">id</span>=<span style="color: #8b2252;">"comments"</span><span style="color: #707183;">&gt;&lt;</span>/<span style="color: #0000ff;">div</span><span style="color: #707183;">&gt;</span>
+    <span style="color: #707183;">&lt;</span><span style="color: #0000ff;">div</span> <span style="color: #a0522d;">id</span>=<span style="color: #8b2252;">"related"</span><span style="color: #707183;">&gt;&lt;</span>/<span style="color: #0000ff;">div</span><span style="color: #707183;">&gt;</span>
 
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
-       <span style="color: #5317ac;">function</span> <span style="color: #721045;">loadXxxFragment</span><span style="color: #000000;">()</span> <span style="color: #000000;">{</span>
-            <span style="color: #5317ac;">const</span> <span style="color: #00538b;">request</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">XMLHttpRequest</span><span style="color: #a8007f;">()</span>;
-            request.open<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"get"</span>, <span style="color: #2544bb;">"/ajax/products"</span><span style="color: #a8007f;">)</span>;
-            request.send<span style="color: #a8007f;">()</span>;
-            request.onload = <span style="color: #5317ac;">function</span><span style="color: #a8007f;">()</span> <span style="color: #a8007f;">{</span>
-                <span style="color: #505050;">// </span><span style="color: #505050;">this.response</span>
-                <span style="color: #505050;">// </span><span style="color: #505050;">this.responseText</span>
-                <span style="color: #505050;">// </span><span style="color: #505050;">this.responseType</span>
-                <span style="color: #505050;">// </span><span style="color: #505050;">this.status</span>
-                <span style="color: #505050;">// </span><span style="color: #505050;">this.statusText</span>
-                <span style="color: #505050;">// </span><span style="color: #505050;">console.log(this.responseText)</span>
-                <span style="color: #5317ac;">var</span> <span style="color: #00538b;">res</span> = <span style="color: #0000c0;">this</span>.responseText;
-                <span style="color: #5317ac;">var</span> <span style="color: #00538b;">json</span> = JSON.parse<span style="color: #005f88;">(</span>res<span style="color: #005f88;">)</span>;
-                <span style="color: #5317ac;">var</span> <span style="color: #00538b;">h</span> = <span style="color: #2544bb;">"&lt;table border=1&gt;"</span>;
-                json.forEach<span style="color: #005f88;">(</span>x =&gt; <span style="color: #904200;">{</span>
-                    h += <span style="color: #2544bb;">`&lt;tr&gt;&lt;td&gt;${x.name}&lt;/td&gt;&lt;td&gt;${x.description}&lt;/td&gt;&lt;td&gt;${x.price}&lt;/td&gt;&lt;/tr&gt;`</span>;
-                <span style="color: #904200;">}</span><span style="color: #005f88;">)</span>
-                h += <span style="color: #2544bb;">"&lt;/table&gt;"</span>
-                document.querySelector<span style="color: #005f88;">(</span><span style="color: #2544bb;">"#products"</span><span style="color: #005f88;">)</span>.innerHTML = h;
-            <span style="color: #a8007f;">}</span>;
-        <span style="color: #000000;">}</span>
+    <span style="color: #707183;">&lt;</span><span style="color: #0000ff;">script</span><span style="color: #707183;">&gt;</span>
+       <span style="color: #a020f0;">function</span> <span style="color: #0000ff;">loadXxxFragment</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span>
+            <span style="color: #a020f0;">const</span> <span style="color: #a0522d;">request</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">XMLHttpRequest</span><span style="color: #7388d6;">()</span>;
+            request.open<span style="color: #7388d6;">(</span><span style="color: #8b2252;">"get"</span>, <span style="color: #8b2252;">"/ajax/products"</span><span style="color: #7388d6;">)</span>;
+            request.send<span style="color: #7388d6;">()</span>;
+            request.onload = <span style="color: #a020f0;">function</span><span style="color: #7388d6;">()</span> <span style="color: #7388d6;">{</span>
+                <span style="color: #b22222;">// </span><span style="color: #b22222;">this.response</span>
+                <span style="color: #b22222;">// </span><span style="color: #b22222;">this.responseText</span>
+                <span style="color: #b22222;">// </span><span style="color: #b22222;">this.responseType</span>
+                <span style="color: #b22222;">// </span><span style="color: #b22222;">this.status</span>
+                <span style="color: #b22222;">// </span><span style="color: #b22222;">this.statusText</span>
+                <span style="color: #b22222;">// </span><span style="color: #b22222;">console.log(this.responseText)</span>
+                <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">res</span> = <span style="color: #008b8b;">this</span>.responseText;
+                <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">json</span> = JSON.parse<span style="color: #909183;">(</span>res<span style="color: #909183;">)</span>;
+                <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">h</span> = <span style="color: #8b2252;">"&lt;table border=1&gt;"</span>;
+                json.forEach<span style="color: #909183;">(</span>x =&gt; <span style="color: #709870;">{</span>
+                    h += <span style="color: #8b2252;">`&lt;tr&gt;&lt;td&gt;${x.name}&lt;/td&gt;&lt;td&gt;${x.description}&lt;/td&gt;&lt;td&gt;${x.price}&lt;/td&gt;&lt;/tr&gt;`</span>;
+                <span style="color: #709870;">}</span><span style="color: #909183;">)</span>
+                h += <span style="color: #8b2252;">"&lt;/table&gt;"</span>
+                document.querySelector<span style="color: #909183;">(</span><span style="color: #8b2252;">"#products"</span><span style="color: #909183;">)</span>.innerHTML = h;
+            <span style="color: #7388d6;">}</span>;
+        <span style="color: #707183;">}</span>
 
-        loadXxxFragment<span style="color: #000000;">()</span>;
-    <span style="color: #000000;">&lt;</span>/script<span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">body</span><span style="color: #000000;">&gt;</span>
+        loadXxxFragment<span style="color: #707183;">()</span>;
+    <span style="color: #707183;">&lt;</span>/script<span style="color: #707183;">&gt;</span>
+<span style="color: #707183;">&lt;</span>/<span style="color: #0000ff;">body</span><span style="color: #707183;">&gt;</span>
 </pre>
 </div>
 
@@ -216,23 +216,23 @@ HTTP 是无状态的:
 回调地狱:
 </p>
 <div class="org-src-container">
-<pre class="src src-js"><span style="color: #5317ac;">function</span> <span style="color: #721045;">myinit</span><span style="color: #000000;">()</span> <span style="color: #000000;">{</span>
-    <span style="color: #5317ac;">var</span> <span style="color: #00538b;">xhr1</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">XMLHttpRequest</span><span style="color: #a8007f;">()</span>;
-    xhr1.open<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"GET"</span>, <span style="color: #2544bb;">"/top"</span><span style="color: #a8007f;">)</span>;
-    xhr1.send<span style="color: #a8007f;">()</span>;
-    xhr1.onload = <span style="color: #5317ac;">function</span> <span style="color: #a8007f;">()</span> <span style="color: #a8007f;">{</span>
-        xxxx.innerHTML = <span style="color: #0000c0;">this</span>.responseText;
-        <span style="color: #5317ac;">var</span> <span style="color: #00538b;">xhr2</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">XMLHttpRequest</span><span style="color: #005f88;">()</span>;
-        xhr2.open<span style="color: #005f88;">(</span><span style="color: #2544bb;">"GET"</span>, <span style="color: #2544bb;">"/bottomLeft"</span><span style="color: #005f88;">)</span>;
-        xhr2.send<span style="color: #005f88;">()</span>;
-        xhr2.onload = <span style="color: #5317ac;">function</span> <span style="color: #005f88;">()</span> <span style="color: #005f88;">{</span>
-            yyy.innerHTML = <span style="color: #0000c0;">this</span>.responseText;
-            <span style="color: #5317ac;">var</span> <span style="color: #00538b;">xhr3</span> = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">XMLHttpRequest</span><span style="color: #904200;">()</span>;
-            xhr3.open<span style="color: #904200;">(</span><span style="color: #2544bb;">"GET"</span>, <span style="color: #2544bb;">"/bottomRight"</span><span style="color: #904200;">)</span>;
-            xhr3.send<span style="color: #904200;">()</span>;
-        <span style="color: #005f88;">}</span>
-    <span style="color: #a8007f;">}</span>;
-<span style="color: #000000;">}</span>
+<pre class="src src-js"><span style="color: #a020f0;">function</span> <span style="color: #0000ff;">myinit</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span>
+    <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">xhr1</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">XMLHttpRequest</span><span style="color: #7388d6;">()</span>;
+    xhr1.open<span style="color: #7388d6;">(</span><span style="color: #8b2252;">"GET"</span>, <span style="color: #8b2252;">"/top"</span><span style="color: #7388d6;">)</span>;
+    xhr1.send<span style="color: #7388d6;">()</span>;
+    xhr1.onload = <span style="color: #a020f0;">function</span> <span style="color: #7388d6;">()</span> <span style="color: #7388d6;">{</span>
+        xxxx.innerHTML = <span style="color: #008b8b;">this</span>.responseText;
+        <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">xhr2</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">XMLHttpRequest</span><span style="color: #909183;">()</span>;
+        xhr2.open<span style="color: #909183;">(</span><span style="color: #8b2252;">"GET"</span>, <span style="color: #8b2252;">"/bottomLeft"</span><span style="color: #909183;">)</span>;
+        xhr2.send<span style="color: #909183;">()</span>;
+        xhr2.onload = <span style="color: #a020f0;">function</span> <span style="color: #909183;">()</span> <span style="color: #909183;">{</span>
+            yyy.innerHTML = <span style="color: #008b8b;">this</span>.responseText;
+            <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">xhr3</span> = <span style="color: #a020f0;">new</span> <span style="color: #228b22;">XMLHttpRequest</span><span style="color: #709870;">()</span>;
+            xhr3.open<span style="color: #709870;">(</span><span style="color: #8b2252;">"GET"</span>, <span style="color: #8b2252;">"/bottomRight"</span><span style="color: #709870;">)</span>;
+            xhr3.send<span style="color: #709870;">()</span>;
+        <span style="color: #909183;">}</span>
+    <span style="color: #7388d6;">}</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
@@ -242,105 +242,105 @@ Promise/async,await。
 </div>
 </div>
 
-<div id="outline-container-orgd54ae21" class="outline-3">
-<h3 id="orgd54ae21"><span class="section-number-3">5.2.</span> Fetch API</h3>
+<div id="outline-container-org34e6feb" class="outline-3">
+<h3 id="org34e6feb"><span class="section-number-3">5.2.</span> Fetch API</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 新的 AJAX 标准，是为了取代 XMLHttpRequest 才出现的。
 </p>
 
 <div class="org-src-container">
-<pre class="src src-js"><span style="color: #5317ac;">function</span> <span style="color: #721045;">loadXxxFragment</span><span style="color: #000000;">()</span> <span style="color: #000000;">{</span>
-    fetch<span style="color: #a8007f;">(</span><span style="color: #2544bb;">"/ajax/products"</span>, <span style="color: #005f88;">{</span> method: <span style="color: #2544bb;">"get"</span> <span style="color: #005f88;">}</span><span style="color: #a8007f;">)</span>
-        .then<span style="color: #a8007f;">(</span>resp =&gt; resp.json<span style="color: #005f88;">()</span><span style="color: #a8007f;">)</span>
-        .then<span style="color: #a8007f;">(</span>res =&gt; <span style="color: #005f88;">{</span>
-            console.log<span style="color: #904200;">(</span>res<span style="color: #904200;">)</span>;
-            <span style="color: #5317ac;">var</span> <span style="color: #00538b;">h</span> = <span style="color: #2544bb;">"&lt;table border=1 style='color: red'&gt;"</span>;
-            res.forEach<span style="color: #904200;">(</span>x =&gt; <span style="color: #7f10d0;">{</span>
-                h += <span style="color: #2544bb;">`&lt;tr&gt;&lt;td&gt;${x.name}&lt;/td&gt;&lt;td&gt;${x.description}&lt;/td&gt;&lt;td&gt;${x.price}&lt;/td&gt;&lt;/tr&gt;`</span>;
-            <span style="color: #7f10d0;">}</span><span style="color: #904200;">)</span>
-            h += <span style="color: #2544bb;">"&lt;/table&gt;"</span>
-            document.querySelector<span style="color: #904200;">(</span><span style="color: #2544bb;">"#products"</span><span style="color: #904200;">)</span>.innerHTML = h;
-        <span style="color: #005f88;">}</span><span style="color: #a8007f;">)</span>.<span style="color: #5317ac;">catch</span><span style="color: #a8007f;">(</span>err =&gt; <span style="color: #005f88;">{</span>
-            console.log<span style="color: #904200;">(</span>err<span style="color: #904200;">)</span>;
-            document.querySelector<span style="color: #904200;">(</span><span style="color: #2544bb;">"#products"</span><span style="color: #904200;">)</span>.innerHTML = <span style="color: #2544bb;">"&#21152;&#36733;&#22833;&#36133;"</span>;
-        <span style="color: #005f88;">}</span><span style="color: #a8007f;">)</span>;
-<span style="color: #000000;">}</span>
+<pre class="src src-js"><span style="color: #a020f0;">function</span> <span style="color: #0000ff;">loadXxxFragment</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span>
+    fetch<span style="color: #7388d6;">(</span><span style="color: #8b2252;">"/ajax/products"</span>, <span style="color: #909183;">{</span> method: <span style="color: #8b2252;">"get"</span> <span style="color: #909183;">}</span><span style="color: #7388d6;">)</span>
+        .then<span style="color: #7388d6;">(</span>resp =&gt; resp.json<span style="color: #909183;">()</span><span style="color: #7388d6;">)</span>
+        .then<span style="color: #7388d6;">(</span>res =&gt; <span style="color: #909183;">{</span>
+            console.log<span style="color: #709870;">(</span>res<span style="color: #709870;">)</span>;
+            <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">h</span> = <span style="color: #8b2252;">"&lt;table border=1 style='color: red'&gt;"</span>;
+            res.forEach<span style="color: #709870;">(</span>x =&gt; <span style="color: #907373;">{</span>
+                h += <span style="color: #8b2252;">`&lt;tr&gt;&lt;td&gt;${x.name}&lt;/td&gt;&lt;td&gt;${x.description}&lt;/td&gt;&lt;td&gt;${x.price}&lt;/td&gt;&lt;/tr&gt;`</span>;
+            <span style="color: #907373;">}</span><span style="color: #709870;">)</span>
+            h += <span style="color: #8b2252;">"&lt;/table&gt;"</span>
+            document.querySelector<span style="color: #709870;">(</span><span style="color: #8b2252;">"#products"</span><span style="color: #709870;">)</span>.innerHTML = h;
+        <span style="color: #909183;">}</span><span style="color: #7388d6;">)</span>.<span style="color: #a020f0;">catch</span><span style="color: #7388d6;">(</span>err =&gt; <span style="color: #909183;">{</span>
+            console.log<span style="color: #709870;">(</span>err<span style="color: #709870;">)</span>;
+            document.querySelector<span style="color: #709870;">(</span><span style="color: #8b2252;">"#products"</span><span style="color: #709870;">)</span>.innerHTML = <span style="color: #8b2252;">"&#21152;&#36733;&#22833;&#36133;"</span>;
+        <span style="color: #909183;">}</span><span style="color: #7388d6;">)</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2a84c74" class="outline-3">
-<h3 id="org2a84c74"><span class="section-number-3">5.3.</span> jQuery</h3>
+<div id="outline-container-org1780c66" class="outline-3">
+<h3 id="org1780c66"><span class="section-number-3">5.3.</span> jQuery</h3>
 <div class="outline-text-3" id="text-5-3">
 <div class="org-src-container">
-<pre class="src src-js"><span style="color: #5317ac;">function</span> <span style="color: #721045;">loadXxxFragment</span><span style="color: #000000;">()</span> <span style="color: #000000;">{</span>
-    $.ajax<span style="color: #a8007f;">(</span><span style="color: #005f88;">{</span>
-        url: <span style="color: #2544bb;">"/ajax/products"</span>,
-        method: <span style="color: #2544bb;">"get"</span>
-    <span style="color: #005f88;">}</span><span style="color: #a8007f;">)</span>.done<span style="color: #a8007f;">(</span><span style="color: #5317ac;">function</span> <span style="color: #005f88;">(</span><span style="color: #00538b;">res</span><span style="color: #005f88;">)</span> <span style="color: #005f88;">{</span>
-        console.log<span style="color: #904200;">(</span>res<span style="color: #904200;">)</span>;
-        <span style="color: #5317ac;">var</span> <span style="color: #00538b;">h</span> = <span style="color: #2544bb;">"&lt;table border=1 style='color: green'&gt;"</span>;
-        res.forEach<span style="color: #904200;">(</span>x =&gt; <span style="color: #7f10d0;">{</span>
-            h += <span style="color: #2544bb;">`&lt;tr&gt;&lt;td&gt;${x.name}&lt;/td&gt;&lt;td&gt;${x.description}&lt;/td&gt;&lt;td&gt;${x.price}&lt;/td&gt;&lt;/tr&gt;`</span>;
-        <span style="color: #7f10d0;">}</span><span style="color: #904200;">)</span>
-        h += <span style="color: #2544bb;">"&lt;/table&gt;"</span>
-        document.querySelector<span style="color: #904200;">(</span><span style="color: #2544bb;">"#products"</span><span style="color: #904200;">)</span>.innerHTML = h;
-    <span style="color: #005f88;">}</span><span style="color: #a8007f;">)</span>.fail<span style="color: #a8007f;">(</span><span style="color: #5317ac;">function</span> <span style="color: #005f88;">(</span><span style="color: #00538b;">err</span><span style="color: #005f88;">)</span> <span style="color: #005f88;">{</span>
-        document.querySelector<span style="color: #904200;">(</span><span style="color: #2544bb;">"#products"</span><span style="color: #904200;">)</span>.innerHTML = <span style="color: #2544bb;">"&#21152;&#36733;&#22833;&#36133;"</span>;
-    <span style="color: #005f88;">}</span><span style="color: #a8007f;">)</span>;
+<pre class="src src-js"><span style="color: #a020f0;">function</span> <span style="color: #0000ff;">loadXxxFragment</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span>
+    $.ajax<span style="color: #7388d6;">(</span><span style="color: #909183;">{</span>
+        url: <span style="color: #8b2252;">"/ajax/products"</span>,
+        method: <span style="color: #8b2252;">"get"</span>
+    <span style="color: #909183;">}</span><span style="color: #7388d6;">)</span>.done<span style="color: #7388d6;">(</span><span style="color: #a020f0;">function</span> <span style="color: #909183;">(</span><span style="color: #a0522d;">res</span><span style="color: #909183;">)</span> <span style="color: #909183;">{</span>
+        console.log<span style="color: #709870;">(</span>res<span style="color: #709870;">)</span>;
+        <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">h</span> = <span style="color: #8b2252;">"&lt;table border=1 style='color: green'&gt;"</span>;
+        res.forEach<span style="color: #709870;">(</span>x =&gt; <span style="color: #907373;">{</span>
+            h += <span style="color: #8b2252;">`&lt;tr&gt;&lt;td&gt;${x.name}&lt;/td&gt;&lt;td&gt;${x.description}&lt;/td&gt;&lt;td&gt;${x.price}&lt;/td&gt;&lt;/tr&gt;`</span>;
+        <span style="color: #907373;">}</span><span style="color: #709870;">)</span>
+        h += <span style="color: #8b2252;">"&lt;/table&gt;"</span>
+        document.querySelector<span style="color: #709870;">(</span><span style="color: #8b2252;">"#products"</span><span style="color: #709870;">)</span>.innerHTML = h;
+    <span style="color: #909183;">}</span><span style="color: #7388d6;">)</span>.fail<span style="color: #7388d6;">(</span><span style="color: #a020f0;">function</span> <span style="color: #909183;">(</span><span style="color: #a0522d;">err</span><span style="color: #909183;">)</span> <span style="color: #909183;">{</span>
+        document.querySelector<span style="color: #709870;">(</span><span style="color: #8b2252;">"#products"</span><span style="color: #709870;">)</span>.innerHTML = <span style="color: #8b2252;">"&#21152;&#36733;&#22833;&#36133;"</span>;
+    <span style="color: #909183;">}</span><span style="color: #7388d6;">)</span>;
 
-    <span style="color: #505050;">// </span><span style="color: #505050;">$.get("/ajax/products").done.fail;</span>
-    <span style="color: #505050;">// </span><span style="color: #505050;">$.post/getJson</span>
-    <span style="color: #505050;">// </span><span style="color: #505050;">$.load("/ajax/product", document.querySelector("#products"));</span>
-<span style="color: #000000;">}</span>
+    <span style="color: #b22222;">// </span><span style="color: #b22222;">$.get("/ajax/products").done.fail;</span>
+    <span style="color: #b22222;">// </span><span style="color: #b22222;">$.post/getJson</span>
+    <span style="color: #b22222;">// </span><span style="color: #b22222;">$.load("/ajax/product", document.querySelector("#products"));</span>
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orge3e558c" class="outline-3">
-<h3 id="orge3e558c"><span class="section-number-3">5.4.</span> axios.js</h3>
+<div id="outline-container-org6e91461" class="outline-3">
+<h3 id="org6e91461"><span class="section-number-3">5.4.</span> axios.js</h3>
 <div class="outline-text-3" id="text-5-4">
 <p>
 <a href="https://www.axios-http.cn/">https://www.axios-http.cn/</a>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-js"><span style="color: #5317ac;">function</span> <span style="color: #721045;">loadXxxFragment</span><span style="color: #000000;">()</span> <span style="color: #000000;">{</span>
-    axios<span style="color: #a8007f;">(</span><span style="color: #005f88;">{</span>
-        url: <span style="color: #2544bb;">"/ajax/products"</span>,
-        method: <span style="color: #2544bb;">"get"</span>
-    <span style="color: #005f88;">}</span><span style="color: #a8007f;">)</span>.then<span style="color: #a8007f;">(</span><span style="color: #5317ac;">function</span> <span style="color: #005f88;">(</span><span style="color: #00538b;">resp</span><span style="color: #005f88;">)</span> <span style="color: #005f88;">{</span>
-        <span style="color: #5317ac;">var</span> <span style="color: #00538b;">res</span> = resp.data;
-        <span style="color: #5317ac;">var</span> <span style="color: #00538b;">h</span> = <span style="color: #2544bb;">"&lt;table border=1 style='color: purple'&gt;"</span>;
-        res.forEach<span style="color: #904200;">(</span>x =&gt; <span style="color: #7f10d0;">{</span>
-            h += <span style="color: #2544bb;">`&lt;tr&gt;&lt;td&gt;${x.name}&lt;/td&gt;&lt;td&gt;${x.description}&lt;/td&gt;&lt;td&gt;${x.price}&lt;/td&gt;&lt;/tr&gt;`</span>;
-        <span style="color: #7f10d0;">}</span><span style="color: #904200;">)</span>
-        h += <span style="color: #2544bb;">"&lt;/table&gt;"</span>
-        document.querySelector<span style="color: #904200;">(</span><span style="color: #2544bb;">"#products"</span><span style="color: #904200;">)</span>.innerHTML = h;
-    <span style="color: #005f88;">}</span><span style="color: #a8007f;">)</span>.<span style="color: #5317ac;">catch</span><span style="color: #a8007f;">(</span><span style="color: #5317ac;">function</span> <span style="color: #005f88;">()</span> <span style="color: #005f88;">{</span>
-        document.querySelector<span style="color: #904200;">(</span><span style="color: #2544bb;">"#products"</span><span style="color: #904200;">)</span>.innerHTML = <span style="color: #2544bb;">"&#21152;&#36733;&#22833;&#36133;"</span>;
-    <span style="color: #005f88;">}</span><span style="color: #a8007f;">)</span>;
-<span style="color: #000000;">}</span>
+<pre class="src src-js"><span style="color: #a020f0;">function</span> <span style="color: #0000ff;">loadXxxFragment</span><span style="color: #707183;">()</span> <span style="color: #707183;">{</span>
+    axios<span style="color: #7388d6;">(</span><span style="color: #909183;">{</span>
+        url: <span style="color: #8b2252;">"/ajax/products"</span>,
+        method: <span style="color: #8b2252;">"get"</span>
+    <span style="color: #909183;">}</span><span style="color: #7388d6;">)</span>.then<span style="color: #7388d6;">(</span><span style="color: #a020f0;">function</span> <span style="color: #909183;">(</span><span style="color: #a0522d;">resp</span><span style="color: #909183;">)</span> <span style="color: #909183;">{</span>
+        <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">res</span> = resp.data;
+        <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">h</span> = <span style="color: #8b2252;">"&lt;table border=1 style='color: purple'&gt;"</span>;
+        res.forEach<span style="color: #709870;">(</span>x =&gt; <span style="color: #907373;">{</span>
+            h += <span style="color: #8b2252;">`&lt;tr&gt;&lt;td&gt;${x.name}&lt;/td&gt;&lt;td&gt;${x.description}&lt;/td&gt;&lt;td&gt;${x.price}&lt;/td&gt;&lt;/tr&gt;`</span>;
+        <span style="color: #907373;">}</span><span style="color: #709870;">)</span>
+        h += <span style="color: #8b2252;">"&lt;/table&gt;"</span>
+        document.querySelector<span style="color: #709870;">(</span><span style="color: #8b2252;">"#products"</span><span style="color: #709870;">)</span>.innerHTML = h;
+    <span style="color: #909183;">}</span><span style="color: #7388d6;">)</span>.<span style="color: #a020f0;">catch</span><span style="color: #7388d6;">(</span><span style="color: #a020f0;">function</span> <span style="color: #909183;">()</span> <span style="color: #909183;">{</span>
+        document.querySelector<span style="color: #709870;">(</span><span style="color: #8b2252;">"#products"</span><span style="color: #709870;">)</span>.innerHTML = <span style="color: #8b2252;">"&#21152;&#36733;&#22833;&#36133;"</span>;
+    <span style="color: #909183;">}</span><span style="color: #7388d6;">)</span>;
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-js"><span style="color: #5317ac;">async</span> <span style="color: #5317ac;">function</span> loadXxxFragment<span style="color: #000000;">()</span> <span style="color: #000000;">{</span>
-    <span style="color: #5317ac;">try</span> <span style="color: #a8007f;">{</span>
-        <span style="color: #5317ac;">const</span> <span style="color: #00538b;">resp</span> = <span style="color: #5317ac;">await</span> axios.get<span style="color: #005f88;">(</span><span style="color: #2544bb;">"/ajax/products"</span><span style="color: #005f88;">)</span>;
-        <span style="color: #5317ac;">var</span> <span style="color: #00538b;">h</span> = <span style="color: #2544bb;">"&lt;table border=1 style='color: blue'&gt;"</span>;
-        resp.data.forEach<span style="color: #005f88;">(</span>x =&gt; <span style="color: #904200;">{</span>
-            h += <span style="color: #2544bb;">`&lt;tr&gt;&lt;td&gt;${x.name}&lt;/td&gt;&lt;td&gt;${x.description}&lt;/td&gt;&lt;td&gt;${x.price}&lt;/td&gt;&lt;/tr&gt;`</span>;
-        <span style="color: #904200;">}</span><span style="color: #005f88;">)</span>
-        h += <span style="color: #2544bb;">"&lt;/table&gt;"</span>
-        document.querySelector<span style="color: #005f88;">(</span><span style="color: #2544bb;">"#products"</span><span style="color: #005f88;">)</span>.innerHTML = h;
-    <span style="color: #a8007f;">}</span> <span style="color: #5317ac;">catch</span> <span style="color: #a8007f;">{</span>
-        <span style="color: #505050;">// </span><span style="color: #505050;">&#30465;&#30053;&#25481;</span>
-    <span style="color: #a8007f;">}</span>
-<span style="color: #000000;">}</span>
+<pre class="src src-js"><span style="color: #a020f0;">async</span> <span style="color: #a020f0;">function</span> loadXxxFragment<span style="color: #707183;">()</span> <span style="color: #707183;">{</span>
+    <span style="color: #a020f0;">try</span> <span style="color: #7388d6;">{</span>
+        <span style="color: #a020f0;">const</span> <span style="color: #a0522d;">resp</span> = <span style="color: #a020f0;">await</span> axios.get<span style="color: #909183;">(</span><span style="color: #8b2252;">"/ajax/products"</span><span style="color: #909183;">)</span>;
+        <span style="color: #a020f0;">var</span> <span style="color: #a0522d;">h</span> = <span style="color: #8b2252;">"&lt;table border=1 style='color: blue'&gt;"</span>;
+        resp.data.forEach<span style="color: #909183;">(</span>x =&gt; <span style="color: #709870;">{</span>
+            h += <span style="color: #8b2252;">`&lt;tr&gt;&lt;td&gt;${x.name}&lt;/td&gt;&lt;td&gt;${x.description}&lt;/td&gt;&lt;td&gt;${x.price}&lt;/td&gt;&lt;/tr&gt;`</span>;
+        <span style="color: #709870;">}</span><span style="color: #909183;">)</span>
+        h += <span style="color: #8b2252;">"&lt;/table&gt;"</span>
+        document.querySelector<span style="color: #909183;">(</span><span style="color: #8b2252;">"#products"</span><span style="color: #909183;">)</span>.innerHTML = h;
+    <span style="color: #7388d6;">}</span> <span style="color: #a020f0;">catch</span> <span style="color: #7388d6;">{</span>
+        <span style="color: #b22222;">// </span><span style="color: #b22222;">&#30465;&#30053;&#25481;</span>
+    <span style="color: #7388d6;">}</span>
+<span style="color: #707183;">}</span>
 </pre>
 </div>
 </div>
@@ -349,7 +349,7 @@ Promise/async,await。
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2022-11-25</p>
+<p class="date">Created: 2022-12-15</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
