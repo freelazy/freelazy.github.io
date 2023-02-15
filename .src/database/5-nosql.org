@@ -31,10 +31,10 @@ https://www.mongodb.com/
 
 ** 安装
 
-- 服务器: https://www.mongodb.com/try/download/community
+- 服务端: https://www.mongodb.com/try/download/community
 - 客户端: https://www.mongodb.com/try/download/shell
 
-** 运行服务
+** 服务端
 
 如果你安装了服务，那么可以通过在 services.msc 中开启 MongoDb。或者通过命令行:
 : net start MongoDB
@@ -44,7 +44,7 @@ https://www.mongodb.com/
 
 因为 MongoDB 也是采取的 CS 模式，所以只有开启了服务端，才能正常使用。
 
-** 客户端连接
+** 客户端 (mongosh)
 
 客户端，可以安装使用 mongosh 或者安装使用图形界面版的 compass。
 
@@ -54,9 +54,210 @@ https://www.mongodb.com/
 : mongosh --host yaoqisan --port 27017
 : mongosh [options] [db address] [file names (ending in .js or .mongodb)]
 
-** 基本使用
+基本结构:
+: db
+:  - collection(表)
+:    - document(行)
 
-db -- collection -- document
+基本语法:
+#+begin_src javascript
+  db       // current working db
+  use vip  // switch to db named 'vip'
+
+  // help
+  help
+  db.test.help()
+
+  // info
+  show dbs
+  show collections // db.getCollectionNames(); show tables;
+
+  ////// DDL ///////
+
+  // drop current db
+  db.dropDatabase()
+
+  // as | create table users {...}
+  db.createCollection("users")   // optional, can auto create when insert occured
+
+  // as | create index
+  db.users.createIndex({user_id:1}) // users is collections, just as table
+
+  // as | drop table users
+  db.users.drop()
+  db.collection.drop()
+
+  ////// DML ///////
+
+  // as | insert into users values {...}
+  db.users.insert({id:"vip", age:20, stat:"A"})
+
+  // as | select * from users
+  // as | select * from users limit 1
+  db.users.find()
+  db.users.findOne()
+  db.users.find().limit(1)
+
+  // as | select * from users where age > 5
+  // as | select * from users where stat='A' sort by user_id
+  db.users.find({age: {$gt: 25}})
+  db.users.find({stat: 'A'}).sort('user_id')
+
+  // as | select count(*) from users where age=18
+  db.users.count({age:18})
+
+  // as | alter table users add column ... | update users set .. where age=18
+  db.users.update({}, {$set:{join_date:newDate()}}, {multi:true})
+  db.users.update({age: 18}, {$set: {stat: 'X'}}, {multi: true})
+
+  // as | delete from users where stat='A'
+  db.users.remove({stat: 'A'})
+#+end_src
+
+*** API Refs
+
+Database API (db.xxx):
+#+begin_quote
+    adminCommand                               Runs an arbitrary command against the admin database.
+    aggregate                                  Runs a specified admin/diagnostic pipeline which does not require an underlying collection.
+    auth                                       Allows a user to authenticate to the database from within the shell.
+    changeUserPassword                         Updates a user’s password. Run the method in the database where the user is defined, i.e. the database you created the user.
+    cloneCollection                            deprecated, non-functional
+    cloneDatabase                              deprecated, non-functional
+    commandHelp                                returns the db commandHelp. uses the passed in command with help: true
+    copyDatabase                               deprecated, non-functional
+    createCollection                           Create new collection
+    createRole                                 Creates a new role.
+    createUser                                 Creates a new user for the database on which the method is run. db.createUser() returns a duplicate user error if the user already exists on the database.
+    createView                                 Create new view
+    currentOp                                  Runs an aggregation using $currentOp operator. Returns a document that contains information on in-progress operations for the database instance. For further information, see $currentOp.
+    disableFreeMonitoring                      returns the db disableFreeMonitoring. uses the setFreeMonitoring command
+    dropAllRoles                               Removes all roles from the current database.
+    dropAllUsers                               Removes all users from the current database.
+    dropDatabase                               Removes the current database, deleting the associated data files.
+    dropRole                                   Removes the role from the current database.
+    dropUser                                   Removes the user from the current database.
+    enableFreeMonitoring                       returns the db enableFreeMonitoring. uses the setFreeMonitoring command
+    fsyncLock                                  Calls the fsync command. Forces the mongod to flush all pending write operations to disk and locks the entire mongod instance to prevent additional writes until the user releases the lock with a corresponding db.fsyncUnlock() command.
+    fsyncUnlock                                Calls the fsyncUnlock command. Reduces the lock taken by db.fsyncLock() on a mongod instance by 1.
+    getCollection                              Returns a collection or a view object that is functionally equivalent to using the db.<collectionName>.
+    getCollectionInfos                         Returns an array of documents with collection information, i.e. collection name and options, for the current database.
+    getCollectionNames                         Returns an array containing the names of all collections in the current database.
+    getFreeMonitoringStatus                    Calls the getFreeMonitoringStatus command
+    getLastError                               Calls the getLastError command
+    getLastErrorObj                            Calls the getLastError command
+    getLogComponents                           returns the db getLogComponents. uses the getParameter command
+    getMongo                                   Returns the current database connection
+    getName                                    Returns the name of the DB
+    getProfilingStatus                         returns the db getProfilingStatus. uses the profile command
+    getReplicationInfo                         Returns replication information
+    getRole                                    Returns role information for a specified role. Run this method on the role’s database. The role must exist on the database on which the method runs.
+    getRoles                                   Returns information for all the roles in the database.
+    getSiblingDB                               Returns another database without modifying the db variable in the shell environment.
+    getUser                                    Returns user information for a specified user. Run this method on the user’s database. The user must exist on the database on which the method runs.
+    getUsers                                   Returns information for all the users in the database.
+    grantPrivilegesToRole                      Grants additional privileges to a role.
+    grantRolesToRole                           Grants additional roles to a role.
+    grantRolesToUser                           Grants additional roles to a user.
+    hello                                      Calls the hello command
+    hostInfo                                   Calls the hostInfo command
+    isMaster                                   Calls the isMaster command
+    killOp                                     Calls the killOp command. Terminates an operation as specified by the operation ID. To find operations and their corresponding IDs, see $currentOp or db.currentOp().
+    listCommands                               Calls the listCommands command
+    logout                                     Ends the current authentication session. This function has no effect if the current session is not authenticated.
+    printCollectionStats                       Prints the collection.stats for each collection in the db.
+    printReplicationInfo                       Formats sh.getReplicationInfo
+    printSecondaryReplicationInfo              Prints secondary replicaset information
+    printShardingStatus                        Calls sh.status(verbose)
+    printSlaveReplicationInfo                  DEPRECATED. Use db.printSecondaryReplicationInfo
+    revokePrivilegesFromRole                   Removes a one or more privileges from a role on the current database.
+    revokeRolesFromRole                        Removes a one or more roles from a role on the current database.
+    revokeRolesFromUser                        Removes a one or more roles from a user on the current database.
+    rotateCertificates                         Calls the rotateCertificates command
+    runCommand                                 Runs an arbitrary command on the database.
+    serverBits                                 returns the db serverBits. uses the buildInfo command
+    serverBuildInfo                            returns the db serverBuildInfo. uses the buildInfo command
+    serverCmdLineOpts                          returns the db serverCmdLineOpts. uses the getCmdLineOpts command
+    serverStatus                               returns the server stats. uses the serverStatus command
+    setLogLevel                                returns the db setLogLevel. uses the setParameter command
+    setProfilingLevel                          returns the db setProfilingLevel. uses the profile command
+    setSecondaryOk                             This method is deprecated. Use db.getMongo().setReadPref() instead
+    shutdownServer                             Calls the shutdown command. Shuts down the current mongod or mongos process cleanly and safely. You must issue the db.shutdownServer() operation against the admin database.
+    sql                                        (Experimental) Runs a SQL query against Atlas Data Lake. Note: this is an experimental feature that may be subject to change in future releases.
+    stats                                      returns the db stats. uses the dbStats command
+    updateRole                                 Updates the role’s profile on the database on which you run the method. An update to a field completely replaces the previous field’s values.
+    updateUser                                 Updates the user’s profile on the database on which you run the method. An update to a field completely replaces the previous field’s values. This includes updates to the user’s roles array.
+    version                                    returns the db version. uses the buildinfo command
+    watch                                      Opens a change stream cursor on the database
+#+end_quote
+
+Collection API (db.books.xxx):
+#+begin_quote
+    aggregate                                  Calculates aggregate values for the data in a collection or a view.
+    bulkWrite                                  Performs multiple write operations with controls for order of execution.
+    compactStructuredEncryptionData            Compacts structured encryption data
+    convertToCapped                            calls {convertToCapped:'coll', size:maxBytes}} command
+    count                                      Returns the count of documents that would match a find() query for the collection or view.
+    countDocuments                             Returns the count of documents that match the query for a collection or view.
+    createIndex                                Creates one index on a collection
+    createIndexes                              Creates one or more indexes on a collection
+    dataSize                                   This method provides a wrapper around the size output of the collStats (i.e. db.collection.stats()) command.
+    deleteMany                                 Removes all documents that match the filter from a collection.
+    deleteOne                                  Removes a single document from a collection.
+    distinct                                   Finds the distinct values for a specified field across a single collection or view and returns the results in an array.
+    drop                                       Removes a collection or view from the database.
+    dropIndex                                  Drops or removes the specified index from a collection.
+    dropIndexes                                Drops the specified index or indexes (except the index on the _id field) from a collection.
+    ensureIndex                                Creates one index on a collection
+    estimatedDocumentCount                     Returns the count of all documents in a collection or view.
+    exists                                     Returns collection infos if the collection exists or null otherwise.
+    explain                                    Returns information on the query plan.
+    find                                       Selects documents in a collection or view.
+    findAndModify                              Modifies and returns a single document.
+    findOne                                    Selects documents in a collection or view.
+    findOneAndDelete                           Deletes a single document based on the filter and sort criteria, returning the deleted document.
+    findOneAndReplace                          Modifies and replaces a single document based on the filter and sort criteria.
+    findOneAndUpdate                           Updates a single document based on the filter and sort criteria.
+    getDB                                      Get current database.
+    getFullName                                Returns the name of the collection prefixed with the database name.
+    getIndexKeys                               Return an array of key patterns for indexes defined on collection
+    getIndexSpecs                              Alias for getIndexes. Returns an array that holds a list of documents that identify and describe the existing indexes on the collection.
+    getIndexes                                 Returns an array that holds a list of documents that identify and describe the existing indexes on the collection.
+    getIndices                                 Alias for getIndexes. Returns an array that holds a list of documents that identify and describe the existing indexes on the collection.
+    getMongo                                   Returns the Mongo object.
+    getName                                    Returns the name of the collection.
+    getPlanCache                               Returns an interface to access the query plan cache for a collection. The interface provides methods to view and clear the query plan cache.
+    getShardDistribution                       Prints the data distribution statistics for a sharded collection.
+    getShardVersion                            Calls the getShardVersion command
+    hideIndex                                  Hides an existing index from the query planner.
+    initializeOrderedBulkOp                    Initializes an ordered bulk command. Returns an instance of Bulk
+    initializeUnorderedBulkOp                  Initializes an unordered bulk command. Returns an instance of Bulk
+    insert                                     Inserts a document or documents into a collection.
+    insertMany                                 Inserts multiple documents into a collection.
+    insertOne                                  Inserts a document into a collection.
+    isCapped                                   Checks if a collection is capped
+    latencyStats                               returns the $latencyStats aggregation for the collection. Takes an options document with an optional boolean 'histograms' field.
+    mapReduce                                  Calls the mapReduce command
+    reIndex                                    Rebuilds all existing indexes on a collection.
+    remove                                     Removes documents from a collection.
+    renameCollection                           Renames a collection.
+    replaceOne                                 Replaces a single document within the collection based on the filter.
+    runCommand                                 Runs a db command with the given name where the first param is the collection name.
+    stats                                      Returns statistics about the collection.
+    storageSize                                The total amount of storage allocated to this collection for document storage.
+    totalIndexSize                             Reports the total size used by the indexes on a collection.
+    totalSize                                  The total size in bytes of the data in the collection plus the size of every index on the collection.
+    unhideIndex                                Unhides an existing index from the query planner.
+    update                                     Modifies an existing document or documents in a collection.
+    updateMany                                 Updates all documents that match the specified filter for a collection.
+    updateOne                                  Updates a single document within the collection based on the filter.
+    validate                                   Calls the validate command. Default full value is false
+    watch                                      Opens a change stream cursor on the collection
+#+end_quote
+
+** 客户端 (.NET MongoDB.Driver)
+
+pass
 
 * Redis
 
