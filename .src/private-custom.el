@@ -39,7 +39,6 @@
 
 (with-over
  (defreference sites-1
-   :force
    "DOCS/ASP.NET: https://learn.microsoft.com/zh-cn/aspnet"
    "Github: https://github.com/freelazy"
    "NuGet: https://www.nuget.org"

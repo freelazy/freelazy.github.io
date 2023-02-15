@@ -1,6 +1,30 @@
 #+TITLE: NoSQL
 
 
+* NoSQL
+
+名字解释:
+1. No SQL，不是关系型数据库 (SQL, Sqeuence Query Language)
+2. Not Only SQL, 不仅是关系型数据库
+
+NoSQL 数据库:
+- Redis
+- MongoDB/CouchDB
+- HBase
+
+对于数据库存储:
+- 优先使用关系型数据库。一般情况下，已经完全满足需求了
+- 当关系型数据库满足不了你的需求，你就可以寻求 NoSQL 的帮助了
+- 当你有足够内存，并数据的 schema 不是非常确定，MongoDB 是你的最优解
+- 当你追求的唯一是速度而不在乎数据的落地的话，那么 Redis 是那么美
+- 当你有大量、巨量的数据，数据量已经成为了你最大的问题，那么你的选项只有 ElasticSearch/HBase
+
+总之:
+- MongoDB 可以当做简单场景下的但是性能高数倍的 MySQL
+- Redis 最适合做缓存
+- HBase 擅长读写和做离线计算
+- ElasticSearch 更强于索引和检索
+
 * 111
 
 skip
