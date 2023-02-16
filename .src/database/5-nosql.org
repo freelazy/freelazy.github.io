@@ -298,6 +298,8 @@ https://github.com/mongodb/mongo-csharp-driver
   }
 #+end_src
 
+更多用法请参考官方文档: \\
+https://www.mongodb.com/docs/drivers/csharp/current/quick-start/
 
 * Redis
 
