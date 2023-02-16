@@ -257,7 +257,47 @@ Collection API (db.books.xxx):
 
 ** 客户端 (.NET MongoDB.Driver)
 
-pass
+https://github.com/mongodb/mongo-csharp-driver
+
+首先，需要将数据库的驱动添加到项目中:
+: dotnet add package MongoDB.Driver
+
+然后，就可以使用了。
+
+使用通用的 BsonDocument 表达数据:
+#+begin_src csharp
+  var client = new MongoClient("mongodb://localhost:27017");
+  var database = client.GetDatabase("foo");
+  var collection = database.GetCollection<BsonDocument>("bar");
+
+  await collection.InsertOneAsync(new BsonDocument("Name", "Jack"));
+
+  var list = await collection.Find(new BsonDocument("Name", "Jack")).ToListAsync();
+
+  foreach(var document in list)
+  {
+      Console.WriteLine(document["Name"]);
+  }
+#+end_src
+
+使用强类型表达数据:
+#+begin_src csharp
+  public class Person { public ObjectId Id { get; set; } public string Name { get; set; } }
+
+  var client = new MongoClient("mongodb://localhost:27017");
+  var database = client.GetDatabase("foo");
+  var collection = database.GetCollection<Person>("bar");
+
+  await collection.InsertOneAsync(new Person { Name = "Jack" });
+
+  var list = await collection.Find(x => x.Name == "Jack").ToListAsync();
+
+  foreach(var person in list)
+  {
+      Console.WriteLine(person.Name);
+  }
+#+end_src
+
 
 * Redis
 
