@@ -35,7 +35,14 @@
 <li><a href="#org864313b">2.4. 客户端 (.NET MongoDB.Driver)</a></li>
 </ul>
 </li>
-<li><a href="#orga661eca">3. Redis</a></li>
+<li><a href="#orga661eca">3. Redis</a>
+<ul>
+<li><a href="#org619b46b">3.1. 安装</a></li>
+<li><a href="#org998bbb2">3.2. 服务端</a></li>
+<li><a href="#orgb6b537b">3.3. 客户端 (redis-cli)</a></li>
+<li><a href="#orga58eb2e">3.4. 客户端 (.NET)</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
@@ -220,7 +227,7 @@ db.users.remove<span style="color: #000000;">(</span><span style="color: #dd22dd
 <p>
 Database API (db.xxx):
 </p>
-<pre class="example" id="orgfa38270">
+<pre class="example" id="org521fe0c">
 adminCommand                               Runs an arbitrary command against the admin database.
 aggregate                                  Runs a specified admin/diagnostic pipeline which does not require an underlying collection.
 auth                                       Allows a user to authenticate to the database from within the shell.
@@ -297,7 +304,7 @@ watch                                      Opens a change stream cursor on the d
 <p>
 Collection API (db.books.xxx):
 </p>
-<pre class="example" id="org1c3bd6a">
+<pre class="example" id="org6c7371a">
 aggregate                                  Calculates aggregate values for the data in a collection or a view.
 bulkWrite                                  Performs multiple write operations with controls for order of execution.
 compactStructuredEncryptionData            Compacts structured encryption data
@@ -433,9 +440,70 @@ dotnet add package MongoDB.Driver
 <section id="outline-container-orga661eca" class="outline-2">
 <h2 id="orga661eca"><span class="section-number-2">3.</span> Redis</h2>
 <div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org619b46b" class="outline-3">
+<h3 id="org619b46b"><span class="section-number-3">3.1.</span> 安装</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li><a href="https://redis.io/download/">https://redis.io/download/</a></li>
+<li><a href="https://github.com/tporadowski/redis">https://github.com/tporadowski/redis</a> (window native)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org998bbb2" class="outline-3">
+<h3 id="org998bbb2"><span class="section-number-3">3.2.</span> 服务端</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
-<a href="https://github.com/tporadowski/redis">https://github.com/tporadowski/redis</a>
+要么通过服务，要么通过命令行:
 </p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #721045;">./redis-server</span> <span style="color: #000000;">(</span>run the server with default conf<span style="color: #000000;">)</span>
+./redis-server /etc/redis/6379.conf
+./redis-server --port 7777
+./redis-server --port 7777 --replicaof 127.0.0.1 8888
+./redis-server /etc/myredis.conf --loglevel verbose
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb6b537b" class="outline-3">
+<h3 id="orgb6b537b"><span class="section-number-3">3.3.</span> 客户端 (redis-cli)</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+<a href="http://redisdoc.com/">http://redisdoc.com/</a>
+</p>
+
+<p>
+基于 Key-Value 键值对的操作。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga58eb2e" class="outline-3">
+<h3 id="orga58eb2e"><span class="section-number-3">3.4.</span> 客户端 (.NET)</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+安装驱动:
+</p>
+<pre class="example">
+dotnet add package StackExchange.Redis
+</pre>
+
+
+<p>
+代码示例：
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #005f5f;">ConnectionMultiplexer</span> <span style="color: #005e8b;">client</span> = ConnectionMultiplexer.<span style="color: #721045;">Connect</span><span style="color: #000000;">(</span><span style="color: #3548cf;">"localhost"</span><span style="color: #000000;">)</span>;
+<span style="color: #005f5f;">var</span> <span style="color: #005e8b;">db</span> = client.<span style="color: #721045;">GetDatabase</span><span style="color: #000000;">()</span>;
+<span style="color: #005f5f;">var</span> <span style="color: #005e8b;">v</span> = db.<span style="color: #721045;">StringGet</span><span style="color: #000000;">(</span><span style="color: #3548cf;">"xxx"</span><span style="color: #000000;">)</span>;
+db.<span style="color: #721045;">StringSet</span><span style="color: #000000;">(</span><span style="color: #3548cf;">"hello"</span>, <span style="color: #3548cf;">"world"</span><span style="color: #000000;">)</span>;
+Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>v<span style="color: #000000;">)</span>;
+</pre>
+</div>
+</div>
 </div>
 </section>
 </div>
