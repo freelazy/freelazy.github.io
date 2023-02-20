@@ -1,4 +1,5 @@
 #+TITLE: Tips
+#+REVERSE_DATETREE_USE_WEEK_TREE: month-and-week
 
 
 * Ungrouped

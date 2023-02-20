@@ -1,26 +1,9 @@
 ;; YAOLIUSAN -> YAOLIUYAO -> yao7san
 
-(setq ic/up "imxx.top")
+(setq iv/host "imxx.top")
+(setq iv/workdir "e:/Workdir/")
 
-(setq backup-by-copying nil)
-
-(setq initial-major-mode 'org-mode)
-(setq initial-scratch-message "就业！\n\n")
-
-(setq ic/gnus-mails-reciever
-      '((nnimap "tmail"
-                (nnimap-address "imap.qq.com")
-                (nnimap-server-port 993)
-                (nnimap-stream ssl)
-                (nnir-search-engine imap)
-                (nnmail-expiry-target "nnimap+tmail:Deleted Messages")
-                (nnmail-expiry-wait 'immediate)))
-      ic/gnus-mails-sender
-      `((".*"
-         (name "yao7san")
-         (address "2132579340@qq.com"))))
-
-(setq ic/faces (list
+(setq iv/faces (list
                 :frame 'max
                 ;;:theme nil
                 :theme 'modus-operandi
@@ -28,12 +11,28 @@
                 ;;:font-unicode "思源宋体 CN"
                 ))
 
+(setq backup-by-copying nil)
+(setq initial-major-mode 'org-mode initial-scratch-message "就业！\n\n")
+
+(setq iv/gnus-mails-reciever
+      '((nnimap "tmail"
+                (nnimap-address "imap.qq.com")
+                (nnimap-server-port 993)
+                (nnimap-stream ssl)
+                (nnir-search-engine imap)
+                (nnmail-expiry-target "nnimap+tmail:Deleted Messages")
+                (nnmail-expiry-wait 'immediate)))
+      iv/gnus-mails-sender
+      `((".*"
+         (name "yao7san")
+         (address "2132579340@qq.com"))))
+
 ;;(setq-default left-fringe-width 20)
 
 
 ;;; favors
 
-(setq ic/rfiles '(("tasks.org"               "e:/home/notes.173/.src/111/tasks.org")
+(setq iv/rfiles '(("tasks.org"               "e:/home/notes.173/.src/111/tasks.org")
                   ("host: github/freelazy"   "https://github.com/freelazy")
                   ("host: notes/freelzy"     "https://freelazy.github.io")))
 
@@ -49,20 +48,20 @@
 ;; Org
 
 (setq org-directory "e:/Home/notes.173/.src/"
-
-      ic/gtd-dir (loco "111")
-      note-publish-directory "e:/Home/notes.173/html/"
+      org-publish-directory "e:/Home/notes.173/html/"
+      gtd-directory (loco "111")
+      org-default-words-file (loco "111/english.org")
       org-roam-directory "e:/home/notes.173/.src"
       org-agenda-notes (append
                         (file-expand-wildcards (expand-file-name "*/*.org" org-directory))
                         (file-expand-wildcards (expand-file-name "*/*/*.org" org-directory))))
 
-(with-over
- (global-set-key [f8] 'im/note-publish)
- (defun:hook note-publish-post-hook (_)
-   ;; (let ((default-directory note-directory))
-   ;;   (im/git-commit-and-push "best_try_and_best_chance"))
-   ))
+(defun n/note-publish-post-hook (_)
+  (let ((default-directory org-directory))
+    (im/git-commit-and-push "best_try_and_best_chance")))
+(add-hook 'note-publish-post-hook #'n/note-publish-post-hook)
+
+(with-over (global-set-key [f8] 'im/note-publish))
 
 (setq org-babel-default-header-args:sql
       '((:engine . "mssql")
@@ -141,6 +140,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    '(org-reverse-datetree ztree yasnippet yaml-mode xterm-color which-key web-mode web-beautify vundo vlf vertico uuidgen use-package udev-mode typescript-mode systemd syntax-subword sx ssh-agency srcery-theme sql-indent sis sharper session scala-mode sass-mode rust-mode robe rime rg rainbow-mode rainbow-delimiters pyim-basedict pyim powershell poly-org poly-markdown plantuml-mode php-mode page-break-lines package-lint ox-pandoc org-roam-ui org-present org-noter-pdftools org-contrib orderless ob-typescript ob-restclient ob-powershell ob-fsharp nov nhexl-mode nano-theme mpv modus-themes memory-usage markdown-toc marginalia macrostep lua-mode lsp-ui lsp-java license-templates leaf-keywords kubernetes kotlin-mode know-your-http-well keycast json-mode jdecomp hyperbole httprepl htmlize hindent hide-lines haskell-mode gruvbox-theme groovy-mode graphviz-dot-mode go-translate go-mode gnuplot gitignore-templates git-timemachine git-modes forge flycheck evil erlang erc-hl-nicks engine-mode emms emmet-mode embark-consult editorconfig edit-indirect eat dockerfile-mode docker-tramp docker dired-dups delight csv-mode csproj-mode csharp-mode cowsay corfu consult-eglot cmake-mode clojure-mode citre cape c-eldoc blackout bbdb auctex attrap android-mode all-the-icons alchemist aes)))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

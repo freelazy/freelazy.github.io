@@ -2,6 +2,7 @@
 
 - [[file:index.org][173.NET]]
 - 111
+  - [[file:111/english.org][English]]
   - [[file:111/notes.org][Tips]]
   - [[file:111/tasks.org][任务和作业]]
 - database
@@ -18,6 +19,5 @@
   - [[file:frontend/1-html+css.org][HTML/CSS]]
   - [[file:frontend/2-javascript.org][JavaScript]]
 - miscellaneous
-  - [[file:miscellaneous/english.org][English]]
   - [[file:miscellaneous/misc.org][其他]]
   - [[file:miscellaneous/skills.org][每天很多小技巧]]

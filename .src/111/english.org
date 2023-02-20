@@ -1,8 +1,16 @@
 #+TITLE: English
 
 
+* Simple
 
-* 单词
+- Format , 格式化
+- Parse  , 解析
+- Search , 搜索
+- Replace, 代替
+- Find   , 查找、寻找
+- Q&A    , Question and Answer, 问答
+
+* Picker
 
 - noun: 名词; verb, 动词, 谓语
 - Express: 特快 (极速版)
@@ -19,12 +27,3 @@
 - Transfer: 转移
 - Genre: 类型
 - Gender: 性别
-
-* 简单单词
-
-- Format , 格式化
-- Parse  , 解析
-- Search , 搜索
-- Replace, 代替
-- Find   , 查找、寻找
-- Q&A    , Question and Answer, 问答
