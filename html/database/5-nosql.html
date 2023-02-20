@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-02-16 -->
+<!-- 2023-02-20 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>NoSQL</title>
@@ -25,8 +25,8 @@
 <li><a href="#org34307f1">1. NoSQL</a></li>
 <li><a href="#orgd4c7b7f">2. MongoDB</a>
 <ul>
-<li><a href="#org31df017">2.1. 安装</a></li>
-<li><a href="#orgfcdbdfb">2.2. 服务端</a></li>
+<li><a href="#org619b46b">2.1. 安装</a></li>
+<li><a href="#org998bbb2">2.2. 服务端</a></li>
 <li><a href="#org7886cc8">2.3. 客户端 (mongosh)</a>
 <ul>
 <li><a href="#org3c85b2c">2.3.1. API Refs</a></li>
@@ -37,10 +37,15 @@
 </li>
 <li><a href="#orga661eca">3. Redis</a>
 <ul>
-<li><a href="#org619b46b">3.1. 安装</a></li>
-<li><a href="#org998bbb2">3.2. 服务端</a></li>
+<li><a href="#org3a859ce">3.1. 安装</a></li>
+<li><a href="#orgcb44e1b">3.2. 服务端</a></li>
 <li><a href="#orgb6b537b">3.3. 客户端 (redis-cli)</a></li>
 <li><a href="#orga58eb2e">3.4. 客户端 (.NET)</a></li>
+</ul>
+</li>
+<li><a href="#org9822289">4. Misc</a>
+<ul>
+<li><a href="#org70b1865">4.1. Redis 作为缓存的基本架构</a></li>
 </ul>
 </li>
 </ul>
@@ -99,8 +104,8 @@ NoSQL 数据库:
 </p>
 </div>
 
-<div id="outline-container-org31df017" class="outline-3">
-<h3 id="org31df017"><span class="section-number-3">2.1.</span> 安装</h3>
+<div id="outline-container-org619b46b" class="outline-3">
+<h3 id="org619b46b"><span class="section-number-3">2.1.</span> 安装</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>服务端: <a href="https://www.mongodb.com/try/download/community">https://www.mongodb.com/try/download/community</a></li>
@@ -109,8 +114,8 @@ NoSQL 数据库:
 </div>
 </div>
 
-<div id="outline-container-orgfcdbdfb" class="outline-3">
-<h3 id="orgfcdbdfb"><span class="section-number-3">2.2.</span> 服务端</h3>
+<div id="outline-container-org998bbb2" class="outline-3">
+<h3 id="org998bbb2"><span class="section-number-3">2.2.</span> 服务端</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 如果你安装了服务，那么可以通过在 services.msc 中开启 MongoDb。或者通过命令行:
@@ -227,7 +232,7 @@ db.users.remove<span style="color: #000000;">(</span><span style="color: #dd22dd
 <p>
 Database API (db.xxx):
 </p>
-<pre class="example" id="org521fe0c">
+<pre class="example" id="orgb22f45e">
 adminCommand                               Runs an arbitrary command against the admin database.
 aggregate                                  Runs a specified admin/diagnostic pipeline which does not require an underlying collection.
 auth                                       Allows a user to authenticate to the database from within the shell.
@@ -304,7 +309,7 @@ watch                                      Opens a change stream cursor on the d
 <p>
 Collection API (db.books.xxx):
 </p>
-<pre class="example" id="org6c7371a">
+<pre class="example" id="org65741e7">
 aggregate                                  Calculates aggregate values for the data in a collection or a view.
 bulkWrite                                  Performs multiple write operations with controls for order of execution.
 compactStructuredEncryptionData            Compacts structured encryption data
@@ -441,8 +446,8 @@ dotnet add package MongoDB.Driver
 <h2 id="orga661eca"><span class="section-number-2">3.</span> Redis</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org619b46b" class="outline-3">
-<h3 id="org619b46b"><span class="section-number-3">3.1.</span> 安装</h3>
+<div id="outline-container-org3a859ce" class="outline-3">
+<h3 id="org3a859ce"><span class="section-number-3">3.1.</span> 安装</h3>
 <div class="outline-text-3" id="text-3-1">
 <ul class="org-ul">
 <li><a href="https://redis.io/download/">https://redis.io/download/</a></li>
@@ -451,8 +456,8 @@ dotnet add package MongoDB.Driver
 </div>
 </div>
 
-<div id="outline-container-org998bbb2" class="outline-3">
-<h3 id="org998bbb2"><span class="section-number-3">3.2.</span> 服务端</h3>
+<div id="outline-container-orgcb44e1b" class="outline-3">
+<h3 id="orgcb44e1b"><span class="section-number-3">3.2.</span> 服务端</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 要么通过服务，要么通过命令行:
@@ -506,10 +511,26 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 </div>
 </div>
 </section>
+
+<section id="outline-container-org9822289" class="outline-2">
+<h2 id="org9822289"><span class="section-number-2">4.</span> Misc</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org70b1865" class="outline-3">
+<h3 id="org70b1865"><span class="section-number-3">4.1.</span> Redis 作为缓存的基本架构</h3>
+<div class="outline-text-3" id="text-4-1">
+
+<figure id="org8ce92ca">
+<img src="img/redis-as-cache.png" alt="redis-as-cache.png">
+
+</figure>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2023-02-16</p>
+<p class="date">Created: 2023-02-20</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

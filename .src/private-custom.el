@@ -5,7 +5,7 @@
 (setq backup-by-copying nil)
 
 (setq initial-major-mode 'org-mode)
-(setq initial-scratch-message "无他，唯手熟尔！\n\n")
+(setq initial-scratch-message "就业！\n\n")
 
 (setq ic/gnus-mails-reciever
       '((nnimap "tmail"
@@ -33,9 +33,9 @@
 
 ;;; favors
 
-(setq ic/rfiles '(("tasks.org"               "e:/home/notes/.src/111/tasks.org")
-                  ("host: Github"            "https://github.com/yaoliuyao")
-                  ("host/note: YaoliuYao"    "https://yaoliuyao.github.io")))
+(setq ic/rfiles '(("tasks.org"               "e:/home/notes.173/.src/111/tasks.org")
+                  ("host: github/freelazy"   "https://github.com/freelazy")
+                  ("host: notes/freelzy"     "https://freelazy.github.io")))
 
 (with-over
  (defreference sites-1

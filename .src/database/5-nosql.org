@@ -337,3 +337,8 @@ http://redisdoc.com/
   db.StringSet("hello", "world");
   Console.WriteLine(v);
 #+end_src
+
+* Misc
+** Redis 作为缓存的基本架构
+
+[[file:img/redis-as-cache.png]]
