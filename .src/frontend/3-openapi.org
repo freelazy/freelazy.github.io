@@ -2092,7 +2092,9 @@ Swagger 是一系列围绕 OpenAPI specs 的工具。主要有:
       age: 18
       teachers:
         - name: niu
+          age: 33
         - name: zhu
+          age: 44
     - name: yyy
       age: 20
 #+end_src
