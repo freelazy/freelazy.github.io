@@ -2088,16 +2088,12 @@ Swagger 是一系列围绕 OpenAPI specs 的工具。主要有:
 <yaml, yet another xxx> 缺乏了一些灵活性，但是多了好多直观性:
 #+begin_src yaml
   students:
-    student:
-      name: xxx
+    - name: xxx
       age: 18
       teachers:
-        teacher:
-          name: niu
-        teacher:
-          name: zhu
-    student:
-      name: yyy
+        - name: niu
+        - name: zhu
+    - name: yyy
       age: 20
 #+end_src
 
