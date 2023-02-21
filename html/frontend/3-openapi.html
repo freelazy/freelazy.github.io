@@ -2153,10 +2153,25 @@ Swagger 是一系列围绕 OpenAPI specs 的工具。主要有:
 <span style="color: #000000;">}</span>
 
 <span style="color: #595959;">// </span><span style="color: #595959;">&#21487;&#20197;&#20256;&#20837;&#26356;&#22810;&#21442;&#25968;</span>
-app.<span style="color: #721045;">UseSwaggerUI</span><span style="color: #000000;">(</span>options =&gt;
+builder.Services.<span style="color: #721045;">AddSwaggerGen</span><span style="color: #000000;">(</span>options =&gt;
 <span style="color: #dd22dd;">{</span>
-    options.<span style="color: #721045;">SwaggerEndpoint</span><span style="color: #008899;">(</span><span style="color: #3548cf;">"/swagger/v1/swagger.json"</span>, <span style="color: #3548cf;">"v1"</span><span style="color: #008899;">)</span>;
-    options.RoutePrefix = <span style="color: #005f5f;">string</span>.Empty;
+    options.<span style="color: #721045;">SwaggerDoc</span><span style="color: #008899;">(</span><span style="color: #3548cf;">"v1"</span>, <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">OpenApiInfo</span>
+    <span style="color: #972500;">{</span>
+        <span style="color: #005e8b;">Version</span> = <span style="color: #3548cf;">"v1"</span>,
+        <span style="color: #005e8b;">Title</span> = <span style="color: #3548cf;">"ToDo API"</span>,
+        <span style="color: #005e8b;">Description</span> = <span style="color: #3548cf;">"An ASP.NET Core Web API for managing ToDo items"</span>,
+        <span style="color: #005e8b;">TermsOfService</span> = <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Uri</span><span style="color: #808000;">(</span><span style="color: #3548cf;">"https://example.com/terms"</span><span style="color: #808000;">)</span>,
+        <span style="color: #005e8b;">Contact</span> = <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">OpenApiContact</span>
+        <span style="color: #808000;">{</span>
+            Name = <span style="color: #3548cf;">"Example Contact"</span>,
+            Url = <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Uri</span><span style="color: #531ab6;">(</span><span style="color: #3548cf;">"https://example.com/contact"</span><span style="color: #531ab6;">)</span>
+        <span style="color: #808000;">}</span>,
+        License = <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">OpenApiLicense</span>
+        <span style="color: #808000;">{</span>
+            <span style="color: #005e8b;">Name</span> = <span style="color: #3548cf;">"Example License"</span>,
+            <span style="color: #005e8b;">Url</span> = <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Uri</span><span style="color: #531ab6;">(</span><span style="color: #3548cf;">"https://example.com/license"</span><span style="color: #531ab6;">)</span>
+        <span style="color: #808000;">}</span>
+    <span style="color: #972500;">}</span><span style="color: #008899;">)</span>;
 <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
 app.<span style="color: #721045;">UseSwaggerUI</span><span style="color: #000000;">(</span>options =&gt;
 <span style="color: #dd22dd;">{</span>
@@ -2189,7 +2204,9 @@ app.<span style="color: #721045;">UseSwaggerUI</span><span style="color: #000000
 options.<span style="color: #721045;">IncludeXmlComments</span><span style="color: #000000;">(</span>Path.<span style="color: #721045;">Combine</span><span style="color: #dd22dd;">(</span>AppContext.BaseDirectory, xmlFilename<span style="color: #dd22dd;">)</span><span style="color: #000000;">)</span>;
 </pre>
 </div></li>
-<li><p>
+</ol>
+
+<p>
 之后，就可以在方法上使用相关注释了:
 </p>
 <div class="org-src-container">
@@ -2216,12 +2233,9 @@ options.<span style="color: #721045;">IncludeXmlComments</span><span style="colo
 <span style="color: #000000;">[</span><span style="color: #721045;">ProducesResponseType</span><span style="color: #dd22dd;">(</span>StatusCodes.Status400BadRequest<span style="color: #dd22dd;">)</span><span style="color: #000000;">]</span>
 <span style="color: #531ab6;">public</span> <span style="color: #531ab6;">async</span> <span style="color: #005f5f;">Task</span><span style="color: #000000;">&lt;</span><span style="color: #005f5f;">IActionResult</span><span style="color: #000000;">&gt;</span> <span style="color: #721045;">Create</span><span style="color: #000000;">(</span><span style="color: #005f5f;">TodoItem</span> <span style="color: #005e8b;">item</span><span style="color: #000000;">)</span> <span style="color: #000000;">{}</span>
 </pre>
-</div></li>
-</ol>
+</div>
 </div>
 </section>
-
-
 
 <section id="outline-container-orgee67f2d" class="outline-2">
 <h2 id="orgee67f2d"><span class="section-number-2">5.</span> xml / json / yaml</h2>
