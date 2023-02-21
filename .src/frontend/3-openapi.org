@@ -22,7 +22,7 @@ Swagger 是一系列围绕 OpenAPI specs 的工具。主要有:
 
 * OpenAPI specs 示例
 
-#+begin_src yaml
+#+begin_src yaml -n
   openapi: 3.0.3
   info:
     title: Swagger Petstore - OpenAPI 3.0
@@ -827,7 +827,7 @@ Swagger 是一系列围绕 OpenAPI specs 的工具。主要有:
         in: header
 #+end_src
 
-#+begin_src json
+#+begin_src json -n
   {
       "swagger": "2.0",
       "info": {
