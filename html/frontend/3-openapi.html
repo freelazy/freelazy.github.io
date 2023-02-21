@@ -30,7 +30,8 @@
 <li><a href="#orgb03411e">3.2. json 格式</a></li>
 </ul>
 </li>
-<li><a href="#orgee67f2d">4. xml / json / yaml</a></li>
+<li><a href="#org3dbc60e">4. Swashbuckle (Swagger in .NET)</a></li>
+<li><a href="#orgee67f2d">5. xml / json / yaml</a></li>
 </ul>
 </div>
 </nav>
@@ -2129,9 +2130,102 @@ Swagger 是一系列围绕 OpenAPI specs 的工具。主要有:
 </div>
 </section>
 
-<section id="outline-container-orgee67f2d" class="outline-2">
-<h2 id="orgee67f2d"><span class="section-number-2">4.</span> xml / json / yaml</h2>
+<section id="outline-container-org3dbc60e" class="outline-2">
+<h2 id="org3dbc60e"><span class="section-number-2">4.</span> Swashbuckle (Swagger in .NET)</h2>
 <div class="outline-text-2" id="text-4">
+<p>
+加入依赖:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">dotnet add package Swashbuckle.AspNetCore
+</pre>
+</div>
+
+<p>
+配置 Program.cs:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp">builder.Services.<span style="color: #721045;">AddSwaggerGen</span><span style="color: #000000;">()</span>;
+<span style="color: #531ab6;">if</span> <span style="color: #000000;">(</span>app.Environment.<span style="color: #721045;">IsDevelopment</span><span style="color: #dd22dd;">()</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    app.<span style="color: #721045;">UseSwagger</span><span style="color: #dd22dd;">()</span>;
+    app.<span style="color: #721045;">UseSwaggerUI</span><span style="color: #dd22dd;">()</span>;
+<span style="color: #000000;">}</span>
+
+<span style="color: #595959;">// </span><span style="color: #595959;">&#21487;&#20197;&#20256;&#20837;&#26356;&#22810;&#21442;&#25968;</span>
+app.<span style="color: #721045;">UseSwaggerUI</span><span style="color: #000000;">(</span>options =&gt;
+<span style="color: #dd22dd;">{</span>
+    options.<span style="color: #721045;">SwaggerEndpoint</span><span style="color: #008899;">(</span><span style="color: #3548cf;">"/swagger/v1/swagger.json"</span>, <span style="color: #3548cf;">"v1"</span><span style="color: #008899;">)</span>;
+    options.RoutePrefix = <span style="color: #005f5f;">string</span>.Empty;
+<span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+app.<span style="color: #721045;">UseSwaggerUI</span><span style="color: #000000;">(</span>options =&gt;
+<span style="color: #dd22dd;">{</span>
+    options.<span style="color: #721045;">SwaggerEndpoint</span><span style="color: #008899;">(</span><span style="color: #3548cf;">"/swagger/v1/swagger.json"</span>, <span style="color: #3548cf;">"v1"</span><span style="color: #008899;">)</span>;
+    options.RoutePrefix = <span style="color: #005f5f;">string</span>.Empty;
+<span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+</pre>
+</div>
+
+<p>
+可以使用方法上的注释来辅助 OpenAPI 文档的生成。但是需要做如下设置:
+</p>
+<ol class="org-ol">
+<li><p>
+在 csproj 中添加:
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #721045;">PropertyGroup</span>&gt;
+  &lt;<span style="color: #721045;">NoWarn</span>&gt;$(NoWarn);1591&lt;/<span style="color: #721045;">NoWarn</span>&gt;
+  &lt;<span style="color: #721045;">GenerateDocumentationFile</span>&gt;true&lt;/<span style="color: #721045;">GenerateDocumentationFile</span>&gt;
+&lt;/<span style="color: #721045;">PropertyGroup</span>&gt;
+</pre>
+</div></li>
+<li><p>
+在 AddSwaggerGen 方法中传入:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #595959;">// </span><span style="color: #595959;">using System.Reflection;</span>
+<span style="color: #005f5f;">var</span> <span style="color: #005e8b;">xmlFilename</span> = $<span style="color: #3548cf;">"{Assembly.GetExecutingAssembly().GetName().Name}.xml"</span>;
+options.<span style="color: #721045;">IncludeXmlComments</span><span style="color: #000000;">(</span>Path.<span style="color: #721045;">Combine</span><span style="color: #dd22dd;">(</span>AppContext.BaseDirectory, xmlFilename<span style="color: #dd22dd;">)</span><span style="color: #000000;">)</span>;
+</pre>
+</div></li>
+<li><p>
+之后，就可以在方法上使用相关注释了:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #2a5045;">/// </span><span style="color: #7c318f;">&lt;summary&gt;</span>
+<span style="color: #2a5045;">/// Creates a TodoItem.</span>
+<span style="color: #2a5045;">/// </span><span style="color: #7c318f;">&lt;/summary&gt;</span>
+<span style="color: #2a5045;">/// </span><span style="color: #7c318f;">&lt;param name="item"&gt;&lt;/param&gt;</span>
+<span style="color: #2a5045;">/// </span><span style="color: #7c318f;">&lt;returns&gt;</span><span style="color: #2a5045;">A newly created TodoItem</span><span style="color: #7c318f;">&lt;/returns&gt;</span>
+<span style="color: #2a5045;">/// </span><span style="color: #7c318f;">&lt;remarks&gt;</span>
+<span style="color: #2a5045;">/// Sample request:</span>
+<span style="color: #2a5045;">///</span>
+<span style="color: #2a5045;">///     POST /Todo</span>
+<span style="color: #2a5045;">///     {</span>
+<span style="color: #2a5045;">///        "id": 1,</span>
+<span style="color: #2a5045;">///        "name": "Item #1",</span>
+<span style="color: #2a5045;">///        "isComplete": true</span>
+<span style="color: #2a5045;">///     }</span>
+<span style="color: #2a5045;">///</span>
+<span style="color: #2a5045;">/// </span><span style="color: #7c318f;">&lt;/remarks&gt;</span>
+<span style="color: #2a5045;">/// </span><span style="color: #7c318f;">&lt;response code="201"&gt;</span><span style="color: #2a5045;">Returns the newly created item</span><span style="color: #7c318f;">&lt;/response&gt;</span>
+<span style="color: #2a5045;">/// </span><span style="color: #7c318f;">&lt;response code="400"&gt;</span><span style="color: #2a5045;">If the item is null</span><span style="color: #7c318f;">&lt;/response&gt;</span>
+<span style="color: #000000;">[</span><span style="color: #005e8b;">HttpPost</span><span style="color: #000000;">]</span>
+<span style="color: #000000;">[</span><span style="color: #721045;">ProducesResponseType</span><span style="color: #dd22dd;">(</span>StatusCodes.Status201Created<span style="color: #dd22dd;">)</span><span style="color: #000000;">]</span>
+<span style="color: #000000;">[</span><span style="color: #721045;">ProducesResponseType</span><span style="color: #dd22dd;">(</span>StatusCodes.Status400BadRequest<span style="color: #dd22dd;">)</span><span style="color: #000000;">]</span>
+<span style="color: #531ab6;">public</span> <span style="color: #531ab6;">async</span> <span style="color: #005f5f;">Task</span><span style="color: #000000;">&lt;</span><span style="color: #005f5f;">IActionResult</span><span style="color: #000000;">&gt;</span> <span style="color: #721045;">Create</span><span style="color: #000000;">(</span><span style="color: #005f5f;">TodoItem</span> <span style="color: #005e8b;">item</span><span style="color: #000000;">)</span> <span style="color: #000000;">{}</span>
+</pre>
+</div></li>
+</ol>
+</div>
+</section>
+
+
+
+<section id="outline-container-orgee67f2d" class="outline-2">
+<h2 id="orgee67f2d"><span class="section-number-2">5.</span> xml / json / yaml</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 &lt;xml&gt; 严谨但啰嗦，对用人类不友好 (对计算机友好)。
 </p>

@@ -2061,6 +2061,77 @@ Swagger 是一系列围绕 OpenAPI specs 的工具。主要有:
   }
 #+end_src
 
+* Swashbuckle (Swagger in .NET)
+
+加入依赖:
+#+begin_src sh
+  dotnet add package Swashbuckle.AspNetCore
+#+end_src
+
+配置 Program.cs:
+#+begin_src csharp
+  builder.Services.AddSwaggerGen();
+  if (app.Environment.IsDevelopment())
+  {
+      app.UseSwagger();
+      app.UseSwaggerUI();
+  }
+
+  // 可以传入更多参数
+  app.UseSwaggerUI(options =>
+  {
+      options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+      options.RoutePrefix = string.Empty;
+  });
+  app.UseSwaggerUI(options =>
+  {
+      options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+      options.RoutePrefix = string.Empty;
+  });
+#+end_src
+
+可以使用方法上的注释来辅助 OpenAPI 文档的生成。但是需要做如下设置:
+1. 在 csproj 中添加:
+   #+begin_src xml
+     <PropertyGroup>
+       <NoWarn>$(NoWarn);1591</NoWarn>
+       <GenerateDocumentationFile>true</GenerateDocumentationFile>
+     </PropertyGroup>
+   #+end_src
+2. 在 AddSwaggerGen 方法中传入:
+   #+begin_src csharp
+     // using System.Reflection;
+     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+   #+end_src
+3. 之后，就可以在方法上使用相关注释了:
+   #+begin_src csharp
+     /// <summary>
+     /// Creates a TodoItem.
+     /// </summary>
+     /// <param name="item"></param>
+     /// <returns>A newly created TodoItem</returns>
+     /// <remarks>
+     /// Sample request:
+     ///
+     ///     POST /Todo
+     ///     {
+     ///        "id": 1,
+     ///        "name": "Item #1",
+     ///        "isComplete": true
+     ///     }
+     ///
+     /// </remarks>
+     /// <response code="201">Returns the newly created item</response>
+     /// <response code="400">If the item is null</response>
+     [HttpPost]
+     [ProducesResponseType(StatusCodes.Status201Created)]
+     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+     public async Task<IActionResult> Create(TodoItem item) {}
+   #+end_src
+ 
+
+
 * xml / json / yaml
 
 <xml> 严谨但啰嗦，对用人类不友好 (对计算机友好)。
