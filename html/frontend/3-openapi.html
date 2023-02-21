@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2023-02-21 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OpenAPI/Swagger</title>
+<meta name="author" content="1a2y" />
+<meta name="generator" content="Org Mode" />
+<link rel='stylesheet' href='/html/asset/common.css?3344' />
+<link rel='stylesheet' href='/yaoliuyao/html/asset/common.css?3344' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/html/asset/common.js'></script>
+<script src='/yaoliuyao/html/asset/common.js'></script>
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">OpenAPI/Swagger</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org6d2a7cd">1. OpenAPI</a></li>
+<li><a href="#org2da1def">2. Swagger</a></li>
+<li><a href="#org921128e">3. OpenAPI specs 示例</a></li>
+<li><a href="#orgee67f2d">4. xml / json / yaml</a></li>
+</ul>
+</div>
+</nav>
+
+<section id="outline-container-org6d2a7cd" class="outline-2">
+<h2 id="org6d2a7cd"><span class="section-number-2">1.</span> OpenAPI</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+<a href="https://www.openapis.org/">https://www.openapis.org/</a>
+</p>
+
+<p>
+OpenAPI <a href="https://spec.openapis.org/oas/latest.html#version-3-1-0">规范</a>是一种关于 API 描述的格式标准。
+它使用 <b>一个文件</b> 来描述项目所有的 API。
+</p>
+</div>
+</section>
+
+<section id="outline-container-org2da1def" class="outline-2">
+<h2 id="org2da1def"><span class="section-number-2">2.</span> Swagger</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+<a href="https://swagger.io/">https://swagger.io/</a>
+</p>
+
+<p>
+Swagger 是一系列围绕 OpenAPI specs 的工具。主要有:
+</p>
+<ul class="org-ul">
+<li>Swagger Editor: 用来编辑/生成符合 openapi 标准的描述文件</li>
+<li>Swagger UI: 用来将文件渲染成友好的界面</li>
+<li>Swagger Codegen: 根据代码生成</li>
+</ul>
+
+<p>
+因此，要编写 OpenAPI specs:
+</p>
+<ul class="org-ul">
+<li>你可以手动撸 OpenAPI 的 json/yaml 文件</li>
+<li>你可以使用 Swagger Editor，边撸边预览</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-org921128e" class="outline-2">
+<h2 id="org921128e"><span class="section-number-2">3.</span> OpenAPI specs 示例</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+<pre class="src src-yaml"><span style="color: #005e8b;">openapi</span>: 3.0.3
+<span style="color: #005e8b;">info</span>:
+  <span style="color: #005e8b;">title</span>: Swagger Petstore - OpenAPI 3.0
+  <span style="color: #005e8b;">description</span>: |-
+    <span style="color: #3548cf;">This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about</span>
+<span style="color: #3548cf;">    Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!</span>
+<span style="color: #3548cf;">    You can now help us improve the API whether it's by making changes to the definition itself or to the code.</span>
+<span style="color: #3548cf;">    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.</span>
+
+<span style="color: #3548cf;">    _If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit &gt; Load Petstore OAS 2.0` menu option!_</span>
+
+<span style="color: #3548cf;">    Some useful links:</span>
+<span style="color: #3548cf;">    - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)</span>
+<span style="color: #3548cf;">    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)</span>
+  <span style="color: #005e8b;">termsOfService</span>: http://swagger.io/terms/
+  <span style="color: #005e8b;">contact</span>:
+    <span style="color: #005e8b;">email</span>: apiteam@swagger.io
+  <span style="color: #005e8b;">license</span>:
+    <span style="color: #005e8b;">name</span>: Apache 2.0
+    <span style="color: #005e8b;">url</span>: http://www.apache.org/licenses/LICENSE-2.0.html
+  <span style="color: #005e8b;">version</span>: 1.0.11
+<span style="color: #005e8b;">externalDocs</span>:
+  <span style="color: #005e8b;">description</span>: Find out more about Swagger
+  <span style="color: #005e8b;">url</span>: http://swagger.io
+<span style="color: #005e8b;">servers</span>:
+  - <span style="color: #005e8b;">url</span>: https://petstore3.swagger.io/api/v3
+<span style="color: #005e8b;">tags</span>:
+  - <span style="color: #005e8b;">name</span>: pet
+    <span style="color: #005e8b;">description</span>: Everything about your Pets
+    <span style="color: #005e8b;">externalDocs</span>:
+      <span style="color: #005e8b;">description</span>: Find out more
+      <span style="color: #005e8b;">url</span>: http://swagger.io
+  - <span style="color: #005e8b;">name</span>: store
+    <span style="color: #005e8b;">description</span>: Access to Petstore orders
+    <span style="color: #005e8b;">externalDocs</span>:
+      <span style="color: #005e8b;">description</span>: Find out more about our store
+      <span style="color: #005e8b;">url</span>: http://swagger.io
+  - <span style="color: #005e8b;">name</span>: user
+    <span style="color: #005e8b;">description</span>: Operations about user
+<span style="color: #005e8b;">paths</span>:
+  <span style="color: #005e8b;">/pet</span>:
+    <span style="color: #005e8b;">put</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - pet
+      <span style="color: #005e8b;">summary</span>: Update an existing pet
+      <span style="color: #005e8b;">description</span>: Update an existing pet by Id
+      <span style="color: #005e8b;">operationId</span>: updatePet
+      <span style="color: #005e8b;">requestBody</span>:
+        <span style="color: #005e8b;">description</span>: Update an existent pet in the store
+        <span style="color: #005e8b;">content</span>:
+          <span style="color: #005e8b;">application/json</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+          <span style="color: #005e8b;">application/xml</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+          <span style="color: #005e8b;">application/x-www-form-urlencoded</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+        <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">true</span>
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'200'</span>:
+          <span style="color: #005e8b;">description</span>: Successful operation
+          <span style="color: #005e8b;">content</span>:
+            <span style="color: #005e8b;">application/json</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+            <span style="color: #005e8b;">application/xml</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+        <span style="color: #3548cf;">'400'</span>:
+          <span style="color: #005e8b;">description</span>: Invalid ID supplied
+        <span style="color: #3548cf;">'404'</span>:
+          <span style="color: #005e8b;">description</span>: Pet not found
+        <span style="color: #3548cf;">'405'</span>:
+          <span style="color: #005e8b;">description</span>: Validation exception
+      <span style="color: #005e8b;">security</span>:
+        - <span style="color: #005e8b;">petstore_auth</span>:
+            - write:pets
+            - read:pets
+    <span style="color: #005e8b;">post</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - pet
+      <span style="color: #005e8b;">summary</span>: Add a new pet to the store
+      <span style="color: #005e8b;">description</span>: Add a new pet to the store
+      <span style="color: #005e8b;">operationId</span>: addPet
+      <span style="color: #005e8b;">requestBody</span>:
+        <span style="color: #005e8b;">description</span>: Create a new pet in the store
+        <span style="color: #005e8b;">content</span>:
+          <span style="color: #005e8b;">application/json</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+          <span style="color: #005e8b;">application/xml</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+          <span style="color: #005e8b;">application/x-www-form-urlencoded</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+        <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">true</span>
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'200'</span>:
+          <span style="color: #005e8b;">description</span>: Successful operation
+          <span style="color: #005e8b;">content</span>:
+            <span style="color: #005e8b;">application/json</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+            <span style="color: #005e8b;">application/xml</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+        <span style="color: #3548cf;">'405'</span>:
+          <span style="color: #005e8b;">description</span>: Invalid input
+      <span style="color: #005e8b;">security</span>:
+        - <span style="color: #005e8b;">petstore_auth</span>:
+            - write:pets
+            - read:pets
+  <span style="color: #005e8b;">/pet/findByStatus</span>:
+    <span style="color: #005e8b;">get</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - pet
+      <span style="color: #005e8b;">summary</span>: Finds Pets by status
+      <span style="color: #005e8b;">description</span>: Multiple status values can be provided with comma separated strings
+      <span style="color: #005e8b;">operationId</span>: findPetsByStatus
+      <span style="color: #005e8b;">parameters</span>:
+        - <span style="color: #005e8b;">name</span>: status
+          <span style="color: #005e8b;">in</span>: query
+          <span style="color: #005e8b;">description</span>: Status values that need to be considered for filter
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">false</span>
+          <span style="color: #005e8b;">explode</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: string
+            <span style="color: #005e8b;">default</span>: available
+            <span style="color: #005e8b;">enum</span>:
+              - available
+              - pending
+              - sold
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'200'</span>:
+          <span style="color: #005e8b;">description</span>: successful operation
+          <span style="color: #005e8b;">content</span>:
+            <span style="color: #005e8b;">application/json</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">type</span>: array
+                <span style="color: #005e8b;">items</span>:
+                  <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+            <span style="color: #005e8b;">application/xml</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">type</span>: array
+                <span style="color: #005e8b;">items</span>:
+                  <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+        <span style="color: #3548cf;">'400'</span>:
+          <span style="color: #005e8b;">description</span>: Invalid status value
+      <span style="color: #005e8b;">security</span>:
+        - <span style="color: #005e8b;">petstore_auth</span>:
+            - write:pets
+            - read:pets
+  <span style="color: #005e8b;">/pet/findByTags</span>:
+    <span style="color: #005e8b;">get</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - pet
+      <span style="color: #005e8b;">summary</span>: Finds Pets by tags
+      <span style="color: #005e8b;">description</span>: Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+      <span style="color: #005e8b;">operationId</span>: findPetsByTags
+      <span style="color: #005e8b;">parameters</span>:
+        - <span style="color: #005e8b;">name</span>: tags
+          <span style="color: #005e8b;">in</span>: query
+          <span style="color: #005e8b;">description</span>: Tags to filter by
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">false</span>
+          <span style="color: #005e8b;">explode</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: array
+            <span style="color: #005e8b;">items</span>:
+              <span style="color: #005e8b;">type</span>: string
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'200'</span>:
+          <span style="color: #005e8b;">description</span>: successful operation
+          <span style="color: #005e8b;">content</span>:
+            <span style="color: #005e8b;">application/json</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">type</span>: array
+                <span style="color: #005e8b;">items</span>:
+                  <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+            <span style="color: #005e8b;">application/xml</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">type</span>: array
+                <span style="color: #005e8b;">items</span>:
+                  <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+        <span style="color: #3548cf;">'400'</span>:
+          <span style="color: #005e8b;">description</span>: Invalid tag value
+      <span style="color: #005e8b;">security</span>:
+        - <span style="color: #005e8b;">petstore_auth</span>:
+            - write:pets
+            - read:pets
+  <span style="color: #005e8b;">/pet/{petId}</span>:
+    <span style="color: #005e8b;">get</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - pet
+      <span style="color: #005e8b;">summary</span>: Find pet by ID
+      <span style="color: #005e8b;">description</span>: Returns a single pet
+      <span style="color: #005e8b;">operationId</span>: getPetById
+      <span style="color: #005e8b;">parameters</span>:
+        - <span style="color: #005e8b;">name</span>: petId
+          <span style="color: #005e8b;">in</span>: path
+          <span style="color: #005e8b;">description</span>: ID of pet to return
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: integer
+            <span style="color: #005e8b;">format</span>: int64
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'200'</span>:
+          <span style="color: #005e8b;">description</span>: successful operation
+          <span style="color: #005e8b;">content</span>:
+            <span style="color: #005e8b;">application/json</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+            <span style="color: #005e8b;">application/xml</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+        <span style="color: #3548cf;">'400'</span>:
+          <span style="color: #005e8b;">description</span>: Invalid ID supplied
+        <span style="color: #3548cf;">'404'</span>:
+          <span style="color: #005e8b;">description</span>: Pet not found
+      <span style="color: #005e8b;">security</span>:
+        - <span style="color: #005e8b;">api_key</span>: []
+        - <span style="color: #005e8b;">petstore_auth</span>:
+            - write:pets
+            - read:pets
+    <span style="color: #005e8b;">post</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - pet
+      <span style="color: #005e8b;">summary</span>: Updates a pet in the store with form data
+      <span style="color: #005e8b;">description</span>: <span style="color: #3548cf;">''</span>
+      <span style="color: #005e8b;">operationId</span>: updatePetWithForm
+      <span style="color: #005e8b;">parameters</span>:
+        - <span style="color: #005e8b;">name</span>: petId
+          <span style="color: #005e8b;">in</span>: path
+          <span style="color: #005e8b;">description</span>: ID of pet that needs to be updated
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: integer
+            <span style="color: #005e8b;">format</span>: int64
+        - <span style="color: #005e8b;">name</span>: name
+          <span style="color: #005e8b;">in</span>: query
+          <span style="color: #005e8b;">description</span>: Name of pet that needs to be updated
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: string
+        - <span style="color: #005e8b;">name</span>: status
+          <span style="color: #005e8b;">in</span>: query
+          <span style="color: #005e8b;">description</span>: Status of pet that needs to be updated
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: string
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'405'</span>:
+          <span style="color: #005e8b;">description</span>: Invalid input
+      <span style="color: #005e8b;">security</span>:
+        - <span style="color: #005e8b;">petstore_auth</span>:
+            - write:pets
+            - read:pets
+    <span style="color: #005e8b;">delete</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - pet
+      <span style="color: #005e8b;">summary</span>: Deletes a pet
+      <span style="color: #005e8b;">description</span>: delete a pet
+      <span style="color: #005e8b;">operationId</span>: deletePet
+      <span style="color: #005e8b;">parameters</span>:
+        - <span style="color: #005e8b;">name</span>: api_key
+          <span style="color: #005e8b;">in</span>: header
+          <span style="color: #005e8b;">description</span>: <span style="color: #3548cf;">''</span>
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">false</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: string
+        - <span style="color: #005e8b;">name</span>: petId
+          <span style="color: #005e8b;">in</span>: path
+          <span style="color: #005e8b;">description</span>: Pet id to delete
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: integer
+            <span style="color: #005e8b;">format</span>: int64
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'400'</span>:
+          <span style="color: #005e8b;">description</span>: Invalid pet value
+      <span style="color: #005e8b;">security</span>:
+        - <span style="color: #005e8b;">petstore_auth</span>:
+            - write:pets
+            - read:pets
+  <span style="color: #005e8b;">/pet/{petId}/uploadImage</span>:
+    <span style="color: #005e8b;">post</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - pet
+      <span style="color: #005e8b;">summary</span>: uploads an image
+      <span style="color: #005e8b;">description</span>: <span style="color: #3548cf;">''</span>
+      <span style="color: #005e8b;">operationId</span>: uploadFile
+      <span style="color: #005e8b;">parameters</span>:
+        - <span style="color: #005e8b;">name</span>: petId
+          <span style="color: #005e8b;">in</span>: path
+          <span style="color: #005e8b;">description</span>: ID of pet to update
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: integer
+            <span style="color: #005e8b;">format</span>: int64
+        - <span style="color: #005e8b;">name</span>: additionalMetadata
+          <span style="color: #005e8b;">in</span>: query
+          <span style="color: #005e8b;">description</span>: Additional Metadata
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">false</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: string
+      <span style="color: #005e8b;">requestBody</span>:
+        <span style="color: #005e8b;">content</span>:
+          <span style="color: #005e8b;">application/octet-stream</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">type</span>: string
+              <span style="color: #005e8b;">format</span>: binary
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'200'</span>:
+          <span style="color: #005e8b;">description</span>: successful operation
+          <span style="color: #005e8b;">content</span>:
+            <span style="color: #005e8b;">application/json</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/ApiResponse'</span>
+      <span style="color: #005e8b;">security</span>:
+        - <span style="color: #005e8b;">petstore_auth</span>:
+            - write:pets
+            - read:pets
+  <span style="color: #005e8b;">/store/inventory</span>:
+    <span style="color: #005e8b;">get</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - store
+      <span style="color: #005e8b;">summary</span>: Returns pet inventories by status
+      <span style="color: #005e8b;">description</span>: Returns a map of status codes to quantities
+      <span style="color: #005e8b;">operationId</span>: getInventory
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'200'</span>:
+          <span style="color: #005e8b;">description</span>: successful operation
+          <span style="color: #005e8b;">content</span>:
+            <span style="color: #005e8b;">application/json</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">type</span>: object
+                <span style="color: #005e8b;">additionalProperties</span>:
+                  <span style="color: #005e8b;">type</span>: integer
+                  <span style="color: #005e8b;">format</span>: int32
+      <span style="color: #005e8b;">security</span>:
+        - <span style="color: #005e8b;">api_key</span>: []
+  <span style="color: #005e8b;">/store/order</span>:
+    <span style="color: #005e8b;">post</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - store
+      <span style="color: #005e8b;">summary</span>: Place an order for a pet
+      <span style="color: #005e8b;">description</span>: Place a new order in the store
+      <span style="color: #005e8b;">operationId</span>: placeOrder
+      <span style="color: #005e8b;">requestBody</span>:
+        <span style="color: #005e8b;">content</span>:
+          <span style="color: #005e8b;">application/json</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Order'</span>
+          <span style="color: #005e8b;">application/xml</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Order'</span>
+          <span style="color: #005e8b;">application/x-www-form-urlencoded</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Order'</span>
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'200'</span>:
+          <span style="color: #005e8b;">description</span>: successful operation
+          <span style="color: #005e8b;">content</span>:
+            <span style="color: #005e8b;">application/json</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Order'</span>
+        <span style="color: #3548cf;">'405'</span>:
+          <span style="color: #005e8b;">description</span>: Invalid input
+  <span style="color: #005e8b;">/store/order/{orderId}</span>:
+    <span style="color: #005e8b;">get</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - store
+      <span style="color: #005e8b;">summary</span>: Find purchase order by ID
+      <span style="color: #005e8b;">description</span>: For valid response try integer IDs with value &lt;= 5 or &gt; 10. Other values will generate exceptions.
+      <span style="color: #005e8b;">operationId</span>: getOrderById
+      <span style="color: #005e8b;">parameters</span>:
+        - <span style="color: #005e8b;">name</span>: orderId
+          <span style="color: #005e8b;">in</span>: path
+          <span style="color: #005e8b;">description</span>: ID of order that needs to be fetched
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: integer
+            <span style="color: #005e8b;">format</span>: int64
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'200'</span>:
+          <span style="color: #005e8b;">description</span>: successful operation
+          <span style="color: #005e8b;">content</span>:
+            <span style="color: #005e8b;">application/json</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Order'</span>
+            <span style="color: #005e8b;">application/xml</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Order'</span>
+        <span style="color: #3548cf;">'400'</span>:
+          <span style="color: #005e8b;">description</span>: Invalid ID supplied
+        <span style="color: #3548cf;">'404'</span>:
+          <span style="color: #005e8b;">description</span>: Order not found
+    <span style="color: #005e8b;">delete</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - store
+      <span style="color: #005e8b;">summary</span>: Delete purchase order by ID
+      <span style="color: #005e8b;">description</span>: For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+      <span style="color: #005e8b;">operationId</span>: deleteOrder
+      <span style="color: #005e8b;">parameters</span>:
+        - <span style="color: #005e8b;">name</span>: orderId
+          <span style="color: #005e8b;">in</span>: path
+          <span style="color: #005e8b;">description</span>: ID of the order that needs to be deleted
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: integer
+            <span style="color: #005e8b;">format</span>: int64
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'400'</span>:
+          <span style="color: #005e8b;">description</span>: Invalid ID supplied
+        <span style="color: #3548cf;">'404'</span>:
+          <span style="color: #005e8b;">description</span>: Order not found
+  <span style="color: #005e8b;">/user</span>:
+    <span style="color: #005e8b;">post</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - user
+      <span style="color: #005e8b;">summary</span>: Create user
+      <span style="color: #005e8b;">description</span>: This can only be done by the logged in user.
+      <span style="color: #005e8b;">operationId</span>: createUser
+      <span style="color: #005e8b;">requestBody</span>:
+        <span style="color: #005e8b;">description</span>: Created user object
+        <span style="color: #005e8b;">content</span>:
+          <span style="color: #005e8b;">application/json</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+          <span style="color: #005e8b;">application/xml</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+          <span style="color: #005e8b;">application/x-www-form-urlencoded</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #005e8b;">default</span>:
+          <span style="color: #005e8b;">description</span>: successful operation
+          <span style="color: #005e8b;">content</span>:
+            <span style="color: #005e8b;">application/json</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+            <span style="color: #005e8b;">application/xml</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+  <span style="color: #005e8b;">/user/createWithList</span>:
+    <span style="color: #005e8b;">post</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - user
+      <span style="color: #005e8b;">summary</span>: Creates list of users with given input array
+      <span style="color: #005e8b;">description</span>: Creates list of users with given input array
+      <span style="color: #005e8b;">operationId</span>: createUsersWithListInput
+      <span style="color: #005e8b;">requestBody</span>:
+        <span style="color: #005e8b;">content</span>:
+          <span style="color: #005e8b;">application/json</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">type</span>: array
+              <span style="color: #005e8b;">items</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'200'</span>:
+          <span style="color: #005e8b;">description</span>: Successful operation
+          <span style="color: #005e8b;">content</span>:
+            <span style="color: #005e8b;">application/json</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+            <span style="color: #005e8b;">application/xml</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+        <span style="color: #005e8b;">default</span>:
+          <span style="color: #005e8b;">description</span>: successful operation
+  <span style="color: #005e8b;">/user/login</span>:
+    <span style="color: #005e8b;">get</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - user
+      <span style="color: #005e8b;">summary</span>: Logs user into the system
+      <span style="color: #005e8b;">description</span>: <span style="color: #3548cf;">''</span>
+      <span style="color: #005e8b;">operationId</span>: loginUser
+      <span style="color: #005e8b;">parameters</span>:
+        - <span style="color: #005e8b;">name</span>: username
+          <span style="color: #005e8b;">in</span>: query
+          <span style="color: #005e8b;">description</span>: The user name for login
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">false</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: string
+        - <span style="color: #005e8b;">name</span>: password
+          <span style="color: #005e8b;">in</span>: query
+          <span style="color: #005e8b;">description</span>: The password for login in clear text
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">false</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: string
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'200'</span>:
+          <span style="color: #005e8b;">description</span>: successful operation
+          <span style="color: #005e8b;">headers</span>:
+            <span style="color: #005e8b;">X-Rate-Limit</span>:
+              <span style="color: #005e8b;">description</span>: calls per hour allowed by the user
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">type</span>: integer
+                <span style="color: #005e8b;">format</span>: int32
+            <span style="color: #005e8b;">X-Expires-After</span>:
+              <span style="color: #005e8b;">description</span>: date in UTC when token expires
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">type</span>: string
+                <span style="color: #005e8b;">format</span>: date-time
+          <span style="color: #005e8b;">content</span>:
+            <span style="color: #005e8b;">application/xml</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">type</span>: string
+            <span style="color: #005e8b;">application/json</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">type</span>: string
+        <span style="color: #3548cf;">'400'</span>:
+          <span style="color: #005e8b;">description</span>: Invalid username/password supplied
+  <span style="color: #005e8b;">/user/logout</span>:
+    <span style="color: #005e8b;">get</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - user
+      <span style="color: #005e8b;">summary</span>: Logs out current logged in user session
+      <span style="color: #005e8b;">description</span>: <span style="color: #3548cf;">''</span>
+      <span style="color: #005e8b;">operationId</span>: logoutUser
+      <span style="color: #005e8b;">parameters</span>: []
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #005e8b;">default</span>:
+          <span style="color: #005e8b;">description</span>: successful operation
+  <span style="color: #005e8b;">/user/{username}</span>:
+    <span style="color: #005e8b;">get</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - user
+      <span style="color: #005e8b;">summary</span>: Get user by user name
+      <span style="color: #005e8b;">description</span>: <span style="color: #3548cf;">''</span>
+      <span style="color: #005e8b;">operationId</span>: getUserByName
+      <span style="color: #005e8b;">parameters</span>:
+        - <span style="color: #005e8b;">name</span>: username
+          <span style="color: #005e8b;">in</span>: path
+          <span style="color: #005e8b;">description</span>: <span style="color: #3548cf;">'The name that needs to be fetched. Use user1 for testing. '</span>
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: string
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'200'</span>:
+          <span style="color: #005e8b;">description</span>: successful operation
+          <span style="color: #005e8b;">content</span>:
+            <span style="color: #005e8b;">application/json</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+            <span style="color: #005e8b;">application/xml</span>:
+              <span style="color: #005e8b;">schema</span>:
+                <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+        <span style="color: #3548cf;">'400'</span>:
+          <span style="color: #005e8b;">description</span>: Invalid username supplied
+        <span style="color: #3548cf;">'404'</span>:
+          <span style="color: #005e8b;">description</span>: User not found
+    <span style="color: #005e8b;">put</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - user
+      <span style="color: #005e8b;">summary</span>: Update user
+      <span style="color: #005e8b;">description</span>: This can only be done by the logged in user.
+      <span style="color: #005e8b;">operationId</span>: updateUser
+      <span style="color: #005e8b;">parameters</span>:
+        - <span style="color: #005e8b;">name</span>: username
+          <span style="color: #005e8b;">in</span>: path
+          <span style="color: #005e8b;">description</span>: name that need to be deleted
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: string
+      <span style="color: #005e8b;">requestBody</span>:
+        <span style="color: #005e8b;">description</span>: Update an existent user in the store
+        <span style="color: #005e8b;">content</span>:
+          <span style="color: #005e8b;">application/json</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+          <span style="color: #005e8b;">application/xml</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+          <span style="color: #005e8b;">application/x-www-form-urlencoded</span>:
+            <span style="color: #005e8b;">schema</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #005e8b;">default</span>:
+          <span style="color: #005e8b;">description</span>: successful operation
+    <span style="color: #005e8b;">delete</span>:
+      <span style="color: #005e8b;">tags</span>:
+        - user
+      <span style="color: #005e8b;">summary</span>: Delete user
+      <span style="color: #005e8b;">description</span>: This can only be done by the logged in user.
+      <span style="color: #005e8b;">operationId</span>: deleteUser
+      <span style="color: #005e8b;">parameters</span>:
+        - <span style="color: #005e8b;">name</span>: username
+          <span style="color: #005e8b;">in</span>: path
+          <span style="color: #005e8b;">description</span>: The name that needs to be deleted
+          <span style="color: #005e8b;">required</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: string
+      <span style="color: #005e8b;">responses</span>:
+        <span style="color: #3548cf;">'400'</span>:
+          <span style="color: #005e8b;">description</span>: Invalid username supplied
+        <span style="color: #3548cf;">'404'</span>:
+          <span style="color: #005e8b;">description</span>: User not found
+<span style="color: #005e8b;">components</span>:
+  <span style="color: #005e8b;">schemas</span>:
+    <span style="color: #005e8b;">Order</span>:
+      <span style="color: #005e8b;">type</span>: object
+      <span style="color: #005e8b;">properties</span>:
+        <span style="color: #005e8b;">id</span>:
+          <span style="color: #005e8b;">type</span>: integer
+          <span style="color: #005e8b;">format</span>: int64
+          <span style="color: #005e8b;">example</span>: 10
+        <span style="color: #005e8b;">petId</span>:
+          <span style="color: #005e8b;">type</span>: integer
+          <span style="color: #005e8b;">format</span>: int64
+          <span style="color: #005e8b;">example</span>: 198772
+        <span style="color: #005e8b;">quantity</span>:
+          <span style="color: #005e8b;">type</span>: integer
+          <span style="color: #005e8b;">format</span>: int32
+          <span style="color: #005e8b;">example</span>: 7
+        <span style="color: #005e8b;">shipDate</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">format</span>: date-time
+        <span style="color: #005e8b;">status</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">description</span>: Order Status
+          <span style="color: #005e8b;">example</span>: approved
+          <span style="color: #005e8b;">enum</span>:
+            - placed
+            - approved
+            - delivered
+        <span style="color: #005e8b;">complete</span>:
+          <span style="color: #005e8b;">type</span>: boolean
+      <span style="color: #005e8b;">xml</span>:
+        <span style="color: #005e8b;">name</span>: order
+    <span style="color: #005e8b;">Customer</span>:
+      <span style="color: #005e8b;">type</span>: object
+      <span style="color: #005e8b;">properties</span>:
+        <span style="color: #005e8b;">id</span>:
+          <span style="color: #005e8b;">type</span>: integer
+          <span style="color: #005e8b;">format</span>: int64
+          <span style="color: #005e8b;">example</span>: 100000
+        <span style="color: #005e8b;">username</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">example</span>: fehguy
+        <span style="color: #005e8b;">address</span>:
+          <span style="color: #005e8b;">type</span>: array
+          <span style="color: #005e8b;">xml</span>:
+            <span style="color: #005e8b;">name</span>: addresses
+            <span style="color: #005e8b;">wrapped</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">items</span>:
+            <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Address'</span>
+      <span style="color: #005e8b;">xml</span>:
+        <span style="color: #005e8b;">name</span>: customer
+    <span style="color: #005e8b;">Address</span>:
+      <span style="color: #005e8b;">type</span>: object
+      <span style="color: #005e8b;">properties</span>:
+        <span style="color: #005e8b;">street</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">example</span>: 437 Lytton
+        <span style="color: #005e8b;">city</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">example</span>: Palo Alto
+        <span style="color: #005e8b;">state</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">example</span>: CA
+        <span style="color: #005e8b;">zip</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">example</span>: <span style="color: #3548cf;">'94301'</span>
+      <span style="color: #005e8b;">xml</span>:
+        <span style="color: #005e8b;">name</span>: address
+    <span style="color: #005e8b;">Category</span>:
+      <span style="color: #005e8b;">type</span>: object
+      <span style="color: #005e8b;">properties</span>:
+        <span style="color: #005e8b;">id</span>:
+          <span style="color: #005e8b;">type</span>: integer
+          <span style="color: #005e8b;">format</span>: int64
+          <span style="color: #005e8b;">example</span>: 1
+        <span style="color: #005e8b;">name</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">example</span>: Dogs
+      <span style="color: #005e8b;">xml</span>:
+        <span style="color: #005e8b;">name</span>: category
+    <span style="color: #005e8b;">User</span>:
+      <span style="color: #005e8b;">type</span>: object
+      <span style="color: #005e8b;">properties</span>:
+        <span style="color: #005e8b;">id</span>:
+          <span style="color: #005e8b;">type</span>: integer
+          <span style="color: #005e8b;">format</span>: int64
+          <span style="color: #005e8b;">example</span>: 10
+        <span style="color: #005e8b;">username</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">example</span>: theUser
+        <span style="color: #005e8b;">firstName</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">example</span>: John
+        <span style="color: #005e8b;">lastName</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">example</span>: James
+        <span style="color: #005e8b;">email</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">example</span>: john@email.com
+        <span style="color: #005e8b;">password</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">example</span>: <span style="color: #3548cf;">'12345'</span>
+        <span style="color: #005e8b;">phone</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">example</span>: <span style="color: #3548cf;">'12345'</span>
+        <span style="color: #005e8b;">userStatus</span>:
+          <span style="color: #005e8b;">type</span>: integer
+          <span style="color: #005e8b;">description</span>: User Status
+          <span style="color: #005e8b;">format</span>: int32
+          <span style="color: #005e8b;">example</span>: 1
+      <span style="color: #005e8b;">xml</span>:
+        <span style="color: #005e8b;">name</span>: user
+    <span style="color: #005e8b;">Tag</span>:
+      <span style="color: #005e8b;">type</span>: object
+      <span style="color: #005e8b;">properties</span>:
+        <span style="color: #005e8b;">id</span>:
+          <span style="color: #005e8b;">type</span>: integer
+          <span style="color: #005e8b;">format</span>: int64
+        <span style="color: #005e8b;">name</span>:
+          <span style="color: #005e8b;">type</span>: string
+      <span style="color: #005e8b;">xml</span>:
+        <span style="color: #005e8b;">name</span>: tag
+    <span style="color: #005e8b;">Pet</span>:
+      <span style="color: #005e8b;">required</span>:
+        - name
+        - photoUrls
+      <span style="color: #005e8b;">type</span>: object
+      <span style="color: #005e8b;">properties</span>:
+        <span style="color: #005e8b;">id</span>:
+          <span style="color: #005e8b;">type</span>: integer
+          <span style="color: #005e8b;">format</span>: int64
+          <span style="color: #005e8b;">example</span>: 10
+        <span style="color: #005e8b;">name</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">example</span>: doggie
+        <span style="color: #005e8b;">category</span>:
+          <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Category'</span>
+        <span style="color: #005e8b;">photoUrls</span>:
+          <span style="color: #005e8b;">type</span>: array
+          <span style="color: #005e8b;">xml</span>:
+            <span style="color: #005e8b;">wrapped</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">items</span>:
+            <span style="color: #005e8b;">type</span>: string
+            <span style="color: #005e8b;">xml</span>:
+              <span style="color: #005e8b;">name</span>: photoUrl
+        <span style="color: #005e8b;">tags</span>:
+          <span style="color: #005e8b;">type</span>: array
+          <span style="color: #005e8b;">xml</span>:
+            <span style="color: #005e8b;">wrapped</span>: <span style="color: #0000b0;">true</span>
+          <span style="color: #005e8b;">items</span>:
+            <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Tag'</span>
+        <span style="color: #005e8b;">status</span>:
+          <span style="color: #005e8b;">type</span>: string
+          <span style="color: #005e8b;">description</span>: pet status in the store
+          <span style="color: #005e8b;">enum</span>:
+            - available
+            - pending
+            - sold
+      <span style="color: #005e8b;">xml</span>:
+        <span style="color: #005e8b;">name</span>: pet
+    <span style="color: #005e8b;">ApiResponse</span>:
+      <span style="color: #005e8b;">type</span>: object
+      <span style="color: #005e8b;">properties</span>:
+        <span style="color: #005e8b;">code</span>:
+          <span style="color: #005e8b;">type</span>: integer
+          <span style="color: #005e8b;">format</span>: int32
+        <span style="color: #005e8b;">type</span>:
+          <span style="color: #005e8b;">type</span>: string
+        <span style="color: #005e8b;">message</span>:
+          <span style="color: #005e8b;">type</span>: string
+      <span style="color: #005e8b;">xml</span>:
+        <span style="color: #005e8b;">name</span>: <span style="color: #3548cf;">'##default'</span>
+  <span style="color: #005e8b;">requestBodies</span>:
+    <span style="color: #005e8b;">Pet</span>:
+      <span style="color: #005e8b;">description</span>: Pet object that needs to be added to the store
+      <span style="color: #005e8b;">content</span>:
+        <span style="color: #005e8b;">application/json</span>:
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+        <span style="color: #005e8b;">application/xml</span>:
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/Pet'</span>
+    <span style="color: #005e8b;">UserArray</span>:
+      <span style="color: #005e8b;">description</span>: List of user object
+      <span style="color: #005e8b;">content</span>:
+        <span style="color: #005e8b;">application/json</span>:
+          <span style="color: #005e8b;">schema</span>:
+            <span style="color: #005e8b;">type</span>: array
+            <span style="color: #005e8b;">items</span>:
+              <span style="color: #005e8b;">$ref</span>: <span style="color: #3548cf;">'#/components/schemas/User'</span>
+  <span style="color: #005e8b;">securitySchemes</span>:
+    <span style="color: #005e8b;">petstore_auth</span>:
+      <span style="color: #005e8b;">type</span>: oauth2
+      <span style="color: #005e8b;">flows</span>:
+        <span style="color: #005e8b;">implicit</span>:
+          <span style="color: #005e8b;">authorizationUrl</span>: https://petstore3.swagger.io/oauth/authorize
+          <span style="color: #005e8b;">scopes</span>:
+            <span style="color: #005e8b;">write:pets</span>: modify pets in your account
+            <span style="color: #005e8b;">read:pets</span>: read your pets
+    <span style="color: #005e8b;">api_key</span>:
+      <span style="color: #005e8b;">type</span>: apiKey
+      <span style="color: #005e8b;">name</span>: api_key
+      <span style="color: #005e8b;">in</span>: header
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-json"><span style="color: #000000;">{</span>
+    <span style="color: #531ab6;">"swagger"</span>: <span style="color: #3548cf;">"2.0"</span>,
+    <span style="color: #531ab6;">"info"</span>: <span style="color: #dd22dd;">{</span>
+        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters."</span>,
+        <span style="color: #531ab6;">"version"</span>: <span style="color: #3548cf;">"1.0.6"</span>,
+        <span style="color: #531ab6;">"title"</span>: <span style="color: #3548cf;">"Swagger Petstore"</span>,
+        <span style="color: #531ab6;">"termsOfService"</span>: <span style="color: #3548cf;">"http://swagger.io/terms/"</span>,
+        <span style="color: #531ab6;">"contact"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"email"</span>: <span style="color: #3548cf;">"apiteam@swagger.io"</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"license"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"Apache 2.0"</span>,
+            <span style="color: #531ab6;">"url"</span>: <span style="color: #3548cf;">"http://www.apache.org/licenses/LICENSE-2.0.html"</span>
+        <span style="color: #008899;">}</span>
+    <span style="color: #dd22dd;">}</span>,
+    <span style="color: #531ab6;">"host"</span>: <span style="color: #3548cf;">"petstore.swagger.io"</span>,
+    <span style="color: #531ab6;">"basePath"</span>: <span style="color: #3548cf;">"/v2"</span>,
+    <span style="color: #531ab6;">"tags"</span>: <span style="color: #dd22dd;">[</span>
+        <span style="color: #008899;">{</span>
+        <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"pet"</span>,
+        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Everything about your Pets"</span>,
+        <span style="color: #531ab6;">"externalDocs"</span>: <span style="color: #972500;">{</span>
+            <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Find out more"</span>,
+            <span style="color: #531ab6;">"url"</span>: <span style="color: #3548cf;">"http://swagger.io"</span>
+        <span style="color: #972500;">}</span>
+    <span style="color: #008899;">}</span>,
+        <span style="color: #008899;">{</span>
+        <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"store"</span>,
+        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Access to Petstore orders"</span>
+    <span style="color: #008899;">}</span>,
+        <span style="color: #008899;">{</span>
+        <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"user"</span>,
+        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Operations about user"</span>,
+        <span style="color: #531ab6;">"externalDocs"</span>: <span style="color: #972500;">{</span>
+            <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Find out more about our store"</span>,
+            <span style="color: #531ab6;">"url"</span>: <span style="color: #3548cf;">"http://swagger.io"</span>
+        <span style="color: #972500;">}</span>
+    <span style="color: #008899;">}</span>
+    <span style="color: #dd22dd;">]</span>,
+    <span style="color: #531ab6;">"schemes"</span>: <span style="color: #dd22dd;">[</span>
+        <span style="color: #3548cf;">"https"</span>,
+        <span style="color: #3548cf;">"http"</span>
+    <span style="color: #dd22dd;">]</span>,
+    <span style="color: #531ab6;">"paths"</span>: <span style="color: #dd22dd;">{</span>
+        <span style="color: #531ab6;">"/pet/{petId}/uploadImage"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"post"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"pet"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"uploads an image"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">""</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"uploadFile"</span>,
+                <span style="color: #531ab6;">"consumes"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"multipart/form-data"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"petId"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"path"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"ID of pet to update"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int64"</span>
+                <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"additionalMetadata"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"formData"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Additional data to pass to server"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">false</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"file"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"formData"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"file to upload"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">false</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"file"</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"200"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"successful operation"</span>,
+                        <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                            <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/ApiResponse"</span>
+                        <span style="color: #008900;">}</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"security"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"petstore_auth"</span>: <span style="color: #008900;">[</span>
+                        <span style="color: #3548cf;">"write:pets"</span>,
+                        <span style="color: #3548cf;">"read:pets"</span>
+                    <span style="color: #008900;">]</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"/pet"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"post"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"pet"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Add a new pet to the store"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">""</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"addPet"</span>,
+                <span style="color: #531ab6;">"consumes"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Pet object that needs to be added to the store"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                        <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/Pet"</span>
+                    <span style="color: #008900;">}</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"405"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid input"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"security"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"petstore_auth"</span>: <span style="color: #008900;">[</span>
+                        <span style="color: #3548cf;">"write:pets"</span>,
+                        <span style="color: #3548cf;">"read:pets"</span>
+                    <span style="color: #008900;">]</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>
+            <span style="color: #972500;">}</span>,
+            <span style="color: #531ab6;">"put"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"pet"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Update an existing pet"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">""</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"updatePet"</span>,
+                <span style="color: #531ab6;">"consumes"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Pet object that needs to be added to the store"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                        <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/Pet"</span>
+                    <span style="color: #008900;">}</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"400"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid ID supplied"</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"404"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Pet not found"</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"405"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Validation exception"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"security"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"petstore_auth"</span>: <span style="color: #008900;">[</span>
+                        <span style="color: #3548cf;">"write:pets"</span>,
+                        <span style="color: #3548cf;">"read:pets"</span>
+                    <span style="color: #008900;">]</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"/pet/findByStatus"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"get"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"pet"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Finds Pets by status"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Multiple status values can be provided with comma separated strings"</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"findPetsByStatus"</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"status"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"query"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Status values that need to be considered for filter"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"array"</span>,
+                    <span style="color: #531ab6;">"items"</span>: <span style="color: #008900;">{</span>
+                        <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>,
+                        <span style="color: #531ab6;">"enum"</span>: <span style="color: #3548cf;">[</span>
+                            <span style="color: #3548cf;">"available"</span>,
+                            <span style="color: #3548cf;">"pending"</span>,
+                            <span style="color: #3548cf;">"sold"</span>
+                        <span style="color: #3548cf;">]</span>,
+                        <span style="color: #531ab6;">"default"</span>: <span style="color: #3548cf;">"available"</span>
+                    <span style="color: #008900;">}</span>,
+                    <span style="color: #531ab6;">"collectionFormat"</span>: <span style="color: #3548cf;">"multi"</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"200"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"successful operation"</span>,
+                        <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                            <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"array"</span>,
+                            <span style="color: #531ab6;">"items"</span>: <span style="color: #3548cf;">{</span>
+                                <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/Pet"</span>
+                            <span style="color: #3548cf;">}</span>
+                        <span style="color: #008900;">}</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"400"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid status value"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"security"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"petstore_auth"</span>: <span style="color: #008900;">[</span>
+                        <span style="color: #3548cf;">"write:pets"</span>,
+                        <span style="color: #3548cf;">"read:pets"</span>
+                    <span style="color: #008900;">]</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"/pet/findByTags"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"get"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"pet"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Finds Pets by tags"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing."</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"findPetsByTags"</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"tags"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"query"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Tags to filter by"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"array"</span>,
+                    <span style="color: #531ab6;">"items"</span>: <span style="color: #008900;">{</span>
+                        <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                    <span style="color: #008900;">}</span>,
+                    <span style="color: #531ab6;">"collectionFormat"</span>: <span style="color: #3548cf;">"multi"</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"200"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"successful operation"</span>,
+                        <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                            <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"array"</span>,
+                            <span style="color: #531ab6;">"items"</span>: <span style="color: #3548cf;">{</span>
+                                <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/Pet"</span>
+                            <span style="color: #3548cf;">}</span>
+                        <span style="color: #008900;">}</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"400"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid tag value"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"security"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"petstore_auth"</span>: <span style="color: #008900;">[</span>
+                        <span style="color: #3548cf;">"write:pets"</span>,
+                        <span style="color: #3548cf;">"read:pets"</span>
+                    <span style="color: #008900;">]</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"deprecated"</span>: <span style="color: #0000b0;">true</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"/pet/{petId}"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"get"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"pet"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Find pet by ID"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Returns a single pet"</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"getPetById"</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"petId"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"path"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"ID of pet to return"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int64"</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"200"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"successful operation"</span>,
+                        <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                            <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/Pet"</span>
+                        <span style="color: #008900;">}</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"400"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid ID supplied"</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"404"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Pet not found"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"security"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"api_key"</span>: <span style="color: #008900;">[</span> <span style="color: #008900;">]</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>
+            <span style="color: #972500;">}</span>,
+            <span style="color: #531ab6;">"post"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"pet"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Updates a pet in the store with form data"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">""</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"updatePetWithForm"</span>,
+                <span style="color: #531ab6;">"consumes"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/x-www-form-urlencoded"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"petId"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"path"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"ID of pet that needs to be updated"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int64"</span>
+                <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"name"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"formData"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Updated name of the pet"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">false</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"status"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"formData"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Updated status of the pet"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">false</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"405"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid input"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"security"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"petstore_auth"</span>: <span style="color: #008900;">[</span>
+                        <span style="color: #3548cf;">"write:pets"</span>,
+                        <span style="color: #3548cf;">"read:pets"</span>
+                    <span style="color: #008900;">]</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>
+            <span style="color: #972500;">}</span>,
+            <span style="color: #531ab6;">"delete"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"pet"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Deletes a pet"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">""</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"deletePet"</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"api_key"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"header"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">false</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"petId"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"path"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Pet id to delete"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int64"</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"400"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid ID supplied"</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"404"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Pet not found"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"security"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"petstore_auth"</span>: <span style="color: #008900;">[</span>
+                        <span style="color: #3548cf;">"write:pets"</span>,
+                        <span style="color: #3548cf;">"read:pets"</span>
+                    <span style="color: #008900;">]</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"/store/order"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"post"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"store"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Place an order for a pet"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">""</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"placeOrder"</span>,
+                <span style="color: #531ab6;">"consumes"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"order placed for purchasing the pet"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                        <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/Order"</span>
+                    <span style="color: #008900;">}</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"200"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"successful operation"</span>,
+                        <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                            <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/Order"</span>
+                        <span style="color: #008900;">}</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"400"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid Order"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"/store/order/{orderId}"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"get"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"store"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Find purchase order by ID"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"For valid response try integer IDs with value &gt;= 1 and &lt;= 10. Other values will generated exceptions"</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"getOrderById"</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"orderId"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"path"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"ID of pet that needs to be fetched"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"maximum"</span>: <span style="color: #0000b0;">10</span>,
+                    <span style="color: #531ab6;">"minimum"</span>: <span style="color: #0000b0;">1</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int64"</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"200"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"successful operation"</span>,
+                        <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                            <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/Order"</span>
+                        <span style="color: #008900;">}</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"400"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid ID supplied"</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"404"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Order not found"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>,
+            <span style="color: #531ab6;">"delete"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"store"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Delete purchase order by ID"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors"</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"deleteOrder"</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"orderId"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"path"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"ID of the order that needs to be deleted"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"minimum"</span>: <span style="color: #0000b0;">1</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int64"</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"400"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid ID supplied"</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"404"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Order not found"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"/store/inventory"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"get"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"store"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Returns pet inventories by status"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Returns a map of status codes to quantities"</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"getInventory"</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span> <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"200"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"successful operation"</span>,
+                        <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                            <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"object"</span>,
+                            <span style="color: #531ab6;">"additionalProperties"</span>: <span style="color: #3548cf;">{</span>
+                                <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                                <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int32"</span>
+                            <span style="color: #3548cf;">}</span>
+                        <span style="color: #008900;">}</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"security"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"api_key"</span>: <span style="color: #008900;">[</span> <span style="color: #008900;">]</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"/user/createWithArray"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"post"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"user"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Creates list of users with given input array"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">""</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"createUsersWithArrayInput"</span>,
+                <span style="color: #531ab6;">"consumes"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"List of user object"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                        <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"array"</span>,
+                        <span style="color: #531ab6;">"items"</span>: <span style="color: #3548cf;">{</span>
+                            <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/User"</span>
+                        <span style="color: #3548cf;">}</span>
+                    <span style="color: #008900;">}</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"default"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"successful operation"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"/user/createWithList"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"post"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"user"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Creates list of users with given input array"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">""</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"createUsersWithListInput"</span>,
+                <span style="color: #531ab6;">"consumes"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"List of user object"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                        <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"array"</span>,
+                        <span style="color: #531ab6;">"items"</span>: <span style="color: #3548cf;">{</span>
+                            <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/User"</span>
+                        <span style="color: #3548cf;">}</span>
+                    <span style="color: #008900;">}</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"default"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"successful operation"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"/user/{username}"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"get"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"user"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Get user by user name"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">""</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"getUserByName"</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"username"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"path"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"The name that needs to be fetched. Use user1 for testing. "</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"200"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"successful operation"</span>,
+                        <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                            <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/User"</span>
+                        <span style="color: #008900;">}</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"400"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid username supplied"</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"404"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"User not found"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>,
+            <span style="color: #531ab6;">"put"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"user"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Updated user"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"This can only be done by the logged in user."</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"updateUser"</span>,
+                <span style="color: #531ab6;">"consumes"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"username"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"path"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"name that need to be updated"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Updated user object"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                        <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/User"</span>
+                    <span style="color: #008900;">}</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"400"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid user supplied"</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"404"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"User not found"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>,
+            <span style="color: #531ab6;">"delete"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"user"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Delete user"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"This can only be done by the logged in user."</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"deleteUser"</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"username"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"path"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"The name that needs to be deleted"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"400"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid username supplied"</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"404"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"User not found"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"/user/login"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"get"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"user"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Logs user into the system"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">""</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"loginUser"</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"username"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"query"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"The user name for login"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"password"</span>,
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"query"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"The password for login in clear text"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"200"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"successful operation"</span>,
+                        <span style="color: #531ab6;">"headers"</span>: <span style="color: #008900;">{</span>
+                            <span style="color: #531ab6;">"X-Expires-After"</span>: <span style="color: #3548cf;">{</span>
+                                <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>,
+                                <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"date-time"</span>,
+                                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"date in UTC when token expires"</span>
+                            <span style="color: #3548cf;">}</span>,
+                            <span style="color: #531ab6;">"X-Rate-Limit"</span>: <span style="color: #3548cf;">{</span>
+                                <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                                <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int32"</span>,
+                                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"calls per hour allowed by the user"</span>
+                            <span style="color: #3548cf;">}</span>
+                        <span style="color: #008900;">}</span>,
+                        <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                            <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                        <span style="color: #008900;">}</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"400"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Invalid username/password supplied"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"/user/logout"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"get"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"user"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Logs out current logged in user session"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">""</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"logoutUser"</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span> <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"default"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"successful operation"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"/user"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"post"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"user"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"summary"</span>: <span style="color: #3548cf;">"Create user"</span>,
+                <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"This can only be done by the logged in user."</span>,
+                <span style="color: #531ab6;">"operationId"</span>: <span style="color: #3548cf;">"createUser"</span>,
+                <span style="color: #531ab6;">"consumes"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"produces"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #3548cf;">"application/json"</span>,
+                    <span style="color: #3548cf;">"application/xml"</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"parameters"</span>: <span style="color: #808000;">[</span>
+                    <span style="color: #531ab6;">{</span>
+                    <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"body"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Created user object"</span>,
+                    <span style="color: #531ab6;">"required"</span>: <span style="color: #0000b0;">true</span>,
+                    <span style="color: #531ab6;">"schema"</span>: <span style="color: #008900;">{</span>
+                        <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/User"</span>
+                    <span style="color: #008900;">}</span>
+                <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">]</span>,
+                <span style="color: #531ab6;">"responses"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"default"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"successful operation"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>
+    <span style="color: #dd22dd;">}</span>,
+    <span style="color: #531ab6;">"securityDefinitions"</span>: <span style="color: #dd22dd;">{</span>
+        <span style="color: #531ab6;">"api_key"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"apiKey"</span>,
+            <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"api_key"</span>,
+            <span style="color: #531ab6;">"in"</span>: <span style="color: #3548cf;">"header"</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"petstore_auth"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"oauth2"</span>,
+            <span style="color: #531ab6;">"authorizationUrl"</span>: <span style="color: #3548cf;">"https://petstore.swagger.io/oauth/authorize"</span>,
+            <span style="color: #531ab6;">"flow"</span>: <span style="color: #3548cf;">"implicit"</span>,
+            <span style="color: #531ab6;">"scopes"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"read:pets"</span>: <span style="color: #3548cf;">"read your pets"</span>,
+                <span style="color: #531ab6;">"write:pets"</span>: <span style="color: #3548cf;">"modify pets in your account"</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>
+    <span style="color: #dd22dd;">}</span>,
+    <span style="color: #531ab6;">"definitions"</span>: <span style="color: #dd22dd;">{</span>
+        <span style="color: #531ab6;">"ApiResponse"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"object"</span>,
+            <span style="color: #531ab6;">"properties"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"code"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int32"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"type"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"message"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"Category"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"object"</span>,
+            <span style="color: #531ab6;">"properties"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"id"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int64"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"name"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>,
+            <span style="color: #531ab6;">"xml"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"Category"</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"Pet"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"object"</span>,
+            <span style="color: #531ab6;">"required"</span>: <span style="color: #972500;">[</span>
+                <span style="color: #3548cf;">"name"</span>,
+                <span style="color: #3548cf;">"photoUrls"</span>
+            <span style="color: #972500;">]</span>,
+            <span style="color: #531ab6;">"properties"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"id"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int64"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"category"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/Category"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"name"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>,
+                    <span style="color: #531ab6;">"example"</span>: <span style="color: #3548cf;">"doggie"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"photoUrls"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"array"</span>,
+                    <span style="color: #531ab6;">"xml"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"wrapped"</span>: <span style="color: #0000b0;">true</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"items"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>,
+                        <span style="color: #531ab6;">"xml"</span>: <span style="color: #008900;">{</span>
+                            <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"photoUrl"</span>
+                        <span style="color: #008900;">}</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"tags"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"array"</span>,
+                    <span style="color: #531ab6;">"xml"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"wrapped"</span>: <span style="color: #0000b0;">true</span>
+                    <span style="color: #531ab6;">}</span>,
+                    <span style="color: #531ab6;">"items"</span>: <span style="color: #531ab6;">{</span>
+                        <span style="color: #531ab6;">"xml"</span>: <span style="color: #008900;">{</span>
+                            <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"tag"</span>
+                        <span style="color: #008900;">}</span>,
+                        <span style="color: #531ab6;">"$ref"</span>: <span style="color: #3548cf;">"#/definitions/Tag"</span>
+                    <span style="color: #531ab6;">}</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"status"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"pet status in the store"</span>,
+                    <span style="color: #531ab6;">"enum"</span>: <span style="color: #531ab6;">[</span>
+                        <span style="color: #3548cf;">"available"</span>,
+                        <span style="color: #3548cf;">"pending"</span>,
+                        <span style="color: #3548cf;">"sold"</span>
+                    <span style="color: #531ab6;">]</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>,
+            <span style="color: #531ab6;">"xml"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"Pet"</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"Tag"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"object"</span>,
+            <span style="color: #531ab6;">"properties"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"id"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int64"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"name"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>,
+            <span style="color: #531ab6;">"xml"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"Tag"</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"Order"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"object"</span>,
+            <span style="color: #531ab6;">"properties"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"id"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int64"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"petId"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int64"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"quantity"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int32"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"shipDate"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"date-time"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"status"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Order Status"</span>,
+                    <span style="color: #531ab6;">"enum"</span>: <span style="color: #531ab6;">[</span>
+                        <span style="color: #3548cf;">"placed"</span>,
+                        <span style="color: #3548cf;">"approved"</span>,
+                        <span style="color: #3548cf;">"delivered"</span>
+                    <span style="color: #531ab6;">]</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"complete"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"boolean"</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>,
+            <span style="color: #531ab6;">"xml"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"Order"</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>,
+        <span style="color: #531ab6;">"User"</span>: <span style="color: #008899;">{</span>
+            <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"object"</span>,
+            <span style="color: #531ab6;">"properties"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"id"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int64"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"username"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"firstName"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"lastName"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"email"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"password"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"phone"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"string"</span>
+                <span style="color: #808000;">}</span>,
+                <span style="color: #531ab6;">"userStatus"</span>: <span style="color: #808000;">{</span>
+                    <span style="color: #531ab6;">"type"</span>: <span style="color: #3548cf;">"integer"</span>,
+                    <span style="color: #531ab6;">"format"</span>: <span style="color: #3548cf;">"int32"</span>,
+                    <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"User Status"</span>
+                <span style="color: #808000;">}</span>
+            <span style="color: #972500;">}</span>,
+            <span style="color: #531ab6;">"xml"</span>: <span style="color: #972500;">{</span>
+                <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"User"</span>
+            <span style="color: #972500;">}</span>
+        <span style="color: #008899;">}</span>
+    <span style="color: #dd22dd;">}</span>,
+    <span style="color: #531ab6;">"externalDocs"</span>: <span style="color: #dd22dd;">{</span>
+        <span style="color: #531ab6;">"description"</span>: <span style="color: #3548cf;">"Find out more about Swagger"</span>,
+        <span style="color: #531ab6;">"url"</span>: <span style="color: #3548cf;">"http://swagger.io"</span>
+    <span style="color: #dd22dd;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgee67f2d" class="outline-2">
+<h2 id="orgee67f2d"><span class="section-number-2">4.</span> xml / json / yaml</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+&lt;xml&gt; 严谨但啰嗦，对用人类不友好 (对计算机友好)。
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;<span style="color: #721045;">students</span>&gt;
+    &lt;<span style="color: #721045;">student</span>&gt;
+        &lt;<span style="color: #721045;">name</span>&gt;xxx&lt;/<span style="color: #721045;">name</span>&gt;
+        &lt;<span style="color: #721045;">age</span>&gt;18&lt;/<span style="color: #721045;">age</span>&gt;
+    &lt;/<span style="color: #721045;">student</span>&gt;
+    &lt;<span style="color: #721045;">student</span>&gt;
+        &lt;<span style="color: #721045;">name</span>&gt;yyy&lt;/<span style="color: #721045;">name</span>&gt;
+        &lt;<span style="color: #721045;">age</span>&gt;20&lt;/<span style="color: #721045;">age</span>&gt;
+    &lt;/<span style="color: #721045;">student</span>&gt;
+&lt;/<span style="color: #721045;">students</span>&gt;
+</pre>
+</div>
+
+<p>
+&lt;json&gt; 虽然表达能力差一些，但是简洁省空间:
+</p>
+<div class="org-src-container">
+<pre class="src src-json"><span style="color: #000000;">[</span>
+    <span style="color: #dd22dd;">{</span> <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"xxx"</span>, <span style="color: #531ab6;">"age"</span>: <span style="color: #3548cf;">"18"</span>, <span style="color: #531ab6;">"teacher"</span>: <span style="color: #008899;">[</span> <span style="color: #972500;">{</span> <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"niu"</span> <span style="color: #972500;">}</span>, <span style="color: #972500;">{</span> <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"zhu"</span> <span style="color: #972500;">}</span> <span style="color: #008899;">]</span><span style="color: #dd22dd;">}</span>,
+    <span style="color: #dd22dd;">{</span> <span style="color: #531ab6;">"name"</span>: <span style="color: #3548cf;">"yyy"</span>, <span style="color: #531ab6;">"age"</span>: <span style="color: #3548cf;">"20"</span> <span style="color: #dd22dd;">}</span>
+<span style="color: #000000;">]</span>
+</pre>
+</div>
+
+<p>
+&lt;yaml, yet another xxx&gt; 缺乏了一些灵活性，但是多了好多直观性:
+</p>
+<div class="org-src-container">
+<pre class="src src-yaml"><span style="color: #005e8b;">students</span>:
+  <span style="color: #005e8b;">student</span>:
+    <span style="color: #005e8b;">name</span>: xxx
+    <span style="color: #005e8b;">age</span>: 18
+    <span style="color: #005e8b;">teachers</span>:
+      <span style="color: #005e8b;">teacher</span>:
+        <span style="color: #005e8b;">name</span>: niu
+      <span style="color: #005e8b;">teacher</span>:
+        <span style="color: #005e8b;">name</span>: zhu
+  <span style="color: #005e8b;">student</span>:
+    <span style="color: #005e8b;">name</span>: yyy
+    <span style="color: #005e8b;">age</span>: 20
+</pre>
+</div>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 1a2y</p>
+<p class="date">Created: 2023-02-21</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>

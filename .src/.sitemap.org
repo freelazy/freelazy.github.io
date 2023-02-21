@@ -18,6 +18,7 @@
   - [[file:frontend/0-http.org][HTTP]]
   - [[file:frontend/1-html+css.org][HTML/CSS]]
   - [[file:frontend/2-javascript.org][JavaScript]]
+  - [[file:frontend/3-openapi.org][OpenAPI/Swagger]]
 - miscellaneous
   - [[file:miscellaneous/misc.org][其他]]
   - [[file:miscellaneous/skills.org][每天很多小技巧]]
