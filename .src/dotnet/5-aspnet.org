@@ -1667,7 +1667,7 @@ https://autofac.org/
 - IActionResult
 - asp-for
 
-* RESTFul/GraphQL
+* RESTful/GraphQL
 
 RESTful (Representational State Transfer)，表现层状态转换:
 - 它是一种编程风格 (并非严格的标准)
