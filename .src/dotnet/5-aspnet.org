@@ -1666,3 +1666,17 @@ https://autofac.org/
 
 - IActionResult
 - asp-for
+
+* RESTFul/GraphQL
+
+RESTful (Representational State Transfer)，表现层状态转换:
+- 它是一种编程风格 (并非严格的标准)
+- 每个 URL 表示一种资源。对资源的 CRUD 通过 HTTP METHOD (GET/POST/PUT/DELETE/PATCH) 来表达
+- 配合 JSON 进行数据的交换 (application/json)
+
+链接:
+- https://restfulapi.cn/
+- https://graphql.cn/
+- https://juejin.cn/post/6965318116154802206
+
+更多内容自行总结，并领会。
