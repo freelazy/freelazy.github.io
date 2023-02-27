@@ -2,9 +2,9 @@
 
 - [[file:index.org][173.NET]]
 - 111
-  - [[file:111/english.org][English]]
   - [[file:111/notes.org][Tips]]
   - [[file:111/tasks.org][任务和作业]]
+  - [[file:111/words.org][English]]
 - database
   - [[file:database/1-sqlserver.org][SqlServer]]
   - [[file:database/2-mysql.org][MySQL]]
@@ -16,9 +16,14 @@
   - [[file:dotnet/7-ef.org][Entity Framework]]
 - frontend
   - [[file:frontend/0-http.org][HTTP]]
-  - [[file:frontend/1-html+css.org][HTML/CSS]]
-  - [[file:frontend/2-javascript.org][JavaScript]]
-  - [[file:frontend/3-openapi.org][OpenAPI/Swagger]]
+  - [[file:frontend/a-html+css.org][HTML/CSS]]
+  - [[file:frontend/c_js.org][JavaScript (ECMAScript)]]
+  - [[file:frontend/d_bom.org][BOM (浏览器对象模型)]]
+  - [[file:frontend/e_dom.org][DOM (文档对象模型)]]
+  - [[file:frontend/h_jQuery.org][jQuery]]
+  - [[file:frontend/n_vue-js.org][Vue.js]]
+  - [[file:frontend/w_nodejs.org][Node.js]]
+  - [[file:frontend/z-openapi.org][OpenAPI/Swagger]]
 - miscellaneous
   - [[file:miscellaneous/misc.org][其他]]
   - [[file:miscellaneous/skills.org][每天很多小技巧]]

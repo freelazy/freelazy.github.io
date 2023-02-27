@@ -937,9 +937,10 @@ JavaScript Object Notation.
 : api/{controller}/{id}
 
 因此:
-- 请求 =GET /abc= 对应 AbcController 的 =GetXxx= 方法
-- 请求 =PUT /abc/3= 对应 AbcController 的 =PutXxx(id)= 方法
-- 默认情况是通过方法名的前缀判断 HTTP METHOD 的。可以通过在 Action 上添加 =[HttpGet]= 等特性显式指定
+- 请求 =GET /zoos= 对应 ZoosController 的 =GetXxx= 方法
+- 请求 =PUT /zoos/3= 对应 ZoosController 的 =PutXxx(id)= 方法
+- 默认情况是通过方法名的前缀判断 HTTP METHOD 的。
+  可以通过在 Action 上添加 =[HttpGet]= 等特性显式指定
 - 可以将 =[Route("xxx")]= 添加到 Controller 或 Action 上，单独设置独立的路由
 
 ** Action
