@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-02-27 -->
+<!-- 2023-02-28 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>DOM (文档对象模型)</title>
@@ -92,8 +92,9 @@
 </ul>
 </div>
 </nav>
-
-
+<p>
+Document Object Model
+</p>
 
 <section id="outline-container-org18e3b75" class="outline-2">
 <h2 id="org18e3b75"><span class="section-number-2">1.</span> 什么是 DOM</h2>
@@ -103,7 +104,7 @@ DOM 树是有多个 Node (节点) 组成的，Node 又有很多 Child Node 组�
 </p>
 
 
-<figure id="org2e9d336">
+<figure id="orgdb397d6">
 <img src="img/742px-DOM-model.svg_20200624_065310.png" alt="742px-DOM-model.svg_20200624_065310.png">
 
 </figure>
@@ -238,7 +239,7 @@ m.removeChild<span style="color: #000000;">(</span>m.childNodes<span style="colo
 <p>
 cloneNode，请理解 clone 的意义:
 </p>
-<div class="div" id="org600ca67">
+<div class="div" id="org0396551">
 <div class="org-src-container">
 <pre class="src src-js"><span style="color: #531ab6;">var</span> <span style="color: #005e8b;">e</span> = document.createElement<span style="color: #000000;">(</span><span style="color: #3548cf;">"h3"</span><span style="color: #000000;">)</span>;
 e.innerText = <span style="color: #3548cf;">"&#24744;&#22909;!"</span>;
@@ -777,7 +778,7 @@ div.onclick = xxx;                   // 通过 onxxx 绑定的事件，只有在
 
 
 
-<figure id="org1055050">
+<figure id="orgc166c31">
 <img src="img/dom-event-model.jpg" alt="dom-event-model.jpg">
 
 </figure>
@@ -1069,7 +1070,7 @@ div.onclick = xxx;                   // 通过 onxxx 绑定的事件，只有在
 <h3 id="orga50a8d1"><span class="section-number-3">6.3.</span> 在上面基础上，每个 input 后面再增加一个 <b>归档</b> 的操作，点击之后，此条目会被移动到下面的归档区域，且变得不能修改</h3>
 <div class="outline-text-3" id="text-6-3">
 
-<figure id="org4427063">
+<figure id="org847470c">
 <img src="img/dom-arch.png.png" alt="dom-arch.png.png">
 
 </figure>
@@ -1227,7 +1228,7 @@ div.onclick = xxx;                   // 通过 onxxx 绑定的事件，只有在
 <h3 id="org761ee67"><span class="section-number-3">6.5.</span> alert 是万恶的，请将代码中的 alert 去除掉。提醒变为文字的方式</h3>
 <div class="outline-text-3" id="text-6-5">
 
-<figure id="org44f9286">
+<figure id="org3499191">
 <img src="img/dom-arch-err.png" alt="dom-arch-err.png">
 
 </figure>
@@ -1339,7 +1340,7 @@ div.onclick = xxx;                   // 通过 onxxx 绑定的事件，只有在
 </p>
 
 
-<figure id="org926b5b0">
+<figure id="orgf32b04b">
 <img src="img/dom-add-goods.png" alt="dom-add-goods.png">
 
 </figure>
@@ -1953,7 +1954,7 @@ checkboxNode.checked = true; // 将其选中
 <p>
 效果示例:
 </p>
-<pre class="example" id="org5da0b47">
+<pre class="example" id="org25261d3">
 +-------------------------+
 |                         |
 |                         |
@@ -2261,7 +2262,7 @@ img.addEventListener<span style="color: #000000;">(</span><span style="color: #3
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2023-02-27</p>
+<p class="date">Created: 2023-02-28</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

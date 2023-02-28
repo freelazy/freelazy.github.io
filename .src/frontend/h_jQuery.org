@@ -762,7 +762,7 @@ extend:
 * jQuery 扩展框架
 
 - 后台 admin 框架: https://www.cnblogs.com/Leo_wl/p/5791545.html
-- https://www.layui.com/
+- http://layui.org.cn/
   
 * [例] TODO-LIST
 

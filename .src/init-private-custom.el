@@ -1,7 +1,11 @@
 ;; YAOLIUSAN -> YAOLIUYAO -> yao7san
 
 (setq iv/host "imxx.top")
+(setq iv/proxy "http://imxx.top:1081")
 (setq iv/workdir "e:/Workdir/")
+
+(setq ic/eshell-extra-aliases
+      `(("epull" ,(format "https_proxy=%s git -C ~/.emacs.d pull --rebase" iv/proxy))))
 
 (setq iv/faces (list
                 :frame 'max
@@ -13,8 +17,6 @@
 
 (setq backup-by-copying nil)
 (setq initial-major-mode 'org-mode initial-scratch-message "就业！\n\n")
-
-(with-over (im/proxy "http://imxx.top:1081"))
 
 (setq iv/gnus-mails-reciever
       '((nnimap "tmail"
