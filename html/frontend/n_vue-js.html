@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-02-27 -->
+<!-- 2023-03-02 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Vue.js</title>
@@ -420,6 +420,19 @@ watch: <span style="color: #000000;">{</span>
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> :class=<span style="color: #3548cf;">"xxx"</span> :style=<span style="color: #3548cf;">"{ color: 'red' }"</span><span style="color: #000000;">&gt;</span>xxx<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
 <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> :class=<span style="color: #3548cf;">"{ xxx: isActive }"</span><span style="color: #000000;">&gt;</span>&#21152;&#20010;&#24320;&#20851;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :class=<span style="color: #3548cf;">"xxx"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;&#32473;&#25105;&#21152;&#26679;&#24335;&#21543;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :class=<span style="color: #3548cf;">"[xxx, yyy]"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;&#32473;&#25105;&#21152;&#26679;&#24335;&#21543;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :class=<span style="color: #3548cf;">"{xxx: ax1, yyy: ax2}"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;223333<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> <span style="color: #005e8b;">class</span>=<span style="color: #3548cf;">"xxx"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;&#32473;&#25105;&#21152;&#26679;&#24335;&#21543;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :class=<span style="color: #3548cf;">"'xxx'"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;&#32473;&#25105;&#21152;&#26679;&#24335;&#21543;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> @click=<span style="color: #3548cf;">"chcolortogreen"</span><span style="color: #000000;">&gt;</span>&#28857;&#25105;&#25442;&#39068;&#33394;<span style="color: #000000;">(</span>lv<span style="color: #000000;">)&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> @click=<span style="color: #3548cf;">"xxx = 'red'"</span><span style="color: #000000;">&gt;</span>&#28857;&#25105;&#25442;&#39068;&#33394;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :style=<span style="color: #3548cf;">"{ color: 'yellow', fontSize: '12px' }"</span><span style="color: #000000;">&gt;</span>gggg<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :style=<span style="color: #3548cf;">"sss"</span><span style="color: #000000;">&gt;</span>ffff<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
 </pre>
 </div>
 </div>
@@ -1562,7 +1575,7 @@ vue.config.js:
 </p>
 
 
-<figure id="org2f725c6">
+<figure id="org9aa4470">
 <img src="img/oimg_20201104_064733.png" alt="oimg_20201104_064733.png" width="300px">
 
 </figure>
@@ -2421,7 +2434,7 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 为什么会有如下错误:
 </p>
 
-<pre class="example" id="orgc5bac9a">
+<pre class="example" id="org60c397c">
 Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_exploded/comments' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 </pre>
 
@@ -2465,7 +2478,7 @@ Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_explo
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2023-02-27</p>
+<p class="date">Created: 2023-03-02</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

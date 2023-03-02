@@ -16,7 +16,9 @@
   - [[file:dotnet/7-ef.org][Entity Framework]]
 - frontend
   - [[file:frontend/0-http.org][HTTP]]
+  - [[file:frontend/2-javascript.org][JavaScript]]
   - [[file:frontend/a-html+css.org][HTML/CSS]]
+  - [[file:frontend/a_html5+css3.org][HTML5 and CSS3]]
   - [[file:frontend/c_js.org][JavaScript (ECMAScript)]]
   - [[file:frontend/d_bom.org][BOM (浏览器对象模型)]]
   - [[file:frontend/e_dom.org][DOM (文档对象模型)]]

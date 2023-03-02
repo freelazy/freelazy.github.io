@@ -239,6 +239,19 @@ Tips:
 #+begin_src html
   <div :class="xxx" :style="{ color: 'red' }">xxx</div>
   <div :class="{ xxx: isActive }">加个开关</div>
+
+  <div>
+    <p :class="xxx">我是一段文本，给我加样式吧</p>
+    <p :class="[xxx, yyy]">我是一段文本，给我加样式吧</p>
+    <p :class="{xxx: ax1, yyy: ax2}">我是一段文本，223333</p>
+    <p class="xxx">我是一段文本，给我加样式吧</p>
+    <p :class="'xxx'">我是一段文本，给我加样式吧</p>
+    <button @click="chcolortogreen">点我换颜色(lv)</button>
+    <button @click="xxx = 'red'">点我换颜色</button>
+  </div>
+
+  <p :style="{ color: 'yellow', fontSize: '12px' }">gggg</p>
+  <p :style="sss">ffff</p>
 #+end_src
 
 ** 条件判断 (v-if/v-else-if/v-else/v-show)
