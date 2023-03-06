@@ -2,8 +2,89 @@
 
 
 * Javascript
+** 模块和命名空间
+*** 最原始的解决方案 IIFE
 
-skip
+充分利用了函数内部定义的变量是局部变量的语言特性。
+
+#+begin_src js
+  !function () {
+      var name = "I am Tom";
+
+      var a = 1;
+      var b = 2;
+
+      window.tomSayHello = function() {
+          console.log(name);
+      }
+  }();
+#+end_src
+
+*** CommonJS
+
+http://nodejs.cn/api/modules.html
+
+在 CommonJS 中:
+- 一个文件就是一个模块，使用 module 变量代表当前模块
+- 模块中定义的变量、函数、类都是私有的，需要通过 module.exports 向外暴露
+
+#+begin_src js
+  // 定义模块 (circle.js)
+  const PI = 3.1415926;
+  exports.erea = function (r) { return PI * r * r; }
+
+  // 其他文件中使用模块
+  let circle = require('circle');
+  circle.area(30);
+#+end_src
+
+NodeJS 就是 CommonJS 这种规范的具体实现。
+
+*** AMD/UMD
+
+主要增加了对模块的异步支持。
+
+*** Modules in ES6
+
+终于，在 ES6 中在语言层面上添加了模块的支持。它充分吸取了 CommonJS 等框架的优点:
+- 语法简单，每个文件都是一个模块
+- 支持异步模块的支持
+
+主要就两个 API:
+- export {a, b}
+- import a from 'file';
+
+定义模块:
+#+begin_src js
+  // 定义
+  let sex = 'boy';
+  let echo = function (x) { console.log(x); }
+
+  // 导出
+  export { sex: sex, echo: echo };
+  export { sex, echo };
+
+  // 定义 + 导出
+  export let name = "hello";
+  export let xxx = function() { console.log("helowold"); }
+#+end_src
+
+使用模块:
+#+begin_src js
+  import * as xxx from './file';
+  xxx.sex; xxx.echo;
+
+  import { sex, echo, name } from './file';
+#+end_src
+
+默认:
+#+begin_src js
+  // 每个文件中只能导出一个默认的变量
+  export default let x = () => console.log('我是唯一的');
+
+  // 默认情况下，导出的是默认的变量
+  import x from './file'; 
+#+end_src
 
 * NodeJs
 
