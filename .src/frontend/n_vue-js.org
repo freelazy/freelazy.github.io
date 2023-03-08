@@ -616,6 +616,8 @@ data.js 用于提供共享数据:
 
 *** Vuex
 
+https://vuex.vuejs.org/zh/
+
 在网页中添加引用即可使用 Vuex:
 #+begin_src html
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
