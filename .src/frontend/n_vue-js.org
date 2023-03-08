@@ -507,10 +507,13 @@ https://cn.vuejs.org/v2/guide/forms.html
 
 ** 数据的交互
 
-- 往里传数据: props/slot
-- 向外发信号: $emit
-- 只能由父子之间进行，逐层传递
-- 可以借助 $props 和 $listeners 来简化传递 (爷爷 - 孙子)
+1. 往里传数据: props/slot; 向外发信号: $emit; 只能由父子之间进行，逐层传递
+2. 可以借助 $props 和 $listeners 来简化传递 (爷爷 - . - 孙子)
+3. 可以直接通过 this.$parent 或者 this.$root 之类直接调用目标节点的逻辑
+4. 可以使用全局变量 (存储) 的方式，提供数据
+5. 通过 Vuex 等框架，提供相对比较安全的全局存储，进行集中式状态管理
+
+*** Props/Slot
 
 #+begin_src html
   <my-blog :blogs="blogs" a=22 b=333
@@ -562,6 +565,93 @@ alert-box 2:
   <alert-box>
     Something bad happened.
   </alert-box>
+#+end_src
+
+*** 全局变量的方式
+
+data.js 用于提供共享数据:
+#+begin_src js
+  export default {
+      article: {
+          title: "xxx", content: "yyy", liked: 0
+      }
+  }
+#+end_src
+
+在根组件中使用:
+#+begin_src js
+  import data from './data.js';
+  new Vue({
+      data: {
+          article: data.article
+      },
+      method: {
+          doLike () {
+              data.article.liked += 1;
+          }
+      }
+  });
+#+end_src
+
+在其他任意组件中，也可以直接访问并修改这个数据:
+#+begin_src js
+  import data from './data.js';
+  export default const CompN = {
+      data () {
+          return {
+              article: data.article; // 直接访问
+          }
+      },
+      methods: {
+          doLike () {
+              data.article.liked += 1; // 直接修改
+          }
+      }
+  }
+#+end_src
+
+这种方式的最大好处: 简单。
+
+这种方式的最大缺点: 不安全。
+
+*** Vuex
+
+在网页中添加引用即可使用 Vuex:
+#+begin_src html
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vuex/4.1.0/vuex.global.js"></script>
+#+end_src
+
+跟全局变量的方式一样，先创建一个中央仓库，用来进行存储 (store.js):
+#+begin_src js
+  export default new Vuex.Store({
+      state: {
+          article: {
+              title: "狂人日记", liked: 33, clicked: 445
+          }
+      },
+      mutations: {
+          doLike: state => state.article.liked += 100
+      },
+      strict: true
+  });
+#+end_src
+
+在其他任意组件中使用:
+#+begin_src js
+  import store from '../store.js';
+
+  export default {
+      data() {
+          return store.state.article;
+      },
+      methods: {
+          xxx () {
+              // store.state.article.liked += 333;
+              store.commit('doLike');
+          }
+      }
+  }
 #+end_src
 
 ** 全局 vs 局部

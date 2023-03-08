@@ -42,7 +42,13 @@
 <li><a href="#org38eb262">5. 组件 (Component)</a>
 <ul>
 <li><a href="#org64b3157">5.1. 基本示例</a></li>
-<li><a href="#org770bfa3">5.2. 数据的交互</a></li>
+<li><a href="#org770bfa3">5.2. 数据的交互</a>
+<ul>
+<li><a href="#org3bcec5f">5.2.1. Props/Slot</a></li>
+<li><a href="#org421b4b7">5.2.2. 全局变量的方式</a></li>
+<li><a href="#org7e2c3f9">5.2.3. Vuex</a></li>
+</ul>
+</li>
 <li><a href="#org5a1f3f2">5.3. 全局 vs 局部</a></li>
 <li><a href="#org8b65cef">5.4. 内置组件</a>
 <ul>
@@ -741,13 +747,18 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
 <div id="outline-container-org770bfa3" class="outline-3">
 <h3 id="org770bfa3"><span class="section-number-3">5.2.</span> 数据的交互</h3>
 <div class="outline-text-3" id="text-5-2">
-<ul class="org-ul">
-<li>往里传数据: props/slot</li>
-<li>向外发信号: $emit</li>
-<li>只能由父子之间进行，逐层传递</li>
-<li>可以借助 $props 和 $listeners 来简化传递 (爷爷 - 孙子)</li>
-</ul>
+<ol class="org-ol">
+<li>往里传数据: props/slot; 向外发信号: $emit; 只能由父子之间进行，逐层传递</li>
+<li>可以借助 $props 和 $listeners 来简化传递 (爷爷 - . - 孙子)</li>
+<li>可以直接通过 this.$parent 或者 this.$root 之类直接调用目标节点的逻辑</li>
+<li>可以使用全局变量 (存储) 的方式，提供数据</li>
+<li>通过 Vuex 等框架，提供相对比较安全的全局存储，进行集中式状态管理</li>
+</ol>
+</div>
 
+<div id="outline-container-org3bcec5f" class="outline-4">
+<h4 id="org3bcec5f"><span class="section-number-4">5.2.1.</span> Props/Slot</h4>
+<div class="outline-text-4" id="text-5-2-1">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">my-blog</span> :blogs=<span style="color: #3548cf;">"blogs"</span> a=22 b=333
          <span style="color: #005e8b;">title</span>=<span style="color: #3548cf;">"&lt;h3&gt;</span><span style="color: #3548cf; font-style: italic; text-decoration: underline;">xx</span><span style="color: #3548cf;">&lt;/h3&gt;"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">my-blog</span><span style="color: #000000;">&gt;</span>
@@ -805,6 +816,122 @@ alert-box 2:
   Something bad happened.
 <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">alert-box</span><span style="color: #000000;">&gt;</span>
 </pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org421b4b7" class="outline-4">
+<h4 id="org421b4b7"><span class="section-number-4">5.2.2.</span> 全局变量的方式</h4>
+<div class="outline-text-4" id="text-5-2-2">
+<p>
+data.js 用于提供共享数据:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #531ab6;">export</span> <span style="color: #531ab6;">default</span> <span style="color: #000000;">{</span>
+    article: <span style="color: #dd22dd;">{</span>
+        title: <span style="color: #3548cf;">"xxx"</span>, content: <span style="color: #3548cf;">"yyy"</span>, liked: 0
+    <span style="color: #dd22dd;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+在根组件中使用:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #531ab6;">import</span> data from <span style="color: #3548cf;">'./data.js'</span>;
+<span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
+    data: <span style="color: #008899;">{</span>
+        article: data.article
+    <span style="color: #008899;">}</span>,
+    method: <span style="color: #008899;">{</span>
+        doLike <span style="color: #972500;">()</span> <span style="color: #972500;">{</span>
+            data.article.liked += 1;
+        <span style="color: #972500;">}</span>
+    <span style="color: #008899;">}</span>
+<span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+</pre>
+</div>
+
+<p>
+在其他任意组件中，也可以直接访问并修改这个数据:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #531ab6;">import</span> data from <span style="color: #3548cf;">'./data.js'</span>;
+<span style="color: #531ab6;">export</span> <span style="color: #531ab6;">default</span> <span style="color: #531ab6;">const</span> <span style="color: #005e8b;">CompN</span> = <span style="color: #000000;">{</span>
+    data <span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
+        <span style="color: #531ab6;">return</span> <span style="color: #008899;">{</span>
+            article: data.article; <span style="color: #595959;">// </span><span style="color: #595959;">&#30452;&#25509;&#35775;&#38382;</span>
+        <span style="color: #008899;">}</span>
+    <span style="color: #dd22dd;">}</span>,
+    methods: <span style="color: #dd22dd;">{</span>
+        doLike <span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
+            data.article.liked += 1; <span style="color: #595959;">// </span><span style="color: #595959;">&#30452;&#25509;&#20462;&#25913;</span>
+        <span style="color: #008899;">}</span>
+    <span style="color: #dd22dd;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+这种方式的最大好处: 简单。
+</p>
+
+<p>
+这种方式的最大缺点: 不安全。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7e2c3f9" class="outline-4">
+<h4 id="org7e2c3f9"><span class="section-number-4">5.2.3.</span> Vuex</h4>
+<div class="outline-text-4" id="text-5-2-3">
+<p>
+在网页中添加引用即可使用 Vuex:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"https://cdn.jsdelivr.net/npm/vue/dist/vue.js"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"https://cdn.bootcdn.net/ajax/libs/vuex/4.1.0/vuex.global.js"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+跟全局变量的方式一样，先创建一个中央仓库，用来进行存储 (store.js):
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #531ab6;">export</span> <span style="color: #531ab6;">default</span> <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vuex.Store</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
+    state: <span style="color: #008899;">{</span>
+        article: <span style="color: #972500;">{</span>
+            title: <span style="color: #3548cf;">"&#29378;&#20154;&#26085;&#35760;"</span>, liked: 33, clicked: 445
+        <span style="color: #972500;">}</span>
+    <span style="color: #008899;">}</span>,
+    mutations: <span style="color: #008899;">{</span>
+        doLike: state =&gt; state.article.liked += 100
+    <span style="color: #008899;">}</span>,
+    strict: <span style="color: #0000b0;">true</span>
+<span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+</pre>
+</div>
+
+<p>
+在其他任意组件中使用:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #531ab6;">import</span> store from <span style="color: #3548cf;">'../store.js'</span>;
+
+<span style="color: #531ab6;">export</span> <span style="color: #531ab6;">default</span> <span style="color: #000000;">{</span>
+    data<span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
+        <span style="color: #531ab6;">return</span> store.state.article;
+    <span style="color: #dd22dd;">}</span>,
+    methods: <span style="color: #dd22dd;">{</span>
+        xxx <span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
+            <span style="color: #595959;">// </span><span style="color: #595959;">store.state.article.liked += 333;</span>
+            store.commit<span style="color: #972500;">(</span><span style="color: #3548cf;">'doLike'</span><span style="color: #972500;">)</span>;
+        <span style="color: #008899;">}</span>
+    <span style="color: #dd22dd;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1576,7 +1703,7 @@ vue.config.js:
 </p>
 
 
-<figure id="orgedd7e4c">
+<figure id="orgf3900c7">
 <img src="img/oimg_20201104_064733.png" alt="oimg_20201104_064733.png" width="300px">
 
 </figure>
@@ -2435,7 +2562,7 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 为什么会有如下错误:
 </p>
 
-<pre class="example" id="org6a44ad0">
+<pre class="example" id="org2cae0cf">
 Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_exploded/comments' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 </pre>
 
