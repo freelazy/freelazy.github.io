@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-03-02 -->
+<!-- 2023-03-08 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Vue.js</title>
@@ -745,6 +745,7 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
 <li>往里传数据: props/slot</li>
 <li>向外发信号: $emit</li>
 <li>只能由父子之间进行，逐层传递</li>
+<li>可以借助 $props 和 $listeners 来简化传递 (爷爷 - 孙子)</li>
 </ul>
 
 <div class="org-src-container">
@@ -1575,7 +1576,7 @@ vue.config.js:
 </p>
 
 
-<figure id="org9aa4470">
+<figure id="orgedd7e4c">
 <img src="img/oimg_20201104_064733.png" alt="oimg_20201104_064733.png" width="300px">
 
 </figure>
@@ -2434,7 +2435,7 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 为什么会有如下错误:
 </p>
 
-<pre class="example" id="org60c397c">
+<pre class="example" id="org6a44ad0">
 Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_exploded/comments' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 </pre>
 
@@ -2478,7 +2479,7 @@ Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_explo
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2023-03-02</p>
+<p class="date">Created: 2023-03-08</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

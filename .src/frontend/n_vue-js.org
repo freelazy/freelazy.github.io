@@ -510,6 +510,7 @@ https://cn.vuejs.org/v2/guide/forms.html
 - 往里传数据: props/slot
 - 向外发信号: $emit
 - 只能由父子之间进行，逐层传递
+- 可以借助 $props 和 $listeners 来简化传递 (爷爷 - 孙子)
 
 #+begin_src html
   <my-blog :blogs="blogs" a=22 b=333

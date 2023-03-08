@@ -1,13 +1,13 @@
 ;; YAOLIUSAN -> YAOLIUYAO -> yao7san
 
-(setq iv/host "imxx.top")
-(setq iv/proxy "http://imxx.top:1081")
-(setq iv/workdir "e:/Workdir/")
+(setq ic/host "imxx.top")
+(setq ic/proxy "http://imxx.top:1081")
+(setq ic/workdir "e:/Workdir/")
 
 (setq ic/eshell-extra-aliases
-      `(("epull" ,(format "https_proxy=%s git -C ~/.emacs.d pull --rebase" iv/proxy))))
+      `(("epull" ,(format "https_proxy=%s git -C ~/.emacs.d pull --rebase" ic/proxy))))
 
-(setq iv/faces (list
+(setq ic/faces (list
                 :frame 'max
                 ;;:theme nil
                 :theme 'modus-operandi
@@ -18,7 +18,7 @@
 (setq backup-by-copying nil)
 (setq initial-major-mode 'org-mode initial-scratch-message "就业！\n\n")
 
-(setq iv/gnus-mails-reciever
+(setq ic/gnus-mails-reciever
       '((nnimap "tmail"
                 (nnimap-address "imap.qq.com")
                 (nnimap-server-port 993)
@@ -26,7 +26,7 @@
                 (nnir-search-engine imap)
                 (nnmail-expiry-target "nnimap+tmail:Deleted Messages")
                 (nnmail-expiry-wait 'immediate)))
-      iv/gnus-mails-sender
+      ic/gnus-mails-sender
       `((".*"
          (name "yao7san")
          (address "2132579340@qq.com"))))
@@ -36,7 +36,7 @@
 
 ;;; favors
 
-(setq iv/rfiles '(("host: github/freelazy"   "https://github.com/freelazy")
+(setq ic/rfiles '(("host: github/freelazy"   "https://github.com/freelazy")
                   ("host: notes/freelzy"     "https://freelazy.github.io")))
 
 (with-over
