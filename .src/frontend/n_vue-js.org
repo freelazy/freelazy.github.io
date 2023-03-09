@@ -9,7 +9,7 @@
 - C: Controller 控制 (jQuery)
 - VM: ViewModel 层 (Vue/Angular/React)
 
-* Vue.js
+* 实例
 ** 简介
 
 - Google, Angular.js
@@ -375,7 +375,7 @@ Tips:
 
 https://cn.vuejs.org/v2/guide/forms.html
 
-** VM 实例
+** VM 实例 (Model)
 *** 生命周期的钩子
 
 #+begin_src html

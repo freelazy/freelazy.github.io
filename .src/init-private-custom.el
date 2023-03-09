@@ -15,6 +15,10 @@
                 ;;:font-unicode "思源宋体 CN"
                 ))
 
+(with-over
+ (set-face-attribute 'mode-line nil :height 100 :family "Droid")
+ (set-face-attribute 'mode-line-inactive nil :height 100 :family "Droid"))
+
 (setq backup-by-copying nil)
 (setq initial-major-mode 'org-mode initial-scratch-message "就业！\n\n")
 
