@@ -22,107 +22,108 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org00dc79b">1. MVC / MVP / M-V-VM</a></li>
-<li><a href="#org3ec254a">2. 实例</a>
+<li><a href="#org81d35ab">1. M-V-VM</a></li>
+<li><a href="#org10d5d2d">2. Vue.js</a></li>
+<li><a href="#orgd90c0ed">3. 语法</a>
 <ul>
-<li><a href="#org631cf42">2.1. 简介</a></li>
-<li><a href="#orgdf59bfa">2.2. 指令模板 (View)</a>
+<li><a href="#orgdf59bfa">3.1. 指令模板 (View)</a>
 <ul>
-<li><a href="#orga075662">2.2.1. 计算属性 (computed) 与属性的监听 (watch)</a></li>
-<li><a href="#org648e592">2.2.2. 样式 (style/class)</a></li>
-<li><a href="#org3353c59">2.2.3. 条件判断 (v-if/v-else-if/v-else/v-show)</a></li>
-<li><a href="#orgc0da71b">2.2.4. 循环迭代 (v-for)</a></li>
-<li><a href="#org68b9d70">2.2.5. 事件 (v-on)</a></li>
-<li><a href="#org8cacf2e">2.2.6. 表单绑定 (v-model，双向绑定)</a></li>
+<li><a href="#orga075662">3.1.1. 计算属性 (computed) 与属性的监听 (watch)</a></li>
+<li><a href="#org648e592">3.1.2. 样式 (style/class)</a></li>
+<li><a href="#org3353c59">3.1.3. 条件判断 (v-if/v-else-if/v-else/v-show)</a></li>
+<li><a href="#orgc0da71b">3.1.4. 循环迭代 (v-for)</a></li>
+<li><a href="#org68b9d70">3.1.5. 事件 (v-on)</a></li>
+<li><a href="#org8cacf2e">3.1.6. 表单绑定 (v-model，双向绑定)</a></li>
 </ul>
 </li>
-<li><a href="#orgdfed8a8">2.3. VM 实例 (Model)</a>
+<li><a href="#orgdfed8a8">3.2. VM 实例 (Model)</a>
 <ul>
-<li><a href="#orga21e8c0">2.3.1. 生命周期的钩子</a></li>
+<li><a href="#orga21e8c0">3.2.1. 生命周期的钩子</a></li>
 </ul>
 </li>
+<li><a href="#org6ae1673">3.3. 简单示例</a></li>
 </ul>
 </li>
-<li><a href="#org38eb262">3. 组件 (Component)</a>
+<li><a href="#org38eb262">4. 组件 (Component)</a>
 <ul>
-<li><a href="#org0a7a8a1">3.1. 组件的创建</a>
+<li><a href="#org0a7a8a1">4.1. 组件的创建</a>
 <ul>
-<li><a href="#org64b3157">3.1.1. 基本示例</a></li>
-<li><a href="#org5a1f3f2">3.1.2. 全局 vs 局部</a></li>
+<li><a href="#org64b3157">4.1.1. 基本示例</a></li>
+<li><a href="#org5a1f3f2">4.1.2. 全局 vs 局部</a></li>
 </ul>
 </li>
-<li><a href="#org770bfa3">3.2. 数据的交互</a>
+<li><a href="#org770bfa3">4.2. 数据的交互</a>
 <ul>
-<li><a href="#org3bcec5f">3.2.1. Props/Slot</a></li>
-<li><a href="#org421b4b7">3.2.2. 全局变量的方式</a></li>
-<li><a href="#org7e2c3f9">3.2.3. Vuex</a></li>
+<li><a href="#org3bcec5f">4.2.1. Props/Slot</a></li>
+<li><a href="#org421b4b7">4.2.2. 全局变量的方式</a></li>
+<li><a href="#org7e2c3f9">4.2.3. Vuex</a></li>
 </ul>
 </li>
-<li><a href="#org8b65cef">3.3. 内置组件</a>
+<li><a href="#org8b65cef">4.3. 内置组件</a>
 <ul>
-<li><a href="#orgb80d6f8">3.3.1. &lt;component&gt; 动态组件</a></li>
-<li><a href="#org336ed04">3.3.2. &lt;keep-alive&gt; 保持状态</a></li>
-<li><a href="#org7c1975f">3.3.3. &lt;transition&gt; 动画效果</a></li>
-<li><a href="#org5bdfebb">3.3.4. &lt;template&gt; 编组</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#orge38c755">4. SPA (Single Page Application)</a>
-<ul>
-<li><a href="#org8ee52ca">4.1. v-if/v-show</a></li>
-<li><a href="#orgf69db7c">4.2. &lt;component&gt;</a></li>
-<li><a href="#org4fe9bbe">4.3. Vue-Router</a>
-<ul>
-<li><a href="#org5d5892e">4.3.1. 准备工作</a></li>
-<li><a href="#org048e75c">4.3.2. 定义路由规则</a></li>
-<li><a href="#org7c4f0f4">4.3.3. 启用路由</a></li>
-<li><a href="#org31a1d6a">4.3.4. 使用路由</a></li>
+<li><a href="#orgb80d6f8">4.3.1. &lt;component&gt; 动态组件</a></li>
+<li><a href="#org336ed04">4.3.2. &lt;keep-alive&gt; 保持状态</a></li>
+<li><a href="#org7c1975f">4.3.3. &lt;transition&gt; 动画效果</a></li>
+<li><a href="#org5bdfebb">4.3.4. &lt;template&gt; 编组</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org7e1927e">5. 第三方组件库</a>
+<li><a href="#orge38c755">5. SPA (Single Page Application)</a>
 <ul>
-<li><a href="#orgb549cd2">5.1. ElementUI</a></li>
+<li><a href="#org8ee52ca">5.1. v-if/v-show</a></li>
+<li><a href="#orgf69db7c">5.2. &lt;component&gt;</a></li>
+<li><a href="#org4fe9bbe">5.3. Vue-Router</a>
+<ul>
+<li><a href="#org5d5892e">5.3.1. 准备工作</a></li>
+<li><a href="#org048e75c">5.3.2. 定义路由规则</a></li>
+<li><a href="#org7c4f0f4">5.3.3. 启用路由</a></li>
+<li><a href="#org31a1d6a">5.3.4. 使用路由</a></li>
 </ul>
 </li>
-<li><a href="#orgf63a6aa">6. Vue-Cli</a></li>
-<li><a href="#orgbe19356">7. [示例] Todo List</a></li>
-<li><a href="#orgcf80384">8. [示例] Comment List</a>
-<ul>
-<li><a href="#org24182c9">8.1. 要求</a></li>
-<li><a href="#orgddbd3a2">8.2. 第一个版本</a></li>
-<li><a href="#org85e5d2a">8.3. 第二个版本 (组件化，并使用 Props 提高组件的灵活性)</a></li>
-<li><a href="#org4315e8e">8.4. 第三个版本 (更加精细的组件划分)</a></li>
-<li><a href="#org2e17de0">8.5. 第四个版本 (模块+组件)</a>
-<ul>
-<li><a href="#org2414d55">8.5.1. CommentForm</a></li>
-<li><a href="#orgf8e162a">8.5.2. CommentList</a></li>
-<li><a href="#orgc501713">8.5.3. Comments</a></li>
-<li><a href="#org3bdfd63">8.5.4. 首页</a></li>
 </ul>
 </li>
-<li><a href="#org56eb57a">8.6. 第五个版本 (工程化)</a>
+<li><a href="#org7e1927e">6. 第三方组件库</a>
 <ul>
-<li><a href="#org26c983b">8.6.1. 创建项目</a></li>
-<li><a href="#org3ec25c2">8.6.2. 配置项目</a></li>
-<li><a href="#org5e53970">8.6.3. 组件 component/comment-form.vue</a></li>
-<li><a href="#orgd1336af">8.6.4. 组件 component/comment-list.vue</a></li>
-<li><a href="#org35b591e">8.6.5. 聚合显示到 App.vue 里</a></li>
+<li><a href="#orgb549cd2">6.1. ElementUI</a></li>
 </ul>
 </li>
-<li><a href="#org612661b">8.7. 第六个版本 (前后端分类 + axios)</a></li>
+<li><a href="#orgf63a6aa">7. Vue-Cli</a></li>
+<li><a href="#orgbe19356">8. [示例] Todo List</a></li>
+<li><a href="#orgcf80384">9. [示例] Comment List</a>
+<ul>
+<li><a href="#org24182c9">9.1. 要求</a></li>
+<li><a href="#orgddbd3a2">9.2. 第一个版本</a></li>
+<li><a href="#org85e5d2a">9.3. 第二个版本 (组件化，并使用 Props 提高组件的灵活性)</a></li>
+<li><a href="#org4315e8e">9.4. 第三个版本 (更加精细的组件划分)</a></li>
+<li><a href="#org2e17de0">9.5. 第四个版本 (模块+组件)</a>
+<ul>
+<li><a href="#org2414d55">9.5.1. CommentForm</a></li>
+<li><a href="#orgf8e162a">9.5.2. CommentList</a></li>
+<li><a href="#orgc501713">9.5.3. Comments</a></li>
+<li><a href="#org3bdfd63">9.5.4. 首页</a></li>
 </ul>
 </li>
-<li><a href="#orgac09642">9. 后台 Admin 模板</a></li>
+<li><a href="#org56eb57a">9.6. 第五个版本 (工程化)</a>
+<ul>
+<li><a href="#org26c983b">9.6.1. 创建项目</a></li>
+<li><a href="#org3ec25c2">9.6.2. 配置项目</a></li>
+<li><a href="#org5e53970">9.6.3. 组件 component/comment-form.vue</a></li>
+<li><a href="#orgd1336af">9.6.4. 组件 component/comment-list.vue</a></li>
+<li><a href="#org35b591e">9.6.5. 聚合显示到 App.vue 里</a></li>
+</ul>
+</li>
+<li><a href="#org612661b">9.7. 第六个版本 (前后端分类 + axios)</a></li>
+</ul>
+</li>
+<li><a href="#orgac09642">10. 后台 Admin 模板</a></li>
 </ul>
 </div>
 </nav>
 
 
-<section id="outline-container-org00dc79b" class="outline-2">
-<h2 id="org00dc79b"><span class="section-number-2">1.</span> MVC / MVP / M-V-VM</h2>
+<section id="outline-container-org81d35ab" class="outline-2">
+<h2 id="org81d35ab"><span class="section-number-2">1.</span> M-V-VM</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 把数据放到对应的页面:
@@ -133,16 +134,21 @@
 <li>C: Controller 控制 (jQuery)</li>
 <li>VM: ViewModel 层 (Vue/Angular/React)</li>
 </ul>
+
+<p>
+问题:
+</p>
+<ul class="org-ul">
+<li>什么是 MVVM</li>
+<li>MVVM 跟 MVC 有什么区别</li>
+<li>MVC 跟 MVP 有什么区别</li>
+</ul>
 </div>
 </section>
 
-<section id="outline-container-org3ec254a" class="outline-2">
-<h2 id="org3ec254a"><span class="section-number-2">2.</span> 实例</h2>
+<section id="outline-container-org10d5d2d" class="outline-2">
+<h2 id="org10d5d2d"><span class="section-number-2">2.</span> Vue.js</h2>
 <div class="outline-text-2" id="text-2">
-</div>
-<div id="outline-container-org631cf42" class="outline-3">
-<h3 id="org631cf42"><span class="section-number-3">2.1.</span> 简介</h3>
-<div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>Google, Angular.js</li>
 <li>Facebook, React/ReactNative</li>
@@ -203,11 +209,16 @@ First:
 </pre>
 </div>
 </div>
-</div>
+</section>
 
+
+<section id="outline-container-orgd90c0ed" class="outline-2">
+<h2 id="orgd90c0ed"><span class="section-number-2">3.</span> 语法</h2>
+<div class="outline-text-2" id="text-3">
+</div>
 <div id="outline-container-orgdf59bfa" class="outline-3">
-<h3 id="orgdf59bfa"><span class="section-number-3">2.2.</span> 指令模板 (View)</h3>
-<div class="outline-text-3" id="text-2-2">
+<h3 id="orgdf59bfa"><span class="section-number-3">3.1.</span> 指令模板 (View)</h3>
+<div class="outline-text-3" id="text-3-1">
 <table>
 
 
@@ -265,10 +276,270 @@ Tips:
 <ul class="org-ul">
 <li>v-html 不建议使用: 1) 安全问题 2) 视图跟逻辑混淆问题</li>
 </ul>
+</div>
+
+<div id="outline-container-orga075662" class="outline-4">
+<h4 id="orga075662"><span class="section-number-4">3.1.1.</span> 计算属性 (computed) 与属性的监听 (watch)</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<div class="org-src-container">
+<pre class="src src-js">computed: <span style="color: #000000;">{</span>
+    <span style="color: #721045;">herAge</span>: <span style="color: #531ab6;">function</span> <span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
+        <span style="color: #531ab6;">return</span> <span style="color: #0000b0;">this</span>.youAge - 2;
+    <span style="color: #dd22dd;">}</span>,
+    now <span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
+        <span style="color: #531ab6;">return</span> <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Date</span><span style="color: #008899;">()</span>;
+    <span style="color: #dd22dd;">}</span>
+<span style="color: #000000;">}</span>,
+watch: <span style="color: #000000;">{</span>
+    youAge <span style="color: #dd22dd;">(</span>newValue, oldValue<span style="color: #dd22dd;">)</span> <span style="color: #dd22dd;">{</span>
+        <span style="color: #531ab6;">if</span> <span style="color: #008899;">(</span>value &gt; 120<span style="color: #008899;">)</span> <span style="color: #008899;">{</span>
+            alert<span style="color: #972500;">(</span><span style="color: #3548cf;">"&#20320;&#35265;&#39740;&#20102;!!!"</span><span style="color: #972500;">)</span>;
+            console.log<span style="color: #972500;">(</span><span style="color: #3548cf;">"youAge &#35201;&#34987;&#20154;&#31713;&#25913;&#21862;!!!"</span><span style="color: #972500;">)</span>;
+            <span style="color: #0000b0;">this</span>.youAge = oldValue;
+            <span style="color: #531ab6;">return</span>;
+        <span style="color: #008899;">}</span>
+    <span style="color: #dd22dd;">}</span>
+<span style="color: #000000;">}</span>,
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org648e592" class="outline-4">
+<h4 id="org648e592"><span class="section-number-4">3.1.2.</span> 样式 (style/class)</h4>
+<div class="outline-text-4" id="text-3-1-2">
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> :class=<span style="color: #3548cf;">"xxx"</span> :style=<span style="color: #3548cf;">"{ color: 'red' }"</span><span style="color: #000000;">&gt;</span>xxx<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> :class=<span style="color: #3548cf;">"{ xxx: isActive }"</span><span style="color: #000000;">&gt;</span>&#21152;&#20010;&#24320;&#20851;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :class=<span style="color: #3548cf;">"xxx"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;&#32473;&#25105;&#21152;&#26679;&#24335;&#21543;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :class=<span style="color: #3548cf;">"[xxx, yyy]"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;&#32473;&#25105;&#21152;&#26679;&#24335;&#21543;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :class=<span style="color: #3548cf;">"{xxx: ax1, yyy: ax2}"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;223333<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> <span style="color: #005e8b;">class</span>=<span style="color: #3548cf;">"xxx"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;&#32473;&#25105;&#21152;&#26679;&#24335;&#21543;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :class=<span style="color: #3548cf;">"'xxx'"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;&#32473;&#25105;&#21152;&#26679;&#24335;&#21543;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> @click=<span style="color: #3548cf;">"chcolortogreen"</span><span style="color: #000000;">&gt;</span>&#28857;&#25105;&#25442;&#39068;&#33394;<span style="color: #000000;">(</span>lv<span style="color: #000000;">)&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> @click=<span style="color: #3548cf;">"xxx = 'red'"</span><span style="color: #000000;">&gt;</span>&#28857;&#25105;&#25442;&#39068;&#33394;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :style=<span style="color: #3548cf;">"{ color: 'yellow', fontSize: '12px' }"</span><span style="color: #000000;">&gt;</span>gggg<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :style=<span style="color: #3548cf;">"sss"</span><span style="color: #000000;">&gt;</span>ffff<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3353c59" class="outline-4">
+<h4 id="org3353c59"><span class="section-number-4">3.1.3.</span> 条件判断 (v-if/v-else-if/v-else/v-show)</h4>
+<div class="outline-text-4" id="text-3-1-3">
+<ul class="org-ul">
+<li>默认情况下，Vue 会尽可能复用一些元素</li>
+<li>我们可以将 key 添加到某些节点上，这样，不同 key 的节点就不存在被混用的可能</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #595959;">&lt;!-- </span><span style="color: #595959;">1. &#24102;&#25351;&#20196;&#30340;&#27169;&#26495;</span><span style="color: #595959;"> --&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">template</span> <span style="color: #005e8b;">v-if</span>=<span style="color: #3548cf;">"isLogin"</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">h4</span><span style="color: #000000;">&gt;</span>&#27426;&#36814;&#24744;&#65292;xxx <span style="color: #000000;">(</span><span style="color: #dd22dd;">&lt;</span><span style="color: #721045;">a</span> <span style="color: #005e8b;">href</span>=<span style="color: #3548cf;">"#"</span> @click.prevent=<span style="color: #3548cf;">"doLogout"</span><span style="color: #dd22dd;">&gt;</span>&#27880;&#38144;<span style="color: #dd22dd;">&lt;</span>/<span style="color: #721045;">a</span><span style="color: #dd22dd;">&gt;</span><span style="color: #000000;">)</span> &#12290;&#24744;&#21487;&#20197;&#20139;&#21463;&#19979;&#38754;&#26381;&#21153;:<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h4</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>&#27927;&#34915;&#26381;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>&#21507;&#26089;&#39184;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">template</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">template</span> v-else<span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>&#35831;&#24744; <span style="color: #000000;">&lt;</span><span style="color: #721045;">a</span> <span style="color: #005e8b;">href</span>=<span style="color: #3548cf;">"#"</span> @click.prevent=<span style="color: #3548cf;">"doLogin"</span><span style="color: #000000;">&gt;</span>&#30331;&#24405;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">a</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>&#22914;&#26524;&#27809;&#26377;&#36134;&#21495;&#65292;&#35831;&#24744; <span style="color: #000000;">&lt;</span><span style="color: #721045;">a</span> <span style="color: #005e8b;">href</span>=<span style="color: #3548cf;">"#"</span><span style="color: #000000;">&gt;</span>&#27880;&#20876;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">a</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">template</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #595959;">&lt;!-- </span><span style="color: #595959;">2. &#21019;&#24314; Vue &#23545;&#35937; (ViewModel)</span><span style="color: #595959;"> --&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #531ab6;">var</span> <span style="color: #005e8b;">vm</span> = <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
+      el: <span style="color: #3548cf;">"#app"</span>,
+      data: <span style="color: #008899;">{</span>
+          isLogin: <span style="color: #0000b0;">false</span>
+      <span style="color: #008899;">}</span>,
+      methods: <span style="color: #008899;">{</span>
+          doLogin <span style="color: #972500;">()</span> <span style="color: #972500;">{</span>
+              <span style="color: #0000b0;">this</span>.isLogin = <span style="color: #0000b0;">true</span>;
+          <span style="color: #972500;">}</span>,
+          doLogout <span style="color: #972500;">()</span> <span style="color: #972500;">{</span>
+              <span style="color: #0000b0;">this</span>.isLogin = <span style="color: #0000b0;">false</span>;
+          <span style="color: #972500;">}</span>
+      <span style="color: #008899;">}</span>
+  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc0da71b" class="outline-4">
+<h4 id="orgc0da71b"><span class="section-number-4">3.1.4.</span> 循环迭代 (v-for)</h4>
+<div class="outline-text-4" id="text-3-1-4">
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">ul</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"example-2"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">li</span> <span style="color: #005e8b;">v-for</span>=<span style="color: #3548cf;">"(item, index) in items"</span><span style="color: #000000;">&gt;</span>
+    <span style="color: #000000;">{</span><span style="color: #dd22dd;">{</span> parentMessage <span style="color: #dd22dd;">}</span><span style="color: #000000;">}</span> - <span style="color: #000000;">{</span><span style="color: #dd22dd;">{</span> index <span style="color: #dd22dd;">}</span><span style="color: #000000;">}</span> - <span style="color: #000000;">{</span><span style="color: #dd22dd;">{</span> item.message <span style="color: #dd22dd;">}</span><span style="color: #000000;">}</span>
+  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">li</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">ul</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">ul</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">li</span> <span style="color: #005e8b;">v-for</span>=<span style="color: #3548cf;">"(v, k) in xiaoming"</span><span style="color: #000000;">&gt;{</span><span style="color: #dd22dd;">{</span>k<span style="color: #dd22dd;">}</span><span style="color: #000000;">}</span> &#23427;&#30340;&#20540;&#26159; <span style="color: #000000;">{</span><span style="color: #dd22dd;">{</span>v<span style="color: #dd22dd;">}</span><span style="color: #000000;">}&lt;</span>/<span style="color: #721045;">li</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">ul</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+  data: <span style="color: #000000;">{</span>
+      isLogin: <span style="color: #0000b0;">false</span>,
+      xiaoming: <span style="color: #dd22dd;">{</span>
+          name: <span style="color: #3548cf;">"&#23567;&#26126;"</span>,
+          age: 18,
+          tel: 110,
+          weixin: <span style="color: #3548cf;">"woyebuzhidao"</span>
+      <span style="color: #dd22dd;">}</span>
+  <span style="color: #000000;">}</span>,
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
 
 <p>
-示例:
+使用 key，不出错:
 </p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">v-for</span>=<span style="color: #3548cf;">"item in items"</span> <span style="color: #8f0075;">v-bind</span>:<span style="color: #005e8b;">key</span>=<span style="color: #3548cf;">"item.id"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #595959;">&lt;!-- </span><span style="color: #595959;">&#20869;&#23481;</span><span style="color: #595959;"> --&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org68b9d70" class="outline-4">
+<h4 id="org68b9d70"><span class="section-number-4">3.1.5.</span> 事件 (v-on)</h4>
+<div class="outline-text-4" id="text-3-1-5">
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">click</span>=<span style="color: #3548cf;">"greet"</span><span style="color: #000000;">&gt;</span>&#25353;&#38062;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">click</span>=<span style="color: #3548cf;">"greet($event)"</span><span style="color: #000000;">&gt;</span>&#25353;&#38062;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">click</span>=<span style="color: #3548cf;">"hi(3)"</span><span style="color: #000000;">&gt;</span>&#25353;&#38062;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">click</span>=<span style="color: #3548cf;">"hi(3, $event)"</span><span style="color: #000000;">&gt;</span>&#25353;&#38062;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">click</span>=<span style="color: #3548cf;">"console.log(name)"</span><span style="color: #000000;">&gt;</span>&#25353;&#38062;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> @click=<span style="color: #3548cf;">"hi(3)"</span><span style="color: #000000;">&gt;</span>&#25353;&#38062;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">keyup.13</span>=<span style="color: #3548cf;">"submit"</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">keyup.enter</span>=<span style="color: #3548cf;">"submit"</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">keyup.enter.ctrl</span>=<span style="color: #3548cf;">"submit"</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">keyup.enter.ctrl.exact</span>=<span style="color: #3548cf;">"submit"</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">keyup.enter.ctrl.exact.stop</span>=<span style="color: #3548cf;">"submit"</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
+    data: <span style="color: #008899;">{</span>
+      name: <span style="color: #3548cf;">"tom"</span>;
+    <span style="color: #008899;">}</span>,
+    methods: <span style="color: #008899;">{</span>
+      <span style="color: #721045;">greet</span>: <span style="color: #531ab6;">function</span> <span style="color: #972500;">(</span><span style="color: #005e8b;">event</span><span style="color: #972500;">)</span> <span style="color: #972500;">{</span>
+        console.log<span style="color: #808000;">(</span><span style="color: #3548cf;">"hello, "</span>, <span style="color: #0000b0;">this</span>.name<span style="color: #808000;">)</span>;
+      <span style="color: #972500;">}</span>,
+      <span style="color: #721045;">hi</span>: <span style="color: #531ab6;">function</span> <span style="color: #972500;">(</span><span style="color: #005e8b;">times</span>, <span style="color: #005e8b;">event</span><span style="color: #972500;">)</span> <span style="color: #972500;">{</span>
+        <span style="color: #531ab6;">for</span> <span style="color: #808000;">(</span><span style="color: #531ab6;">let</span> <span style="color: #005e8b;">i</span> = 0; i &lt; times; i++<span style="color: #808000;">)</span> <span style="color: #808000;">{</span>
+          console.log<span style="color: #531ab6;">(</span><span style="color: #3548cf;">"hello"</span><span style="color: #531ab6;">)</span>;
+          console.log<span style="color: #531ab6;">(</span>event<span style="color: #531ab6;">)</span>;
+        <span style="color: #808000;">}</span>
+      <span style="color: #972500;">}</span>
+    <span style="color: #008899;">}</span>
+  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8cacf2e" class="outline-4">
+<h4 id="org8cacf2e"><span class="section-number-4">3.1.6.</span> 表单绑定 (v-model，双向绑定)</h4>
+<div class="outline-text-4" id="text-3-1-6">
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #005e8b;">v-model</span>=<span style="color: #3548cf;">"message"</span> <span style="color: #005e8b;">placeholder</span>=<span style="color: #3548cf;">"edit me"</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>Message is: <span style="color: #000000;">{</span><span style="color: #dd22dd;">{</span> message <span style="color: #dd22dd;">}</span><span style="color: #000000;">}&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+更多例子:
+</p>
+
+<p>
+<a href="https://cn.vuejs.org/v2/guide/forms.html">https://cn.vuejs.org/v2/guide/forms.html</a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdfed8a8" class="outline-3">
+<h3 id="orgdfed8a8"><span class="section-number-3">3.2.</span> VM 实例 (Model)</h3>
+<div class="outline-text-3" id="text-3-2">
+</div>
+<div id="outline-container-orga21e8c0" class="outline-4">
+<h4 id="orga21e8c0"><span class="section-number-4">3.2.1.</span> 生命周期的钩子</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+<a href="https://cn.vuejs.org/guide/essentials/lifecycle.html">https://cn.vuejs.org/guide/essentials/lifecycle.html</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #595959;">&lt;!-- </span><span style="color: #595959;">1. &#24102;&#25351;&#20196;&#30340;&#27169;&#26495;</span><span style="color: #595959;"> --&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span><span style="font-weight: bold; text-decoration: underline;">hello world </span><span style="color: #000000; font-weight: bold; text-decoration: underline;">(</span><span style="font-weight: bold; text-decoration: underline;">age: </span><span style="color: #dd22dd; font-weight: bold; text-decoration: underline;">{</span><span style="color: #008899; font-weight: bold; text-decoration: underline;">{</span><span style="font-weight: bold; text-decoration: underline;">age</span><span style="color: #008899; font-weight: bold; text-decoration: underline;">}</span><span style="color: #dd22dd; font-weight: bold; text-decoration: underline;">}</span><span style="color: #000000; font-weight: bold; text-decoration: underline;">)</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> @click=<span style="color: #3548cf;">"xxx"</span><span style="color: #000000;">&gt;</span>&#28857;&#25105;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #595959;">&lt;!-- </span><span style="color: #595959;">2. &#21019;&#24314; Vue &#23545;&#35937; (ViewModel)</span><span style="color: #595959;"> --&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #531ab6;">var</span> <span style="color: #005e8b;">vm</span> = <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
+      el: <span style="color: #3548cf;">"#app"</span>,
+      data: <span style="color: #008899;">{</span>
+          name: <span style="color: #3548cf;">"xiaoming"</span>,
+          age: 18,
+          addr: <span style="color: #3548cf;">"guangdong"</span>
+      <span style="color: #008899;">}</span>,
+      methods: <span style="color: #008899;">{</span>
+          xxx <span style="color: #972500;">()</span> <span style="color: #972500;">{</span>
+              alert<span style="color: #808000;">(</span>vm.name<span style="color: #808000;">)</span>;
+          <span style="color: #972500;">}</span>
+      <span style="color: #008899;">}</span>,
+      beforeCreate <span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
+          console.log<span style="color: #972500;">(</span><span style="color: #3548cf;">"&#25105;&#22312; vm &#21019;&#24314;&#20043;&#21069;"</span><span style="color: #972500;">)</span>;
+      <span style="color: #008899;">}</span>,
+      mounted <span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
+          console.log<span style="color: #972500;">(</span><span style="color: #3548cf;">"&#25105;&#22312; vm &#34987;&#25346;&#36733;&#20043;&#21518;&#25191;&#34892;"</span><span style="color: #972500;">)</span>;
+      <span style="color: #008899;">}</span>,
+      created <span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
+          console.log<span style="color: #972500;">(</span><span style="color: #3548cf;">"&#25105;&#22312; vm &#34987;&#21019;&#24314;&#20043;&#21518;&#25191;&#34892;"</span><span style="color: #972500;">)</span>;
+      <span style="color: #008899;">}</span>,
+      beforeUpdate <span style="color: #008899;">(</span>x<span style="color: #008899;">)</span> <span style="color: #008899;">{</span>
+          console.log<span style="color: #972500;">(</span><span style="color: #3548cf;">"&#20462;&#25913;&#20043;&#21069;"</span>, x<span style="color: #972500;">)</span>;
+      <span style="color: #008899;">}</span>,
+      updated <span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
+          console.log<span style="color: #972500;">(</span><span style="color: #3548cf;">"&#26377;&#19996;&#35199;&#34987;&#20462;&#25913;"</span><span style="color: #972500;">)</span>;
+      <span style="color: #008899;">}</span>
+  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+
+  console.log<span style="color: #000000;">(</span>vm<span style="color: #000000;">)</span>;
+  console.log<span style="color: #000000;">(</span>vm.name<span style="color: #000000;">)</span>;
+  console.log<span style="color: #000000;">(</span>vm.age<span style="color: #000000;">)</span>;
+  console.log<span style="color: #000000;">(</span>vm.$el<span style="color: #000000;">)</span>;
+  console.log<span style="color: #000000;">(</span>vm.$data<span style="color: #000000;">)</span>;
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org6ae1673" class="outline-3">
+<h3 id="org6ae1673"><span class="section-number-3">3.3.</span> 简单示例</h3>
+<div class="outline-text-3" id="text-3-3">
 <div class="org-src-container">
 <pre class="src src-html">&lt;<span style="color: #531ab6;">!doctype</span> html&gt;
 <span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span> <span style="color: #005e8b;">lang</span>=<span style="color: #3548cf;">"en"</span><span style="color: #000000;">&gt;</span>
@@ -281,7 +552,6 @@ Tips:
   <span style="color: #000000;">&lt;</span><span style="color: #721045;">body</span><span style="color: #000000;">&gt;</span>
     <span style="color: #595959;">&lt;!-- </span><span style="color: #595959;">View, &#25351;&#20196;&#27169;&#26495;</span><span style="color: #595959;"> --&gt;</span>
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span><span style="color: #000000;">&gt;</span>
-
       <span style="color: #000000;">&lt;</span><span style="color: #721045;">h3</span><span style="color: #000000;">&gt;</span>
         <span style="color: #000000;">&lt;</span><span style="color: #721045;">span</span> <span style="color: #005e8b;">v-text</span>=<span style="color: #3548cf;">"title"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">span</span><span style="color: #000000;">&gt;</span>
         <span style="color: #000000;">&lt;</span><span style="color: #721045;">small</span><span style="color: #000000;">&gt;</span><span style="color: #000000; background-color: #ffffff;">{</span><span style="color: #dd22dd; background-color: #ffffff;">{</span><span style="color: #000000; background-color: #ffffff;">subtitle</span><span style="color: #dd22dd; background-color: #ffffff;">}</span><span style="color: #000000; background-color: #ffffff;">}</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">small</span><span style="color: #000000;">&gt;</span>
@@ -346,9 +616,7 @@ Tips:
               atitle: <span style="color: #3548cf;">"&#21035;&#25720;&#25105;!"</span>,
 
               user: <span style="color: #008899;">{}</span>,
-
               books: <span style="color: #008899;">[]</span>,
-
               book: <span style="color: #008899;">{}</span>
           <span style="color: #dd22dd;">}</span>,
           <span style="color: #595959;">// </span><span style="color: #595959;">&#32465;&#23450;&#30340;&#26041;&#27861;</span>
@@ -404,265 +672,12 @@ Tips:
 </pre>
 </div>
 </div>
-
-<div id="outline-container-orga075662" class="outline-4">
-<h4 id="orga075662"><span class="section-number-4">2.2.1.</span> 计算属性 (computed) 与属性的监听 (watch)</h4>
-<div class="outline-text-4" id="text-2-2-1">
-<div class="org-src-container">
-<pre class="src src-js">computed: <span style="color: #000000;">{</span>
-    <span style="color: #721045;">herAge</span>: <span style="color: #531ab6;">function</span> <span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
-        <span style="color: #531ab6;">return</span> <span style="color: #0000b0;">this</span>.youAge - 2;
-    <span style="color: #dd22dd;">}</span>,
-    now <span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
-        <span style="color: #531ab6;">return</span> <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Date</span><span style="color: #008899;">()</span>;
-    <span style="color: #dd22dd;">}</span>
-<span style="color: #000000;">}</span>,
-watch: <span style="color: #000000;">{</span>
-    youAge <span style="color: #dd22dd;">(</span>newValue, oldValue<span style="color: #dd22dd;">)</span> <span style="color: #dd22dd;">{</span>
-        <span style="color: #531ab6;">if</span> <span style="color: #008899;">(</span>value &gt; 120<span style="color: #008899;">)</span> <span style="color: #008899;">{</span>
-            alert<span style="color: #972500;">(</span><span style="color: #3548cf;">"&#20320;&#35265;&#39740;&#20102;!!!"</span><span style="color: #972500;">)</span>;
-            console.log<span style="color: #972500;">(</span><span style="color: #3548cf;">"youAge &#35201;&#34987;&#20154;&#31713;&#25913;&#21862;!!!"</span><span style="color: #972500;">)</span>;
-            <span style="color: #0000b0;">this</span>.youAge = oldValue;
-            <span style="color: #531ab6;">return</span>;
-        <span style="color: #008899;">}</span>
-    <span style="color: #dd22dd;">}</span>
-<span style="color: #000000;">}</span>,
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org648e592" class="outline-4">
-<h4 id="org648e592"><span class="section-number-4">2.2.2.</span> 样式 (style/class)</h4>
-<div class="outline-text-4" id="text-2-2-2">
-<div class="org-src-container">
-<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> :class=<span style="color: #3548cf;">"xxx"</span> :style=<span style="color: #3548cf;">"{ color: 'red' }"</span><span style="color: #000000;">&gt;</span>xxx<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> :class=<span style="color: #3548cf;">"{ xxx: isActive }"</span><span style="color: #000000;">&gt;</span>&#21152;&#20010;&#24320;&#20851;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
-
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :class=<span style="color: #3548cf;">"xxx"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;&#32473;&#25105;&#21152;&#26679;&#24335;&#21543;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :class=<span style="color: #3548cf;">"[xxx, yyy]"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;&#32473;&#25105;&#21152;&#26679;&#24335;&#21543;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :class=<span style="color: #3548cf;">"{xxx: ax1, yyy: ax2}"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;223333<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> <span style="color: #005e8b;">class</span>=<span style="color: #3548cf;">"xxx"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;&#32473;&#25105;&#21152;&#26679;&#24335;&#21543;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :class=<span style="color: #3548cf;">"'xxx'"</span><span style="color: #000000;">&gt;</span>&#25105;&#26159;&#19968;&#27573;&#25991;&#26412;&#65292;&#32473;&#25105;&#21152;&#26679;&#24335;&#21543;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> @click=<span style="color: #3548cf;">"chcolortogreen"</span><span style="color: #000000;">&gt;</span>&#28857;&#25105;&#25442;&#39068;&#33394;<span style="color: #000000;">(</span>lv<span style="color: #000000;">)&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> @click=<span style="color: #3548cf;">"xxx = 'red'"</span><span style="color: #000000;">&gt;</span>&#28857;&#25105;&#25442;&#39068;&#33394;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
-
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :style=<span style="color: #3548cf;">"{ color: 'yellow', fontSize: '12px' }"</span><span style="color: #000000;">&gt;</span>gggg<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span> :style=<span style="color: #3548cf;">"sss"</span><span style="color: #000000;">&gt;</span>ffff<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org3353c59" class="outline-4">
-<h4 id="org3353c59"><span class="section-number-4">2.2.3.</span> 条件判断 (v-if/v-else-if/v-else/v-show)</h4>
-<div class="outline-text-4" id="text-2-2-3">
-<ul class="org-ul">
-<li>默认情况下，Vue 会尽可能复用一些元素</li>
-<li>我们可以将 key 添加到某些节点上，这样，不同 key 的节点就不存在被混用的可能</li>
-</ul>
-
-<div class="org-src-container">
-<pre class="src src-html"><span style="color: #595959;">&lt;!-- </span><span style="color: #595959;">1. &#24102;&#25351;&#20196;&#30340;&#27169;&#26495;</span><span style="color: #595959;"> --&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">template</span> <span style="color: #005e8b;">v-if</span>=<span style="color: #3548cf;">"isLogin"</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">h4</span><span style="color: #000000;">&gt;</span>&#27426;&#36814;&#24744;&#65292;xxx <span style="color: #000000;">(</span><span style="color: #dd22dd;">&lt;</span><span style="color: #721045;">a</span> <span style="color: #005e8b;">href</span>=<span style="color: #3548cf;">"#"</span> @click.prevent=<span style="color: #3548cf;">"doLogout"</span><span style="color: #dd22dd;">&gt;</span>&#27880;&#38144;<span style="color: #dd22dd;">&lt;</span>/<span style="color: #721045;">a</span><span style="color: #dd22dd;">&gt;</span><span style="color: #000000;">)</span> &#12290;&#24744;&#21487;&#20197;&#20139;&#21463;&#19979;&#38754;&#26381;&#21153;:<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h4</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>&#27927;&#34915;&#26381;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>&#21507;&#26089;&#39184;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">template</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">template</span> v-else<span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>&#35831;&#24744; <span style="color: #000000;">&lt;</span><span style="color: #721045;">a</span> <span style="color: #005e8b;">href</span>=<span style="color: #3548cf;">"#"</span> @click.prevent=<span style="color: #3548cf;">"doLogin"</span><span style="color: #000000;">&gt;</span>&#30331;&#24405;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">a</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>&#22914;&#26524;&#27809;&#26377;&#36134;&#21495;&#65292;&#35831;&#24744; <span style="color: #000000;">&lt;</span><span style="color: #721045;">a</span> <span style="color: #005e8b;">href</span>=<span style="color: #3548cf;">"#"</span><span style="color: #000000;">&gt;</span>&#27880;&#20876;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">a</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">template</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
-
-<span style="color: #595959;">&lt;!-- </span><span style="color: #595959;">2. &#21019;&#24314; Vue &#23545;&#35937; (ViewModel)</span><span style="color: #595959;"> --&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #531ab6;">var</span> <span style="color: #005e8b;">vm</span> = <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
-      el: <span style="color: #3548cf;">"#app"</span>,
-      data: <span style="color: #008899;">{</span>
-          isLogin: <span style="color: #0000b0;">false</span>
-      <span style="color: #008899;">}</span>,
-      methods: <span style="color: #008899;">{</span>
-          doLogin <span style="color: #972500;">()</span> <span style="color: #972500;">{</span>
-              <span style="color: #0000b0;">this</span>.isLogin = <span style="color: #0000b0;">true</span>;
-          <span style="color: #972500;">}</span>,
-          doLogout <span style="color: #972500;">()</span> <span style="color: #972500;">{</span>
-              <span style="color: #0000b0;">this</span>.isLogin = <span style="color: #0000b0;">false</span>;
-          <span style="color: #972500;">}</span>
-      <span style="color: #008899;">}</span>
-  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgc0da71b" class="outline-4">
-<h4 id="orgc0da71b"><span class="section-number-4">2.2.4.</span> 循环迭代 (v-for)</h4>
-<div class="outline-text-4" id="text-2-2-4">
-<div class="org-src-container">
-<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">ul</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"example-2"</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">li</span> <span style="color: #005e8b;">v-for</span>=<span style="color: #3548cf;">"(item, index) in items"</span><span style="color: #000000;">&gt;</span>
-    <span style="color: #000000;">{</span><span style="color: #dd22dd;">{</span> parentMessage <span style="color: #dd22dd;">}</span><span style="color: #000000;">}</span> - <span style="color: #000000;">{</span><span style="color: #dd22dd;">{</span> index <span style="color: #dd22dd;">}</span><span style="color: #000000;">}</span> - <span style="color: #000000;">{</span><span style="color: #dd22dd;">{</span> item.message <span style="color: #dd22dd;">}</span><span style="color: #000000;">}</span>
-  <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">li</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">ul</span><span style="color: #000000;">&gt;</span>
-
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">ul</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">li</span> <span style="color: #005e8b;">v-for</span>=<span style="color: #3548cf;">"(v, k) in xiaoming"</span><span style="color: #000000;">&gt;{</span><span style="color: #dd22dd;">{</span>k<span style="color: #dd22dd;">}</span><span style="color: #000000;">}</span> &#23427;&#30340;&#20540;&#26159; <span style="color: #000000;">{</span><span style="color: #dd22dd;">{</span>v<span style="color: #dd22dd;">}</span><span style="color: #000000;">}&lt;</span>/<span style="color: #721045;">li</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">ul</span><span style="color: #000000;">&gt;</span>
-
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
-  data: <span style="color: #000000;">{</span>
-      isLogin: <span style="color: #0000b0;">false</span>,
-      xiaoming: <span style="color: #dd22dd;">{</span>
-          name: <span style="color: #3548cf;">"&#23567;&#26126;"</span>,
-          age: 18,
-          tel: 110,
-          weixin: <span style="color: #3548cf;">"woyebuzhidao"</span>
-      <span style="color: #dd22dd;">}</span>
-  <span style="color: #000000;">}</span>,
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
-</pre>
-</div>
-
-<p>
-使用 key，不出错:
-</p>
-<div class="org-src-container">
-<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">v-for</span>=<span style="color: #3548cf;">"item in items"</span> <span style="color: #8f0075;">v-bind</span>:<span style="color: #005e8b;">key</span>=<span style="color: #3548cf;">"item.id"</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #595959;">&lt;!-- </span><span style="color: #595959;">&#20869;&#23481;</span><span style="color: #595959;"> --&gt;</span>
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org68b9d70" class="outline-4">
-<h4 id="org68b9d70"><span class="section-number-4">2.2.5.</span> 事件 (v-on)</h4>
-<div class="outline-text-4" id="text-2-2-5">
-<div class="org-src-container">
-<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">click</span>=<span style="color: #3548cf;">"greet"</span><span style="color: #000000;">&gt;</span>&#25353;&#38062;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">click</span>=<span style="color: #3548cf;">"greet($event)"</span><span style="color: #000000;">&gt;</span>&#25353;&#38062;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">click</span>=<span style="color: #3548cf;">"hi(3)"</span><span style="color: #000000;">&gt;</span>&#25353;&#38062;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">click</span>=<span style="color: #3548cf;">"hi(3, $event)"</span><span style="color: #000000;">&gt;</span>&#25353;&#38062;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">click</span>=<span style="color: #3548cf;">"console.log(name)"</span><span style="color: #000000;">&gt;</span>&#25353;&#38062;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> @click=<span style="color: #3548cf;">"hi(3)"</span><span style="color: #000000;">&gt;</span>&#25353;&#38062;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">keyup.13</span>=<span style="color: #3548cf;">"submit"</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">keyup.enter</span>=<span style="color: #3548cf;">"submit"</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">keyup.enter.ctrl</span>=<span style="color: #3548cf;">"submit"</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">keyup.enter.ctrl.exact</span>=<span style="color: #3548cf;">"submit"</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #8f0075;">v-on</span>:<span style="color: #005e8b;">keyup.enter.ctrl.exact.stop</span>=<span style="color: #3548cf;">"submit"</span><span style="color: #000000;">&gt;</span>
-
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
-    data: <span style="color: #008899;">{</span>
-      name: <span style="color: #3548cf;">"tom"</span>;
-    <span style="color: #008899;">}</span>,
-    methods: <span style="color: #008899;">{</span>
-      <span style="color: #721045;">greet</span>: <span style="color: #531ab6;">function</span> <span style="color: #972500;">(</span><span style="color: #005e8b;">event</span><span style="color: #972500;">)</span> <span style="color: #972500;">{</span>
-        console.log<span style="color: #808000;">(</span><span style="color: #3548cf;">"hello, "</span>, <span style="color: #0000b0;">this</span>.name<span style="color: #808000;">)</span>;
-      <span style="color: #972500;">}</span>,
-      <span style="color: #721045;">hi</span>: <span style="color: #531ab6;">function</span> <span style="color: #972500;">(</span><span style="color: #005e8b;">times</span>, <span style="color: #005e8b;">event</span><span style="color: #972500;">)</span> <span style="color: #972500;">{</span>
-        <span style="color: #531ab6;">for</span> <span style="color: #808000;">(</span><span style="color: #531ab6;">let</span> <span style="color: #005e8b;">i</span> = 0; i &lt; times; i++<span style="color: #808000;">)</span> <span style="color: #808000;">{</span>
-          console.log<span style="color: #531ab6;">(</span><span style="color: #3548cf;">"hello"</span><span style="color: #531ab6;">)</span>;
-          console.log<span style="color: #531ab6;">(</span>event<span style="color: #531ab6;">)</span>;
-        <span style="color: #808000;">}</span>
-      <span style="color: #972500;">}</span>
-    <span style="color: #008899;">}</span>
-  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org8cacf2e" class="outline-4">
-<h4 id="org8cacf2e"><span class="section-number-4">2.2.6.</span> 表单绑定 (v-model，双向绑定)</h4>
-<div class="outline-text-4" id="text-2-2-6">
-<div class="org-src-container">
-<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">input</span> <span style="color: #005e8b;">v-model</span>=<span style="color: #3548cf;">"message"</span> <span style="color: #005e8b;">placeholder</span>=<span style="color: #3548cf;">"edit me"</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>Message is: <span style="color: #000000;">{</span><span style="color: #dd22dd;">{</span> message <span style="color: #dd22dd;">}</span><span style="color: #000000;">}&lt;</span>/<span style="color: #721045;">p</span><span style="color: #000000;">&gt;</span>
-</pre>
-</div>
-
-<p>
-更多例子:
-</p>
-
-<p>
-<a href="https://cn.vuejs.org/v2/guide/forms.html">https://cn.vuejs.org/v2/guide/forms.html</a>
-</p>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgdfed8a8" class="outline-3">
-<h3 id="orgdfed8a8"><span class="section-number-3">2.3.</span> VM 实例 (Model)</h3>
-<div class="outline-text-3" id="text-2-3">
-</div>
-<div id="outline-container-orga21e8c0" class="outline-4">
-<h4 id="orga21e8c0"><span class="section-number-4">2.3.1.</span> 生命周期的钩子</h4>
-<div class="outline-text-4" id="text-2-3-1">
-<div class="org-src-container">
-<pre class="src src-html"><span style="color: #595959;">&lt;!-- </span><span style="color: #595959;">1. &#24102;&#25351;&#20196;&#30340;&#27169;&#26495;</span><span style="color: #595959;"> --&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span><span style="font-weight: bold; text-decoration: underline;">hello world </span><span style="color: #000000; font-weight: bold; text-decoration: underline;">(</span><span style="font-weight: bold; text-decoration: underline;">age: </span><span style="color: #dd22dd; font-weight: bold; text-decoration: underline;">{</span><span style="color: #008899; font-weight: bold; text-decoration: underline;">{</span><span style="font-weight: bold; text-decoration: underline;">age</span><span style="color: #008899; font-weight: bold; text-decoration: underline;">}</span><span style="color: #dd22dd; font-weight: bold; text-decoration: underline;">}</span><span style="color: #000000; font-weight: bold; text-decoration: underline;">)</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">button</span> @click=<span style="color: #3548cf;">"xxx"</span><span style="color: #000000;">&gt;</span>&#28857;&#25105;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">button</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
-
-<span style="color: #595959;">&lt;!-- </span><span style="color: #595959;">2. &#21019;&#24314; Vue &#23545;&#35937; (ViewModel)</span><span style="color: #595959;"> --&gt;</span>
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #531ab6;">var</span> <span style="color: #005e8b;">vm</span> = <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
-      el: <span style="color: #3548cf;">"#app"</span>,
-      data: <span style="color: #008899;">{</span>
-          name: <span style="color: #3548cf;">"xiaoming"</span>,
-          age: 18,
-          addr: <span style="color: #3548cf;">"guangdong"</span>
-      <span style="color: #008899;">}</span>,
-      methods: <span style="color: #008899;">{</span>
-          xxx <span style="color: #972500;">()</span> <span style="color: #972500;">{</span>
-              alert<span style="color: #808000;">(</span>vm.name<span style="color: #808000;">)</span>;
-          <span style="color: #972500;">}</span>
-      <span style="color: #008899;">}</span>,
-      beforeCreate <span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
-          console.log<span style="color: #972500;">(</span><span style="color: #3548cf;">"&#25105;&#22312; vm &#21019;&#24314;&#20043;&#21069;"</span><span style="color: #972500;">)</span>;
-      <span style="color: #008899;">}</span>,
-      mounted <span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
-          console.log<span style="color: #972500;">(</span><span style="color: #3548cf;">"&#25105;&#22312; vm &#34987;&#25346;&#36733;&#20043;&#21518;&#25191;&#34892;"</span><span style="color: #972500;">)</span>;
-      <span style="color: #008899;">}</span>,
-      created <span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
-          console.log<span style="color: #972500;">(</span><span style="color: #3548cf;">"&#25105;&#22312; vm &#34987;&#21019;&#24314;&#20043;&#21518;&#25191;&#34892;"</span><span style="color: #972500;">)</span>;
-      <span style="color: #008899;">}</span>,
-      beforeUpdate <span style="color: #008899;">(</span>x<span style="color: #008899;">)</span> <span style="color: #008899;">{</span>
-          console.log<span style="color: #972500;">(</span><span style="color: #3548cf;">"&#20462;&#25913;&#20043;&#21069;"</span>, x<span style="color: #972500;">)</span>;
-      <span style="color: #008899;">}</span>,
-      updated <span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
-          console.log<span style="color: #972500;">(</span><span style="color: #3548cf;">"&#26377;&#19996;&#35199;&#34987;&#20462;&#25913;"</span><span style="color: #972500;">)</span>;
-      <span style="color: #008899;">}</span>
-  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
-
-  console.log<span style="color: #000000;">(</span>vm<span style="color: #000000;">)</span>;
-  console.log<span style="color: #000000;">(</span>vm.name<span style="color: #000000;">)</span>;
-  console.log<span style="color: #000000;">(</span>vm.age<span style="color: #000000;">)</span>;
-  console.log<span style="color: #000000;">(</span>vm.$el<span style="color: #000000;">)</span>;
-  console.log<span style="color: #000000;">(</span>vm.$data<span style="color: #000000;">)</span>;
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
-</pre>
-</div>
-</div>
-</div>
 </div>
 </section>
 
 <section id="outline-container-org38eb262" class="outline-2">
-<h2 id="org38eb262"><span class="section-number-2">3.</span> 组件 (Component)</h2>
-<div class="outline-text-2" id="text-3">
+<h2 id="org38eb262"><span class="section-number-2">4.</span> 组件 (Component)</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 好有一比啊，组件就是一种特殊的函数:
 </p>
@@ -674,12 +689,12 @@ watch: <span style="color: #000000;">{</span>
 </div>
 
 <div id="outline-container-org0a7a8a1" class="outline-3">
-<h3 id="org0a7a8a1"><span class="section-number-3">3.1.</span> 组件的创建</h3>
-<div class="outline-text-3" id="text-3-1">
+<h3 id="org0a7a8a1"><span class="section-number-3">4.1.</span> 组件的创建</h3>
+<div class="outline-text-3" id="text-4-1">
 </div>
 <div id="outline-container-org64b3157" class="outline-4">
-<h4 id="org64b3157"><span class="section-number-4">3.1.1.</span> 基本示例</h4>
-<div class="outline-text-4" id="text-3-1-1">
+<h4 id="org64b3157"><span class="section-number-4">4.1.1.</span> 基本示例</h4>
+<div class="outline-text-4" id="text-4-1-1">
 <p>
 封装的 my-title 组件:
 </p>
@@ -762,8 +777,8 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
 </div>
 
 <div id="outline-container-org5a1f3f2" class="outline-4">
-<h4 id="org5a1f3f2"><span class="section-number-4">3.1.2.</span> 全局 vs 局部</h4>
-<div class="outline-text-4" id="text-3-1-2">
+<h4 id="org5a1f3f2"><span class="section-number-4">4.1.2.</span> 全局 vs 局部</h4>
+<div class="outline-text-4" id="text-4-1-2">
 <p>
 全局:
 </p>
@@ -894,8 +909,8 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
 </div>
 
 <div id="outline-container-org770bfa3" class="outline-3">
-<h3 id="org770bfa3"><span class="section-number-3">3.2.</span> 数据的交互</h3>
-<div class="outline-text-3" id="text-3-2">
+<h3 id="org770bfa3"><span class="section-number-3">4.2.</span> 数据的交互</h3>
+<div class="outline-text-3" id="text-4-2">
 <ol class="org-ol">
 <li>往里传数据: props/slot; 向外发信号: $emit; 只能由父子之间进行，逐层传递</li>
 <li>可以借助 $props 和 $listeners 来简化传递 (爷爷 - . - 孙子)</li>
@@ -906,8 +921,8 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
 </div>
 
 <div id="outline-container-org3bcec5f" class="outline-4">
-<h4 id="org3bcec5f"><span class="section-number-4">3.2.1.</span> Props/Slot</h4>
-<div class="outline-text-4" id="text-3-2-1">
+<h4 id="org3bcec5f"><span class="section-number-4">4.2.1.</span> Props/Slot</h4>
+<div class="outline-text-4" id="text-4-2-1">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">my-blog</span> :blogs=<span style="color: #3548cf;">"blogs"</span> a=22 b=333
          <span style="color: #005e8b;">title</span>=<span style="color: #3548cf;">"&lt;h3&gt;</span><span style="color: #3548cf; font-style: italic; text-decoration: underline;">xx</span><span style="color: #3548cf;">&lt;/h3&gt;"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">my-blog</span><span style="color: #000000;">&gt;</span>
@@ -970,8 +985,8 @@ alert-box 2:
 </div>
 
 <div id="outline-container-org421b4b7" class="outline-4">
-<h4 id="org421b4b7"><span class="section-number-4">3.2.2.</span> 全局变量的方式</h4>
-<div class="outline-text-4" id="text-3-2-2">
+<h4 id="org421b4b7"><span class="section-number-4">4.2.2.</span> 全局变量的方式</h4>
+<div class="outline-text-4" id="text-4-2-2">
 <p>
 data.js 用于提供共享数据:
 </p>
@@ -1033,8 +1048,8 @@ data.js 用于提供共享数据:
 </div>
 
 <div id="outline-container-org7e2c3f9" class="outline-4">
-<h4 id="org7e2c3f9"><span class="section-number-4">3.2.3.</span> Vuex</h4>
-<div class="outline-text-4" id="text-3-2-3">
+<h4 id="org7e2c3f9"><span class="section-number-4">4.2.3.</span> Vuex</h4>
+<div class="outline-text-4" id="text-4-2-3">
 <p>
 <a href="https://vuex.vuejs.org/zh/">https://vuex.vuejs.org/zh/</a>
 </p>
@@ -1086,7 +1101,7 @@ data.js 用于提供共享数据:
 </pre>
 </div>
 
-<pre class="example" id="org98ad54f">
+<pre class="example" id="org43211ec">
 database   --- state
 
 dao        --- mutation
@@ -1100,12 +1115,12 @@ controller --- vue
 </div>
 
 <div id="outline-container-org8b65cef" class="outline-3">
-<h3 id="org8b65cef"><span class="section-number-3">3.3.</span> 内置组件</h3>
-<div class="outline-text-3" id="text-3-3">
+<h3 id="org8b65cef"><span class="section-number-3">4.3.</span> 内置组件</h3>
+<div class="outline-text-3" id="text-4-3">
 </div>
 <div id="outline-container-orgb80d6f8" class="outline-4">
-<h4 id="orgb80d6f8"><span class="section-number-4">3.3.1.</span> &lt;component&gt; 动态组件</h4>
-<div class="outline-text-4" id="text-3-3-1">
+<h4 id="orgb80d6f8"><span class="section-number-4">4.3.1.</span> &lt;component&gt; 动态组件</h4>
+<div class="outline-text-4" id="text-4-3-1">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span> <span style="color: #005e8b;">class</span>=<span style="color: #3548cf;">"xxxx"</span><span style="color: #000000;">&gt;</span>
   <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
@@ -1153,8 +1168,8 @@ controller --- vue
 </div>
 
 <div id="outline-container-org336ed04" class="outline-4">
-<h4 id="org336ed04"><span class="section-number-4">3.3.2.</span> &lt;keep-alive&gt; 保持状态</h4>
-<div class="outline-text-4" id="text-3-3-2">
+<h4 id="org336ed04"><span class="section-number-4">4.3.2.</span> &lt;keep-alive&gt; 保持状态</h4>
+<div class="outline-text-4" id="text-4-3-2">
 <p>
 切换走的时候，保留组件的内部状态:
 </p>
@@ -1168,8 +1183,8 @@ controller --- vue
 </div>
 
 <div id="outline-container-org7c1975f" class="outline-4">
-<h4 id="org7c1975f"><span class="section-number-4">3.3.3.</span> &lt;transition&gt; 动画效果</h4>
-<div class="outline-text-4" id="text-3-3-3">
+<h4 id="org7c1975f"><span class="section-number-4">4.3.3.</span> &lt;transition&gt; 动画效果</h4>
+<div class="outline-text-4" id="text-4-3-3">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
   <span style="color: #531ab6;">#app </span><span style="color: #000000;">{</span>
@@ -1206,8 +1221,8 @@ controller --- vue
 </div>
 
 <div id="outline-container-org5bdfebb" class="outline-4">
-<h4 id="org5bdfebb"><span class="section-number-4">3.3.4.</span> &lt;template&gt; 编组</h4>
-<div class="outline-text-4" id="text-3-3-4">
+<h4 id="org5bdfebb"><span class="section-number-4">4.3.4.</span> &lt;template&gt; 编组</h4>
+<div class="outline-text-4" id="text-4-3-4">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">template</span> <span style="color: #005e8b;">v-if</span>=<span style="color: #3548cf;">"isShow"</span><span style="color: #000000;">&gt;</span>
   <span style="color: #000000;">&lt;</span><span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span><span style="font-weight: bold; text-decoration: underline;">Title</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span>
@@ -1222,12 +1237,12 @@ controller --- vue
 </section>
 
 <section id="outline-container-orge38c755" class="outline-2">
-<h2 id="orge38c755"><span class="section-number-2">4.</span> SPA (Single Page Application)</h2>
-<div class="outline-text-2" id="text-4">
+<h2 id="orge38c755"><span class="section-number-2">5.</span> SPA (Single Page Application)</h2>
+<div class="outline-text-2" id="text-5">
 </div>
 <div id="outline-container-org8ee52ca" class="outline-3">
-<h3 id="org8ee52ca"><span class="section-number-3">4.1.</span> v-if/v-show</h3>
-<div class="outline-text-3" id="text-4-1">
+<h3 id="org8ee52ca"><span class="section-number-3">5.1.</span> v-if/v-show</h3>
+<div class="outline-text-3" id="text-5-1">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">template</span><span style="color: #000000;">&gt;</span>
   <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span><span style="color: #000000;">&gt;</span>
@@ -1258,8 +1273,8 @@ controller --- vue
 </div>
 
 <div id="outline-container-orgf69db7c" class="outline-3">
-<h3 id="orgf69db7c"><span class="section-number-3">4.2.</span> &lt;component&gt;</h3>
-<div class="outline-text-3" id="text-4-2">
+<h3 id="orgf69db7c"><span class="section-number-3">5.2.</span> &lt;component&gt;</h3>
+<div class="outline-text-3" id="text-5-2">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">template</span><span style="color: #000000;">&gt;</span>
   <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span><span style="color: #000000;">&gt;</span>
@@ -1282,16 +1297,16 @@ controller --- vue
 </div>
 
 <div id="outline-container-org4fe9bbe" class="outline-3">
-<h3 id="org4fe9bbe"><span class="section-number-3">4.3.</span> Vue-Router</h3>
-<div class="outline-text-3" id="text-4-3">
+<h3 id="org4fe9bbe"><span class="section-number-3">5.3.</span> Vue-Router</h3>
+<div class="outline-text-3" id="text-5-3">
 <p>
 <a href="https://router.vuejs.org/zh/">https://router.vuejs.org/zh/</a>
 </p>
 </div>
 
 <div id="outline-container-org5d5892e" class="outline-4">
-<h4 id="org5d5892e"><span class="section-number-4">4.3.1.</span> 准备工作</h4>
-<div class="outline-text-4" id="text-4-3-1">
+<h4 id="org5d5892e"><span class="section-number-4">5.3.1.</span> 准备工作</h4>
+<div class="outline-text-4" id="text-5-3-1">
 <ul class="org-ul">
 <li><p>
 首先，在项目中下载 vue-router:
@@ -1323,8 +1338,8 @@ Vue.use<span style="color: #000000;">(</span>VueRouter<span style="color: #00000
 </div>
 
 <div id="outline-container-org048e75c" class="outline-4">
-<h4 id="org048e75c"><span class="section-number-4">4.3.2.</span> 定义路由规则</h4>
-<div class="outline-text-4" id="text-4-3-2">
+<h4 id="org048e75c"><span class="section-number-4">5.3.2.</span> 定义路由规则</h4>
+<div class="outline-text-4" id="text-5-3-2">
 <p>
 router.js:
 </p>
@@ -1350,8 +1365,8 @@ router.js:
 </div>
 
 <div id="outline-container-org7c4f0f4" class="outline-4">
-<h4 id="org7c4f0f4"><span class="section-number-4">4.3.3.</span> 启用路由</h4>
-<div class="outline-text-4" id="text-4-3-3">
+<h4 id="org7c4f0f4"><span class="section-number-4">5.3.3.</span> 启用路由</h4>
+<div class="outline-text-4" id="text-5-3-3">
 <p>
 main.js
 </p>
@@ -1369,8 +1384,8 @@ main.js
 </div>
 
 <div id="outline-container-org31a1d6a" class="outline-4">
-<h4 id="org31a1d6a"><span class="section-number-4">4.3.4.</span> 使用路由</h4>
-<div class="outline-text-4" id="text-4-3-4">
+<h4 id="org31a1d6a"><span class="section-number-4">5.3.4.</span> 使用路由</h4>
+<div class="outline-text-4" id="text-5-3-4">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">template</span><span style="color: #000000;">&gt;</span>
   <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span><span style="color: #000000;">&gt;</span>
@@ -1399,8 +1414,8 @@ main.js
 </section>
 
 <section id="outline-container-org7e1927e" class="outline-2">
-<h2 id="org7e1927e"><span class="section-number-2">5.</span> 第三方组件库</h2>
-<div class="outline-text-2" id="text-5">
+<h2 id="org7e1927e"><span class="section-number-2">6.</span> 第三方组件库</h2>
+<div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li>iView</li>
 <li>Element UI</li>
@@ -1409,8 +1424,8 @@ main.js
 </div>
 
 <div id="outline-container-orgb549cd2" class="outline-3">
-<h3 id="orgb549cd2"><span class="section-number-3">5.1.</span> ElementUI</h3>
-<div class="outline-text-3" id="text-5-1">
+<h3 id="orgb549cd2"><span class="section-number-3">6.1.</span> ElementUI</h3>
+<div class="outline-text-3" id="text-6-1">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span><span style="color: #000000;">&gt;</span>
   <span style="color: #000000;">&lt;</span><span style="color: #721045;">el-button</span> @click=<span style="color: #3548cf;">"visible = true"</span><span style="color: #000000;">&gt;</span>&#25353;&#38062;<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">el-button</span><span style="color: #000000;">&gt;</span>
@@ -1478,8 +1493,8 @@ main.js
 </section>
 
 <section id="outline-container-orgf63a6aa" class="outline-2">
-<h2 id="orgf63a6aa"><span class="section-number-2">6.</span> Vue-Cli</h2>
-<div class="outline-text-2" id="text-6">
+<h2 id="orgf63a6aa"><span class="section-number-2">7.</span> Vue-Cli</h2>
+<div class="outline-text-2" id="text-7">
 <p>
 <a href="https://cli.vuejs.org/zh/guide/">https://cli.vuejs.org/zh/guide/</a>
 </p>
@@ -1543,8 +1558,8 @@ vue.config.js:
 </section>
 
 <section id="outline-container-orgbe19356" class="outline-2">
-<h2 id="orgbe19356"><span class="section-number-2">7.</span> [示例] Todo List</h2>
-<div class="outline-text-2" id="text-7">
+<h2 id="orgbe19356"><span class="section-number-2">8.</span> [示例] Todo List</h2>
+<div class="outline-text-2" id="text-8">
 <div class="org-src-container">
 <pre class="src src-html">&lt;<span style="color: #531ab6;">!DOCTYPE</span> html&gt;
 <span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span> <span style="color: #005e8b;">lang</span>=<span style="color: #3548cf;">"en"</span><span style="color: #000000;">&gt;</span>
@@ -1715,12 +1730,12 @@ vue.config.js:
 </section>
 
 <section id="outline-container-orgcf80384" class="outline-2">
-<h2 id="orgcf80384"><span class="section-number-2">8.</span> [示例] Comment List</h2>
-<div class="outline-text-2" id="text-8">
+<h2 id="orgcf80384"><span class="section-number-2">9.</span> [示例] Comment List</h2>
+<div class="outline-text-2" id="text-9">
 </div>
 <div id="outline-container-org24182c9" class="outline-3">
-<h3 id="org24182c9"><span class="section-number-3">8.1.</span> 要求</h3>
-<div class="outline-text-3" id="text-8-1">
+<h3 id="org24182c9"><span class="section-number-3">9.1.</span> 要求</h3>
+<div class="outline-text-3" id="text-9-1">
 <p>
 自行完成一个评论列表功能的实现:
 </p>
@@ -1735,7 +1750,7 @@ vue.config.js:
 </p>
 
 
-<figure id="orgf20d3cf">
+<figure id="orga444b6e">
 <img src="img/oimg_20201104_064733.png" alt="oimg_20201104_064733.png" width="300px">
 
 </figure>
@@ -1743,8 +1758,8 @@ vue.config.js:
 </div>
 
 <div id="outline-container-orgddbd3a2" class="outline-3">
-<h3 id="orgddbd3a2"><span class="section-number-3">8.2.</span> 第一个版本</h3>
-<div class="outline-text-3" id="text-8-2">
+<h3 id="orgddbd3a2"><span class="section-number-3">9.2.</span> 第一个版本</h3>
+<div class="outline-text-3" id="text-9-2">
 <div class="org-src-container">
 <pre class="src src-html">&lt;<span style="color: #531ab6;">!DOCTYPE</span> html&gt;
 <span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span> <span style="color: #005e8b;">lang</span>=<span style="color: #3548cf;">"en"</span><span style="color: #000000;">&gt;</span>
@@ -1848,8 +1863,8 @@ vue.config.js:
 </div>
 
 <div id="outline-container-org85e5d2a" class="outline-3">
-<h3 id="org85e5d2a"><span class="section-number-3">8.3.</span> 第二个版本 (组件化，并使用 Props 提高组件的灵活性)</h3>
-<div class="outline-text-3" id="text-8-3">
+<h3 id="org85e5d2a"><span class="section-number-3">9.3.</span> 第二个版本 (组件化，并使用 Props 提高组件的灵活性)</h3>
+<div class="outline-text-3" id="text-9-3">
 <div class="org-src-container">
 <pre class="src src-js">Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;">'comment-list'</span>, <span style="color: #dd22dd;">{</span>
     props: <span style="color: #008899;">[</span><span style="color: #3548cf;">"title"</span>, <span style="color: #3548cf;">"comments"</span>, <span style="color: #3548cf;">"isshow"</span><span style="color: #008899;">]</span>, <span style="color: #595959;">// </span><span style="color: #595959;">&#20256;&#20837;&#30340;&#25968;&#25454;</span>
@@ -1969,8 +1984,8 @@ vue.config.js:
 </div>
 
 <div id="outline-container-org4315e8e" class="outline-3">
-<h3 id="org4315e8e"><span class="section-number-3">8.4.</span> 第三个版本 (更加精细的组件划分)</h3>
-<div class="outline-text-3" id="text-8-4">
+<h3 id="org4315e8e"><span class="section-number-3">9.4.</span> 第三个版本 (更加精细的组件划分)</h3>
+<div class="outline-text-3" id="text-9-4">
 <ul class="org-ul">
 <li>通过 props 进行数据的下放</li>
 <li>通过 this.$emit 的方式进行信号的发送。信号只能逐层发送，不能越级</li>
@@ -2153,12 +2168,12 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
 </div>
 
 <div id="outline-container-org2e17de0" class="outline-3">
-<h3 id="org2e17de0"><span class="section-number-3">8.5.</span> 第四个版本 (模块+组件)</h3>
-<div class="outline-text-3" id="text-8-5">
+<h3 id="org2e17de0"><span class="section-number-3">9.5.</span> 第四个版本 (模块+组件)</h3>
+<div class="outline-text-3" id="text-9-5">
 </div>
 <div id="outline-container-org2414d55" class="outline-4">
-<h4 id="org2414d55"><span class="section-number-4">8.5.1.</span> CommentForm</h4>
-<div class="outline-text-4" id="text-8-5-1">
+<h4 id="org2414d55"><span class="section-number-4">9.5.1.</span> CommentForm</h4>
+<div class="outline-text-4" id="text-9-5-1">
 <div class="org-src-container">
 <pre class="src src-js"><span style="color: #531ab6;">export</span> <span style="color: #531ab6;">default</span> <span style="color: #000000;">{</span>
     template: <span style="color: #3548cf;">`</span>
@@ -2193,8 +2208,8 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
 </div>
 
 <div id="outline-container-orgf8e162a" class="outline-4">
-<h4 id="orgf8e162a"><span class="section-number-4">8.5.2.</span> CommentList</h4>
-<div class="outline-text-4" id="text-8-5-2">
+<h4 id="orgf8e162a"><span class="section-number-4">9.5.2.</span> CommentList</h4>
+<div class="outline-text-4" id="text-9-5-2">
 <div class="org-src-container">
 <pre class="src src-js"><span style="color: #531ab6;">export</span> <span style="color: #531ab6;">default</span> <span style="color: #000000;">{</span>
     template: <span style="color: #3548cf;">`</span>
@@ -2223,8 +2238,8 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
 </div>
 
 <div id="outline-container-orgc501713" class="outline-4">
-<h4 id="orgc501713"><span class="section-number-4">8.5.3.</span> Comments</h4>
-<div class="outline-text-4" id="text-8-5-3">
+<h4 id="orgc501713"><span class="section-number-4">9.5.3.</span> Comments</h4>
+<div class="outline-text-4" id="text-9-5-3">
 <div class="org-src-container">
 <pre class="src src-js"><span style="color: #531ab6;">import</span> CommentForm from <span style="color: #3548cf;">"./comment-form.js"</span>;
 <span style="color: #531ab6;">import</span> CommentList from <span style="color: #3548cf;">"./comment-list.js"</span>;
@@ -2259,8 +2274,8 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
 </div>
 
 <div id="outline-container-org3bdfd63" class="outline-4">
-<h4 id="org3bdfd63"><span class="section-number-4">8.5.4.</span> 首页</h4>
-<div class="outline-text-4" id="text-8-5-4">
+<h4 id="org3bdfd63"><span class="section-number-4">9.5.4.</span> 首页</h4>
+<div class="outline-text-4" id="text-9-5-4">
 <div class="org-src-container">
 <pre class="src src-html">&lt;<span style="color: #531ab6;">!DOCTYPE</span> html&gt;
 <span style="color: #000000;">&lt;</span><span style="color: #721045;">html</span> <span style="color: #005e8b;">lang</span>=<span style="color: #3548cf;">"en"</span><span style="color: #000000;">&gt;</span>
@@ -2363,12 +2378,12 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
 </div>
 
 <div id="outline-container-org56eb57a" class="outline-3">
-<h3 id="org56eb57a"><span class="section-number-3">8.6.</span> 第五个版本 (工程化)</h3>
-<div class="outline-text-3" id="text-8-6">
+<h3 id="org56eb57a"><span class="section-number-3">9.6.</span> 第五个版本 (工程化)</h3>
+<div class="outline-text-3" id="text-9-6">
 </div>
 <div id="outline-container-org26c983b" class="outline-4">
-<h4 id="org26c983b"><span class="section-number-4">8.6.1.</span> 创建项目</h4>
-<div class="outline-text-4" id="text-8-6-1">
+<h4 id="org26c983b"><span class="section-number-4">9.6.1.</span> 创建项目</h4>
+<div class="outline-text-4" id="text-9-6-1">
 <div class="org-src-container">
 <pre class="src src-sh">cmd
 e:  <span style="color: #595959;"># </span><span style="color: #595959;">&#20999;&#25442;&#21040; e &#30424;&#65292;&#36825;&#37324;&#20999;&#25442;&#30424;&#31526;&#19981;&#33021;&#20351;&#29992; cd e:</span>
@@ -2382,8 +2397,8 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 </div>
 
 <div id="outline-container-org3ec25c2" class="outline-4">
-<h4 id="org3ec25c2"><span class="section-number-4">8.6.2.</span> 配置项目</h4>
-<div class="outline-text-4" id="text-8-6-2">
+<h4 id="org3ec25c2"><span class="section-number-4">9.6.2.</span> 配置项目</h4>
+<div class="outline-text-4" id="text-9-6-2">
 <p>
 配置 package.json 下的 eslintConfig 节点:
 </p>
@@ -2397,8 +2412,8 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 </div>
 
 <div id="outline-container-org5e53970" class="outline-4">
-<h4 id="org5e53970"><span class="section-number-4">8.6.3.</span> 组件 component/comment-form.vue</h4>
-<div class="outline-text-4" id="text-8-6-3">
+<h4 id="org5e53970"><span class="section-number-4">9.6.3.</span> 组件 component/comment-form.vue</h4>
+<div class="outline-text-4" id="text-9-6-3">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">template</span><span style="color: #000000;">&gt;</span>
   <span style="color: #000000;">&lt;</span><span style="color: #721045;">section</span> <span style="color: #005e8b;">class</span>=<span style="color: #3548cf;">"comment-form"</span><span style="color: #000000;">&gt;</span>
@@ -2456,8 +2471,8 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 </div>
 
 <div id="outline-container-orgd1336af" class="outline-4">
-<h4 id="orgd1336af"><span class="section-number-4">8.6.4.</span> 组件 component/comment-list.vue</h4>
-<div class="outline-text-4" id="text-8-6-4">
+<h4 id="orgd1336af"><span class="section-number-4">9.6.4.</span> 组件 component/comment-list.vue</h4>
+<div class="outline-text-4" id="text-9-6-4">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">template</span><span style="color: #000000;">&gt;</span>
   <span style="color: #000000;">&lt;</span><span style="color: #721045;">section</span> <span style="color: #005e8b;">class</span>=<span style="color: #3548cf;">"comment-list"</span><span style="color: #000000;">&gt;</span>
@@ -2512,8 +2527,8 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 </div>
 
 <div id="outline-container-org35b591e" class="outline-4">
-<h4 id="org35b591e"><span class="section-number-4">8.6.5.</span> 聚合显示到 App.vue 里</h4>
-<div class="outline-text-4" id="text-8-6-5">
+<h4 id="org35b591e"><span class="section-number-4">9.6.5.</span> 聚合显示到 App.vue 里</h4>
+<div class="outline-text-4" id="text-9-6-5">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">template</span><span style="color: #000000;">&gt;</span>
   <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span><span style="color: #000000;">&gt;</span>
@@ -2568,8 +2583,8 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 </div>
 
 <div id="outline-container-org612661b" class="outline-3">
-<h3 id="org612661b"><span class="section-number-3">8.7.</span> 第六个版本 (前后端分类 + axios)</h3>
-<div class="outline-text-3" id="text-8-7">
+<h3 id="org612661b"><span class="section-number-3">9.7.</span> 第六个版本 (前后端分类 + axios)</h3>
+<div class="outline-text-3" id="text-9-7">
 <div class="org-src-container">
 <pre class="src src-js"><span style="color: #595959;">// </span><span style="color: #595959;">&#20351;&#29992; axios &#24517;&#39035;&#20808;&#23558; axios &#19979;&#36733;&#24182;&#23433;&#35013;&#21040;&#39033;&#30446;&#20013;: vue add axios</span>
 <span style="color: #595959;">// </span><span style="color: #595959;">&#25191;&#34892;&#21518;&#65292;axios &#23558;&#20250;&#34987;&#19979;&#36733;&#21040; node_modules &#25991;&#20214;&#22841;&#19979;</span>
@@ -2594,7 +2609,7 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 为什么会有如下错误:
 </p>
 
-<pre class="example" id="org76844ab">
+<pre class="example" id="org1802bfa">
 Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_exploded/comments' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 </pre>
 
@@ -2621,8 +2636,8 @@ Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_explo
 </section>
 
 <section id="outline-container-orgac09642" class="outline-2">
-<h2 id="orgac09642"><span class="section-number-2">9.</span> 后台 Admin 模板</h2>
-<div class="outline-text-2" id="text-9">
+<h2 id="orgac09642"><span class="section-number-2">10.</span> 后台 Admin 模板</h2>
+<div class="outline-text-2" id="text-10">
 <p>
 可以到 Github 上搜，很多。
 </p>

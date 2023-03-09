@@ -1,7 +1,7 @@
 #+TITLE: Vue.js
 
 
-* MVC / MVP / M-V-VM
+* M-V-VM
 
 把数据放到对应的页面:
 - M: Model 模型
@@ -9,8 +9,12 @@
 - C: Controller 控制 (jQuery)
 - VM: ViewModel 层 (Vue/Angular/React)
 
-* 实例
-** 简介
+问题:
+- 什么是 MVVM 
+- MVVM 跟 MVC 有什么区别
+- MVC 跟 MVP 有什么区别
+
+* Vue.js
 
 - Google, Angular.js
 - Facebook, React/ReactNative
@@ -63,6 +67,8 @@ First:
   </html>
 #+end_src
 
+
+* 语法
 ** 指令模板 (View)
 
 | innerText   | v-text  {{..}}     |
@@ -76,141 +82,6 @@ First:
 
 Tips:
 - v-html 不建议使用: 1) 安全问题 2) 视图跟逻辑混淆问题
-
-示例:
-#+begin_src html
-  <!doctype html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8"/>
-      <title>第二个 Vue 程序</title>
-      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    </head>
-    <body>
-      <!-- View, 指令模板 -->
-      <div id="app">
-
-        <h3>
-          <span v-text="title"></span>
-          <small>{{subtitle}}</small>
-        </h3>
-
-        <div v-html="description"></div>
-        <div>
-          <span style="color: red">{{descriptionRaw}}</span>
-        </div>
-
-        <div v-bind:title="atitle">
-          <a :style="astyle" :href="alink" @click.prevent="shout">这是一个超链接</a>
-        </div>
-
-        <div>
-          <input v-model="user.username" placeholder="账户">
-          <input v-model="user.password" placeholder="密码" type="password" @keydown.13="save">
-          <div>您刚才输入的账号是 {{user.username}}</div>
-          <button v-on:click="save">Login</button>
-          <button v-if="user.username || user.password" @click="reset">Reset</button>
-        </div>
-
-        <div>
-          <h3>书籍列表</h3>
-          <table v-if="books.length > 0">
-            <tr>
-              <th>书名</th>
-              <th>价格</th>
-              <th>操作</th>
-            </tr>
-            <tr v-for="x in books">
-              <td>{{x.name}}</td>
-              <td>{{x.price}}</td>
-              <td><a href="#" @click.prevent="deleteBook(x.name)">删除</a></td>
-            </tr>
-          </table>
-          <div v-else>
-            目前没有任何数据，请首先添加数据。
-          </div>
-
-          <div>
-            <input v-model="book.name" placeholder="书名">
-            <input v-model="book.price" placeholder="价格">
-            <button @click="saveBook">保存</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ViewModel -->
-      <script>
-        var options = {
-            el: "#app",
-            // 绑定的数据
-            data: {
-                title: "我是标题",
-                subtitle: "vue.js 很香",
-                description: "<span style='color: red'>我们现在学习的是指令模板</span>",
-                descriptionRaw: "我们现在学习的是指令模板",
-
-                astyle: { color: "#e6f022", textDecoration: "none", fontSize: "20px" },
-                alink: "http://www.baidu.com",
-                atitle: "别摸我!",
-
-                user: {},
-
-                books: [],
-
-                book: {}
-            },
-            // 绑定的方法
-            methods: {
-                shout: function() {
-                    alert("不要点我!");
-                },
-                save: function() {
-                    alert("登录: " + JSON.stringify(this.user));
-                },
-                reset: function() {
-                    this.user = {}
-                },
-                deleteBook: function (name) {
-                    // 通过 ajax 给服务器发送一个删除请求
-                    // var booksR = [];
-                    // for (var i = 0; i < this.books.length; i++) {
-                    //   if (this.books[i].name !== name) {
-                    //     booksR.push(this.books[i]);
-                    //   }
-                    // }
-                    // this.books = booksR;
-                    this.books = this.books.filter(b => b.name !== name);
-                },
-                saveBook: function() {
-                    // ajax to server
-                    this.books.push({
-                        name: this.book.name,
-                        price: this.book.price
-                    });
-                    this.book = {};
-                },
-                loadBooks: function () {
-                    axios({
-                        url: "/xxx",
-                        responseType: "json"
-                    }).then(function (data) {
-                        this.books = data;
-                    }).catch(function (error) {
-                    });
-                }
-            },
-            // vm 被挂载到 dom 树上之后，会执行的逻辑 (onload)
-            // 一般用来进行数据的初始化
-            mounted: function() {
-                this.loadBooks();
-            }
-        };
-        new Vue(options);
-      </script>
-    </body>
-  </html>
-#+end_src
 
 *** 计算属性 (computed) 与属性的监听 (watch)
 
@@ -378,6 +249,8 @@ https://cn.vuejs.org/v2/guide/forms.html
 ** VM 实例 (Model)
 *** 生命周期的钩子
 
+https://cn.vuejs.org/guide/essentials/lifecycle.html
+
 #+begin_src html
   <!-- 1. 带指令的模板 -->
   <div id="app">
@@ -422,6 +295,140 @@ https://cn.vuejs.org/v2/guide/forms.html
     console.log(vm.$el);
     console.log(vm.$data);
   </script>
+#+end_src
+
+
+** 简单示例
+
+#+begin_src html
+  <!doctype html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8"/>
+      <title>第二个 Vue 程序</title>
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+      <!-- View, 指令模板 -->
+      <div id="app">
+        <h3>
+          <span v-text="title"></span>
+          <small>{{subtitle}}</small>
+        </h3>
+
+        <div v-html="description"></div>
+        <div>
+          <span style="color: red">{{descriptionRaw}}</span>
+        </div>
+
+        <div v-bind:title="atitle">
+          <a :style="astyle" :href="alink" @click.prevent="shout">这是一个超链接</a>
+        </div>
+
+        <div>
+          <input v-model="user.username" placeholder="账户">
+          <input v-model="user.password" placeholder="密码" type="password" @keydown.13="save">
+          <div>您刚才输入的账号是 {{user.username}}</div>
+          <button v-on:click="save">Login</button>
+          <button v-if="user.username || user.password" @click="reset">Reset</button>
+        </div>
+
+        <div>
+          <h3>书籍列表</h3>
+          <table v-if="books.length > 0">
+            <tr>
+              <th>书名</th>
+              <th>价格</th>
+              <th>操作</th>
+            </tr>
+            <tr v-for="x in books">
+              <td>{{x.name}}</td>
+              <td>{{x.price}}</td>
+              <td><a href="#" @click.prevent="deleteBook(x.name)">删除</a></td>
+            </tr>
+          </table>
+          <div v-else>
+            目前没有任何数据，请首先添加数据。
+          </div>
+
+          <div>
+            <input v-model="book.name" placeholder="书名">
+            <input v-model="book.price" placeholder="价格">
+            <button @click="saveBook">保存</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ViewModel -->
+      <script>
+        var options = {
+            el: "#app",
+            // 绑定的数据
+            data: {
+                title: "我是标题",
+                subtitle: "vue.js 很香",
+                description: "<span style='color: red'>我们现在学习的是指令模板</span>",
+                descriptionRaw: "我们现在学习的是指令模板",
+
+                astyle: { color: "#e6f022", textDecoration: "none", fontSize: "20px" },
+                alink: "http://www.baidu.com",
+                atitle: "别摸我!",
+
+                user: {},
+                books: [],
+                book: {}
+            },
+            // 绑定的方法
+            methods: {
+                shout: function() {
+                    alert("不要点我!");
+                },
+                save: function() {
+                    alert("登录: " + JSON.stringify(this.user));
+                },
+                reset: function() {
+                    this.user = {}
+                },
+                deleteBook: function (name) {
+                    // 通过 ajax 给服务器发送一个删除请求
+                    // var booksR = [];
+                    // for (var i = 0; i < this.books.length; i++) {
+                    //   if (this.books[i].name !== name) {
+                    //     booksR.push(this.books[i]);
+                    //   }
+                    // }
+                    // this.books = booksR;
+                    this.books = this.books.filter(b => b.name !== name);
+                },
+                saveBook: function() {
+                    // ajax to server
+                    this.books.push({
+                        name: this.book.name,
+                        price: this.book.price
+                    });
+                    this.book = {};
+                },
+                loadBooks: function () {
+                    axios({
+                        url: "/xxx",
+                        responseType: "json"
+                    }).then(function (data) {
+                        this.books = data;
+                    }).catch(function (error) {
+                    });
+                }
+            },
+            // vm 被挂载到 dom 树上之后，会执行的逻辑 (onload)
+            // 一般用来进行数据的初始化
+            mounted: function() {
+                this.loadBooks();
+            }
+        };
+        new Vue(options);
+      </script>
+    </body>
+  </html>
 #+end_src
 
 * 组件 (Component)
