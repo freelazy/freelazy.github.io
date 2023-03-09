@@ -10,6 +10,7 @@
 - VM: ViewModel 层 (Vue/Angular/React)
 
 * Vue.js
+** 简介
 
 - Google, Angular.js
 - Facebook, React/ReactNative
@@ -62,7 +63,7 @@ First:
   </html>
 #+end_src
 
-* 指令模板 (View)
+** 指令模板 (View)
 
 | innerText   | v-text  {{..}}     |
 | innerHTML   | v-html             |
@@ -211,7 +212,7 @@ Tips:
   </html>
 #+end_src
 
-** 计算属性 (computed) 与属性的监听 (watch)
+*** 计算属性 (computed) 与属性的监听 (watch)
 
 #+begin_src js
   computed: {
@@ -234,7 +235,7 @@ Tips:
   },
 #+end_src
 
-** 样式 (style/class)
+*** 样式 (style/class)
 
 #+begin_src html
   <div :class="xxx" :style="{ color: 'red' }">xxx</div>
@@ -254,7 +255,7 @@ Tips:
   <p :style="sss">ffff</p>
 #+end_src
 
-** 条件判断 (v-if/v-else-if/v-else/v-show)
+*** 条件判断 (v-if/v-else-if/v-else/v-show)
 
 - 默认情况下，Vue 会尽可能复用一些元素
 - 我们可以将 key 添加到某些节点上，这样，不同 key 的节点就不存在被混用的可能
@@ -292,7 +293,7 @@ Tips:
   </script>
 #+end_src
 
-** 循环迭代 (v-for)
+*** 循环迭代 (v-for)
 
 #+begin_src html
   <ul id="example-2">
@@ -325,7 +326,7 @@ Tips:
   </div>
 #+end_src
 
-** 事件 (v-on)
+*** 事件 (v-on)
 
 #+begin_src html
   <button v-on:click="greet">按钮</button>
@@ -363,7 +364,7 @@ Tips:
   </script>
 #+end_src
 
-** 表单绑定 (v-model，双向绑定)
+*** 表单绑定 (v-model，双向绑定)
 
 #+begin_src html
   <input v-model="message" placeholder="edit me">
@@ -374,8 +375,8 @@ Tips:
 
 https://cn.vuejs.org/v2/guide/forms.html
 
-* VM 实例
-** 生命周期的钩子
+** VM 实例
+*** 生命周期的钩子
 
 #+begin_src html
   <!-- 1. 带指令的模板 -->
