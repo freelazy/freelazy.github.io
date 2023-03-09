@@ -36,8 +36,9 @@
 
 ;;; favors
 
-(setq ic/rfiles '(("host: github/freelazy"   "https://github.com/freelazy")
-                  ("host: notes/freelzy"     "https://freelazy.github.io")))
+(setq ic/quicker-list
+      '(("host: github/freelazy"   "https://github.com/freelazy")
+        ("host: notes/freelzy"     "https://freelazy.github.io")))
 
 (with-over
  (defreference sites-1
@@ -58,10 +59,10 @@
                         (file-expand-wildcards (expand-file-name "*/*.org" org-directory))
                         (file-expand-wildcards (expand-file-name "*/*/*.org" org-directory))))
 
-(defun n/note-publish-post-hook (_)
+(defun im~note-publish-post-hook (_)
   (let ((default-directory org-directory))
     (im/git-commit-and-push "best_try_and_best_chance")))
-(add-hook 'note-publish-post-hook #'n/note-publish-post-hook)
+(add-hook 'note-publish-post-hook #'im~note-publish-post-hook)
 
 (with-over (global-set-key [f8] 'im/note-publish))
 

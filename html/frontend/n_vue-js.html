@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-03-08 -->
+<!-- 2023-03-09 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Vue.js</title>
@@ -41,7 +41,12 @@
 </li>
 <li><a href="#org38eb262">5. 组件 (Component)</a>
 <ul>
-<li><a href="#org64b3157">5.1. 基本示例</a></li>
+<li><a href="#org0a7a8a1">5.1. 组件的创建</a>
+<ul>
+<li><a href="#org64b3157">5.1.1. 基本示例</a></li>
+<li><a href="#org5a1f3f2">5.1.2. 全局 vs 局部</a></li>
+</ul>
+</li>
 <li><a href="#org770bfa3">5.2. 数据的交互</a>
 <ul>
 <li><a href="#org3bcec5f">5.2.1. Props/Slot</a></li>
@@ -49,13 +54,12 @@
 <li><a href="#org7e2c3f9">5.2.3. Vuex</a></li>
 </ul>
 </li>
-<li><a href="#org5a1f3f2">5.3. 全局 vs 局部</a></li>
-<li><a href="#org8b65cef">5.4. 内置组件</a>
+<li><a href="#org8b65cef">5.3. 内置组件</a>
 <ul>
-<li><a href="#orgb80d6f8">5.4.1. &lt;component&gt; 动态组件</a></li>
-<li><a href="#org336ed04">5.4.2. &lt;keep-alive&gt; 保持状态</a></li>
-<li><a href="#org7c1975f">5.4.3. &lt;transition&gt; 动画效果</a></li>
-<li><a href="#org5bdfebb">5.4.4. &lt;template&gt; 编组</a></li>
+<li><a href="#orgb80d6f8">5.3.1. &lt;component&gt; 动态组件</a></li>
+<li><a href="#org336ed04">5.3.2. &lt;keep-alive&gt; 保持状态</a></li>
+<li><a href="#org7c1975f">5.3.3. &lt;transition&gt; 动画效果</a></li>
+<li><a href="#org5bdfebb">5.3.4. &lt;template&gt; 编组</a></li>
 </ul>
 </li>
 </ul>
@@ -660,9 +664,13 @@ watch: <span style="color: #000000;">{</span>
 </ul>
 </div>
 
-<div id="outline-container-org64b3157" class="outline-3">
-<h3 id="org64b3157"><span class="section-number-3">5.1.</span> 基本示例</h3>
+<div id="outline-container-org0a7a8a1" class="outline-3">
+<h3 id="org0a7a8a1"><span class="section-number-3">5.1.</span> 组件的创建</h3>
 <div class="outline-text-3" id="text-5-1">
+</div>
+<div id="outline-container-org64b3157" class="outline-4">
+<h4 id="org64b3157"><span class="section-number-4">5.1.1.</span> 基本示例</h4>
+<div class="outline-text-4" id="text-5-1-1">
 <p>
 封装的 my-title 组件:
 </p>
@@ -740,6 +748,138 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
   <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">body</span><span style="color: #000000;">&gt;</span>
 <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">html</span><span style="color: #000000;">&gt;</span>
 </pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5a1f3f2" class="outline-4">
+<h4 id="org5a1f3f2"><span class="section-number-4">5.1.2.</span> 全局 vs 局部</h4>
+<div class="outline-text-4" id="text-5-1-2">
+<p>
+全局:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span> <span style="color: #005e8b;">class</span>=<span style="color: #3548cf;">"xxxx"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">aaa</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">aaa</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+  Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;">'aaa'</span>, <span style="color: #dd22dd;">{</span>
+      template: <span style="color: #3548cf;">`&lt;p&gt;hello, world&lt;/p&gt;`</span>,
+      <span style="color: #721045;">data</span>: <span style="color: #531ab6;">function</span><span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
+          <span style="color: #531ab6;">return</span> <span style="color: #972500;">{</span>
+          <span style="color: #972500;">}</span>
+      <span style="color: #008899;">}</span>
+  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+
+  Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;">'aaa'</span>, <span style="color: #dd22dd;">{</span>
+      template: <span style="color: #3548cf;">`&lt;p&gt;hello, vue&lt;/p&gt;`</span>,
+      <span style="color: #721045;">data</span>: <span style="color: #531ab6;">function</span><span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
+          <span style="color: #531ab6;">return</span> <span style="color: #972500;">{</span>
+          <span style="color: #972500;">}</span>
+      <span style="color: #008899;">}</span>
+  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+
+  <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
+      el: <span style="color: #3548cf;">"#app"</span>,
+      data: <span style="color: #008899;">{</span>
+      <span style="color: #008899;">}</span>
+  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+  <span style="color: #000000;">&lt;</span>/script<span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+局部:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span> <span style="color: #005e8b;">class</span>=<span style="color: #3548cf;">"xxxx"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">aaa</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">aaa</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">bbb</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">bbb</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #531ab6;">var</span> <span style="color: #005e8b;">a</span> = <span style="color: #000000;">{</span>
+      template: <span style="color: #3548cf;">`&lt;p&gt;hello, world&lt;/p&gt;`</span>,
+      <span style="color: #721045;">data</span>: <span style="color: #531ab6;">function</span><span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
+          <span style="color: #531ab6;">return</span> <span style="color: #008899;">{</span>
+          <span style="color: #008899;">}</span>
+      <span style="color: #dd22dd;">}</span>
+  <span style="color: #000000;">}</span>;
+
+  <span style="color: #531ab6;">var</span> <span style="color: #005e8b;">b</span> = <span style="color: #000000;">{</span>
+      template: <span style="color: #3548cf;">`&lt;p&gt;hello, vue&lt;/p&gt;`</span>,
+      <span style="color: #721045;">data</span>: <span style="color: #531ab6;">function</span><span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
+          <span style="color: #531ab6;">return</span> <span style="color: #008899;">{</span>
+          <span style="color: #008899;">}</span>
+      <span style="color: #dd22dd;">}</span>
+  <span style="color: #000000;">}</span>;
+
+  <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
+      el: <span style="color: #3548cf;">"#app"</span>,
+      data: <span style="color: #008899;">{</span>
+      <span style="color: #008899;">}</span>,
+      components: <span style="color: #008899;">{</span>
+          <span style="color: #3548cf;">"aaa"</span>: a,
+          <span style="color: #3548cf;">"bbb"</span>: b
+      <span style="color: #008899;">}</span>
+  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+  <span style="color: #000000;">&lt;</span>/script<span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<p>
+模块 + 组件:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span> <span style="color: #005e8b;">class</span>=<span style="color: #3548cf;">"xxxx"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">aaa</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">aaa</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #000000;">&lt;</span><span style="color: #721045;">bbb</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">bbb</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">type</span>=<span style="color: #3548cf;">"module"</span><span style="color: #000000;">&gt;</span>
+  <span style="color: #531ab6;">import</span> aaa from <span style="color: #3548cf;">"./components/aaa.js"</span>;
+  <span style="color: #531ab6;">import</span> bbb from <span style="color: #3548cf;">"./components/bbb.js"</span>;
+
+  <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
+      el: <span style="color: #3548cf;">"#app"</span>,
+      data: <span style="color: #008899;">{</span>
+      <span style="color: #008899;">}</span>,
+      components: <span style="color: #008899;">{</span>
+          <span style="color: #3548cf;">"aaa"</span>: aaa,
+          bbb
+      <span style="color: #008899;">}</span>
+  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #595959;">// </span><span style="color: #595959;">components/aaa.js</span>
+<span style="color: #595959;">// </span><span style="color: #595959;">&#23553;&#35013;&#20102;&#21333;&#29420;&#30340; aaa &#32452;&#20214;</span>
+<span style="color: #531ab6;">export</span> <span style="color: #531ab6;">default</span> <span style="color: #000000;">{</span>
+    template: <span style="color: #3548cf;">`&lt;p&gt;hello, world&lt;/p&gt;`</span>,
+    <span style="color: #721045;">data</span>: <span style="color: #531ab6;">function</span><span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
+        <span style="color: #531ab6;">return</span> <span style="color: #008899;">{</span>
+        <span style="color: #008899;">}</span>
+    <span style="color: #dd22dd;">}</span>
+<span style="color: #000000;">}</span>;
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #595959;">// </span><span style="color: #595959;">components/bbb.js</span>
+<span style="color: #595959;">// </span><span style="color: #595959;">&#23553;&#35013;&#20102; bbb &#32452;&#20214;&#30340;&#27169;&#22359;/&#25991;&#20214;</span>
+<span style="color: #531ab6;">export</span> <span style="color: #531ab6;">default</span> <span style="color: #000000;">{</span>
+    template: <span style="color: #3548cf;">`&lt;p&gt;hello, vue&lt;/p&gt;`</span>,
+    <span style="color: #721045;">data</span>: <span style="color: #531ab6;">function</span><span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
+        <span style="color: #531ab6;">return</span> <span style="color: #008899;">{</span>
+        <span style="color: #008899;">}</span>
+    <span style="color: #dd22dd;">}</span>
+<span style="color: #000000;">}</span>;
+
+</pre>
+</div>
 </div>
 </div>
 </div>
@@ -936,148 +1076,27 @@ data.js 用于提供共享数据:
 <span style="color: #000000;">}</span>
 </pre>
 </div>
-</div>
-</div>
-</div>
 
-<div id="outline-container-org5a1f3f2" class="outline-3">
-<h3 id="org5a1f3f2"><span class="section-number-3">5.3.</span> 全局 vs 局部</h3>
-<div class="outline-text-3" id="text-5-3">
-<p>
-全局:
-</p>
-<div class="org-src-container">
-<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span> <span style="color: #005e8b;">class</span>=<span style="color: #3548cf;">"xxxx"</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">aaa</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">aaa</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
+<pre class="example" id="org51c7271">
+database   --- state
 
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
-  Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;">'aaa'</span>, <span style="color: #dd22dd;">{</span>
-      template: <span style="color: #3548cf;">`&lt;p&gt;hello, world&lt;/p&gt;`</span>,
-      <span style="color: #721045;">data</span>: <span style="color: #531ab6;">function</span><span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
-          <span style="color: #531ab6;">return</span> <span style="color: #972500;">{</span>
-          <span style="color: #972500;">}</span>
-      <span style="color: #008899;">}</span>
-  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+dao        --- mutation
 
-  Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;">'aaa'</span>, <span style="color: #dd22dd;">{</span>
-      template: <span style="color: #3548cf;">`&lt;p&gt;hello, vue&lt;/p&gt;`</span>,
-      <span style="color: #721045;">data</span>: <span style="color: #531ab6;">function</span><span style="color: #008899;">()</span> <span style="color: #008899;">{</span>
-          <span style="color: #531ab6;">return</span> <span style="color: #972500;">{</span>
-          <span style="color: #972500;">}</span>
-      <span style="color: #008899;">}</span>
-  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+service    --- action
 
-  <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
-      el: <span style="color: #3548cf;">"#app"</span>,
-      data: <span style="color: #008899;">{</span>
-      <span style="color: #008899;">}</span>
-  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
-  <span style="color: #000000;">&lt;</span>/script<span style="color: #000000;">&gt;</span>
-</pre>
-</div>
-
-<p>
-局部:
-</p>
-<div class="org-src-container">
-<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span> <span style="color: #005e8b;">class</span>=<span style="color: #3548cf;">"xxxx"</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">aaa</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">aaa</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">bbb</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">bbb</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
-
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #531ab6;">var</span> <span style="color: #005e8b;">a</span> = <span style="color: #000000;">{</span>
-      template: <span style="color: #3548cf;">`&lt;p&gt;hello, world&lt;/p&gt;`</span>,
-      <span style="color: #721045;">data</span>: <span style="color: #531ab6;">function</span><span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
-          <span style="color: #531ab6;">return</span> <span style="color: #008899;">{</span>
-          <span style="color: #008899;">}</span>
-      <span style="color: #dd22dd;">}</span>
-  <span style="color: #000000;">}</span>;
-
-  <span style="color: #531ab6;">var</span> <span style="color: #005e8b;">b</span> = <span style="color: #000000;">{</span>
-      template: <span style="color: #3548cf;">`&lt;p&gt;hello, vue&lt;/p&gt;`</span>,
-      <span style="color: #721045;">data</span>: <span style="color: #531ab6;">function</span><span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
-          <span style="color: #531ab6;">return</span> <span style="color: #008899;">{</span>
-          <span style="color: #008899;">}</span>
-      <span style="color: #dd22dd;">}</span>
-  <span style="color: #000000;">}</span>;
-
-  <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
-      el: <span style="color: #3548cf;">"#app"</span>,
-      data: <span style="color: #008899;">{</span>
-      <span style="color: #008899;">}</span>,
-      components: <span style="color: #008899;">{</span>
-          <span style="color: #3548cf;">"aaa"</span>: a,
-          <span style="color: #3548cf;">"bbb"</span>: b
-      <span style="color: #008899;">}</span>
-  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
-  <span style="color: #000000;">&lt;</span>/script<span style="color: #000000;">&gt;</span>
-</pre>
-</div>
-
-<p>
-模块 + 组件:
-</p>
-<div class="org-src-container">
-<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span> <span style="color: #005e8b;">class</span>=<span style="color: #3548cf;">"xxxx"</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">aaa</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">aaa</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #000000;">&lt;</span><span style="color: #721045;">bbb</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">bbb</span><span style="color: #000000;">&gt;</span>
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
-
-<span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">type</span>=<span style="color: #3548cf;">"module"</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #531ab6;">import</span> aaa from <span style="color: #3548cf;">"./components/aaa.js"</span>;
-  <span style="color: #531ab6;">import</span> bbb from <span style="color: #3548cf;">"./components/bbb.js"</span>;
-
-  <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span><span style="color: #dd22dd;">{</span>
-      el: <span style="color: #3548cf;">"#app"</span>,
-      data: <span style="color: #008899;">{</span>
-      <span style="color: #008899;">}</span>,
-      components: <span style="color: #008899;">{</span>
-          <span style="color: #3548cf;">"aaa"</span>: aaa,
-          bbb
-      <span style="color: #008899;">}</span>
-  <span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
-<span style="color: #000000;">&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-js"><span style="color: #595959;">// </span><span style="color: #595959;">components/aaa.js</span>
-<span style="color: #595959;">// </span><span style="color: #595959;">&#23553;&#35013;&#20102;&#21333;&#29420;&#30340; aaa &#32452;&#20214;</span>
-<span style="color: #531ab6;">export</span> <span style="color: #531ab6;">default</span> <span style="color: #000000;">{</span>
-    template: <span style="color: #3548cf;">`&lt;p&gt;hello, world&lt;/p&gt;`</span>,
-    <span style="color: #721045;">data</span>: <span style="color: #531ab6;">function</span><span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
-        <span style="color: #531ab6;">return</span> <span style="color: #008899;">{</span>
-        <span style="color: #008899;">}</span>
-    <span style="color: #dd22dd;">}</span>
-<span style="color: #000000;">}</span>;
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-js"><span style="color: #595959;">// </span><span style="color: #595959;">components/bbb.js</span>
-<span style="color: #595959;">// </span><span style="color: #595959;">&#23553;&#35013;&#20102; bbb &#32452;&#20214;&#30340;&#27169;&#22359;/&#25991;&#20214;</span>
-<span style="color: #531ab6;">export</span> <span style="color: #531ab6;">default</span> <span style="color: #000000;">{</span>
-    template: <span style="color: #3548cf;">`&lt;p&gt;hello, vue&lt;/p&gt;`</span>,
-    <span style="color: #721045;">data</span>: <span style="color: #531ab6;">function</span><span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
-        <span style="color: #531ab6;">return</span> <span style="color: #008899;">{</span>
-        <span style="color: #008899;">}</span>
-    <span style="color: #dd22dd;">}</span>
-<span style="color: #000000;">}</span>;
-
+controller --- vue
 </pre>
 </div>
 </div>
 </div>
 
 <div id="outline-container-org8b65cef" class="outline-3">
-<h3 id="org8b65cef"><span class="section-number-3">5.4.</span> 内置组件</h3>
-<div class="outline-text-3" id="text-5-4">
+<h3 id="org8b65cef"><span class="section-number-3">5.3.</span> 内置组件</h3>
+<div class="outline-text-3" id="text-5-3">
 </div>
 <div id="outline-container-orgb80d6f8" class="outline-4">
-<h4 id="orgb80d6f8"><span class="section-number-4">5.4.1.</span> &lt;component&gt; 动态组件</h4>
-<div class="outline-text-4" id="text-5-4-1">
+<h4 id="orgb80d6f8"><span class="section-number-4">5.3.1.</span> &lt;component&gt; 动态组件</h4>
+<div class="outline-text-4" id="text-5-3-1">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span> <span style="color: #005e8b;">id</span>=<span style="color: #3548cf;">"app"</span> <span style="color: #005e8b;">class</span>=<span style="color: #3548cf;">"xxxx"</span><span style="color: #000000;">&gt;</span>
   <span style="color: #000000;">&lt;</span><span style="color: #721045;">div</span><span style="color: #000000;">&gt;</span>
@@ -1125,8 +1144,8 @@ data.js 用于提供共享数据:
 </div>
 
 <div id="outline-container-org336ed04" class="outline-4">
-<h4 id="org336ed04"><span class="section-number-4">5.4.2.</span> &lt;keep-alive&gt; 保持状态</h4>
-<div class="outline-text-4" id="text-5-4-2">
+<h4 id="org336ed04"><span class="section-number-4">5.3.2.</span> &lt;keep-alive&gt; 保持状态</h4>
+<div class="outline-text-4" id="text-5-3-2">
 <p>
 切换走的时候，保留组件的内部状态:
 </p>
@@ -1140,8 +1159,8 @@ data.js 用于提供共享数据:
 </div>
 
 <div id="outline-container-org7c1975f" class="outline-4">
-<h4 id="org7c1975f"><span class="section-number-4">5.4.3.</span> &lt;transition&gt; 动画效果</h4>
-<div class="outline-text-4" id="text-5-4-3">
+<h4 id="org7c1975f"><span class="section-number-4">5.3.3.</span> &lt;transition&gt; 动画效果</h4>
+<div class="outline-text-4" id="text-5-3-3">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
   <span style="color: #531ab6;">#app </span><span style="color: #000000;">{</span>
@@ -1178,8 +1197,8 @@ data.js 用于提供共享数据:
 </div>
 
 <div id="outline-container-org5bdfebb" class="outline-4">
-<h4 id="org5bdfebb"><span class="section-number-4">5.4.4.</span> &lt;template&gt; 编组</h4>
-<div class="outline-text-4" id="text-5-4-4">
+<h4 id="org5bdfebb"><span class="section-number-4">5.3.4.</span> &lt;template&gt; 编组</h4>
+<div class="outline-text-4" id="text-5-3-4">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">template</span> <span style="color: #005e8b;">v-if</span>=<span style="color: #3548cf;">"isShow"</span><span style="color: #000000;">&gt;</span>
   <span style="color: #000000;">&lt;</span><span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span><span style="font-weight: bold; text-decoration: underline;">Title</span><span style="color: #000000;">&lt;</span>/<span style="color: #721045;">h1</span><span style="color: #000000;">&gt;</span>
@@ -1707,7 +1726,7 @@ vue.config.js:
 </p>
 
 
-<figure id="orgfeddd20">
+<figure id="org64dd5a8">
 <img src="img/oimg_20201104_064733.png" alt="oimg_20201104_064733.png" width="300px">
 
 </figure>
@@ -2566,7 +2585,7 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 为什么会有如下错误:
 </p>
 
-<pre class="example" id="orge8faf60">
+<pre class="example" id="org1f63d2a">
 Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_exploded/comments' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 </pre>
 
@@ -2610,7 +2629,7 @@ Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_explo
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2023-03-08</p>
+<p class="date">Created: 2023-03-09</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

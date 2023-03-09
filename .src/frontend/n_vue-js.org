@@ -430,7 +430,8 @@ https://cn.vuejs.org/v2/guide/forms.html
 - 都用来封装一定逻辑，达到复用目的
 - 都可以有入参、有返回值
 
-** 基本示例
+** 组件的创建
+*** 基本示例
 
 封装的 my-title 组件:
 #+begin_src js
@@ -503,6 +504,123 @@ https://cn.vuejs.org/v2/guide/forms.html
       </script>
     </body>
   </html>
+#+end_src
+
+*** 全局 vs 局部
+
+全局:
+#+begin_src html
+  <div id="app" class="xxxx">
+    <aaa></aaa>
+  </div>
+
+  <script>
+    Vue.component('aaa', {
+        template: `<p>hello, world</p>`,
+        data: function() {
+            return {
+            }
+        }
+    });
+
+    Vue.component('aaa', {
+        template: `<p>hello, vue</p>`,
+        data: function() {
+            return {
+            }
+        }
+    });
+
+    new Vue({
+        el: "#app",
+        data: {
+        }
+    });
+    </script>
+#+end_src
+
+局部:
+#+begin_src html
+  <div id="app" class="xxxx">
+    <aaa></aaa>
+    <bbb></bbb>
+  </div>
+
+  <script>
+    var a = {
+        template: `<p>hello, world</p>`,
+        data: function() {
+            return {
+            }
+        }
+    };
+
+    var b = {
+        template: `<p>hello, vue</p>`,
+        data: function() {
+            return {
+            }
+        }
+    };
+
+    new Vue({
+        el: "#app",
+        data: {
+        },
+        components: {
+            "aaa": a,
+            "bbb": b
+        }
+    });
+    </script>
+#+end_src
+
+模块 + 组件:
+#+begin_src html
+  <div id="app" class="xxxx">
+    <aaa></aaa>
+    <bbb></bbb>
+  </div>
+
+  <script type="module">
+    import aaa from "./components/aaa.js";
+    import bbb from "./components/bbb.js";
+
+    new Vue({
+        el: "#app",
+        data: {
+        },
+        components: {
+            "aaa": aaa,
+            bbb
+        }
+    });
+  </script>
+#+end_src
+
+#+begin_src js
+  // components/aaa.js
+  // 封装了单独的 aaa 组件
+  export default {
+      template: `<p>hello, world</p>`,
+      data: function() {
+          return {
+          }
+      }
+  };
+#+end_src
+
+#+begin_src js
+  // components/bbb.js
+  // 封装了 bbb 组件的模块/文件
+  export default {
+      template: `<p>hello, vue</p>`,
+      data: function() {
+          return {
+          }
+      }
+  };
+
 #+end_src
 
 ** 数据的交互
@@ -656,122 +774,15 @@ https://vuex.vuejs.org/zh/
   }
 #+end_src
 
-** 全局 vs 局部
+#+begin_example
+database   --- state
 
-全局:
-#+begin_src html
-  <div id="app" class="xxxx">
-    <aaa></aaa>
-  </div>
+dao        --- mutation
 
-  <script>
-    Vue.component('aaa', {
-        template: `<p>hello, world</p>`,
-        data: function() {
-            return {
-            }
-        }
-    });
+service    --- action
 
-    Vue.component('aaa', {
-        template: `<p>hello, vue</p>`,
-        data: function() {
-            return {
-            }
-        }
-    });
-
-    new Vue({
-        el: "#app",
-        data: {
-        }
-    });
-    </script>
-#+end_src
-
-局部:
-#+begin_src html
-  <div id="app" class="xxxx">
-    <aaa></aaa>
-    <bbb></bbb>
-  </div>
-
-  <script>
-    var a = {
-        template: `<p>hello, world</p>`,
-        data: function() {
-            return {
-            }
-        }
-    };
-
-    var b = {
-        template: `<p>hello, vue</p>`,
-        data: function() {
-            return {
-            }
-        }
-    };
-
-    new Vue({
-        el: "#app",
-        data: {
-        },
-        components: {
-            "aaa": a,
-            "bbb": b
-        }
-    });
-    </script>
-#+end_src
-
-模块 + 组件:
-#+begin_src html
-  <div id="app" class="xxxx">
-    <aaa></aaa>
-    <bbb></bbb>
-  </div>
-
-  <script type="module">
-    import aaa from "./components/aaa.js";
-    import bbb from "./components/bbb.js";
-
-    new Vue({
-        el: "#app",
-        data: {
-        },
-        components: {
-            "aaa": aaa,
-            bbb
-        }
-    });
-  </script>
-#+end_src
-
-#+begin_src js
-  // components/aaa.js
-  // 封装了单独的 aaa 组件
-  export default {
-      template: `<p>hello, world</p>`,
-      data: function() {
-          return {
-          }
-      }
-  };
-#+end_src
-
-#+begin_src js
-  // components/bbb.js
-  // 封装了 bbb 组件的模块/文件
-  export default {
-      template: `<p>hello, vue</p>`,
-      data: function() {
-          return {
-          }
-      }
-  };
-
-#+end_src
+controller --- vue
+#+end_example
 
 ** 内置组件
 *** <component> 动态组件
