@@ -637,7 +637,7 @@ https://cn.vuejs.org/guide/essentials/lifecycle.html
 2. 可以借助 $props 和 $listeners 来简化传递 (爷爷 - . - 孙子)
 3. 可以直接通过 this.$parent 或者 this.$root 之类直接调用目标节点的逻辑
 4. 可以使用全局变量 (存储) 的方式，提供数据
-5. 通过 Vuex 等框架，提供相对比较安全的全局存储，进行集中式状态管理
+5. 通过 Vuex/Pinia 等框架，提供相对比较安全的全局存储，进行集中式状态管理
 
 *** Props/Slot
 
@@ -791,6 +791,18 @@ service    --- action
 
 controller --- vue
 #+end_example
+
+辅助方法:
+- mapState
+- mapGetters
+- mapMutations
+- mapActions
+
+*** Pinia
+
+- 跟 Vuex 相对来说的: 优点和缺点
+- 基本使用方式
+- 要书面总结出来。好记性不如烂笔头
 
 ** 内置组件
 *** <component> 动态组件

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-03-09 -->
+<!-- 2023-03-10 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Vue.js</title>
@@ -57,6 +57,7 @@
 <li><a href="#org3bcec5f">4.2.1. Props/Slot</a></li>
 <li><a href="#org421b4b7">4.2.2. 全局变量的方式</a></li>
 <li><a href="#org7e2c3f9">4.2.3. Vuex</a></li>
+<li><a href="#org55d4739">4.2.4. Pinia</a></li>
 </ul>
 </li>
 <li><a href="#org8b65cef">4.3. 内置组件</a>
@@ -916,7 +917,7 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
 <li>可以借助 $props 和 $listeners 来简化传递 (爷爷 - . - 孙子)</li>
 <li>可以直接通过 this.$parent 或者 this.$root 之类直接调用目标节点的逻辑</li>
 <li>可以使用全局变量 (存储) 的方式，提供数据</li>
-<li>通过 Vuex 等框架，提供相对比较安全的全局存储，进行集中式状态管理</li>
+<li>通过 Vuex/Pinia 等框架，提供相对比较安全的全局存储，进行集中式状态管理</li>
 </ol>
 </div>
 
@@ -1101,7 +1102,7 @@ data.js 用于提供共享数据:
 </pre>
 </div>
 
-<pre class="example" id="org43211ec">
+<pre class="example" id="org0349a54">
 database   --- state
 
 dao        --- mutation
@@ -1110,6 +1111,27 @@ service    --- action
 
 controller --- vue
 </pre>
+
+<p>
+辅助方法:
+</p>
+<ul class="org-ul">
+<li>mapState</li>
+<li>mapGetters</li>
+<li>mapMutations</li>
+<li>mapActions</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org55d4739" class="outline-4">
+<h4 id="org55d4739"><span class="section-number-4">4.2.4.</span> Pinia</h4>
+<div class="outline-text-4" id="text-4-2-4">
+<ul class="org-ul">
+<li>跟 Vuex 相对来说的: 优点和缺点</li>
+<li>基本使用方式</li>
+<li>要书面总结出来。好记性不如烂笔头</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1750,7 +1772,7 @@ vue.config.js:
 </p>
 
 
-<figure id="orga444b6e">
+<figure id="org0a8ecc9">
 <img src="img/oimg_20201104_064733.png" alt="oimg_20201104_064733.png" width="300px">
 
 </figure>
@@ -2609,7 +2631,7 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 为什么会有如下错误:
 </p>
 
-<pre class="example" id="org1802bfa">
+<pre class="example" id="orge324858">
 Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_exploded/comments' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 </pre>
 
@@ -2653,7 +2675,7 @@ Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_explo
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2023-03-09</p>
+<p class="date">Created: 2023-03-10</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
