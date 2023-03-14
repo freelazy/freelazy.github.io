@@ -11,3 +11,11 @@ Just do it.
 - https://github.com/cq-panda/Vue.NetCore
 - https://gitee.com/laozhangIsPhi/Blog.Core
 
+* 2023
+
+** 2023-03-14 Tue
+
+--- 10:38:48 ---
+
+张豪就业。嵌入式开发。
+
