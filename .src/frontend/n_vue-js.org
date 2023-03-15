@@ -1162,8 +1162,8 @@ vue.config.js:
 首先，通过脚手架创建新的项目:
 #+begin_src shell
   cd 你的目标目录
-  npm create vue@3  # or
-  npm init vue@latest
+  npm init vue@latest # or
+  npm create vue@latest
 #+end_src
 
 然后，安装组件并开启服务器:
