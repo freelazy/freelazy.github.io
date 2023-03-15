@@ -1107,7 +1107,7 @@ data.js 用于提供共享数据:
 </pre>
 </div>
 
-<pre class="example" id="org094b595">
+<pre class="example" id="org88b1eaa">
 database   --- state
 
 dao        --- mutation
@@ -1597,11 +1597,29 @@ vue.config.js:
 <li><a href="https://cn.vuejs.org/guide/scaling-up/tooling.html">https://cn.vuejs.org/guide/scaling-up/tooling.html</a></li>
 </ul>
 
+<p>
+首先，通过脚手架创建新的项目:
+</p>
 <div class="org-src-container">
-<pre class="src src-shell">npm create vue@3
+<pre class="src src-shell"><span style="color: #8f0075;">cd</span> &#20320;&#30340;&#30446;&#26631;&#30446;&#24405;
+npm create vue@3  <span style="color: #595959;"># </span><span style="color: #595959;">or</span>
 npm init vue@latest
 </pre>
 </div>
+
+<p>
+然后，安装组件并开启服务器:
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #8f0075;">cd</span> &#21018;&#25165;&#30340;&#39033;&#30446;&#30446;&#24405;
+npm install
+npm run dev
+</pre>
+</div>
+
+<p>
+接下来就可以进行开发了。
+</p>
 </div>
 </div>
 </section>
@@ -1799,7 +1817,7 @@ npm init vue@latest
 </p>
 
 
-<figure id="orgbdb5b96">
+<figure id="org9e6b82f">
 <img src="img/oimg_20201104_064733.png" alt="oimg_20201104_064733.png" width="300px">
 
 </figure>
@@ -2658,7 +2676,7 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 为什么会有如下错误:
 </p>
 
-<pre class="example" id="orga4f0762">
+<pre class="example" id="org938c764">
 Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_exploded/comments' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 </pre>
 

@@ -1159,10 +1159,21 @@ vue.config.js:
 - https://github.com/vuejs/create-vue
 - https://cn.vuejs.org/guide/scaling-up/tooling.html
 
+首先，通过脚手架创建新的项目:
 #+begin_src shell
-  npm create vue@3
+  cd 你的目标目录
+  npm create vue@3  # or
   npm init vue@latest
 #+end_src
+
+然后，安装组件并开启服务器:
+#+begin_src shell
+  cd 刚才的项目目录
+  npm install
+  npm run dev
+#+end_src
+
+接下来就可以进行开发了。
 
 * [示例] Todo List
 
