@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-03-10 -->
+<!-- 2023-03-15 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Vue.js</title>
@@ -89,7 +89,12 @@
 <li><a href="#orgb549cd2">6.1. ElementUI</a></li>
 </ul>
 </li>
-<li><a href="#orgf63a6aa">7. Vue-Cli</a></li>
+<li><a href="#orgcb25ae4">7. Vue-Cli/create-vue</a>
+<ul>
+<li><a href="#orgadf6dfb">7.1. Vue-CLi</a></li>
+<li><a href="#orge75c544">7.2. create-vue</a></li>
+</ul>
+</li>
 <li><a href="#orgbe19356">8. [示例] Todo List</a></li>
 <li><a href="#orgcf80384">9. [示例] Comment List</a>
 <ul>
@@ -1102,7 +1107,7 @@ data.js 用于提供共享数据:
 </pre>
 </div>
 
-<pre class="example" id="org0349a54">
+<pre class="example" id="org094b595">
 database   --- state
 
 dao        --- mutation
@@ -1209,14 +1214,14 @@ controller --- vue
 <div class="outline-text-4" id="text-4-3-3">
 <div class="org-src-container">
 <pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
-  <span style="color: #531ab6;">#app </span><span style="color: #000000;">{</span>
+  <span style="color: #531ab6;">#app</span> <span style="color: #000000;">{</span>
       <span style="color: #005f5f;">width</span>: 450px;
       <span style="color: #005f5f;">margin</span>: 1em auto;
   <span style="color: #000000;">}</span>
-  <span style="color: #531ab6;">.fade-enter-active, .fade-leave-active </span><span style="color: #000000;">{</span>
+  <span style="color: #531ab6;">.fade-enter-active, .fade-leave-active</span> <span style="color: #000000;">{</span>
       <span style="color: #005f5f;">transition</span>: opacity 0.1s;
   <span style="color: #000000;">}</span>
-  <span style="color: #531ab6;">.fade-enter, .fade-leave-to </span><span style="color: #000000;">{</span>
+  <span style="color: #531ab6;">.fade-enter, .fade-leave-to</span> <span style="color: #000000;">{</span>
       <span style="color: #005f5f;">opacity</span>: 0;
   <span style="color: #000000;">}</span>
 <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
@@ -1514,12 +1519,16 @@ main.js
 </div>
 </section>
 
-<section id="outline-container-orgf63a6aa" class="outline-2">
-<h2 id="orgf63a6aa"><span class="section-number-2">7.</span> Vue-Cli</h2>
+<section id="outline-container-orgcb25ae4" class="outline-2">
+<h2 id="orgcb25ae4"><span class="section-number-2">7.</span> Vue-Cli/create-vue</h2>
 <div class="outline-text-2" id="text-7">
-<p>
-<a href="https://cli.vuejs.org/zh/guide/">https://cli.vuejs.org/zh/guide/</a>
-</p>
+</div>
+<div id="outline-container-orgadf6dfb" class="outline-3">
+<h3 id="orgadf6dfb"><span class="section-number-3">7.1.</span> Vue-CLi</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li><a href="https://cli.vuejs.org/zh/guide/">https://cli.vuejs.org/zh/guide/</a></li>
+</ul>
 
 <p>
 基本使用:
@@ -1577,6 +1586,24 @@ vue.config.js:
 比如，配置 eslint rules 和项目依赖的插件等，略过不提。
 </p>
 </div>
+</div>
+
+<div id="outline-container-orge75c544" class="outline-3">
+<h3 id="orge75c544"><span class="section-number-3">7.2.</span> create-vue</h3>
+<div class="outline-text-3" id="text-7-2">
+<ul class="org-ul">
+<li><a href="https://vitejs.dev/guide/features.html">https://vitejs.dev/guide/features.html</a></li>
+<li><a href="https://github.com/vuejs/create-vue">https://github.com/vuejs/create-vue</a></li>
+<li><a href="https://cn.vuejs.org/guide/scaling-up/tooling.html">https://cn.vuejs.org/guide/scaling-up/tooling.html</a></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-shell">npm create vue@3
+npm init vue@latest
+</pre>
+</div>
+</div>
+</div>
 </section>
 
 <section id="outline-container-orgbe19356" class="outline-2">
@@ -1591,35 +1618,35 @@ vue.config.js:
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"https://unpkg.com/axios/dist/axios.min.js"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
-      <span style="color: #531ab6;">* </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">*</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">box-sizing</span>: border-box;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">body </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">body</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">background</span>: linear-gradient<span style="color: #dd22dd;">(</span>to bottom, <span style="color: #ffffff; background-color: #000000;">black</span>, <span style="color: #000000; background-color: #ffffff;">white</span>, <span style="color: #ffffff; background-color: #808080;">grey</span><span style="color: #dd22dd;">)</span>;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">#app </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">#app</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">width</span>: 500px;
           <span style="color: #005f5f;">margin</span>: 1em auto;
           <span style="color: #005f5f;">background</span>: <span style="color: #000000; background-color: #ffffff;">white</span>;
           <span style="color: #005f5f;">padding</span>: 1em;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">input </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">input</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">border</span>: 0;
           <span style="color: #005f5f;">outline</span>: 0;
           <span style="color: #005f5f;">border-bottom</span>: 1px solid <span style="color: #ffffff; background-color: #808080;">grey</span>;
           <span style="color: #005f5f;">width</span>: 100%;
           <span style="color: #005f5f;">padding</span>: 8px 12px;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">input:hover </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">input:hover</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">border-bottom</span>: 1px solid <span style="color: #ffffff; background-color: #0000ff;">blue</span>;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.task-todo, .task-done </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.task-todo, .task-done</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">display</span>: flex;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.task-todo p, .task-done div </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.task-todo p, .task-done div</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">flex</span>: 1;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">button </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">button</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">flex</span>: 0 0 50px;
           <span style="color: #005f5f;">height</span>: 25px;
           <span style="color: #005f5f;">border</span>: 0;
@@ -1629,7 +1656,7 @@ vue.config.js:
           <span style="color: #005f5f;">padding</span>: 5px 10px;
           <span style="color: #005f5f;">margin-left</span>: 1em;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">button:hover </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">button:hover</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">background</span>: linear-gradient<span style="color: #dd22dd;">(</span>to right, <span style="color: #ffffff; background-color: #008000;">green</span>, <span style="color: #ffffff; background-color: #0000ff;">blue</span>, <span style="color: #000000; background-color: #ffff00;">yellow</span><span style="color: #dd22dd;">)</span>;
       <span style="color: #000000;">}</span>
     <span style="color: #000000;">&lt;</span>/style<span style="color: #000000;">&gt;</span>
@@ -1772,7 +1799,7 @@ vue.config.js:
 </p>
 
 
-<figure id="org0a8ecc9">
+<figure id="orgbdb5b96">
 <img src="img/oimg_20201104_064733.png" alt="oimg_20201104_064733.png" width="300px">
 
 </figure>
@@ -1791,28 +1818,28 @@ vue.config.js:
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"https://unpkg.com/axios/dist/axios.min.js"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
-      <span style="color: #531ab6;">#app </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">#app</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">width</span>: 350px;
           <span style="color: #005f5f;">margin</span>: 1em auto;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment-form </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment-form</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">margin-top</span>: 2em;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment-list </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment-list</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">margin-top</span>: 2em;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">display</span>: flex;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment .author </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment .author</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">flex</span>: 0 0 50px;
           <span style="color: #005f5f;">font-weight</span>: bold;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment .body </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment .body</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">flex</span>: 1;
           <span style="color: #005f5f;">color</span>: <span style="color: #ffffff; background-color: #0000ff;">blue</span>;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment .del </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment .del</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">flex</span>: 0 0 50px;
       <span style="color: #000000;">}</span>
     <span style="color: #000000;">&lt;</span>/style<span style="color: #000000;">&gt;</span>
@@ -1948,28 +1975,28 @@ vue.config.js:
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"https://unpkg.com/axios/dist/axios.min.js"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
-      <span style="color: #531ab6;">#app </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">#app</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">width</span>: 350px;
           <span style="color: #005f5f;">margin</span>: 1em auto;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment-form </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment-form</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">margin-top</span>: 2em;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment-list </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment-list</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">margin-top</span>: 2em;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">display</span>: flex;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment .author </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment .author</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">flex</span>: 0 0 50px;
           <span style="color: #005f5f;">font-weight</span>: bold;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment .body </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment .body</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">flex</span>: 1;
           <span style="color: #005f5f;">color</span>: <span style="color: #ffffff; background-color: #0000ff;">blue</span>;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment .del </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment .del</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">flex</span>: 0 0 50px;
       <span style="color: #000000;">}</span>
     <span style="color: #000000;">&lt;</span>/style<span style="color: #000000;">&gt;</span>
@@ -2104,28 +2131,28 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"https://unpkg.com/axios/dist/axios.min.js"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
-      <span style="color: #531ab6;">#app </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">#app</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">width</span>: 350px;
           <span style="color: #005f5f;">margin</span>: 1em auto;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment-form </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment-form</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">margin-top</span>: 2em;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment-list </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment-list</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">margin-top</span>: 2em;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">display</span>: flex;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment .author </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment .author</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">flex</span>: 0 0 50px;
           <span style="color: #005f5f;">font-weight</span>: bold;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment .body </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment .body</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">flex</span>: 1;
           <span style="color: #005f5f;">color</span>: <span style="color: #ffffff; background-color: #0000ff;">blue</span>;
       <span style="color: #000000;">}</span>
-      <span style="color: #531ab6;">.comment .del </span><span style="color: #000000;">{</span>
+      <span style="color: #531ab6;">.comment .del</span> <span style="color: #000000;">{</span>
           <span style="color: #005f5f;">flex</span>: 0 0 50px;
       <span style="color: #000000;">}</span>
     <span style="color: #000000;">&lt;</span>/style<span style="color: #000000;">&gt;</span>
@@ -2307,28 +2334,28 @@ Vue.component<span style="color: #000000;">(</span><span style="color: #3548cf;"
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"https://unpkg.com/axios/dist/axios.min.js"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
     <span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
-     <span style="color: #531ab6;">#app </span><span style="color: #000000;">{</span>
+     <span style="color: #531ab6;">#app</span> <span style="color: #000000;">{</span>
        <span style="color: #005f5f;">width</span>: 450px;
        <span style="color: #005f5f;">margin</span>: 1em auto;
      <span style="color: #000000;">}</span>
-     <span style="color: #531ab6;">.comment-form </span><span style="color: #000000;">{</span>
+     <span style="color: #531ab6;">.comment-form</span> <span style="color: #000000;">{</span>
        <span style="color: #005f5f;">margin-top</span>: 2em;
      <span style="color: #000000;">}</span>
-     <span style="color: #531ab6;">.comment-list </span><span style="color: #000000;">{</span>
+     <span style="color: #531ab6;">.comment-list</span> <span style="color: #000000;">{</span>
        <span style="color: #005f5f;">margin-top</span>: 2em;
      <span style="color: #000000;">}</span>
-     <span style="color: #531ab6;">.comment </span><span style="color: #000000;">{</span>
+     <span style="color: #531ab6;">.comment</span> <span style="color: #000000;">{</span>
        <span style="color: #005f5f;">display</span>: flex;
      <span style="color: #000000;">}</span>
-     <span style="color: #531ab6;">.comment .author </span><span style="color: #000000;">{</span>
+     <span style="color: #531ab6;">.comment .author</span> <span style="color: #000000;">{</span>
        <span style="color: #005f5f;">flex</span>: 0 0 50px;
        <span style="color: #005f5f;">font-weight</span>: bold;
      <span style="color: #000000;">}</span>
-     <span style="color: #531ab6;">.comment .body </span><span style="color: #000000;">{</span>
+     <span style="color: #531ab6;">.comment .body</span> <span style="color: #000000;">{</span>
        <span style="color: #005f5f;">flex</span>: 1;
        <span style="color: #005f5f;">color</span>: <span style="color: #ffffff; background-color: #0000ff;">blue</span>;
      <span style="color: #000000;">}</span>
-     <span style="color: #531ab6;">.comment .del </span><span style="color: #000000;">{</span>
+     <span style="color: #531ab6;">.comment .del</span> <span style="color: #000000;">{</span>
        <span style="color: #005f5f;">flex</span>: 0 0 50px;
      <span style="color: #000000;">}</span>
     <span style="color: #000000;">&lt;</span>/style<span style="color: #000000;">&gt;</span>
@@ -2470,19 +2497,19 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
 
 <span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span> scoped<span style="color: #000000;">&gt;</span>
- <span style="color: #531ab6;">.comment-form </span><span style="color: #000000;">{</span>
+ <span style="color: #531ab6;">.comment-form</span> <span style="color: #000000;">{</span>
    <span style="color: #005f5f;">width</span>: 400px;
    <span style="color: #005f5f;">margin</span>: 0 auto;
  <span style="color: #000000;">}</span>
- <span style="color: #531ab6;">.comment-form &gt; div </span><span style="color: #000000;">{</span>
+ <span style="color: #531ab6;">.comment-form &gt; div</span> <span style="color: #000000;">{</span>
    <span style="color: #005f5f;">display</span>: flex;
    <span style="color: #005f5f;">flex-flow</span>: column;
  <span style="color: #000000;">}</span>
- <span style="color: #531ab6;">input </span><span style="color: #000000;">{</span>
+ <span style="color: #531ab6;">input</span> <span style="color: #000000;">{</span>
    <span style="color: #005f5f;">margin-bottom</span>: 1em;
    <span style="color: #005f5f;">padding</span>: 10px;
  <span style="color: #000000;">}</span>
- <span style="color: #531ab6;">button </span><span style="color: #000000;">{</span>
+ <span style="color: #531ab6;">button</span> <span style="color: #000000;">{</span>
    <span style="color: #005f5f;">padding</span>: 10px;
    <span style="color: #005f5f;">border</span>: 0;
  <span style="color: #000000;">}</span>
@@ -2523,23 +2550,23 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
 
 <span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span> scoped<span style="color: #000000;">&gt;</span>
- <span style="color: #531ab6;">.comment-list </span><span style="color: #000000;">{</span>
+ <span style="color: #531ab6;">.comment-list</span> <span style="color: #000000;">{</span>
    <span style="color: #005f5f;">width</span>: 400px;
    <span style="color: #005f5f;">margin</span>: 2em auto;
  <span style="color: #000000;">}</span>
- <span style="color: #531ab6;">.comment </span><span style="color: #000000;">{</span>
+ <span style="color: #531ab6;">.comment</span> <span style="color: #000000;">{</span>
    <span style="color: #005f5f;">border</span>: 1px solid <span style="color: #000000; background-color: #eee;">#eee</span>;
    <span style="color: #005f5f;">padding</span>: 1em;
    <span style="color: #005f5f;">margin-bottom</span>: 1em;
    <span style="color: #005f5f;">display</span>: flex;
  <span style="color: #000000;">}</span>
- <span style="color: #531ab6;">.author </span><span style="color: #000000;">{</span>
+ <span style="color: #531ab6;">.author</span> <span style="color: #000000;">{</span>
    <span style="color: #005f5f;">flex</span>: 0 0 50px;
  <span style="color: #000000;">}</span>
- <span style="color: #531ab6;">.body </span><span style="color: #000000;">{</span>
+ <span style="color: #531ab6;">.body</span> <span style="color: #000000;">{</span>
    <span style="color: #005f5f;">flex</span>: 1;
  <span style="color: #000000;">}</span>
- <span style="color: #531ab6;">.del </span><span style="color: #000000;">{</span>
+ <span style="color: #531ab6;">.del</span> <span style="color: #000000;">{</span>
    <span style="color: #005f5f;">flex</span>: 0 0 50px;
  <span style="color: #000000;">}</span>
 <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
@@ -2589,7 +2616,7 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 <span style="color: #000000;">&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
 
 <span style="color: #000000;">&lt;</span><span style="color: #721045;">style</span><span style="color: #000000;">&gt;</span>
- <span style="color: #531ab6;">#app </span><span style="color: #000000;">{</span>
+ <span style="color: #531ab6;">#app</span> <span style="color: #000000;">{</span>
    <span style="color: #005f5f;">font-family</span>: Avenir, Helvetica, Arial, sans-serif;
    <span style="color: #005f5f; font-style: italic;">-webkit-font-smoothing</span>: antialiased;
    <span style="color: #005f5f; font-style: italic;">-moz-osx-font-smoothing</span>: grayscale;
@@ -2631,7 +2658,7 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 为什么会有如下错误:
 </p>
 
-<pre class="example" id="orge324858">
+<pre class="example" id="orga4f0762">
 Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_exploded/comments' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 </pre>
 
@@ -2675,7 +2702,7 @@ Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_explo
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2023-03-10</p>
+<p class="date">Created: 2023-03-15</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
