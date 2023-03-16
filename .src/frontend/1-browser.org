@@ -21,14 +21,18 @@
 - 无法访问跨域的 DOM
 - 无法发送跨域的 ajax 请求
 
-例外情况:
-- 页面可以嵌入第三方的 image/script/css
+例外情况，页面可以嵌入第三方的 image/script/css:
+#+begin_src html
+  <script src="http://bootcdn.com/jquery.js"></script>
+  <img src="https://img0.baidu.com/it/u=988393983,2653815122">
+#+end_src
 
-<script src="http://bootcdn.com/jquery.js"></script>
-<img src="https://img0.baidu.com/it/u=988393983,2653815122">
+但是这样的访问就会被浏览器拒绝显示:
+#+begin_src js
+  this.axios.get("https://img0.baidu.com/it/u=988393983,2653815122").then();
+#+end_src
 
-this.axios.get("https://img0.baidu.com/it/u=988393983,2653815122").then();
-
+错误信息:
 : Access to XMLHttpRequest at 'https://localhost:7062/WeatherForecast' from origin 'http://127.0.0.1:5173' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 
 方案:

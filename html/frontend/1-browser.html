@@ -60,21 +60,25 @@
 </ul>
 
 <p>
-例外情况:
+例外情况，页面可以嵌入第三方的 image/script/css:
 </p>
-<ul class="org-ul">
-<li>页面可以嵌入第三方的 image/script/css</li>
-</ul>
+<div class="org-src-container">
+<pre class="src src-html"><span style="color: #000000;">&lt;</span><span style="color: #721045;">script</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"http://bootcdn.com/jquery.js"</span><span style="color: #000000;">&gt;&lt;</span>/<span style="color: #721045;">script</span><span style="color: #000000;">&gt;</span>
+<span style="color: #000000;">&lt;</span><span style="color: #721045;">img</span> <span style="color: #005e8b;">src</span>=<span style="color: #3548cf;">"https://img0.baidu.com/it/u=988393983,2653815122"</span><span style="color: #000000;">&gt;</span>
+</pre>
+</div>
 
 <p>
-&lt;script src="<a href="http://bootcdn.com/jquery.js">http://bootcdn.com/jquery.js</a>"&gt;&lt;/script&gt;
-&lt;img src="<a href="https://img0.baidu.com/it/u=988393983,2653815122">https://img0.baidu.com/it/u=988393983,2653815122</a>"&gt;
+但是这样的访问就会被浏览器拒绝显示:
 </p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #0000b0;">this</span>.axios.get<span style="color: #000000;">(</span><span style="color: #3548cf;">"https://img0.baidu.com/it/u=988393983,2653815122"</span><span style="color: #000000;">)</span>.then<span style="color: #000000;">()</span>;
+</pre>
+</div>
 
 <p>
-this.axios.get("<a href="https://img0.baidu.com/it/u=988393983,2653815122">https://img0.baidu.com/it/u=988393983,2653815122</a>").then();
+错误信息:
 </p>
-
 <pre class="example">
 Access to XMLHttpRequest at 'https://localhost:7062/WeatherForecast' from origin 'http://127.0.0.1:5173' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 </pre>
