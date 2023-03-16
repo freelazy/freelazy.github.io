@@ -37,7 +37,7 @@
 Access to XMLHttpRequest at 'https://localhost:7062/WeatherForecast' from origin 'http://127.0.0.1:5173' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 #+end_verse
 
-方案:
+如果想要跨域发送 ajax 请求，成熟的方案:
 - JSONP (使用钻空子的方式，强行跨域)
 - CORS (跨域资源共享, Cross Origin Resource Share) 标准
 
