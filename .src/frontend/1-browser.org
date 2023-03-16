@@ -33,9 +33,9 @@
 #+end_src
 
 错误信息:
-#+begin_example
+#+begin_verse
 Access to XMLHttpRequest at 'https://localhost:7062/WeatherForecast' from origin 'http://127.0.0.1:5173' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
-#+end_example
+#+end_verse
 
 方案:
 - JSONP (使用钻空子的方式，强行跨域)
