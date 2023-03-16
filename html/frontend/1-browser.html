@@ -92,7 +92,7 @@ Access to XMLHttpRequest at 'https://localhost:7062/WeatherForecast' from origin
 </ul>
 
 <p>
-在响应的时候，添加 Response Header。浏览器可以据此判定是否要展示内容:
+CORS 是在 Server 和 Browser 之间达成一个协议: 服务器在响应的时候添加相关 Response Header; 浏览器在展示的时候以这些 Header 作为依据:
 </p>
 <div class="org-src-container">
 <pre class="src src-conf">Access-Control-Allow-Origin: *
@@ -108,7 +108,7 @@ Access-Control-Request-Method: POST
 </div>
 
 <p>
-在 .NET WebAPI 中:
+在 .NET WebAPI 中，配置即可使用:
 </p>
 <div class="org-src-container">
 <pre class="src src-csharp">builder.Services.<span style="color: #721045;">AddCors</span><span style="color: #000000;">(</span>o =&gt;
