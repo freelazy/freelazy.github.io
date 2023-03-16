@@ -1,0 +1,40 @@
+#+TITLE: 浏览器
+
+
+* 浏览器的安全
+
+- 最核心的策略就是同源策略
+- 网络安全 (https)
+- 系统安全 (安全沙箱)
+
+哪些是同源的:
+- http://127.0.0.1/hello
+- https://127.0.0.1/hello
+- https://127.0.0.1:443/hello
+- http://127.0.0.1/world
+- http://127.0.0.1:80/hello
+- http://127.0.0.1:1080/hello
+- http://127.0.0.2:1080/hello
+
+所谓的同源策略 (Same-Origin Policy):
+- 无法读取跨域的 cookie 等
+- 无法访问跨域的 DOM
+- 无法发送跨域的 ajax 请求
+
+例外情况:
+- 页面可以嵌入第三方的 image/script/css
+
+<script src="http://bootcdn.com/jquery.js"></script>
+<img src="https://img0.baidu.com/it/u=988393983,2653815122">
+
+this.axios.get("https://img0.baidu.com/it/u=988393983,2653815122").then();
+
+: Access to XMLHttpRequest at 'https://localhost:7062/WeatherForecast' from origin 'http://127.0.0.1:5173' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
+方案:
+- JSONP (使用钻空子的方式，强行跨域)
+- CORS (跨域资源共享, Cross Origin Resource Share)
+
+
+
+

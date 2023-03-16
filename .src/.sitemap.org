@@ -16,6 +16,7 @@
   - [[file:dotnet/7-ef.org][Entity Framework]]
 - frontend
   - [[file:frontend/0-http.org][HTTP]]
+  - [[file:frontend/1-browser.org][浏览器]]
   - [[file:frontend/2-javascript.org][JavaScript]]
   - [[file:frontend/a-html+css.org][HTML/CSS]]
   - [[file:frontend/a_html5+css3.org][HTML5 and CSS3]]
