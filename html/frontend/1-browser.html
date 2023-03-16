@@ -89,8 +89,47 @@ Access to XMLHttpRequest at 'https://localhost:7062/WeatherForecast' from origin
 </p>
 <ul class="org-ul">
 <li>JSONP (使用钻空子的方式，强行跨域)</li>
-<li>CORS (跨域资源共享, Cross Origin Resource Share)</li>
+<li>CORS (跨域资源共享, Cross Origin Resource Share) 标准</li>
 </ul>
+
+<p>
+在响应的时候，添加 Response Header。浏览器可以据此判定是否要展示内容:
+</p>
+<div class="org-src-container">
+<pre class="src src-conf">Access-Control-Allow-Origin: *
+Access-Control-Allow-Origin: https://developer.mozilla.org
+
+# cookie
+Access-Control-Allow-Credentials: true
+
+# preflight
+Access-Control-Allow-Headers: X-Custom-Header, Upgrade-Insecure-Requests
+Access-Control-Request-Method: POST
+</pre>
+</div>
+
+<p>
+在 .NET WebAPI 中:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp">builder.Services.<span style="color: #721045;">AddCors</span><span style="color: #000000;">(</span>o =&gt;
+<span style="color: #dd22dd;">{</span>
+    o.<span style="color: #721045;">AddPolicy</span><span style="color: #008899;">(</span>name: <span style="color: #3548cf;">"xxx"</span>,
+                policy =&gt;
+                <span style="color: #972500;">{</span>
+                    policy.<span style="color: #721045;">WithOrigins</span><span style="color: #808000;">(</span><span style="color: #3548cf;">"http://127.0.0.1:5173"</span><span style="color: #808000;">)</span>;
+                <span style="color: #972500;">}</span><span style="color: #008899;">)</span>;
+    o.<span style="color: #721045;">AddPolicy</span><span style="color: #008899;">(</span>name: <span style="color: #3548cf;">"yyy"</span>,
+                policy =&gt;
+                <span style="color: #972500;">{</span>
+                    policy.<span style="color: #721045;">WithOrigins</span><span style="color: #808000;">(</span><span style="color: #3548cf;">"http://127.0.0.1:5173"</span><span style="color: #808000;">)</span>
+                    .<span style="color: #721045;">AllowCredentials</span><span style="color: #808000;">()</span>;
+                <span style="color: #972500;">}</span><span style="color: #008899;">)</span>;
+<span style="color: #dd22dd;">}</span><span style="color: #000000;">)</span>;
+
+app.<span style="color: #721045;">UseCors</span><span style="color: #000000;">(</span><span style="color: #3548cf;">"yyy"</span><span style="color: #000000;">)</span>;
+</pre>
+</div>
 </div>
 </section>
 </div>

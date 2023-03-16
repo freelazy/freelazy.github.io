@@ -37,8 +37,40 @@
 
 方案:
 - JSONP (使用钻空子的方式，强行跨域)
-- CORS (跨域资源共享, Cross Origin Resource Share)
+- CORS (跨域资源共享, Cross Origin Resource Share) 标准
 
+在响应的时候，添加 Response Header。浏览器可以据此判定是否要展示内容:
+#+begin_src conf
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Origin: https://developer.mozilla.org
+
+  # cookie
+  Access-Control-Allow-Credentials: true
+
+  # preflight
+  Access-Control-Allow-Headers: X-Custom-Header, Upgrade-Insecure-Requests
+  Access-Control-Request-Method: POST
+#+end_src
+
+在 .NET WebAPI 中:
+#+begin_src csharp
+  builder.Services.AddCors(o =>
+  {
+      o.AddPolicy(name: "xxx",
+                  policy =>
+                  {
+                      policy.WithOrigins("http://127.0.0.1:5173");
+                  });
+      o.AddPolicy(name: "yyy",
+                  policy =>
+                  {
+                      policy.WithOrigins("http://127.0.0.1:5173")
+                      .AllowCredentials();
+                  });
+  });
+
+  app.UseCors("yyy");
+#+end_src
 
 
 
