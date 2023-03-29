@@ -42,6 +42,7 @@ VIM 分不同模式:
     
 * Git 常用命令
 
+#+ATTR_HTML: :width 500
 [[file:img/oimg_20230329_101015.png]]
 
 
