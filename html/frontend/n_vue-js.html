@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-03-15 -->
+<!-- 2023-03-29 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Vue.js</title>
@@ -623,7 +623,7 @@ watch: <span style="color: #000000;">{</span>
 
               user: <span style="color: #008899;">{}</span>,
               books: <span style="color: #008899;">[]</span>,
-              book: <span style="color: #008899;">{}</span>
+              book: <span style="color: #008899;">{}</span>,
           <span style="color: #dd22dd;">}</span>,
           <span style="color: #595959;">// </span><span style="color: #595959;">&#32465;&#23450;&#30340;&#26041;&#27861;</span>
           methods: <span style="color: #dd22dd;">{</span>
@@ -665,10 +665,21 @@ watch: <span style="color: #000000;">{</span>
                   <span style="color: #808000;">}</span><span style="color: #972500;">)</span>;
               <span style="color: #008899;">}</span>
           <span style="color: #dd22dd;">}</span>,
+          watch: <span style="color: #dd22dd;">{</span>
+          <span style="color: #dd22dd;">}</span>,
           <span style="color: #595959;">// </span><span style="color: #595959;">vm &#34987;&#25346;&#36733;&#21040; dom &#26641;&#19978;&#20043;&#21518;&#65292;&#20250;&#25191;&#34892;&#30340;&#36923;&#36753; (onload)</span>
           <span style="color: #595959;">// </span><span style="color: #595959;">&#19968;&#33324;&#29992;&#26469;&#36827;&#34892;&#25968;&#25454;&#30340;&#21021;&#22987;&#21270;</span>
           <span style="color: #721045;">mounted</span>: <span style="color: #531ab6;">function</span><span style="color: #dd22dd;">()</span> <span style="color: #dd22dd;">{</span>
               <span style="color: #0000b0;">this</span>.loadBooks<span style="color: #008899;">()</span>;
+          <span style="color: #dd22dd;">}</span>,
+          <span style="color: #721045;">setup</span>: <span style="color: #531ab6;">function</span> <span style="color: #dd22dd;">(</span><span style="color: #005e8b;">props</span><span style="color: #dd22dd;">)</span> <span style="color: #dd22dd;">{</span>
+              <span style="color: #531ab6;">const</span> <span style="color: #005e8b;">a</span> = Vue.reactive<span style="color: #008899;">(</span><span style="color: #972500;">{</span> x: 1, y: 2<span style="color: #972500;">}</span><span style="color: #008899;">)</span>;
+              <span style="color: #531ab6;">const</span> <span style="color: #005e8b;">b</span> = Vue.ref<span style="color: #008899;">(</span>4<span style="color: #008899;">)</span>; <span style="color: #595959;">// </span><span style="color: #595959;">b.value</span>
+              <span style="color: #531ab6;">import</span> <span style="color: #008899;">{</span> state, state2 <span style="color: #008899;">}</span> from <span style="color: #3548cf;">'./a.js'</span>;
+              <span style="color: #531ab6;">import</span> <span style="color: #008899;">{</span> aaa, bbb <span style="color: #008899;">}</span> from <span style="color: #3548cf;">'./c.js'</span>;
+              Vue.watchEffect<span style="color: #008899;">(</span><span style="color: #972500;">()</span> =&gt; <span style="color: #972500;">{</span> console.log<span style="color: #808000;">(</span>aaa<span style="color: #808000;">)</span>; <span style="color: #972500;">}</span><span style="color: #008899;">)</span>;
+              onCreated<span style="color: #008899;">(</span><span style="color: #972500;">()</span> =&gt; <span style="color: #972500;">()</span><span style="color: #008899;">)</span>;
+              <span style="color: #531ab6;">return</span> <span style="color: #008899;">{</span> a, b, aaa, bbb, state, state2 <span style="color: #008899;">}</span>;
           <span style="color: #dd22dd;">}</span>
       <span style="color: #000000;">}</span>;
       <span style="color: #531ab6;">new</span> <span style="color: #005f5f;">Vue</span><span style="color: #000000;">(</span>options<span style="color: #000000;">)</span>;
@@ -1107,7 +1118,7 @@ data.js 用于提供共享数据:
 </pre>
 </div>
 
-<pre class="example" id="org85337f9">
+<pre class="example" id="org5cb37fc">
 database   --- state
 
 dao        --- mutation
@@ -1817,7 +1828,7 @@ npm run dev
 </p>
 
 
-<figure id="org7040989">
+<figure id="orgb262228">
 <img src="img/oimg_20201104_064733.png" alt="oimg_20201104_064733.png" width="300px">
 
 </figure>
@@ -2676,7 +2687,7 @@ npm run serve                <span style="color: #595959;"># </span><span style=
 为什么会有如下错误:
 </p>
 
-<pre class="example" id="org621c9a0">
+<pre class="example" id="orge5b54b2">
 Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_exploded/comments' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 </pre>
 
@@ -2720,7 +2731,7 @@ Access to XMLHttpRequest at 'http://localhost:9999/server_comment_list_war_explo
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2023-03-15</p>
+<p class="date">Created: 2023-03-29</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

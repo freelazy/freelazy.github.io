@@ -377,7 +377,7 @@ https://cn.vuejs.org/guide/essentials/lifecycle.html
 
                 user: {},
                 books: [],
-                book: {}
+                book: {},
             },
             // 绑定的方法
             methods: {
@@ -419,10 +419,21 @@ https://cn.vuejs.org/guide/essentials/lifecycle.html
                     });
                 }
             },
+            watch: {
+            },
             // vm 被挂载到 dom 树上之后，会执行的逻辑 (onload)
             // 一般用来进行数据的初始化
             mounted: function() {
                 this.loadBooks();
+            },
+            setup: function (props) {
+                const a = Vue.reactive({ x: 1, y: 2});
+                const b = Vue.ref(4); // b.value
+                import { state, state2 } from './a.js';
+                import { aaa, bbb } from './c.js';
+                Vue.watchEffect(() => { console.log(aaa); });
+                onCreated(() => ());
+                return { a, b, aaa, bbb, state, state2 };
             }
         };
         new Vue(options);

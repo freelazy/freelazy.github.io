@@ -1,0 +1,71 @@
+#+TITLE: GIT/Linux
+
+
+
+
+* 终端快捷方式
+
+- C-a C-e 光标到开始、结束
+- C-f C-b 前进 后退 M-f M-b
+- C-k 删除光标以后内容 C-y
+- C-d 删除一个字符
+- C-/ 撤回
+- TAB 自动补全
+- C-n C-p 翻看历史
+
+* VIM 快捷方式
+
+VI -> VI improve VIM
+
+VIM 分不同模式:
+- 普通模式 (移动光标、某些操作)
+- 编辑模式
+
+普通模式:
+- hjkl, 上下左右, b, 0$, 行首行尾, gg, G
+- f, 搜索字符, / nN, 搜索
+- d 删除 dw d$ df. dd D x
+- c 修改 cw c$ cf. cc C
+- y 复制 yw yy yf. p
+- vjjffykk$p
+
+编辑模式:
+- 切换: <ESC> i,a,o,I,A,O
+
+其他:
+- 保存: :write :w
+- 退出: :quit :q
+- 保存然后退出: :wq
+- 强制: :q!
+- 强制: :wq!
+    
+* Git 常用命令
+
+#+begin_src sh
+  # 初始化仓库
+  git init
+  git init bbb
+  git init ccc --bare # 裸仓库
+
+  # 工作区域
+  notepad readme.txt
+  notepad license.txt
+  notepad main.js
+
+  # 缓冲区
+  git add readme.txt
+  git add main.js
+  git add .
+  git add x/*.js
+  git status
+  git rm --cached main.js
+
+  # 仓库
+  git commit
+  git commit --message "描述"
+  git commit -m "描述"
+  git status
+  git diff
+  git log
+  git show
+#+end_src
