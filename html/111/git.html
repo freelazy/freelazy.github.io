@@ -99,14 +99,14 @@ VIM 分不同模式:
 <h2 id="orgc407e36"><span class="section-number-2">3.</span> Git 常用命令</h2>
 <div class="outline-text-2" id="text-3">
 
-<figure id="org08bd756">
+<figure id="org616ebe0">
 <img src="img/oimg_20230329_101015.png" alt="oimg_20230329_101015.png" width="500">
 
 </figure>
 
 
 
-<figure id="orge801ce2">
+<figure id="orgcb58786">
 <img src="img/oimg_20230329_101156.png" alt="oimg_20230329_101156.png">
 
 </figure>
@@ -139,6 +139,27 @@ git status
 git diff
 git log
 git show
+</pre>
+</div>
+
+<p>
+不同仓库之间的协作:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">git clone dizhi/&#25991;&#20214;&#22841;
+git clone https://github.com/freelazy/WebAPI111
+
+git push https://github.com/freelazy/WebAPI111 master:master
+git remote add xxx https://github.com/freelazy/WebAPI111
+git remote -v
+git push xxx master:master
+git remote add origin https://github.com/freelazy/WebAPI111
+git push master:master
+git push master
+git push
+
+git pull https://github.com/freelazy/WebAPI111 master:master
+git pull 
 </pre>
 </div>
 </div>

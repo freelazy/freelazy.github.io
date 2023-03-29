@@ -77,3 +77,21 @@ VIM 分不同模式:
   git log
   git show
 #+end_src
+
+不同仓库之间的协作:
+#+begin_src sh
+  git clone dizhi/文件夹
+  git clone https://github.com/freelazy/WebAPI111
+
+  git push https://github.com/freelazy/WebAPI111 master:master
+  git remote add xxx https://github.com/freelazy/WebAPI111
+  git remote -v
+  git push xxx master:master
+  git remote add origin https://github.com/freelazy/WebAPI111
+  git push master:master
+  git push master
+  git push
+
+  git pull https://github.com/freelazy/WebAPI111 master:master
+  git pull 
+#+end_src
