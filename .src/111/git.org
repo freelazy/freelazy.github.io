@@ -44,6 +44,10 @@ VIM 分不同模式:
 
 [[file:img/oimg_20230329_101015.png]]
 
+
+[[file:img/oimg_20230329_101156.png]]
+
+
 #+begin_src sh
   # 初始化仓库
   git init
