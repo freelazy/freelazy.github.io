@@ -30,8 +30,8 @@
 
 #+HTML: <section id="toc">
 
-# #+HTML: <h3>当前任务 <span style="font-size: 14px">(<a href="111/tasks.html">全部任务</a>)</span></h3>
-# #+INCLUDE: "111/tasks.org::#active" :only-contents t
+#+HTML: <h3>当前任务 <span style="font-size: 14px">(<a href="111/tasks.html">全部任务</a>)</span></h3>
+#+INCLUDE: "111/tasks.org::#active" :only-contents t
 
 # #+HTML: <h3>链接资源</h3>
 # #+INCLUDE: "111/.links.org" :lines "2-"
@@ -44,6 +44,9 @@
 #+HTML: <div><br>
 #+HTML: <h3>其他链接</h3>
 #+HTML: <ul>
+#+HTML:   <li><a href="/luping">录屏视频 (/luping)</a></li>
+#+HTML:   <li><a href="/assets">素材资料 (/assets)</a></li>
+#+HTML:   <li><a href="/tools">软件工具 (/tools)</a></li>
 # #+HTML:   <li><a href="0-notes-163/index.html">backup of 163's notes</a></li>
 # #+HTML:   <li><a href="0-notes-161/index.html">backup of 161's notes</a></li>
 #+HTML: </ul>

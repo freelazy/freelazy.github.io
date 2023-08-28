@@ -1,5 +1,5 @@
 ((nil
-  (user-full-name . "yaoqisan.net")
+  (user-full-name . "ai.net")
   (org-html-head-include-default-style . nil)
   (org-html-htmlize-output-type . inline-css)
   (org-publish-sitemap-custom-function . org-publish-sitemap-2)

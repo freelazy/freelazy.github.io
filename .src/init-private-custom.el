@@ -2,7 +2,7 @@
 
 (setq ic/host "imxx.top")
 (setq ic/proxy "http://imxx.top:1081")
-(setq ic/workdir "e:/Workdir/")
+(setq ic/workdir "t:/Workdir/")
 
 (setq find-program "C:/Apps/Git/usr/bin/find.exe")
 
@@ -22,20 +22,7 @@
  (set-face-attribute 'mode-line-inactive nil :height 100 :family "Droid"))
 
 (setq backup-by-copying nil)
-(setq initial-major-mode 'org-mode initial-scratch-message "就业！\n\n")
-
-(setq ic/gnus-mails-reciever
-      '((nnimap "tmail"
-                (nnimap-address "imap.qq.com")
-                (nnimap-server-port 993)
-                (nnimap-stream ssl)
-                (nnir-search-engine imap)
-                (nnmail-expiry-target "nnimap+tmail:Deleted Messages")
-                (nnmail-expiry-wait 'immediate)))
-      ic/gnus-mails-sender
-      `((".*"
-         (name "yao7san")
-         (address "2132579340@qq.com"))))
+(setq initial-major-mode 'org-mode initial-scratch-message "Welcome.\n\n")
 
 ;;(setq-default left-fringe-width 20)
 
@@ -57,9 +44,9 @@
 
 ;; Org
 
-(setq org-directory "e:/Home/notes.173/.src/"
-      org-publish-directory "e:/Home/notes.173/html/"
-      org-roam-directory "e:/home/notes.173/.src")
+(setq org-directory "t:/home/.notes/.src/"
+      org-publish-directory "t:/home/.notes/html/"
+      org-roam-directory "t:/home/.notes/.src")
 
 (setq org-agenda-notes (append
                         (file-expand-wildcards (expand-file-name "*/*.org" org-directory))
