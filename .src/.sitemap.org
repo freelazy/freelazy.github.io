@@ -3,3 +3,5 @@
 - [[file:index.org][AIT.NET]]
 - dotnet
   - [[file:dotnet/1-csharp.org][1-csharp]]
+- skills
+  - [[file:skills/windows.org][Windows]]
