@@ -4,7 +4,7 @@
 (setq ic/proxy "http://imxx.top:1081")
 (setq ic/workdir "t:/Workdir/")
 
-(setq find-program "C:/Apps/Git/usr/bin/find.exe")
+(setq find-program "C:/Program Files/Git/usr/bin/find.exe")
 
 (setq ic/eshell-extra-aliases
       `(("epull" ,(format "https_proxy=%s git -C ~/.emacs.d pull --rebase" ic/proxy))))
@@ -13,7 +13,7 @@
                 :frame 'max
                 ;;:theme nil
                 :theme 'modus-operandi
-                :font (cons "Consolas" 130)
+                :font (cons "Consolas" 160)
                 ;;:font-unicode "思源宋体 CN"
                 ))
 
