@@ -1,5 +1,16 @@
 ;; YAOLIUSAN -> YAOLIUYAO -> yao7san
 
+
+(if IS-WIN
+    (progn
+      ;; generic encoding
+      (set-locale-environment "zh_CN.GBK")
+      (prefer-coding-system 'utf-8)
+      ;; process global encoding
+      (setq process-coding-system-alist '(("what?" utf-8 . utf-8))))
+  (set-locale-environment "utf-8")
+  (prefer-coding-system 'utf-8-unix))
+
 (setq ic/host "imxx.top")
 (setq ic/proxy "http://imxx.top:1081")
 (setq ic/workdir "t:/Workdir/")
