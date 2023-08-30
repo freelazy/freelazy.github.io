@@ -32,8 +32,9 @@
 1. 使用完整路径去调用 csc.exe 程序，比如 =C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe hello.txt=
 2. 配置【PATH 环境变量】，在其中增加 =C:\Windows\Microsoft.NET\Framework64\v4.0.30319= 文件夹
 
-配置 PATH 环境变量的方式:
-1. 【我的电脑】-【属性】-【高级系统设置】-【环境变量...】
-2. 找到【Path】条目，通过添加，将文件夹 (比如 =C:\Windows\Microsoft.NET\Framework64\v4.0.30319=) 添加到其中
+[例子] 通过配置 PATH 环境变量简化 csc 命令的使用:
+1. 打开【我的电脑】-【属性】-【高级系统设置】-【环境变量...】
+2. 找到【Path】条目，通过添加，将文件夹 =C:\Windows\Microsoft.NET\Framework64\v4.0.30319= 添加到其中
+3. 然后打开的任意命令提示符下，你就可以直接调用 =csc= 命令，而不需要输入完整路径了
 
 
