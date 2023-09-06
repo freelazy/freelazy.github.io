@@ -2,6 +2,8 @@
 
 * 基本规则
 
+人有人的语言，电脑有电脑的语言。编译器是两者的桥梁。
+
 #+ATTR_HTML: :width 600px
 [[file:img/01-hello-compile.png]]
 
