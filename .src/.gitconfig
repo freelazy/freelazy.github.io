@@ -9,16 +9,14 @@
     lastlog = log --name-status ORIG_HEAD..
     lastdiff = diff --name-status ORIG_HEAD..
 [user]
-	name = lorniu
-	email = lorniu@gmail.com
+	email = freelazy233@qq.com
+	name = freelazy
 [github]
-	user = lorniu
+	user = freelazy
 #[http]
 #    proxy = socks5://127.0.0.1:1080
 #[https]
 #    proxy = socks5://127.0.0.1:1080
-[credential]
-	helper = store
 [pull]
 	rebase = true
 [filter "lfs"]
@@ -30,5 +28,3 @@
 	defaultBranch = master
 [http]
 	sslverify = false
-[safe]
-	directory = /boot/efi
