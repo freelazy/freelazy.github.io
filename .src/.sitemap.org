@@ -3,5 +3,7 @@
 - [[file:index.org][AIT.NET]]
 - dotnet
   - [[file:dotnet/1-csharp.org][1-csharp]]
+- misc
+  - [[file:misc/report-192.org][Report-192]]
 - skills
   - [[file:skills/windows.org][Windows]]
