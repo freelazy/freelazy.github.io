@@ -1,7 +1,8 @@
 * C♯ 语言
+** 基本规则
 
+[[file:img/01-hello-compile.png]]
 
-222
 
 
 
