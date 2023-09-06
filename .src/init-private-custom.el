@@ -1,21 +1,11 @@
 ;; YAOLIUSAN -> YAOLIUYAO -> yao7san
 
 
-(if IS-WIN
-    (progn
-      ;; generic encoding
-      (set-locale-environment "zh_CN.GBK")
-      (prefer-coding-system 'utf-8)
-      ;; process global encoding
-      (setq process-coding-system-alist '(("what?" utf-8 . utf-8))))
-  (set-locale-environment "utf-8")
-  (prefer-coding-system 'utf-8-unix))
-
 (setq ic/host "imxx.top")
 (setq ic/proxy "http://imxx.top:1081")
-(setq ic/workdir "t:/Workdir/")
+(setq ic/workdir "t:/dotnet/")
 
-(setq find-program "C:/Program Files/Git/usr/bin/find.exe")
+(setq find-program "d:/Apps/msys64/usr/bin/find.exe")
 
 (setq ic/eshell-extra-aliases
       `(("epull" ,(format "https_proxy=%s git -C ~/.emacs.d pull --rebase" ic/proxy))))
@@ -27,6 +17,9 @@
                 :font (cons "Consolas" 160)
                 ;;:font-unicode "思源宋体 CN"
                 ))
+(with-over
+ (set-locale-environment "zh_CN.GBK")
+ (prefer-coding-system 'utf-8))
 
 (with-over
  (set-face-attribute 'mode-line nil :height 100 :family "Droid")
@@ -55,9 +48,9 @@
 
 ;; Org
 
-(setq org-directory "t:/home/.notes/.src/"
-      org-publish-directory "t:/home/.notes/html/"
-      org-roam-directory "t:/home/.notes/.src")
+(setq org-directory "d:/home/.notes/.src/"
+      org-publish-directory "d:/home/.notes/html/"
+      org-roam-directory "d:/home/.notes/.src")
 
 (setq org-agenda-notes (append
                         (file-expand-wildcards (expand-file-name "*/*.org" org-directory))
