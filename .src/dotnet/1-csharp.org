@@ -1,6 +1,8 @@
-* C♯ 语言
-** 基本规则
+#+TITLE: C♯ 语言
 
+* 基本规则
+
+#+ATTR_HTML: :width 600px
 [[file:img/01-hello-compile.png]]
 
 
