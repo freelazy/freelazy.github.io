@@ -3,7 +3,7 @@
 
 (setq ic/host "imxx.top")
 (setq ic/proxy "http://imxx.top:1081" ic/proxy-lighter "   proxy   ")
-(setq ic/workdir "t:/dotnet/")
+(setq ic/workdir "d:/dotnet/")
 
 (setq find-program "d:/Apps/msys64/usr/bin/find.exe")
 
