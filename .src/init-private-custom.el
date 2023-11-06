@@ -74,6 +74,7 @@
 ;; Translate
 
 (with-over
+ (global-hl-line-mode 1)
  (require 'go-translate)
  (global-set-key [f5] 'gts-do-translate)
  (defvar gts-enable-paragraph nil)
