@@ -227,7 +227,7 @@ System 命名空间:
 #+ATTR_HTML: :width 500px
 [[file:img/value-type-ref-type.png]]
 
-* 预定义数值类型
+* 预定义/数值类型
 ** 整数
 
 为了表示显示世界中的计算，人们发明了数字的记法:
@@ -247,7 +247,8 @@ System 命名空间:
 - uint
 - ulong
 
-上述的类型都是用来创建整数数据的模板，它们的区别在于占用空间和表达里。
+上述的类型都是用来创建整数数据的模板，它们的区别在于占用空间和表达上。
+
 选择类型的根据是:
 - 占用小的，表达能力差；占用大的，表达能力强
 - 在业务的允许范围内，尽量选择占用空间小的类型
@@ -392,7 +393,7 @@ Q & A:
   a || b;     // 或
   a && b;     // 与
   
-  a = true; b = false; d = true; e = false;
+  a = true; b = false; c= true; d = true; e = false;
   f = true; g = true; h = false;
   
   ((a || b) && (c && d)) || e && (f || g) || h;
@@ -467,7 +468,7 @@ if:
   }
 #+end_src
 
-switch (是 else if 语法的一种精简版):
+switch (是 else if 某场景的精简写法):
 #+begin_src cs
   switch (c)
   {
@@ -519,6 +520,25 @@ switch statement (语句) 和 expression (表达式):
       'D' => ConsoleColor.Blue,
       _   => ConsoleColor.Black
   };
+#+end_src
+
+if statement (语句) 和 expression (表达式):
+#+begin_src csharp
+  // 语句
+  ConsoleColor color1;
+  if (c == 'A')
+  {
+      color1 = ConsoleColor.Red;
+  }
+  else
+  {
+      color1 = ConsoleColor.Black;
+  }
+
+  // 表达式 (三相表达式)
+  ConsoleColor color2 = c == 'A' ? ConsoleColor.Red : ConsoleColor.Black;
+  string fy = home == "gd" ? homecity == "zhuhai" ?
+        "珠海话" : "粤语" : home == "gx" ? "广西话" : "普通话";
 #+end_src
 
 *** [循环迭代] 重复做某件事
@@ -685,7 +705,7 @@ switch statement (语句) 和 expression (表达式):
   Console.WriteLine(i); // if 不能作为表达式使用
 #+end_src
 
-* 预定义/非数值·引用类型
+* 预定义/引用类型
 ** string
 
 字符串，是由字符序列组成的一种数据结构。
@@ -697,15 +717,16 @@ switch statement (语句) 和 expression (表达式):
   System.String g2 = "Hello World!";
   var g3 = "Hello World!";
 
-  string message1;
-  string message2 = null;
-  string message3 = String.Empty; // string message3 = "";
   string oldPath = "Path:\nc:\\Program Files\\Microsoft Visual Studio 8.0";
   string newPath = @"Path:
   c:\Program Files\Microsoft Visual Studio 9.0";
 
   char[] letters = { 'A', 'B', 'C' };
   string alphabet = new string(letters);
+
+  string message1;
+  string message2 = null;
+  string message3 = String.Empty; // string message3 = ""
 #+end_src
 
 *** 字符串的不可变性 (Immutable)
@@ -825,25 +846,27 @@ API (Application Programming Interface) 应用程序编程接口。
   Console.WriteLine(s2.Length);
   Console.WriteLine(s3.Length); // 这个为什么是 6 ?
 
-  string s4 = "中国𠈓您好𠈓blahblaah中华𠈓你们都是啥kdjfkdjkdfdkjlah中华𠈓你们都是啥kdjfkdjkdfdkjlah中华𠈓你们都是啥kdjfkdjkdfdkjlah中华𠈓你们都是啥kdjfkdjkdfdkjlah中华𠈓你们都是啥kdjfkdjkdfdkjlah中华𠈓你们都是啥kdjfkdjkdfdkjlah中华𠈓你们都是啥kdjfkdjkdfdkjlah中华𠈓你们都是啥kdjfkdjkdfdkjlah中华𠈓你们都是啥kdjfkdjkdfdkjf";
-  Console.WriteLine(s4.Length);
-  Console.WriteLine(new StringInfo(s4).LengthInTextElements);
+  string s4 = "中国𠈓您";
+  Console.WriteLine(s4.Length); // 5
+  Console.WriteLine(new StringInfo(s4).LengthInTextElements); // 4
 #+end_src
 
-*** [API] 拼接 + 格式化
+*** [API] 拼接
 
 #+begin_src csharp
   string name = "tom";
   string friend = "jerry";
-  int age = 30;
-  decimal sal = 200.12345M;
-  
+  int age = 20;
+  decimal sal = 200000.12345M;
+
+  // 低效
   string r1 = name + "的朋友是"
                    + friend + "，它虽然只有" 
                    + age + "岁，但是它的收入能到达到"
                    + sal + "刀";
-  
-  string r2 = new StringBuilder()
+
+  // 高效
+  string r2 = new StringBuilder() // System.Text.StringBuilder
       .Append(name)
       .Append("的朋友是")
       .Append(friend)
@@ -853,65 +876,68 @@ API (Application Programming Interface) 应用程序编程接口。
       .Append(sal)
       .Append("刀")
       .ToString();
-  
+
   string r3 = string.Format("{0}的朋友是{1}，它虽然只有{2}岁，但是它的收入达到{3:C}", name, friend, age, sal);
-  
+
   // {变量,对齐多少长度:格式}
   // [对齐] 正数表示右对齐，负数表示左对齐
   // [格式] P 百分比 C 货币 E 科学计数法 D 补齐长度 F/N 小数点多少位 X 十六进制
   string r4 = $"{name}的朋友是{friend}，它虽然只有{age:d5}岁，但是它的收入达到{sal:C}!";
-  
+
   // 语言-国家或区域
   // zh-CN
   // en-US
-  // en-EN
+  // en-GB
   string ss = sal.ToString("C", new CultureInfo("en-US"));
   string r5 = $"{name}的朋友是{friend}，它虽然只有{age:d5}岁，但是它的收入达到{ss}!";
-  
+
   Console.WriteLine(r5);
 #+end_src
 
 *** [API] 子字符串
 
 #+begin_src csharp
-  string s1 = "000o。OOOoOO0O0Ooo000o";
-  
-  // 取
-  char c = s1[1]; // 取字符
-  string s2 = s1.Substring(1, 2); // 位置，长度 : el
-  string s3 = s1.Substring(2);    // 从某个位置到最后
-  string s4 = s1.Substring(2, 0); // String.Empty ""
-  
-  // 判
-  bool b1 = s1.Contains("o0");    // 是否包含一个子字符串
-  bool b2 = s1.StartsWith("o");   // 是不是以 x 开始
-  bool b3 = s1.EndsWith("o");     // 是不是以 x 结束的
-  
-  // 序
-  int i1 = s1.IndexOf("O");
-  int i2 = s1.LastIndexOf("O");
-  int i3 = s1.IndexOfAny(new []{'o', 'O'});
-  
-  // 结合
-  string path = "C:/aaa/work.x/hello.txt";
-  string drive = path.Substring(0, path.IndexOf(":"));
-  string dir = path.Substring(0, path.LastIndexOf("/") + 1);
-  string file = path.Substring(path.LastIndexOf("/") + 1);
-  string ext = path.Substring(path.LastIndexOf(".") + 1);
-  
-  // 自定义版本的 LastIndexOf
-  int p = 0;
-  for (int i = path.Length - 1; i >= 0; i--)
-  {
-      if (path[i] == '/')
-      {
-          p = i;
-          break;
-      }
-  }
-  string dir2 = path.Substring(0, p);
-  
-  Console.WriteLine(dir2);
+    string s1 = "000o。OOOoOO0O0Ooo000o";
+
+    // 取
+    char c = s1[1]; // 取字符
+    string s2 = s1.Substring(1, 2); // 位置，长度 : el
+    string s3 = s1.Substring(2);    // 从某个位置到最后
+    string s4 = s1.Substring(2, 0); // String.Empty ""
+
+    // 判
+    bool b1 = s1.Contains("o0");    // 是否包含一个子字符串
+    bool b2 = s1.StartsWith("o");   // 是不是以 x 开始
+    bool b3 = s1.EndsWith("o");     // 是不是以 x 结束的
+
+    // 序
+    int i1 = s1.IndexOf("O");
+    int i2 = s1.LastIndexOf("O");
+    int i3 = s1.IndexOfAny(new char[]{'o', 'O'});
+
+    // 结合
+    string s5 = "赵某某红奥斯特洛夫斯基";
+    string s6 = s2.Substring(0, s2.Length - s2.Substring(s2.IndexOf("奥斯特")).Length);
+
+    string path = "C:/aaa/work.x/hello.txt";
+    string drive = path.Substring(0, path.IndexOf(":"));
+    string dir = path.Substring(0, path.LastIndexOf("/") + 1);
+    string file = path.Substring(path.LastIndexOf("/") + 1);
+    string ext = path.Substring(path.LastIndexOf(".") + 1);
+
+    // 自定义版本的 LastIndexOf
+    int p = 0;
+    for (int i = path.Length - 1; i >= 0; i--)
+    {
+        if (path[i] == '/')
+        {
+            p = i;
+            break;
+        }
+    }
+    string dir2 = path.Substring(0, p);
+
+    Console.WriteLine(dir2);
 #+end_src
 
 *** [API] 字符串的修改
@@ -3252,7 +3278,6 @@ Gender (男/女/未知)
   Console.WriteLine(arr3[0] == null); // true
 #+end_src
 
-
 数组表示法:
 #+begin_src cs
   int[] arr0;
@@ -3292,6 +3317,25 @@ Gender (男/女/未知)
 ** 多维数组 (Dimensional Array)
 
 #+begin_src cs
+  int[,] ss;
+  ss = new int[50,4];
+  ss[0,0] = 59;
+  ss[0,1] = 66;
+
+  int[,] ss = new int[3,2];
+  ss[0,0] = 59;
+  ss[0,1] = 66;
+
+  int[,] s0 = new int[3, 2] { { 59, 66 }, { 59, 66 }, {0, 0 } };
+  int[,] s1 = new int[,] { { 59, 66 }, { 59, 66 }, { 0, 0 } };
+  int[,] s2 = { { 59, 66 }, { 59, 66 }, { 0, 0 } };
+  var s3 = new int[,] { { 59, 66 }, { 59, 66 }, { 0, 0 } };
+
+  Console.WriteLine(s3[2,1]);
+  Console.WriteLine(s3.Rank);         // 2
+  Console.WriteLine(s3.GetLength(0)); // 3
+  Console.WriteLine(s3.Length);       // 6
+
   int[,,] arr =
   {
       {{2, 3, 4, 1}, {2, 3, 4, 1}, {2, 3, 4, 1},{2, 3, 4, 1}},
@@ -3299,9 +3343,6 @@ Gender (男/女/未知)
       {{2, 3, 4, 1}, {2, 3, 4, 1}, {2, 3, 4, 1},{2, 3, 4, 1}},
       {{2, 3, 4, 1}, {2, 3, 4, 1}, {2, 3, 4, 1},{2, 3, 4, 1}}
   };
-  Console.WriteLine(arr.Rank); // 秩
-  Console.WriteLine(arr.Length);
-  Console.WriteLine(arr.GetLength(0));
 #+end_src
 
 ** 交错数组 (Jagged Array)
