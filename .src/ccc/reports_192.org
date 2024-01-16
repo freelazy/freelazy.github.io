@@ -59,13 +59,13 @@
 - 2023-10-31, 创建类 PLC，描述设备的基本信息并添加基本控制
 - 2023-12-26, 使用 Winform 实现一个求取 BMI 的应用。要求设计合理，使用方便，美观大方
 
-#+begin_src elisp :var tb=rs
-  (cl-loop for i in tb
-           for f1 = (let ((f (nth 2 i))) (if (numberp f) (- 101 f) (if (> (length f) 0) 70 70)))
-           for f2 = (let ((f (nth 3 i))) (if (numberp f) (- 101 f) (if (> (length f) 0) 70 60)))
-           for f3 = (let ((f (nth 4 i))) (if (numberp f) (- 101 f) (if (> (length f) 0) 70 60)))
-           collect (list 0 (nth 1 i) f1 f2 f3 (round (/ (+ f1 f2 f3) 3.0))))
-#+end_src
+# #+begin_src elisp :var tb=rs
+#   (cl-loop for i in tb
+#            for f1 = (let ((f (nth 2 i))) (if (numberp f) (- 101 f) (if (> (length f) 0) 70 70)))
+#            for f2 = (let ((f (nth 3 i))) (if (numberp f) (- 101 f) (if (> (length f) 0) 70 60)))
+#            for f3 = (let ((f (nth 4 i))) (if (numberp f) (- 101 f) (if (> (length f) 0) 70 60)))
+#            collect (list 0 (nth 1 i) f1 f2 f3 (round (/ (+ f1 f2 f3) 3.0))))
+# #+end_src
 
 期末考试成绩 (2024-01-16):
 | 名次 | 名字   | Test1 | Test2 | Test3 | Final |
