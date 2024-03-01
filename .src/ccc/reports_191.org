@@ -131,5 +131,20 @@
 #+RESULTS:
 | 他们的和是 500500 | 平均数是 500.5 |
 
-
 ** 求取 int[] numbers = {1,2,3,4,5,6,7,8,9,10} 的平均值
+
+#+begin_src csx
+  int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+  int sum = 0;
+  int n = numbers.Length;
+
+  foreach (int i in numbers)
+  {
+      sum = sum + i;
+  }
+
+  double avg = (double) sum / n; // 平均数 = 和 ÷ 个数
+
+  Console.WriteLine($"他们的和是 {sum}, 平均数是 {avg}");
+#+end_src

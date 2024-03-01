@@ -537,7 +537,7 @@
 </p>
 
 
-<figure id="org8b261e7">
+<figure id="org30a134e">
 <img src="img/191-3338282.png" alt="191-3338282.png">
 
 </figure>
@@ -604,9 +604,26 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 </div>
 </div>
 
-
 <div id="outline-container-org2649373" class="outline-3">
 <h3 id="org2649373"><span class="section-number-3">4.4.</span> 求取 int[] numbers = {1,2,3,4,5,6,7,8,9,10} 的平均值</h3>
+<div class="outline-text-3" id="text-4-4">
+<div class="org-src-container">
+<pre class="src src-csx"><span style="color: #005a5f;">int</span><span style="color: #000000;">[]</span> <span style="color: #00538b;">numbers</span> = <span style="color: #000000;">{</span>1, 2, 3, 4, 5, 6, 7, 8, 9, 10<span style="color: #000000;">}</span>;
+
+<span style="color: #005a5f;">int</span> <span style="color: #00538b;">sum</span> = 0;
+<span style="color: #005a5f;">int</span> <span style="color: #00538b;">n</span> = numbers.Length;
+
+<span style="color: #5317ac;">foreach</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">i</span> <span style="color: #5317ac;">in</span> numbers<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    sum = sum + i;
+<span style="color: #000000;">}</span>
+
+<span style="color: #005a5f;">double</span> <span style="color: #00538b;">avg</span> = <span style="color: #000000;">(</span><span style="color: #005a5f;">double</span><span style="color: #000000;">)</span> sum / n; <span style="color: #505050;">// </span><span style="color: #505050;">&#24179;&#22343;&#25968; = &#21644; &#247; &#20010;&#25968;</span>
+
+Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>$<span style="color: #2544bb;">"&#20182;&#20204;&#30340;&#21644;&#26159; {sum}, &#24179;&#22343;&#25968;&#26159; {avg}"</span><span style="color: #000000;">)</span>;
+</pre>
+</div>
+</div>
 </div>
 </section>
 </div>
