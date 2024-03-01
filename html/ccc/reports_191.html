@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-01-15 -->
+<!-- 2024-03-01 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Report of 191</title>
@@ -25,6 +25,14 @@
 <li><a href="#orge8f2dac">1. 班级信息</a></li>
 <li><a href="#org1857a2d">2. 测验</a></li>
 <li><a href="#orgeaebb05">3. 寒假作业 (2024-01-15)</a></li>
+<li><a href="#org23b41be">4. 题库</a>
+<ul>
+<li><a href="#orgb1ceed2">4.1. 打印从 1 到 1000 的所有数</a></li>
+<li><a href="#orged7e26c">4.2. 求取从 1 到 1000 的所有数的和</a></li>
+<li><a href="#org91d5f01">4.3. 求取从 1 到 1000 的所有数的平均数</a></li>
+<li><a href="#org2649373">4.4. 求取 int[] numbers = {1,2,3,4,5,6,7,8,9,10} 的平均值</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
@@ -529,7 +537,7 @@
 </p>
 
 
-<figure id="orga3d5691">
+<figure id="org5d5ab61">
 <img src="img/191-3338282.png" alt="191-3338282.png">
 
 </figure>
@@ -543,10 +551,51 @@
 </ul>
 </div>
 </section>
+
+<section id="outline-container-org23b41be" class="outline-2">
+<h2 id="org23b41be"><span class="section-number-2">4.</span> 题库</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgb1ceed2" class="outline-3">
+<h3 id="orgb1ceed2"><span class="section-number-3">4.1.</span> 打印从 1 到 1000 的所有数</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+<pre class="src src-csx"><span style="color: #5317ac;">for</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">i</span> = 1; i &lt;= 1000; i++<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">(</span>i<span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orged7e26c" class="outline-3">
+<h3 id="orged7e26c"><span class="section-number-3">4.2.</span> 求取从 1 到 1000 的所有数的和</h3>
+<div class="outline-text-3" id="text-4-2">
+<div class="org-src-container">
+<pre class="src src-csx"><span style="color: #005a5f;">int</span> <span style="color: #00538b;">sum</span> = 0;
+<span style="color: #5317ac;">for</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">i</span> = 1; i &lt;= 1000; i++<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    sum = sum + i;
+<span style="color: #000000;">}</span>
+Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>$<span style="color: #2544bb;">"&#20182;&#20204;&#30340;&#21644;&#26159; {sum}"</span><span style="color: #000000;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org91d5f01" class="outline-3">
+<h3 id="org91d5f01"><span class="section-number-3">4.3.</span> 求取从 1 到 1000 的所有数的平均数</h3>
+</div>
+
+<div id="outline-container-org2649373" class="outline-3">
+<h3 id="org2649373"><span class="section-number-3">4.4.</span> 求取 int[] numbers = {1,2,3,4,5,6,7,8,9,10} 的平均值</h3>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2024-01-15</p>
+<p class="date">Created: 2024-03-01</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

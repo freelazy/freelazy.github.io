@@ -5,7 +5,7 @@
 (setq ic/proxy "http://imxx.top:11181" ic/proxy-lighter "   proxy   ")
 (setq ic/workdir "d:/dotnet/")
 
-(setq find-program "d:/Apps/msys64/usr/bin/find.exe")
+(setq find-program "~/Apps/msys64/usr/bin/find.exe")
 
 (setq ic/eshell-extra-aliases
       `(("epull" ,(format "https_proxy=%s git -C ~/.emacs.d pull --rebase" ic/proxy))))
@@ -54,9 +54,9 @@
 
 ;; Org
 
-(setq org-directory "d:/home/.notes/.src/"
-      org-publish-directory "d:/home/.notes/html/"
-      org-roam-directory "d:/home/.notes/.src")
+(setq org-directory "~/.notes/.src/"
+      org-publish-directory "~/.notes/html/"
+      org-roam-directory "~/.notes/.src")
 
 (setq org-agenda-notes (append
                         (file-expand-wildcards (expand-file-name "*/*.org" org-directory))

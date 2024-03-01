@@ -87,3 +87,31 @@
 补充:
 - 其中第 3 题的进阶题目是：请用循环的方式，输出 99 乘法表。有兴趣的同学请尝试
 - 请大家酌情预习 Winform 相关内容
+
+* 题库
+** 打印从 1 到 1000 的所有数
+
+#+begin_src csx
+  for (int i = 1; i <= 1000; i++)
+  {
+      Console.WriteLine(i);
+  }
+#+end_src
+
+** 求取从 1 到 1000 的所有数的和
+
+#+begin_src csx
+  int sum = 0;
+  for (int i = 1; i <= 1000; i++)
+  {
+      sum = sum + i;
+  }
+  Console.WriteLine($"他们的和是 {sum}");
+#+end_src
+
+#+RESULTS:
+: 他们的和是 500500
+
+** 求取从 1 到 1000 的所有数的平均数
+
+** 求取 int[] numbers = {1,2,3,4,5,6,7,8,9,10} 的平均值
