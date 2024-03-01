@@ -537,7 +537,7 @@
 </p>
 
 
-<figure id="org5d5ab61">
+<figure id="org8b261e7">
 <img src="img/191-3338282.png" alt="191-3338282.png">
 
 </figure>
@@ -586,7 +586,24 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 
 <div id="outline-container-org91d5f01" class="outline-3">
 <h3 id="org91d5f01"><span class="section-number-3">4.3.</span> 求取从 1 到 1000 的所有数的平均数</h3>
+<div class="outline-text-3" id="text-4-3">
+<div class="org-src-container">
+<pre class="src src-csx"><span style="color: #005a5f;">int</span> <span style="color: #00538b;">sum</span> = 0;
+<span style="color: #005a5f;">int</span> <span style="color: #00538b;">n</span> = 1000;
+
+<span style="color: #5317ac;">for</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">i</span> = 1; i &lt;= 1000; i++<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    sum = sum + i;
+<span style="color: #000000;">}</span>
+
+<span style="color: #005a5f;">double</span> <span style="color: #00538b;">avg</span> = sum / <span style="color: #000000;">(</span><span style="color: #005a5f;">double</span><span style="color: #000000;">)</span>n; <span style="color: #505050;">// </span><span style="color: #505050;">&#24179;&#22343;&#25968; = &#21644; &#247; &#20010;&#25968;</span>
+
+Console.<span style="color: #721045;">WriteLine</span><span style="color: #000000;">(</span>$<span style="color: #2544bb;">"&#20182;&#20204;&#30340;&#21644;&#26159; {sum}, &#24179;&#22343;&#25968;&#26159; {avg}"</span><span style="color: #000000;">)</span>;
+</pre>
 </div>
+</div>
+</div>
+
 
 <div id="outline-container-org2649373" class="outline-3">
 <h3 id="org2649373"><span class="section-number-3">4.4.</span> 求取 int[] numbers = {1,2,3,4,5,6,7,8,9,10} 的平均值</h3>
