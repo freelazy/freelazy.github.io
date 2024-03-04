@@ -173,3 +173,53 @@
       Console.WriteLine($"\n您的身高是 {shengao}，您的体重是 {tizhong}，您的 Bmi 为 {bmi}");
   }
 #+end_src
+
+进行完善 1) 增加身体状况的判断 2) 增加循环:
+#+begin_src csharp
+  static void Main(string[] args)
+  {
+      Console.WriteLine("欢迎使用 BMI 计算器！\n");
+
+      while (true)
+      {
+          // 获取身高:
+          // 1）通过 Console.ReadLine 方法读取用户输入，结果是一个字符串
+          // 2) 通过 double.Parse 方法可以将字符串转换为 double 类型
+          Console.Write("请输入您的身高（单位：米）: ");
+          double shengao = double.Parse(Console.ReadLine());
+          // 获取体重:
+          Console.Write("请输入您的体重（单位：千克）: ");
+          double tizhong = double.Parse(Console.ReadLine());
+
+          // 计算 BMI:
+          // 通过 shengao/tizhong 来求取 BMI 值 (体重/身高^2)
+          double bmi = tizhong / (shengao * shengao);
+
+          // 计算身体状况:
+          // 通过条件判断，判定并为变量赋值
+          string shentizhuangkuang;
+          if (bmi <= 18.4)
+          {
+              shentizhuangkuang = "偏瘦";
+          }
+          else if (bmi < 24)
+          {
+              shentizhuangkuang = "正常";
+          }
+          else if (bmi < 28)
+          {
+              shentizhuangkuang = "过重";
+          }
+          else
+          {
+              shentizhuangkuang = "肥胖";
+          }
+
+          // 输出 BMI 以及身体状况:
+          // 通过变量，存储中间数据
+          // 通过字符串拼接+Console.WriteLine 反馈给用户
+          Console.WriteLine($"\n您的身高是 {shengao}，您的体重是 {tizhong}，您的 Bmi 为 {bmi}");
+          Console.WriteLine($"您的身体状况为：【{shentizhuangkuang}】\n\n");
+      }
+  }
+#+end_src
