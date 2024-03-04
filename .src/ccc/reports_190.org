@@ -147,7 +147,7 @@
 - 如果有兴趣的同学，可以自行学习一下 Winform 应用的创建，尝试使用窗口的方式将这个功能实现一下
 
 * 练习题备忘
-** 求取 BMI 的值
+** 实现一个求取 BMI 的值的控制台应用
 
 基本实现:
 #+begin_src csharp
@@ -174,7 +174,7 @@
   }
 #+end_src
 
-进行完善 1) 增加身体状况的判断 2) 增加循环:
+进行完善 1) 输出身体状况 2) 循环计算:
 #+begin_src csharp
   static void Main(string[] args)
   {
@@ -187,6 +187,7 @@
           // 2) 通过 double.Parse 方法可以将字符串转换为 double 类型
           Console.Write("请输入您的身高（单位：米）: ");
           double shengao = double.Parse(Console.ReadLine());
+
           // 获取体重:
           Console.Write("请输入您的体重（单位：千克）: ");
           double tizhong = double.Parse(Console.ReadLine());
@@ -216,10 +217,11 @@
           }
 
           // 输出 BMI 以及身体状况:
-          // 通过变量，存储中间数据
-          // 通过字符串拼接+Console.WriteLine 反馈给用户
+          // 通过变量，存储中间数据; 通过字符串拼接+Console.WriteLine反馈给用户
           Console.WriteLine($"\n您的身高是 {shengao}，您的体重是 {tizhong}，您的 Bmi 为 {bmi}");
           Console.WriteLine($"您的身体状况为：【{shentizhuangkuang}】\n\n");
       }
   }
 #+end_src
+
+参考: https://cn.onlinebmicalculator.com/
