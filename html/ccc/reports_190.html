@@ -27,7 +27,7 @@
 <li><a href="#orgbaebb30">3. 寒假作业 (2024-01-15)</a></li>
 <li><a href="#org3cdc913">4. 练习题备忘</a>
 <ul>
-<li><a href="#org0d7e7df">4.1. 实现一个求取 BMI 的值的控制台应用</a></li>
+<li><a href="#org4b50878">4.1. 实现一个求取 BMI 值的控制台应用</a></li>
 </ul>
 </li>
 </ul>
@@ -1020,8 +1020,8 @@
 <h2 id="org3cdc913"><span class="section-number-2">4.</span> 练习题备忘</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org0d7e7df" class="outline-3">
-<h3 id="org0d7e7df"><span class="section-number-3">4.1.</span> 实现一个求取 BMI 的值的控制台应用</h3>
+<div id="outline-container-org4b50878" class="outline-3">
+<h3 id="org4b50878"><span class="section-number-3">4.1.</span> 实现一个求取 BMI 值的控制台应用</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 基本实现:
@@ -1055,58 +1055,57 @@
 进行完善 1) 输出身体状况 2) 循环计算:
 </p>
 <div class="org-src-container">
-<pre class="src src-csharp"><span style="color: #5317ac;">static</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Main</span><span style="color: #000000;">(</span><span style="color: #005a5f;">string</span><span style="color: #a8007f;">[]</span> <span style="color: #00538b;">args</span><span style="color: #000000;">)</span>
-<span style="color: #000000;">{</span>
-    Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&#27426;&#36814;&#20351;&#29992; BMI &#35745;&#31639;&#22120;&#65281;\n"</span><span style="color: #a8007f;">)</span>;
-
-    <span style="color: #5317ac;">while</span> <span style="color: #a8007f;">(</span><span style="color: #0000c0;">true</span><span style="color: #a8007f;">)</span>
-    <span style="color: #a8007f;">{</span>
-        <span style="color: #505050;">// </span><span style="color: #505050;">&#33719;&#21462;&#36523;&#39640;:</span>
-        <span style="color: #505050;">// </span><span style="color: #505050;">1&#65289;&#36890;&#36807; Console.ReadLine &#26041;&#27861;&#35835;&#21462;&#29992;&#25143;&#36755;&#20837;&#65292;&#32467;&#26524;&#26159;&#19968;&#20010;&#23383;&#31526;&#20018;</span>
-        <span style="color: #505050;">// </span><span style="color: #505050;">2) &#36890;&#36807; double.Parse &#26041;&#27861;&#21487;&#20197;&#23558;&#23383;&#31526;&#20018;&#36716;&#25442;&#20026; double &#31867;&#22411;</span>
-        Console.<span style="color: #721045;">Write</span><span style="color: #005f88;">(</span><span style="color: #2544bb;">"&#35831;&#36755;&#20837;&#24744;&#30340;&#36523;&#39640;&#65288;&#21333;&#20301;&#65306;&#31859;&#65289;: "</span><span style="color: #005f88;">)</span>;
-        <span style="color: #005a5f;">double</span> <span style="color: #00538b;">shengao</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #005f88;">(</span>Console.<span style="color: #721045;">ReadLine</span><span style="color: #904200;">()</span><span style="color: #005f88;">)</span>;
-
-        <span style="color: #505050;">// </span><span style="color: #505050;">&#33719;&#21462;&#20307;&#37325;:</span>
-        Console.<span style="color: #721045;">Write</span><span style="color: #005f88;">(</span><span style="color: #2544bb;">"&#35831;&#36755;&#20837;&#24744;&#30340;&#20307;&#37325;&#65288;&#21333;&#20301;&#65306;&#21315;&#20811;&#65289;: "</span><span style="color: #005f88;">)</span>;
-        <span style="color: #005a5f;">double</span> <span style="color: #00538b;">tizhong</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #005f88;">(</span>Console.<span style="color: #721045;">ReadLine</span><span style="color: #904200;">()</span><span style="color: #005f88;">)</span>;
-
-        <span style="color: #505050;">// </span><span style="color: #505050;">&#35745;&#31639; BMI:</span>
-        <span style="color: #505050;">// </span><span style="color: #505050;">&#36890;&#36807; shengao/tizhong &#26469;&#27714;&#21462; BMI &#20540; (&#20307;&#37325;/&#36523;&#39640;^2)</span>
-        <span style="color: #005a5f;">double</span> <span style="color: #00538b;">bmi</span> = tizhong / <span style="color: #005f88;">(</span>shengao * shengao<span style="color: #005f88;">)</span>;
-
-        <span style="color: #505050;">// </span><span style="color: #505050;">&#35745;&#31639;&#36523;&#20307;&#29366;&#20917;:</span>
-        <span style="color: #505050;">// </span><span style="color: #505050;">&#36890;&#36807;&#26465;&#20214;&#21028;&#26029;&#65292;&#21028;&#23450;&#24182;&#20026;&#21464;&#37327;&#36171;&#20540;</span>
-        <span style="color: #005a5f;">string</span> <span style="color: #00538b;">shentizhuangkuang</span>;
-        <span style="color: #5317ac;">if</span> <span style="color: #005f88;">(</span>bmi &lt;= 18.4<span style="color: #005f88;">)</span>
-        <span style="color: #005f88;">{</span>
-            shentizhuangkuang = <span style="color: #2544bb;">"&#20559;&#30246;"</span>;
-        <span style="color: #005f88;">}</span>
-        <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #005f88;">(</span>bmi &lt; 24<span style="color: #005f88;">)</span>
-        <span style="color: #005f88;">{</span>
-            shentizhuangkuang = <span style="color: #2544bb;">"&#27491;&#24120;"</span>;
-        <span style="color: #005f88;">}</span>
-        <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #005f88;">(</span>bmi &lt; 28<span style="color: #005f88;">)</span>
-        <span style="color: #005f88;">{</span>
-            shentizhuangkuang = <span style="color: #2544bb;">"&#36807;&#37325;"</span>;
-        <span style="color: #005f88;">}</span>
-        <span style="color: #5317ac;">else</span>
-        <span style="color: #005f88;">{</span>
-            shentizhuangkuang = <span style="color: #2544bb;">"&#32933;&#32982;"</span>;
-        <span style="color: #005f88;">}</span>
-
-        <span style="color: #505050;">// </span><span style="color: #505050;">&#36755;&#20986; BMI &#20197;&#21450;&#36523;&#20307;&#29366;&#20917;:</span>
-        <span style="color: #505050;">// </span><span style="color: #505050;">&#36890;&#36807;&#21464;&#37327;&#65292;&#23384;&#20648;&#20013;&#38388;&#25968;&#25454;; &#36890;&#36807;&#23383;&#31526;&#20018;&#25340;&#25509;+Console.WriteLine&#21453;&#39304;&#32473;&#29992;&#25143;</span>
-        Console.<span style="color: #721045;">WriteLine</span><span style="color: #005f88;">(</span>$<span style="color: #2544bb;">"\n&#24744;&#30340;&#36523;&#39640;&#26159; {shengao}&#65292;&#24744;&#30340;&#20307;&#37325;&#26159; {tizhong}&#65292;&#24744;&#30340; Bmi &#20026; {bmi}"</span><span style="color: #005f88;">)</span>;
-        Console.<span style="color: #721045;">WriteLine</span><span style="color: #005f88;">(</span>$<span style="color: #2544bb;">"&#24744;&#30340;&#36523;&#20307;&#29366;&#20917;&#20026;&#65306;&#12304;{shentizhuangkuang}&#12305;\n\n"</span><span style="color: #005f88;">)</span>;
-    <span style="color: #a8007f;">}</span>
-<span style="color: #000000;">}</span>
+<pre class="src src-csharp"><span class="linenr"> 1: </span><span style="color: #5317ac;">static</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Main</span><span style="color: #000000;">(</span><span style="color: #005a5f;">string</span><span style="color: #a8007f;">[]</span> <span style="color: #00538b;">args</span><span style="color: #000000;">)</span>
+<span class="linenr"> 2: </span><span style="color: #000000;">{</span>
+<span class="linenr"> 3: </span>    Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&#27426;&#36814;&#20351;&#29992; BMI &#35745;&#31639;&#22120;&#65281;\n"</span><span style="color: #a8007f;">)</span>;
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>    <span style="color: #5317ac;">while</span> <span style="color: #a8007f;">(</span><span style="color: #0000c0;">true</span><span style="color: #a8007f;">)</span>
+<span class="linenr"> 6: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr"> 7: </span>        <span style="color: #505050;">// </span><span style="color: #505050;">&#33719;&#21462;&#36523;&#39640;:</span>
+<span class="linenr"> 8: </span>        <span style="color: #505050;">// </span><span style="color: #505050;">1&#65289;&#36890;&#36807; Console.ReadLine &#26041;&#27861;&#35835;&#21462;&#29992;&#25143;&#36755;&#20837;&#65292;&#32467;&#26524;&#26159;&#19968;&#20010;&#23383;&#31526;&#20018;</span>
+<span class="linenr"> 9: </span>        <span style="color: #505050;">// </span><span style="color: #505050;">2) &#36890;&#36807; double.Parse &#26041;&#27861;&#21487;&#20197;&#23558;&#23383;&#31526;&#20018;&#36716;&#25442;&#20026; double &#31867;&#22411;</span>
+<span class="linenr">10: </span>        Console.<span style="color: #721045;">Write</span><span style="color: #005f88;">(</span><span style="color: #2544bb;">"&#35831;&#36755;&#20837;&#24744;&#30340;&#36523;&#39640;&#65288;&#21333;&#20301;&#65306;&#31859;&#65289;: "</span><span style="color: #005f88;">)</span>;
+<span class="linenr">11: </span>        <span style="color: #005a5f;">double</span> <span style="color: #00538b;">shengao</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #005f88;">(</span>Console.<span style="color: #721045;">ReadLine</span><span style="color: #904200;">()</span><span style="color: #005f88;">)</span>;
+<span class="linenr">12: </span>
+<span class="linenr">13: </span>        <span style="color: #505050;">// </span><span style="color: #505050;">&#33719;&#21462;&#20307;&#37325;:</span>
+<span class="linenr">14: </span>        Console.<span style="color: #721045;">Write</span><span style="color: #005f88;">(</span><span style="color: #2544bb;">"&#35831;&#36755;&#20837;&#24744;&#30340;&#20307;&#37325;&#65288;&#21333;&#20301;&#65306;&#21315;&#20811;&#65289;: "</span><span style="color: #005f88;">)</span>;
+<span class="linenr">15: </span>        <span style="color: #005a5f;">double</span> <span style="color: #00538b;">tizhong</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #005f88;">(</span>Console.<span style="color: #721045;">ReadLine</span><span style="color: #904200;">()</span><span style="color: #005f88;">)</span>;
+<span class="linenr">16: </span>
+<span class="linenr">17: </span>        <span style="color: #505050;">// </span><span style="color: #505050;">&#35745;&#31639; BMI:</span>
+<span class="linenr">18: </span>        <span style="color: #505050;">// </span><span style="color: #505050;">1) &#36890;&#36807; shengao &#21644; tizhong &#26469;&#27714;&#21462; BMI &#20540; </span>
+<span class="linenr">19: </span>        <span style="color: #505050;">// </span><span style="color: #505050;">2) &#35745;&#31639;&#20844;&#24335;&#65306;BMI = &#20307;&#37325; &#247; (&#36523;&#39640; x &#36523;&#39640;)</span>
+<span class="linenr">20: </span>        <span style="color: #005a5f;">double</span> <span style="color: #00538b;">bmi</span> = tizhong / <span style="color: #005f88;">(</span>shengao * shengao<span style="color: #005f88;">)</span>;
+<span class="linenr">21: </span>
+<span class="linenr">22: </span>        <span style="color: #505050;">// </span><span style="color: #505050;">&#35745;&#31639;&#36523;&#20307;&#29366;&#20917;:</span>
+<span class="linenr">23: </span>        <span style="color: #505050;">// </span><span style="color: #505050;">1) &#36890;&#36807;&#26465;&#20214;&#21028;&#26029;&#65292;&#21028;&#23450;&#24182;&#20026;&#21464;&#37327;&#36171;&#20540;</span>
+<span class="linenr">24: </span>        <span style="color: #505050;">// </span><span style="color: #505050;">2) &#21442;&#32771; https://cn.onlinebmicalculator.com/</span>
+<span class="linenr">25: </span>        <span style="color: #005a5f;">string</span> <span style="color: #00538b;">shentizhuangkuang</span>;
+<span class="linenr">26: </span>        <span style="color: #5317ac;">if</span> <span style="color: #005f88;">(</span>bmi &lt;= 18.4<span style="color: #005f88;">)</span>
+<span class="linenr">27: </span>        <span style="color: #005f88;">{</span>
+<span class="linenr">28: </span>            shentizhuangkuang = <span style="color: #2544bb;">"&#20559;&#30246;"</span>;
+<span class="linenr">29: </span>        <span style="color: #005f88;">}</span>
+<span class="linenr">30: </span>        <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #005f88;">(</span>bmi &lt; 24<span style="color: #005f88;">)</span>
+<span class="linenr">31: </span>        <span style="color: #005f88;">{</span>
+<span class="linenr">32: </span>            shentizhuangkuang = <span style="color: #2544bb;">"&#27491;&#24120;"</span>;
+<span class="linenr">33: </span>        <span style="color: #005f88;">}</span>
+<span class="linenr">34: </span>        <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #005f88;">(</span>bmi &lt; 28<span style="color: #005f88;">)</span>
+<span class="linenr">35: </span>        <span style="color: #005f88;">{</span>
+<span class="linenr">36: </span>            shentizhuangkuang = <span style="color: #2544bb;">"&#36807;&#37325;"</span>;
+<span class="linenr">37: </span>        <span style="color: #005f88;">}</span>
+<span class="linenr">38: </span>        <span style="color: #5317ac;">else</span>
+<span class="linenr">39: </span>        <span style="color: #005f88;">{</span>
+<span class="linenr">40: </span>            shentizhuangkuang = <span style="color: #2544bb;">"&#32933;&#32982;"</span>;
+<span class="linenr">41: </span>        <span style="color: #005f88;">}</span>
+<span class="linenr">42: </span>
+<span class="linenr">43: </span>        <span style="color: #505050;">// </span><span style="color: #505050;">&#36755;&#20986; BMI &#20197;&#21450;&#36523;&#20307;&#29366;&#20917;:</span>
+<span class="linenr">44: </span>        <span style="color: #505050;">// </span><span style="color: #505050;">1) &#36890;&#36807;&#21464;&#37327;&#65292;&#23384;&#20648;&#20013;&#38388;&#25968;&#25454;</span>
+<span class="linenr">45: </span>        <span style="color: #505050;">// </span><span style="color: #505050;">2) &#36890;&#36807;&#23383;&#31526;&#20018;&#25340;&#25509;+Console.WriteLine&#21453;&#39304;&#32473;&#29992;&#25143;</span>
+<span class="linenr">46: </span>        Console.<span style="color: #721045;">WriteLine</span><span style="color: #005f88;">(</span>$<span style="color: #2544bb;">"\n&#24744;&#30340;&#36523;&#39640;&#26159; {shengao}&#65292;&#24744;&#30340;&#20307;&#37325;&#26159; {tizhong}&#65292;&#24744;&#30340; Bmi &#20026; {bmi}"</span><span style="color: #005f88;">)</span>;
+<span class="linenr">47: </span>        Console.<span style="color: #721045;">WriteLine</span><span style="color: #005f88;">(</span>$<span style="color: #2544bb;">"&#24744;&#30340;&#36523;&#20307;&#29366;&#20917;&#20026;&#65306;&#12304;{shentizhuangkuang}&#12305;\n\n"</span><span style="color: #005f88;">)</span>;
+<span class="linenr">48: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">49: </span><span style="color: #000000;">}</span>
 </pre>
 </div>
-
-<p>
-参考: <a href="https://cn.onlinebmicalculator.com/">https://cn.onlinebmicalculator.com/</a>
-</p>
 </div>
 </div>
 </section>

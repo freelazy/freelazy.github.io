@@ -147,7 +147,7 @@
 - 如果有兴趣的同学，可以自行学习一下 Winform 应用的创建，尝试使用窗口的方式将这个功能实现一下
 
 * 练习题备忘
-** 实现一个求取 BMI 的值的控制台应用
+** 实现一个求取 BMI 值的控制台应用
 
 基本实现:
 #+begin_src csharp
@@ -175,7 +175,7 @@
 #+end_src
 
 进行完善 1) 输出身体状况 2) 循环计算:
-#+begin_src csharp
+#+begin_src csharp -n
   static void Main(string[] args)
   {
       Console.WriteLine("欢迎使用 BMI 计算器！\n");
@@ -193,11 +193,13 @@
           double tizhong = double.Parse(Console.ReadLine());
 
           // 计算 BMI:
-          // 通过 shengao/tizhong 来求取 BMI 值 (体重/身高^2)
+          // 1) 通过 shengao 和 tizhong 来求取 BMI 值 
+          // 2) 计算公式：BMI = 体重 ÷ (身高 x 身高)
           double bmi = tizhong / (shengao * shengao);
 
           // 计算身体状况:
-          // 通过条件判断，判定并为变量赋值
+          // 1) 通过条件判断，判定并为变量赋值
+          // 2) 参考 https://cn.onlinebmicalculator.com/
           string shentizhuangkuang;
           if (bmi <= 18.4)
           {
@@ -217,11 +219,10 @@
           }
 
           // 输出 BMI 以及身体状况:
-          // 通过变量，存储中间数据; 通过字符串拼接+Console.WriteLine反馈给用户
+          // 1) 通过变量，存储中间数据
+          // 2) 通过字符串拼接+Console.WriteLine反馈给用户
           Console.WriteLine($"\n您的身高是 {shengao}，您的体重是 {tizhong}，您的 Bmi 为 {bmi}");
           Console.WriteLine($"您的身体状况为：【{shentizhuangkuang}】\n\n");
       }
   }
 #+end_src
-
-参考: https://cn.onlinebmicalculator.com/
