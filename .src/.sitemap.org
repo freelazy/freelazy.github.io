@@ -6,6 +6,6 @@
   - [[file:ccc/reports_191.org][Report of 191]]
   - [[file:ccc/reports_192.org][Report of 192]]
 - dotnet
-  - [[file:dotnet/1-csharp.org][1-csharp]]
+  - [[file:dotnet/1-csharp.org][C♯ 语言]]
 - skills
   - [[file:skills/windows.org][Windows]]

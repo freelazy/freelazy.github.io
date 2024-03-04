@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-03-01 -->
+<!-- 2024-03-04 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Report of 190</title>
@@ -22,17 +22,22 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgaf9a146">1. 信息</a></li>
-<li><a href="#org9c19a34">2. 结果</a></li>
-<li><a href="#org67e0fef">3. 寒假作业 (2024-01-15)</a></li>
+<li><a href="#org71d91d0">1. 信息</a></li>
+<li><a href="#org27874be">2. 结果</a></li>
+<li><a href="#orgbaebb30">3. 寒假作业 (2024-01-15)</a></li>
+<li><a href="#org3cdc913">4. 练习题备忘</a>
+<ul>
+<li><a href="#orgf369da7">4.1. 求取 BMI 的值</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
 
 
 
-<section id="outline-container-orgaf9a146" class="outline-2">
-<h2 id="orgaf9a146"><span class="section-number-2">1.</span> 信息</h2>
+<section id="outline-container-org71d91d0" class="outline-2">
+<h2 id="org71d91d0"><span class="section-number-2">1.</span> 信息</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li>学习委员: 黄军帮</li>
@@ -78,10 +83,10 @@
 </div>
 </section>
 
-<section id="outline-container-org9c19a34" class="outline-2">
-<h2 id="org9c19a34"><span class="section-number-2">2.</span> 结果</h2>
+<section id="outline-container-org27874be" class="outline-2">
+<h2 id="org27874be"><span class="section-number-2">2.</span> 结果</h2>
 <div class="outline-text-2" id="text-2">
-<table id="org71e24e9">
+<table id="org0a6fdfc">
 
 
 <colgroup>
@@ -985,8 +990,8 @@
 </div>
 </section>
 
-<section id="outline-container-org67e0fef" class="outline-2">
-<h2 id="org67e0fef"><span class="section-number-2">3.</span> 寒假作业 (2024-01-15)</h2>
+<section id="outline-container-orgbaebb30" class="outline-2">
+<h2 id="orgbaebb30"><span class="section-number-2">3.</span> 寒假作业 (2024-01-15)</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 做一个求取 BMI 的控制台应用:
@@ -1010,10 +1015,48 @@
 </ul>
 </div>
 </section>
+
+<section id="outline-container-org3cdc913" class="outline-2">
+<h2 id="org3cdc913"><span class="section-number-2">4.</span> 练习题备忘</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgf369da7" class="outline-3">
+<h3 id="orgf369da7"><span class="section-number-3">4.1.</span> 求取 BMI 的值</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+基本实现:
+</p>
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">static</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Main</span><span style="color: #000000;">(</span><span style="color: #005a5f;">string</span><span style="color: #a8007f;">[]</span> <span style="color: #00538b;">args</span><span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&#27426;&#36814;&#20351;&#29992; BMI &#35745;&#31639;&#22120;&#65281;\n"</span><span style="color: #a8007f;">)</span>;
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#33719;&#21462;&#36523;&#39640;:</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">1&#65289;&#36890;&#36807; Console.ReadLine &#26041;&#27861;&#35835;&#21462;&#29992;&#25143;&#36755;&#20837;&#65292;&#32467;&#26524;&#26159;&#19968;&#20010;&#23383;&#31526;&#20018;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">2) &#36890;&#36807; double.Parse &#26041;&#27861;&#21487;&#20197;&#23558;&#23383;&#31526;&#20018;&#36716;&#25442;&#20026; double &#31867;&#22411;</span>
+    Console.<span style="color: #721045;">Write</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&#35831;&#36755;&#20837;&#24744;&#30340;&#36523;&#39640;&#65288;&#21333;&#20301;&#65306;&#31859;&#65289;: "</span><span style="color: #a8007f;">)</span>;
+    <span style="color: #005a5f;">double</span> <span style="color: #00538b;">shengao</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #a8007f;">(</span>Console.<span style="color: #721045;">ReadLine</span><span style="color: #005f88;">()</span><span style="color: #a8007f;">)</span>;
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#33719;&#21462;&#20307;&#37325;:</span>
+    Console.<span style="color: #721045;">Write</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&#35831;&#36755;&#20837;&#24744;&#30340;&#20307;&#37325;&#65288;&#21333;&#20301;&#65306;&#21315;&#20811;&#65289;: "</span><span style="color: #a8007f;">)</span>;
+    <span style="color: #005a5f;">double</span> <span style="color: #00538b;">tizhong</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #a8007f;">(</span>Console.<span style="color: #721045;">ReadLine</span><span style="color: #005f88;">()</span><span style="color: #a8007f;">)</span>;
+
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#36890;&#36807; shengao/tizhong &#26469;&#27714;&#21462; BMI &#20540;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#35745;&#31639;&#20844;&#24335;: &#20307;&#37325;/&#36523;&#39640;^2</span>
+    <span style="color: #005a5f;">double</span> <span style="color: #00538b;">bmi</span> = tizhong / <span style="color: #a8007f;">(</span>shengao * shengao<span style="color: #a8007f;">)</span>;
+
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#36755;&#20986; BMI</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#36890;&#36807;&#21464;&#37327;&#65292;&#23384;&#20648;&#20013;&#38388;&#25968;&#25454;</span>
+    <span style="color: #505050;">// </span><span style="color: #505050;">&#36890;&#36807;&#23383;&#31526;&#20018;&#25340;&#25509;+Console.WriteLine &#21453;&#39304;&#32473;&#29992;&#25143;</span>
+    Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">(</span>$<span style="color: #2544bb;">"\n&#24744;&#30340;&#36523;&#39640;&#26159; {shengao}&#65292;&#24744;&#30340;&#20307;&#37325;&#26159; {tizhong}&#65292;&#24744;&#30340; Bmi &#20026; {bmi}"</span><span style="color: #a8007f;">)</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2024-03-01</p>
+<p class="date">Created: 2024-03-04</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
