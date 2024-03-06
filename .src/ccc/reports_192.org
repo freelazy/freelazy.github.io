@@ -134,21 +134,40 @@ C/S架构编程，做完第一章所有的上机题:
 
 在 C# 中，转换 string 为 double 的方式主要有三种:
 
-1. 使用 *Double.Parse* 方法，例如：
+1. 使用 *double.Parse* 方法，例如：
 
   #+begin_src csharp
     string numberString = "123.45";
-    double number = Double.Parse(numberString);
+    double number = double.Parse(numberString);
+    Console.WriteLine(number);
   #+end_src
   
   如果字符串不能被解析为 double，此方法会抛出一个异常。
 
-2. 使用 *Double.TryParse* 方法，例如：
+  如果带异常处理的话，代码应该是这样的:
+  #+begin_src csharp
+    // 使用异常处理机制 try/catch
+    string numberString = "1g3.45";
+    double number;
+    try
+    {
+        number = double.Parse(numberString);
+        Console.WriteLine(number);
+    }
+    catch
+    {
+        Console.WriteLine("您的输入有误");
+    }
+  #+end_src
 
+2. 使用 *double.TryParse* 方法，例如：
+
+   异常处理的代码稍微有些复制，于是产生了这种写法:
   #+begin_src csharp
     string numberString = "123.45";
     double number;
-    bool isParsed = Double.TryParse(numberString, out number);
+    bool isParsed = double.TryParse(numberString, out number);
+    Console.WriteLine(isParsed ? number : "失败了");
   #+end_src
   
   此方法会尝试将字符串解析为 double，如果不成功，此方法不会抛出异常，而是将输出变量设为 0，并且返回 false。
@@ -158,9 +177,10 @@ C/S架构编程，做完第一章所有的上机题:
   #+begin_src csharp
     string numberString = "123.45";
     double number = Convert.ToDouble(numberString);
+    Console.WriteLine(number);
   #+end_src
   
-  事实上 Convert.ToDouble 方法在内部使用的也是 Double.Parse，因此如果转换失败，它将抛出一个异常。
+  事实上 =Convert.ToDouble= 方法在内部使用的也是 =double.Parse= ，因此如果转换失败，它将抛出一个异常。
 
 * 练习题备忘
 ** 下面是一个求取 BMI 的控制台应用，请找出并修改所有 BUG
