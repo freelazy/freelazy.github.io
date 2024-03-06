@@ -240,6 +240,6 @@ C/S架构编程，做完第一章所有的上机题:
   }
 #+end_src
 
-{{{details{点击查看答案}}}}
+{{{details(点击查看答案)}}}
 TODO
 {{{details_end}}}
