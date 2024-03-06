@@ -128,3 +128,40 @@
 C/S架构编程，做完第一章所有的上机题:
 - 可选项，其他题也做
 - 如果任务不饱和，可酌情做一下第二章
+
+* 知识点备忘
+** 将 string 转换为 double 有哪些方式?
+
+在 C# 中，转换 string 为 double 的方式主要有三种:
+
+1. 使用 *Double.Parse* 方法，例如：
+
+  #+begin_src csharp
+    string numberString = "123.45";
+    double number = Double.Parse(numberString);
+  #+end_src
+  
+  如果字符串不能被解析为 double，此方法会抛出一个异常。
+
+2. 使用 *Double.TryParse* 方法，例如：
+
+  #+begin_src csharp
+    string numberString = "123.45";
+    double number;
+    bool isParsed = Double.TryParse(numberString, out number);
+  #+end_src
+  
+  此方法会尝试将字符串解析为 double，如果不成功，此方法不会抛出异常，而是将输出变量设为 0，并且返回 false。
+
+3. 使用 *Convert.ToDouble* 方法，例如：
+
+  #+begin_src csharp
+    string numberString = "123.45";
+    double number = Convert.ToDouble(numberString);
+  #+end_src
+  
+  事实上 Convert.ToDouble 方法在内部使用的也是 Double.Parse，因此如果转换失败，它将抛出一个异常。
+
+* 练习备忘
+** 下面是一个求取 BMI 的控制台应用，请找出并修改所有 BUG
+
