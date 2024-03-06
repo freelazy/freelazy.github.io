@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-03-04 -->
+<!-- 2024-03-06 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Report of 192</title>
@@ -25,6 +25,16 @@
 <li><a href="#orgfc41db0">1. 班级信息</a></li>
 <li><a href="#orgee44d96">2. 测验结果</a></li>
 <li><a href="#orgc996347">3. 寒假作业 (2024-01-16)</a></li>
+<li><a href="#orgdf1d425">4. 知识点备忘</a>
+<ul>
+<li><a href="#org56a6146">4.1. 将 string 转换为 double 有哪些方式?</a></li>
+</ul>
+</li>
+<li><a href="#orgcd4d9ce">5. 练习题备忘</a>
+<ul>
+<li><a href="#orgb8186f8">5.1. 下面是一个求取 BMI 的控制台应用，请找出并修改所有 BUG</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
@@ -855,10 +865,161 @@ C/S架构编程，做完第一章所有的上机题:
 </ul>
 </div>
 </section>
+
+<section id="outline-container-orgdf1d425" class="outline-2">
+<h2 id="orgdf1d425"><span class="section-number-2">4.</span> 知识点备忘</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org56a6146" class="outline-3">
+<h3 id="org56a6146"><span class="section-number-3">4.1.</span> 将 string 转换为 double 有哪些方式?</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+在 C# 中，转换 string 为 double 的方式主要有三种:
+</p>
+
+<ol class="org-ol">
+<li><p>
+使用 <b>Double.Parse</b> 方法，例如：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #005a5f;">string</span> <span style="color: #00538b;">numberString</span> = <span style="color: #2544bb;">"123.45"</span>;
+<span style="color: #005a5f;">double</span> <span style="color: #00538b;">number</span> = Double.<span style="color: #721045;">Parse</span><span style="color: #000000;">(</span>numberString<span style="color: #000000;">)</span>;
+</pre>
+</div>
+
+<p>
+如果字符串不能被解析为 double，此方法会抛出一个异常。
+</p></li>
+
+<li><p>
+使用 <b>Double.TryParse</b> 方法，例如：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #005a5f;">string</span> <span style="color: #00538b;">numberString</span> = <span style="color: #2544bb;">"123.45"</span>;
+<span style="color: #005a5f;">double</span> <span style="color: #00538b;">number</span>;
+<span style="color: #005a5f;">bool</span> <span style="color: #00538b;">isParsed</span> = Double.<span style="color: #721045;">TryParse</span><span style="color: #000000;">(</span>numberString, <span style="color: #5317ac;">out</span> <span style="color: #005a5f;">number</span><span style="color: #000000;">)</span>;
+</pre>
+</div>
+
+<p>
+此方法会尝试将字符串解析为 double，如果不成功，此方法不会抛出异常，而是将输出变量设为 0，并且返回 false。
+</p></li>
+
+<li><p>
+使用 <b>Convert.ToDouble</b> 方法，例如：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #005a5f;">string</span> <span style="color: #00538b;">numberString</span> = <span style="color: #2544bb;">"123.45"</span>;
+<span style="color: #005a5f;">double</span> <span style="color: #00538b;">number</span> = Convert.<span style="color: #721045;">ToDouble</span><span style="color: #000000;">(</span>numberString<span style="color: #000000;">)</span>;
+</pre>
+</div>
+
+<p>
+事实上 Convert.ToDouble 方法在内部使用的也是 Double.Parse，因此如果转换失败，它将抛出一个异常。
+</p></li>
+</ol>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgcd4d9ce" class="outline-2">
+<h2 id="orgcd4d9ce"><span class="section-number-2">5.</span> 练习题备忘</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-orgb8186f8" class="outline-3">
+<h3 id="orgb8186f8"><span class="section-number-3">5.1.</span> 下面是一个求取 BMI 的控制台应用，请找出并修改所有 BUG</h3>
+<div class="outline-text-3" id="text-5-1">
+<div class="org-src-container">
+<pre class="src src-csharp"><span style="color: #5317ac;">using</span> <span style="color: #00538b;">System</span>;
+
+<span style="color: #5317ac;">class</span> <span style="color: #005a5f;">Program</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">static</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Main</span><span style="color: #a8007f;">()</span>
+    <span style="color: #a8007f;">{</span>
+        Console.<span style="color: #721045;">Write</span><span style="color: #005f88;">(</span><span style="color: #2544bb;">"&#27426;&#36814;&#20351;&#29992; BMI &#35745;&#31639;&#22120;&#65281;"</span><span style="color: #005f88;">)</span>;
+
+        <span style="color: #005a5f;">boolean</span> <span style="color: #00538b;">run</span> = <span style="color: #0000c0;">false</span>;
+        <span style="color: #5317ac;">while</span> <span style="color: #005f88;">(</span>run<span style="color: #005f88;">)</span>
+        <span style="color: #005f88;">{</span>
+            <span style="color: #005a5f;">int</span> <span style="color: #00538b;">height</span>, <span style="color: #00538b;">weight</span>;
+
+            <span style="color: #5317ac;">while</span> <span style="color: #904200;">(</span><span style="color: #0000c0;">true</span><span style="color: #904200;">)</span>
+                Console.<span style="color: #721045;">Write</span><span style="color: #904200;">(</span><span style="color: #2544bb;">"&#35831;&#36755;&#20837;&#24744;&#30340;&#36523;&#39640;&#65288;&#31859;&#65289;&#65306;"</span><span style="color: #904200;">)</span>;
+                <span style="color: #5317ac;">if</span> <span style="color: #904200;">(</span><span style="color: #005a5f;">double</span>.<span style="color: #721045;">TryParse</span><span style="color: #7f10d0;">(</span>Console.<span style="color: #721045;">ReadLine</span><span style="color: #006800;">()</span>, <span style="color: #5317ac;">out</span> <span style="color: #005a5f;">height</span><span style="color: #7f10d0;">)</span> &amp;&amp; height &gt; 0<span style="color: #904200;">)</span>
+                <span style="color: #904200;">{</span>
+                    <span style="color: #5317ac;">break</span>;
+                <span style="color: #904200;">}</span>
+                <span style="color: #5317ac;">else</span>
+                <span style="color: #904200;">{</span>
+                    Console.<span style="color: #721045;">WriteLine</span><span style="color: #7f10d0;">(</span><span style="color: #2544bb;">"&#36755;&#20837;&#30340;&#36523;&#39640;&#26080;&#25928;&#65292;&#35831;&#37325;&#26032;&#36755;&#20837;&#12290;"</span><span style="color: #7f10d0;">)</span>;
+                <span style="color: #904200;">}</span>
+
+            <span style="color: #5317ac;">while</span> <span style="color: #904200;">(</span><span style="color: #0000c0;">true</span><span style="color: #904200;">)</span>
+            <span style="color: #904200;">{</span>
+                Console.<span style="color: #721045;">Write</span><span style="color: #7f10d0;">(</span><span style="color: #2544bb;">"&#35831;&#36755;&#20837;&#24744;&#30340;&#20307;&#37325;&#65288;&#20844;&#26020;&#65289;&#65306;"</span><span style="color: #7f10d0;">)</span>;
+                <span style="color: #5317ac;">if</span> <span style="color: #7f10d0;">(</span><span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #006800;">(</span>Console.<span style="color: #721045;">ReadLine</span><span style="color: #b60000;">()</span>, <span style="color: #5317ac;">out</span> <span style="color: #005a5f;">weight</span><span style="color: #006800;">)</span> &amp;&amp; weight &gt; 0<span style="color: #7f10d0;">)</span>
+                <span style="color: #7f10d0;">{</span>
+                    <span style="color: #5317ac;">continue</span>;
+                <span style="color: #7f10d0;">}</span>
+                <span style="color: #5317ac;">else</span>
+                <span style="color: #7f10d0;">{</span>
+                    Console.<span style="color: #721045;">WriteLine</span><span style="color: #006800;">(</span><span style="color: #2544bb;">"&#36755;&#20837;&#30340;&#20307;&#37325;&#26080;&#25928;&#65292;&#35831;&#37325;&#26032;&#36755;&#20837;&#12290;"</span><span style="color: #006800;">)</span>;
+                <span style="color: #7f10d0;">}</span>
+            <span style="color: #904200;">}</span>
+
+            <span style="color: #005a5f;">double</span> <span style="color: #00538b;">bmi</span> = height / <span style="color: #904200;">(</span>weight * weight<span style="color: #904200;">)</span>;
+
+            Console.<span style="color: #721045;">Write</span><span style="color: #904200;">(</span>@<span style="color: #2544bb;">"&#24744;&#30340; BMI &#20540;&#20026;&#65306;{bmi}"</span><span style="color: #904200;">)</span>;
+
+            <span style="color: #5317ac;">if</span> <span style="color: #904200;">(</span>bmi &lt; 18.5<span style="color: #904200;">)</span>
+            <span style="color: #904200;">{</span>
+                Console.<span style="color: #721045;">WriteLine</span><span style="color: #7f10d0;">(</span><span style="color: #2544bb;">"&#24744;&#30340;&#20307;&#37325;&#36807;&#36731;&#65281;"</span><span style="color: #7f10d0;">)</span>;
+            <span style="color: #904200;">}</span>
+            <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #904200;">(</span>bmi &lt; 24<span style="color: #904200;">)</span>
+            <span style="color: #904200;">{</span>
+                Console.<span style="color: #721045;">WriteLine</span><span style="color: #7f10d0;">(</span><span style="color: #2544bb;">"&#24744;&#30340;&#20307;&#37325;&#27491;&#24120;&#12290;"</span><span style="color: #7f10d0;">)</span>;
+            <span style="color: #904200;">}</span>
+            <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #904200;">(</span>bmi &lt; 28<span style="color: #904200;">)</span>
+            <span style="color: #904200;">{</span>
+                Console.<span style="color: #721045;">WriteLine</span><span style="color: #7f10d0;">(</span><span style="color: #2544bb;">"&#24744;&#30340;&#20307;&#37325;&#36229;&#37325;&#12290;"</span><span style="color: #7f10d0;">)</span>;
+            <span style="color: #904200;">}</span>
+            <span style="color: #5317ac;">else</span>
+            <span style="color: #904200;">{</span>
+                Console.<span style="color: #721045;">WriteLine</span><span style="color: #7f10d0;">(</span><span style="color: #2544bb;">"&#24744;&#30340;&#20307;&#37325;&#32933;&#32982;&#65281;"</span><span style="color: #7f10d0;">)</span>;
+            <span style="color: #904200;">}</span>
+
+            Console.<span style="color: #721045;">WriteLine</span><span style="color: #904200;">()</span>;
+
+            Console.<span style="color: #721045;">Write</span><span style="color: #904200;">(</span><span style="color: #2544bb;">"&#26159;&#21542;&#32487;&#32493;&#35745;&#31639;BMI&#65311;&#65288;&#26159;/&#21542;&#65289;&#65306;"</span><span style="color: #904200;">)</span>;
+            <span style="color: #005a5f;">char</span> <span style="color: #00538b;">input</span> = Console.<span style="color: #721045;">ReadKey</span><span style="color: #904200;">()</span>;
+
+            <span style="color: #5317ac;">if</span> <span style="color: #904200;">(</span>input !== <span style="color: #2544bb;">"&#26159;"</span><span style="color: #904200;">)</span>
+            <span style="color: #904200;">{</span>
+                run = <span style="color: #0000c0;">false</span>;
+            <span style="color: #904200;">}</span>
+
+            Console.<span style="color: #721045;">WriteLine</span><span style="color: #904200;">()</span>;
+        <span style="color: #005f88;">}</span>
+    <span style="color: #a8007f;">}</span>
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+
+<p>
+{{{details{点击查看答案}}}}
+TODO
+</p>
+</details>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 1a2y</p>
-<p class="date">Created: 2024-03-04</p>
+<p class="date">Created: 2024-03-06</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

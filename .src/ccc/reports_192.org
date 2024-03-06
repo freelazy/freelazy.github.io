@@ -162,6 +162,84 @@ C/S架构编程，做完第一章所有的上机题:
   
   事实上 Convert.ToDouble 方法在内部使用的也是 Double.Parse，因此如果转换失败，它将抛出一个异常。
 
-* 练习备忘
+* 练习题备忘
 ** 下面是一个求取 BMI 的控制台应用，请找出并修改所有 BUG
 
+#+begin_src csharp
+  using System;
+
+  class Program
+  {
+      static void Main()
+      {
+          Console.Write("欢迎使用 BMI 计算器！");
+
+          boolean run = false;
+          while (run)
+          {
+              int height, weight;
+
+              while (true)
+                  Console.Write("请输入您的身高（米）：");
+                  if (double.TryParse(Console.ReadLine(), out height) && height > 0)
+                  {
+                      break;
+                  }
+                  else
+                  {
+                      Console.WriteLine("输入的身高无效，请重新输入。");
+                  }
+
+              while (true)
+              {
+                  Console.Write("请输入您的体重（公斤）：");
+                  if (double.Parse(Console.ReadLine(), out weight) && weight > 0)
+                  {
+                      continue;
+                  }
+                  else
+                  {
+                      Console.WriteLine("输入的体重无效，请重新输入。");
+                  }
+              }
+
+              double bmi = height / (weight * weight);
+
+              Console.Write(@"您的 BMI 值为：{bmi}");
+
+              if (bmi < 18.5)
+              {
+                  Console.WriteLine("您的体重过轻！");
+              }
+              else if (bmi < 24)
+              {
+                  Console.WriteLine("您的体重正常。");
+              }
+              else if (bmi < 28)
+              {
+                  Console.WriteLine("您的体重超重。");
+              }
+              else
+              {
+                  Console.WriteLine("您的体重肥胖！");
+              }
+
+              Console.WriteLine();
+
+              Console.Write("是否继续计算BMI？（是/否）：");
+              char input = Console.ReadKey();
+
+              if (input !== "是")
+              {
+                  run = false;
+              }
+
+              Console.WriteLine();
+          }
+      }
+  }
+#+end_src
+
+{{{details{点击查看答案}}}}
+TODO
+{{{details_end}}}
