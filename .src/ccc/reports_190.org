@@ -175,6 +175,9 @@
 #+end_src
 
 进行完善 1) 输出身体状况 2) 循环计算:
+
+{{{details(参考实现)}}}
+
 #+begin_src csharp -n
   static void Main(string[] args)
   {
@@ -226,3 +229,6 @@
       }
   }
 #+end_src
+
+{{{details(/)}}}
+
