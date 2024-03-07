@@ -31,5 +31,5 @@
                          :recursive t)
                         ("nnn" :components
                          ("freelazy_assets" "freelazy_org")))))
-  (eval . (ignore-errors (load-file "./.local.el"))) ; set `note-publish-post-hook' here
+  (eval . (load (expand-file-name "./.local.el") t t t)) ; set `note-publish-post-hook' here
   ))
