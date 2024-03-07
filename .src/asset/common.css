@@ -257,12 +257,16 @@ dd{
     line-height:24px;
     margin-bottom:24px}
 
-#content .section ul li,#content .toctree-wrapper ul li,article ul li{
-    list-style:disc;
-    margin-left:24px}
+#content .section ul li,#content .toctree-wrapper ul li,article ul li
+{
+    list-style: disc;
+    margin-left: 24px
+}
 
-#content .section ul li p:last-child,#content .toctree-wrapper ul li p:last-child,article ul li p:last-child{
-                                                                                                                                  margin-bottom:0}
+#content .section ul li p:last-child,#content .toctree-wrapper ul li p:last-child,article ul li p:last-child
+{
+    /* margin-bottom:0 */
+}
 
 #content .section ul li ul,#content .toctree-wrapper ul li ul,article ul li ul{
     margin-bottom:0}
