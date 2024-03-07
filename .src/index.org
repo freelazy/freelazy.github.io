@@ -1,4 +1,4 @@
-# #+TITLE: AIT.NET
+#+TITLE: AIT.NET
 
 #+HTML_HEAD: <meta http-equiv="Cache-Control" content="no-store">
 #+HTML_HEAD: <link rel="stylesheet" href="/asset/common.css?89121">
