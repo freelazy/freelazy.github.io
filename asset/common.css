@@ -1250,6 +1250,8 @@ h2.footnotes{
 
 
 
+.outline-text-2 > details > summary,
+.outline-text-3 > details > summary,
 .outline-text-4 > details > summary { margin-bottom: 1.5em; opacity: 0.4; }
 
 
