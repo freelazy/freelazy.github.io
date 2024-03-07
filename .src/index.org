@@ -12,6 +12,7 @@
 #+HTML_HEAD:   #content > .org-ul > li > ul:first-child { margin-top: 1em; }
 #+HTML_HEAD: }
 #+HTML_HEAD: @media (min-width: 768px) {
+#+HTML_HEAD:   body { background: white }
 #+HTML_HEAD:   #content { margin-left: auto; margin-right: auto; padding-left: 50px; }
 #+HTML_HEAD:   #postamble { display: none; }
 #+HTML_HEAD:   #main {display: grid; grid-gap: 20px; grid-template-columns: 2fr auto;}
