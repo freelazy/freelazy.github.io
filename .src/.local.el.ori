@@ -1,0 +1,4 @@
+(defun im~note-publish-post-hook (_)
+  (im/git-commit-and-push "best_try_and_best_chance"))
+
+(setq-local note-publish-post-hook (list #'im~note-publish-post-hook))

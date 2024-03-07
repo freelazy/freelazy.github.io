@@ -62,11 +62,6 @@
                         (file-expand-wildcards (expand-file-name "*/*.org" org-directory))
                         (file-expand-wildcards (expand-file-name "*/*/*.org" org-directory))))
 
-(defun im~note-publish-post-hook (_)
-  (let ((default-directory org-directory))
-    (im/git-commit-and-push "best_try_and_best_chance")))
-(add-hook 'note-publish-post-hook #'im~note-publish-post-hook)
-
 (with-over (global-set-key [f8] 'im/note-publish))
 
 (setq org-babel-default-header-args:sql
