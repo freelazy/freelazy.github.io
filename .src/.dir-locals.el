@@ -3,7 +3,7 @@
   (org-html-head-include-default-style . nil)
   (org-html-htmlize-output-type . inline-css)
   (org-publish-sitemap-custom-function . org-publish-sitemap-2)
-  (org-html-head . "<link rel='stylesheet' href='/asset/common.css?3344' />
+  (org-html-head . "<link rel='stylesheet' href='/asset/common.css?33442' />
 <script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
 <script src='/asset/common.js'></script>\n")
@@ -17,7 +17,7 @@
                          :recursive t
                          :headline-levels 5
                          :with-toc 5
-                         :author "1a2y"
+                         :author "zombiiiie"
                          :html-metadata-timestamp-format "%Y-%m-%d"
                          :html-preamble t
                          :auto-sitemap t
@@ -30,4 +30,5 @@
                          :publishing-function org-publish-attachment
                          :recursive t)
                         ("nnn" :components
-                         ("freelazy_assets" "freelazy_org")))))))
+                         ("freelazy_assets" "freelazy_org")))))
+  (eval . (ignore-errors (load-file "./.local.el")))))

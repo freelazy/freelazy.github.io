@@ -146,7 +146,7 @@ C/S架构编程，做完第一章所有的上机题:
   
   如果字符串不能被解析为 double，此方法会抛出一个异常。
 
-  如果带异常处理的话，代码应该是这样的:
+  {{{details(如果带异常处理的话，代码应该是这样的)}}}
   #+begin_src csharp
     // 使用异常处理机制 try/catch
     string numberString = "1g3.45";
@@ -161,10 +161,10 @@ C/S架构编程，做完第一章所有的上机题:
         Console.WriteLine("您的输入有误");
     }
   #+end_src
+  {{{details(/)}}}
 
 2. 使用 *double.TryParse* 方法，例如：
 
-   异常处理的代码稍微有些复制，于是产生了这种写法:
   #+begin_src csharp
     string numberString = "123.45";
     double number;
@@ -173,6 +173,8 @@ C/S架构编程，做完第一章所有的上机题:
   #+end_src
   
   此方法会尝试将字符串解析为 double，如果不成功，此方法不会抛出异常，而是将输出变量设为 0，并且返回 false。
+
+  这种方式不使用 try/catch 机制，代码看起来更简洁灵活。
 
 3. 使用 *Convert.ToDouble* 方法，例如：
 
