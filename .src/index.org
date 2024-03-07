@@ -46,6 +46,7 @@
 #+HTML: <ul>
 # #+HTML:   <li><a href="0-notes-163/index.html">backup of 163's notes</a></li>
 # #+HTML:   <li><a href="0-notes-161/index.html">backup of 161's notes</a></li>
+#+HTML:   <li><a href="https://dotnet.microsoft.com/zh-cn/learn">https://dotnet.microsoft.com/zh-cn/learn</a></li>
 #+HTML: </ul>
 #+HTML: </div>
 
