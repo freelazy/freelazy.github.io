@@ -91,10 +91,11 @@
 
 * 练习题备忘
 ** 循环和条件判断
+*** 打印从 1 到 1000 的所有数
 
-{{{details(打印从 1 到 1000 的所有数)}}}
+{{{details(答案仅供参考)}}}
 
-#+begin_src csx
+#+begin_src csx -n
   for (int i = 1; i <= 1000; i++)
   {
       Console.WriteLine(i);
@@ -103,9 +104,11 @@
 
 {{{details(/)}}}
 
-{{{details(求取从 1 到 1000 的所有数的和)}}}
+*** 求取从 1 到 1000 的所有数的和
 
-#+begin_src csx
+{{{details(答案仅供参考)}}}
+
+#+begin_src csx -n
   int sum = 0;
   for (int i = 1; i <= 1000; i++)
   {
@@ -119,9 +122,11 @@
 
 {{{details(/)}}}
 
-{{{details(求取从 1 到 1000 的所有数的平均数)}}}
+*** 求取从 1 到 1000 的所有数的平均数
 
-#+begin_src csx
+{{{details(答案仅供参考)}}}
+
+#+begin_src csx -n
   int sum = 0;
   int n = 1000;
 
@@ -140,11 +145,11 @@
 
 {{{details(/)}}}
 
-求取 int[] numbers = {1,2,3,4,5,6,7,8,9,10} 的平均值
+*** 求取 int[] numbers = {1,2,3,4,5,6,7,8,9,10} 的平均值
 
-{{{details}}}
+{{{details(答案仅供参考)}}}
 
-#+begin_src csx
+#+begin_src csx -n
   int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
   int sum = 0;

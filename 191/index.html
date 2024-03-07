@@ -25,7 +25,14 @@
 <li><a href="#org42a84ad">3. 寒假作业 (2024-01-15)</a></li>
 <li><a href="#org3d7cc04">4. 练习题备忘</a>
 <ul>
-<li><a href="#org83ea615">4.1. 循环和条件判断</a></li>
+<li><a href="#org83ea615">4.1. 循环和条件判断</a>
+<ul>
+<li><a href="#orgbb9ffce">4.1.1. 打印从 1 到 1000 的所有数</a></li>
+<li><a href="#orgc5780cb">4.1.2. 求取从 1 到 1000 的所有数的和</a></li>
+<li><a href="#orgf2d2fdc">4.1.3. 求取从 1 到 1000 的所有数的平均数</a></li>
+<li><a href="#orgbb2aeee">4.1.4. 求取 int[] numbers = {1,2,3,4,5,6,7,8,9,10} 的平均值</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -533,7 +540,7 @@
 </p>
 
 
-<figure id="org9f9edd0">
+<figure id="orgc693111">
 <img src="img/191-3338282.png" alt="191-3338282.png">
 
 </figure>
@@ -555,75 +562,91 @@
 <div id="outline-container-org83ea615" class="outline-3">
 <h3 id="org83ea615"><span class="section-number-3">4.1.</span> 循环和条件判断</h3>
 <div class="outline-text-3" id="text-4-1">
-<details><summary>打印从 1 到 1000 的所有数</summary>
+</div>
+<div id="outline-container-orgbb9ffce" class="outline-4">
+<h4 id="orgbb9ffce"><span class="section-number-4">4.1.1.</span> 打印从 1 到 1000 的所有数</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<details><summary>答案仅供参考</summary>
 
 <div class="org-src-container">
-<pre class="src src-csx"><span style="color: #fb4933;">for</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">i</span> = 1; i &lt;= 1000; i++<span style="color: #458588;">)</span>
-<span style="color: #458588;">{</span>
-    Console.<span style="color: #fabd2f;">WriteLine</span><span style="color: #b16286;">(</span>i<span style="color: #b16286;">)</span>;
-<span style="color: #458588;">}</span>
+<pre class="src src-csx"><span class="linenr">1: </span><span style="color: #fb4933;">for</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">i</span> = 1; i &lt;= 1000; i++<span style="color: #458588;">)</span>
+<span class="linenr">2: </span><span style="color: #458588;">{</span>
+<span class="linenr">3: </span>    Console.<span style="color: #fabd2f;">WriteLine</span><span style="color: #b16286;">(</span>i<span style="color: #b16286;">)</span>;
+<span class="linenr">4: </span><span style="color: #458588;">}</span>
 </pre>
 </div>
 
 </details>
+</div>
+</div>
 
-<details><summary>求取从 1 到 1000 的所有数的和</summary>
+<div id="outline-container-orgc5780cb" class="outline-4">
+<h4 id="orgc5780cb"><span class="section-number-4">4.1.2.</span> 求取从 1 到 1000 的所有数的和</h4>
+<div class="outline-text-4" id="text-4-1-2">
+<details><summary>答案仅供参考</summary>
 
 <div class="org-src-container">
-<pre class="src src-csx"><span style="color: #d3869b;">int</span> <span style="color: #83a598;">sum</span> = 0;
-<span style="color: #fb4933;">for</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">i</span> = 1; i &lt;= 1000; i++<span style="color: #458588;">)</span>
-<span style="color: #458588;">{</span>
-    sum = sum + i;
-<span style="color: #458588;">}</span>
-Console.<span style="color: #fabd2f;">WriteLine</span><span style="color: #458588;">(</span>$<span style="color: #b8bb26;">"&#20182;&#20204;&#30340;&#21644;&#26159; {sum}"</span><span style="color: #458588;">)</span>;
+<pre class="src src-csx"><span class="linenr">1: </span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">sum</span> = 0;
+<span class="linenr">2: </span><span style="color: #fb4933;">for</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">i</span> = 1; i &lt;= 1000; i++<span style="color: #458588;">)</span>
+<span class="linenr">3: </span><span style="color: #458588;">{</span>
+<span class="linenr">4: </span>    sum = sum + i;
+<span class="linenr">5: </span><span style="color: #458588;">}</span>
+<span class="linenr">6: </span>Console.<span style="color: #fabd2f;">WriteLine</span><span style="color: #458588;">(</span>$<span style="color: #b8bb26;">"&#20182;&#20204;&#30340;&#21644;&#26159; {sum}"</span><span style="color: #458588;">)</span>;
 </pre>
 </div>
 
 </details>
+</div>
+</div>
 
-<details><summary>求取从 1 到 1000 的所有数的平均数</summary>
+<div id="outline-container-orgf2d2fdc" class="outline-4">
+<h4 id="orgf2d2fdc"><span class="section-number-4">4.1.3.</span> 求取从 1 到 1000 的所有数的平均数</h4>
+<div class="outline-text-4" id="text-4-1-3">
+<details><summary>答案仅供参考</summary>
 
 <div class="org-src-container">
-<pre class="src src-csx"><span style="color: #d3869b;">int</span> <span style="color: #83a598;">sum</span> = 0;
-<span style="color: #d3869b;">int</span> <span style="color: #83a598;">n</span> = 1000;
-
-<span style="color: #fb4933;">for</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">i</span> = 1; i &lt;= 1000; i++<span style="color: #458588;">)</span>
-<span style="color: #458588;">{</span>
-    sum = sum + i;
-<span style="color: #458588;">}</span>
-
-<span style="color: #d3869b;">double</span> <span style="color: #83a598;">avg</span> = sum / <span style="color: #458588;">(</span><span style="color: #d3869b;">double</span><span style="color: #458588;">)</span>n; <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#24179;&#22343;&#25968; = &#21644; &#247; &#20010;&#25968;</span>
-
-Console.<span style="color: #fabd2f;">WriteLine</span><span style="color: #458588;">(</span>$<span style="color: #b8bb26;">"&#20182;&#20204;&#30340;&#21644;&#26159; {sum}, &#24179;&#22343;&#25968;&#26159; {avg}"</span><span style="color: #458588;">)</span>;
+<pre class="src src-csx"><span class="linenr"> 1: </span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">sum</span> = 0;
+<span class="linenr"> 2: </span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">n</span> = 1000;
+<span class="linenr"> 3: </span>
+<span class="linenr"> 4: </span><span style="color: #fb4933;">for</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">i</span> = 1; i &lt;= 1000; i++<span style="color: #458588;">)</span>
+<span class="linenr"> 5: </span><span style="color: #458588;">{</span>
+<span class="linenr"> 6: </span>    sum = sum + i;
+<span class="linenr"> 7: </span><span style="color: #458588;">}</span>
+<span class="linenr"> 8: </span>
+<span class="linenr"> 9: </span><span style="color: #d3869b;">double</span> <span style="color: #83a598;">avg</span> = sum / <span style="color: #458588;">(</span><span style="color: #d3869b;">double</span><span style="color: #458588;">)</span>n; <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#24179;&#22343;&#25968; = &#21644; &#247; &#20010;&#25968;</span>
+<span class="linenr">10: </span>
+<span class="linenr">11: </span>Console.<span style="color: #fabd2f;">WriteLine</span><span style="color: #458588;">(</span>$<span style="color: #b8bb26;">"&#20182;&#20204;&#30340;&#21644;&#26159; {sum}, &#24179;&#22343;&#25968;&#26159; {avg}"</span><span style="color: #458588;">)</span>;
 </pre>
 </div>
 
 </details>
+</div>
+</div>
 
-<p>
-求取 int[] numbers = {1,2,3,4,5,6,7,8,9,10} 的平均值
-</p>
-
-<details>
+<div id="outline-container-orgbb2aeee" class="outline-4">
+<h4 id="orgbb2aeee"><span class="section-number-4">4.1.4.</span> 求取 int[] numbers = {1,2,3,4,5,6,7,8,9,10} 的平均值</h4>
+<div class="outline-text-4" id="text-4-1-4">
+<details><summary>答案仅供参考</summary>
 
 <div class="org-src-container">
-<pre class="src src-csx"><span style="color: #d3869b;">int</span><span style="color: #458588;">[]</span> <span style="color: #83a598;">numbers</span> = <span style="color: #458588;">{</span>1, 2, 3, 4, 5, 6, 7, 8, 9, 10<span style="color: #458588;">}</span>;
-
-<span style="color: #d3869b;">int</span> <span style="color: #83a598;">sum</span> = 0;
-<span style="color: #d3869b;">int</span> <span style="color: #83a598;">n</span> = numbers.Length;
-
-<span style="color: #fb4933;">foreach</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">i</span> <span style="color: #fb4933;">in</span> numbers<span style="color: #458588;">)</span>
-<span style="color: #458588;">{</span>
-    sum = sum + i;
-<span style="color: #458588;">}</span>
-
-<span style="color: #d3869b;">double</span> <span style="color: #83a598;">avg</span> = <span style="color: #458588;">(</span><span style="color: #d3869b;">double</span><span style="color: #458588;">)</span> sum / n; <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#24179;&#22343;&#25968; = &#21644; &#247; &#20010;&#25968;</span>
-
-Console.<span style="color: #fabd2f;">WriteLine</span><span style="color: #458588;">(</span>$<span style="color: #b8bb26;">"&#20182;&#20204;&#30340;&#21644;&#26159; {sum}, &#24179;&#22343;&#25968;&#26159; {avg}"</span><span style="color: #458588;">)</span>;
+<pre class="src src-csx"><span class="linenr"> 1: </span><span style="color: #d3869b;">int</span><span style="color: #458588;">[]</span> <span style="color: #83a598;">numbers</span> = <span style="color: #458588;">{</span>1, 2, 3, 4, 5, 6, 7, 8, 9, 10<span style="color: #458588;">}</span>;
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">sum</span> = 0;
+<span class="linenr"> 4: </span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">n</span> = numbers.Length;
+<span class="linenr"> 5: </span>
+<span class="linenr"> 6: </span><span style="color: #fb4933;">foreach</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">i</span> <span style="color: #fb4933;">in</span> numbers<span style="color: #458588;">)</span>
+<span class="linenr"> 7: </span><span style="color: #458588;">{</span>
+<span class="linenr"> 8: </span>    sum = sum + i;
+<span class="linenr"> 9: </span><span style="color: #458588;">}</span>
+<span class="linenr">10: </span>
+<span class="linenr">11: </span><span style="color: #d3869b;">double</span> <span style="color: #83a598;">avg</span> = <span style="color: #458588;">(</span><span style="color: #d3869b;">double</span><span style="color: #458588;">)</span> sum / n; <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#24179;&#22343;&#25968; = &#21644; &#247; &#20010;&#25968;</span>
+<span class="linenr">12: </span>
+<span class="linenr">13: </span>Console.<span style="color: #fabd2f;">WriteLine</span><span style="color: #458588;">(</span>$<span style="color: #b8bb26;">"&#20182;&#20204;&#30340;&#21644;&#26159; {sum}, &#24179;&#22343;&#25968;&#26159; {avg}"</span><span style="color: #458588;">)</span>;
 </pre>
 </div>
 
 </details>
+</div>
 </div>
 </div>
 </section>
