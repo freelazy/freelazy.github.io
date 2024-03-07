@@ -12,7 +12,7 @@
 #+HTML_HEAD:   #content > .org-ul > li > ul:first-child { margin-top: 1em; }
 #+HTML_HEAD: }
 #+HTML_HEAD: @media (min-width: 768px) {
-#+HTML_HEAD:   body { background: white }
+#+HTML_HEAD:   body { background: white; line-height: 1.4; font-family: 宋体; font-size: 30px; font-weight: 600 }
 #+HTML_HEAD:   #content { margin-left: auto; margin-right: auto; padding-left: 50px; }
 #+HTML_HEAD:   #postamble { display: none; }
 #+HTML_HEAD:   #main {display: grid; grid-gap: 20px; grid-template-columns: 2fr auto;}
@@ -20,12 +20,12 @@
 #+HTML_HEAD:   #main aside { font-size: 1em; }
 #+HTML_HEAD:   #main aside > ol { display: flex; flex-flow: row wrap; width: 368px; box-shadow: 0 0 10px #eee; padding: 20px 0 20px 20px; margin-top: -4em; }
 #+HTML_HEAD:   #main aside > ol > li { margin-bottom: 1em; width: 150px; }
-#+HTML_HEAD:   li, h3 { font-family: 宋体; font-size: 1.8em } a { text-decoration: none; }
+#+HTML_HEAD:   a { text-decoration: none; }
 #+HTML_HEAD: }
-#+HTML_HEAD: .title {color: red; font-weight: normal; font-size: 1.8em; text-shadow: 0 0 1px #ee0000; font-family: 楷体}
+#+HTML_HEAD: .title {color: red; font-weight: bolder; font-size: 2em; text-shadow: 0 0 2em darkblue; font-family: serif; }
 #+HTML_HEAD: </style>
 
-#+HTML: <h2 style="color: red; font-weight: bold; text-shadow: 0 0 1px #ee0000"><img style="width: 98%" src="/asset/dream.png"></h4>
+#+HTML: <p><img style="width: auto" src="/asset/dream.png"></p>
 # #+HTML: <h3 class="title">Happy Happy</h3>
 
 #+HTML: <div id="main">
@@ -38,12 +38,12 @@
 # #+HTML: <h3>链接资源</h3>
 # #+INCLUDE: "111/.links.org" :lines "2-"
 
-#+HTML: <div><br>
+#+HTML: <div>
 #+HTML: <h3>笔记目录 <small>(<a href="https://github.com/freelazy/" target="_blank">Github</a>)</small></h3>
 #+INCLUDE: ".sitemap.org" :lines "11-"
 #+HTML: </div>
 
-#+HTML: <div><br>
+#+HTML: <div style="margin-top: 2em;">
 #+HTML: <h3>其他链接</h3>
 #+HTML: <ul>
 # #+HTML:   <li><a href="0-notes-163/index.html">backup of 163's notes</a></li>
