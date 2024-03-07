@@ -1,8 +1,7 @@
 #+TITLE: AIT.NET
 
 #+HTML_HEAD: <meta http-equiv="Cache-Control" content="no-store">
-#+HTML_HEAD: <link rel="stylesheet" href="/html/asset/common.css?8912">
-#+HTML_HEAD: <link rel="stylesheet" href="/yaoliuyao/html/asset/common.css?8912">
+#+HTML_HEAD: <link rel="stylesheet" href="/asset/common.css?89121">
 #+HTML_HEAD: <script async=true src="https://imfine.cc/script/ga/163.js"></script>
 #+HTML_HEAD: <style>
 #+HTML_HEAD: #org-div-home-and-up { display:none; }
@@ -24,8 +23,8 @@
 #+HTML_HEAD: .title {color: red; font-weight: normal; font-size: 1.8em; text-shadow: 0 0 1px #ee0000; font-family: 楷体}
 #+HTML_HEAD: </style>
 
-# #+HTML: <h2 style="color: red; font-weight: bold; text-shadow: 0 0 1px #ee0000"><img style="width: 98%" src="/html/asset/dream.png"></h4>
-#+HTML: <h3 class="title">Happy Coding</h3>
+# #+HTML: <h2 style="color: red; font-weight: bold; text-shadow: 0 0 1px #ee0000"><img style="width: 98%" src="/asset/dream.png"></h4>
+#+HTML: <h3 class="title">Happy Happy</h3>
 
 #+HTML: <div id="main">
 
