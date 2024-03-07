@@ -252,10 +252,12 @@ dd{
     margin:0;
 }
 
-#content .section ul,#content .toctree-wrapper ul,article ul{
+#content .section ul,#content .toctree-wrapper ul,article ul
+{
     list-style:disc;
     line-height:24px;
-    margin-bottom:24px}
+    margin-bottom:24px
+}
 
 #content .section ul li,#content .toctree-wrapper ul li,article ul li
 {
@@ -290,7 +292,8 @@ dd{
     margin-left:24px}
 
 #content .section ol li p:last-child,#content ol li p:last-child,article ol li p:last-child{
-                                                                                                                           margin-bottom:0}
+    /* margin-bottom:0 */
+}
 
 #content .section ol li ul,#content ol li ul,article ol li ul{
     margin-bottom:0}
