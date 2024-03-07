@@ -11,7 +11,7 @@
                       `(("freelazy_org"
                          :base-directory "."
                          :base-extension "org"
-                         :exclude "^\\(\\.\\|x\\.\\|_\\).*"
+                         :exclude "^\\(\\.\\|x\\.\\)\\|_/"
                          :publishing-directory "../"
                          :publishing-function org-html-publish-to-html
                          :recursive t
@@ -25,7 +25,7 @@
                         ("freelazy_assets"
                          :base-directory "."
                          :base-extension "css\\|js\\|png\\|jpe?g\\|gif\\|svg\\|pdf\\|zip\\|html\\|txt\\|jar\\|mp4\\|rar\\|doc\\|pptx"
-                         :exclude "^\\(\\.\\|x\\.\\|_\\).*"
+                         :exclude "^\\(\\.\\|x\\.\\)\\|_/"
                          :publishing-directory "../"
                          :publishing-function org-publish-attachment
                          :recursive t)

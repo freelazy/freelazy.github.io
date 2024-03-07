@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2024-03-07 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Apache DBUtils</title>
+<meta name="author" content="31415929" />
+<meta name="generator" content="Org Mode" />
+<link rel='stylesheet' href='/asset/common.css?33442' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">Apache DBUtils</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgd974e17">1. 前情回顾</a></li>
+<li><a href="#org4376e7a">2. Apache DBUtils</a></li>
+</ul>
+</div>
+</nav>
+
+
+<section id="outline-container-orgd974e17" class="outline-2">
+<h2 id="orgd974e17"><span class="section-number-2">1.</span> 前情回顾</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+基石:
+</p>
+<ul class="org-ul">
+<li>html/css/js</li>
+<li>http/JavaWeb</li>
+<li>File/Database</li>
+</ul>
+
+<p>
+延续:
+</p>
+<ul class="org-ul">
+<li>PlugIns, 扩充 / 丰富功能，便捷 -&gt; 外挂</li>
+<li>Framework, 框架</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-org4376e7a" class="outline-2">
+<h2 id="org4376e7a"><span class="section-number-2">2.</span> Apache DBUtils</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+对 JDBC 的一种非常浅的封装，可以简化 JDBC 的使用。
+</p>
+
+<p>
+Post:
+</p>
+<ul class="org-ul">
+<li>id</li>
+<li>title</li>
+<li>content</li>
+<li>author</li>
+<li>created</li>
+</ul>
+
+<p>
+Comment:
+</p>
+<ul class="org-ul">
+<li>id</li>
+<li>postid</li>
+<li>content</li>
+<li>author</li>
+<li>created</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #fb4933;">create</span> <span style="color: #fb4933;">table</span> <span style="color: #fabd2f;">post</span>
+<span style="color: #458588;">(</span>
+  id <span style="color: #d3869b;">int</span> <span style="color: #fb4933;">identity</span> <span style="color: #fb4933;">primary</span> <span style="color: #fb4933;">key</span>,
+  title <span style="color: #d3869b;">varchar</span><span style="color: #b16286;">(</span>200<span style="color: #b16286;">)</span> <span style="color: #fb4933;">not</span> <span style="color: #fb4933;">null</span>,
+  content <span style="color: #d3869b;">varchar</span><span style="color: #b16286;">(</span>2000<span style="color: #b16286;">)</span> <span style="color: #fb4933;">not</span> <span style="color: #fb4933;">null</span>,
+  author <span style="color: #d3869b;">varchar</span><span style="color: #b16286;">(</span>200<span style="color: #b16286;">)</span> <span style="color: #fb4933;">not</span> <span style="color: #fb4933;">null</span>,
+  created datetime <span style="color: #fb4933;">default</span> getdate<span style="color: #b16286;">()</span>
+<span style="color: #458588;">)</span>;
+<span style="color: #fb4933;">create</span> <span style="color: #fb4933;">table</span> <span style="color: #fabd2f;">comment</span>
+<span style="color: #458588;">(</span>
+  id <span style="color: #d3869b;">int</span> <span style="color: #fb4933;">identity</span> <span style="color: #fb4933;">primary</span> <span style="color: #fb4933;">key</span>,
+  postid <span style="color: #d3869b;">int</span>,
+  content <span style="color: #d3869b;">varchar</span><span style="color: #b16286;">(</span>1000<span style="color: #b16286;">)</span> <span style="color: #fb4933;">not</span> <span style="color: #fb4933;">null</span>,
+  author <span style="color: #d3869b;">varchar</span><span style="color: #b16286;">(</span>200<span style="color: #b16286;">)</span> <span style="color: #fb4933;">not</span> <span style="color: #fb4933;">null</span>,
+  created datetime <span style="color: #fb4933;">default</span> getdate<span style="color: #b16286;">()</span> 
+<span style="color: #458588;">)</span>;
+</pre>
+</div>
+
+<p>
+创建一个 JavaWeb 项目。
+</p>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 31415929</p>
+<p class="date">Created: 2024-03-07</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>

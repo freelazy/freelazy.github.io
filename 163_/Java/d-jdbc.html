@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2024-03-07 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JDBC 连接数据库</title>
+<meta name="author" content="31415929" />
+<meta name="generator" content="Org Mode" />
+<link rel='stylesheet' href='/asset/common.css?33442' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">JDBC 连接数据库</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgefeb0de">1. DriverManager 驱动管理类</a></li>
+<li><a href="#org378d7a6">2. Connection 代表的是一个数据库连接</a></li>
+<li><a href="#org8036620">3. Statement 用来提交某个 SQL 语句</a>
+<ul>
+<li><a href="#orgceb1f0b">3.1. statement.execute/executeUpdate/executeQuery()</a></li>
+<li><a href="#org743cec8">3.2. PreparedStatement 是可以绑定入参的 Statement</a></li>
+</ul>
+</li>
+<li><a href="#org6b8fd84">4. ResultSet 用来表示结果集</a></li>
+<li><a href="#org06f9b04">5. 小结</a></li>
+<li><a href="#orgba77df3">6. [案例] JDBC 连接 SQLServer</a>
+<ul>
+<li><a href="#orga5715c3">6.1. 创建名字为 xxx 的数据库，创建表 book</a></li>
+<li><a href="#orgfd7a794">6.2. 下载客户端，即 mssql-jdbc.jar</a></li>
+<li><a href="#org2f07bf7">6.3. 配置 jdbc.jar 到项目中，让项目能够使用它</a>
+<ul>
+<li>
+<ul>
+<li><a href="#orgb2b227f">6.3.0.1. 第一种，直接放到 WebContent/WEB-INF/lib 文件夹下面</a></li>
+<li><a href="#org858641b">6.3.0.2. 第二种，配置项目，让项目能够引用到这个 jar 包</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgc30cb95">6.4. 万事俱备，开始使用</a></li>
+<li><a href="#org1b2edf9">6.5. 增加异常的处理，让代码更健壮</a></li>
+<li><a href="#org6555e2a">6.6. 基于上述的代码，对相关的处理逻辑进行封装 (复用)</a></li>
+<li><a href="#org053d6d1">6.7. 使用 Try-With-Resource 进行资源的释放</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+<p>
+JDBC (Java DataBase Connectivity).
+</p>
+
+
+<section id="outline-container-orgefeb0de" class="outline-2">
+<h2 id="orgefeb0de"><span class="section-number-2">1.</span> DriverManager 驱动管理类</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+通过它可以对连接进行管理。最常用的就是:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">Class.forName &#29616;&#22312;&#21487;&#20197;&#30465;&#30053;</span>
+<span style="color: #d3869b;">Conenction</span> <span style="color: #83a598;">conn</span> = DriverManger.getConnection<span style="color: #458588;">(</span>url<span style="color: #458588;">)</span>;
+</pre>
+</div>
+
+<p>
+可以将获取连接进行简单封装:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">DBHelper</span> <span style="color: #458588;">{</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">Connection</span> <span style="color: #fabd2f;">getConnection</span><span style="color: #b16286;">()</span> <span style="color: #fb4933;">throws</span> <span style="color: #d3869b;">Exception</span> <span style="color: #b16286;">{</span>
+        <span style="color: #d3869b;">String</span> <span style="color: #83a598;">user</span> = <span style="color: #b8bb26;">"sa"</span>;
+        <span style="color: #d3869b;">String</span> <span style="color: #83a598;">password</span> = <span style="color: #b8bb26;">"sa"</span>;
+        <span style="color: #d3869b;">String</span> <span style="color: #83a598;">dataBase</span> = <span style="color: #b8bb26;">"xxx"</span>;
+        <span style="color: #d3869b;">String</span> <span style="color: #83a598;">host</span> = <span style="color: #b8bb26;">"localhost:1434"</span>;
+        <span style="color: #d3869b;">String</span> <span style="color: #83a598;">url</span> = <span style="color: #b8bb26;">"jdbc:sqlserver://"</span> + host + <span style="color: #b8bb26;">";databaseName="</span> + dataBase + <span style="color: #b8bb26;">";user="</span> + user + <span style="color: #b8bb26;">";password="</span> + password;
+
+        Class.forName<span style="color: #8ec07c;">(</span><span style="color: #b8bb26;">"com.microsoft.sqlserver.jdbc.SQLServerDriver"</span><span style="color: #8ec07c;">)</span>;
+        <span style="color: #fb4933;">return</span> DriverManager.getConnection<span style="color: #8ec07c;">(</span>url<span style="color: #8ec07c;">)</span>;
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org378d7a6" class="outline-2">
+<h2 id="org378d7a6"><span class="section-number-2">2.</span> Connection 代表的是一个数据库连接</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+后续所有的操作，都必须要基于 Connection 对象。
+</p>
+
+<p>
+如果使用完毕，请 <b>务必要记得</b> 关闭。
+</p>
+
+<blockquote>
+<p>
+有始有终，方为睿智之士。
+</p>
+</blockquote>
+</div>
+</section>
+
+<section id="outline-container-org8036620" class="outline-2">
+<h2 id="org8036620"><span class="section-number-2">3.</span> Statement 用来提交某个 SQL 语句</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgceb1f0b" class="outline-3">
+<h3 id="orgceb1f0b"><span class="section-number-3">3.1.</span> statement.execute/executeUpdate/executeQuery()</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+execute = executeQuery + executeUpdate
+</p>
+<ul class="org-ul">
+<li>executeQuery 更适合于 select 语句，返回的是 ResultSet 对象，代表结果集</li>
+<li>executeUpdate 适合于更新数据，返回的是整形，表示受语句影响的行数</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org743cec8" class="outline-3">
+<h3 id="org743cec8"><span class="section-number-3">3.2.</span> PreparedStatement 是可以绑定入参的 Statement</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+PreparedStatement 解决掉的问题:
+</p>
+<ol class="org-ol">
+<li>避免了枯燥拼接 SQL 字符串</li>
+<li>可以有效规避 SQL 注入带来的风险!</li>
+</ol>
+
+<p>
+因此，以后操作数据库，请大家务必使用 PreparedStatement !!!
+</p>
+
+<div class="div" id="org736fdc3">
+<p>
+
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #d3869b;">String</span> <span style="color: #83a598;">sql</span> = <span style="color: #b8bb26;">"insert into book (bookname, price) values ('"</span>
+                 + name + <span style="color: #b8bb26;">"', "</span> + price + <span style="color: #b8bb26;">")"</span>;
+
+<span style="color: #d3869b;">Connection</span> <span style="color: #83a598;">conn</span> = DBHelper.getConnection<span style="color: #458588;">()</span>;
+<span style="color: #d3869b;">Statement</span> <span style="color: #83a598;">st</span> = conn.createStatement<span style="color: #458588;">()</span>;
+
+st.executeUpdate<span style="color: #458588;">(</span>sql<span style="color: #458588;">)</span>;
+
+st.close<span style="color: #458588;">()</span>;
+conn.close<span style="color: #458588;">()</span>;
+</pre>
+</div>
+<p>
+:break:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #d3869b;">String</span> <span style="color: #83a598;">sql</span> = <span style="color: #b8bb26;">"insert into book (bookname, price) values (?, ?)"</span>;
+
+<span style="color: #d3869b;">Connection</span> <span style="color: #83a598;">conn</span> = DBHelper.getConnection<span style="color: #458588;">()</span>;
+<span style="color: #d3869b;">PreparedStatement</span> <span style="color: #83a598;">ps</span> = conn.prepareStatement<span style="color: #458588;">(</span>sql<span style="color: #458588;">)</span>;
+
+ps.setString<span style="color: #458588;">(</span>1, <span style="color: #b8bb26;">"js tutor"</span><span style="color: #458588;">)</span>;
+ps.setFloat<span style="color: #458588;">(</span>2, 22F<span style="color: #458588;">)</span>;
+ps.executeUpdate<span style="color: #458588;">()</span>;
+
+ps.close<span style="color: #458588;">()</span>;
+conn.close<span style="color: #458588;">()</span>;
+</pre>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org6b8fd84" class="outline-2">
+<h2 id="org6b8fd84"><span class="section-number-2">4.</span> ResultSet 用来表示结果集</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+通用的迭代方法为:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">while</span> <span style="color: #458588;">(</span>rs.next<span style="color: #b16286;">()</span><span style="color: #458588;">)</span> <span style="color: #458588;">{</span>
+    <span style="color: #d3869b;">Xxx</span> <span style="color: #83a598;">i</span> = rs.getXxx<span style="color: #b16286;">(</span>1<span style="color: #b16286;">)</span>;
+    <span style="color: #d3869b;">Xxx</span> <span style="color: #83a598;">j</span> = rs.getXxx<span style="color: #b16286;">(</span>2<span style="color: #b16286;">)</span>;
+    System.out.println<span style="color: #b16286;">(</span>i + j<span style="color: #b16286;">)</span>;
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+
+<p>
+小结:
+</p>
+<ul class="org-ul">
+<li>rs.next() 表示将当前的游标 (Cursor)，移到下一行。如果没有下一行，则返回 false</li>
+<li>如果使用 rs.getInt/Object 之类的，会在当前行的基础上取数据</li>
+<li>rs 使用完毕，最好要将其结束掉</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-org06f9b04" class="outline-2">
+<h2 id="org06f9b04"><span class="section-number-2">5.</span> 小结</h2>
+<div class="outline-text-2" id="text-5">
+<ul class="org-ul">
+<li>Connection/Statement/ResultSet 都属于资源，使用完毕，务必要 close 掉</li>
+<li>建议使用 Try-With-Resource 的语法进行异常的处理跟资源释放</li>
+<li>务必使用 PreparedStatement，由于安全问题，生产环境不应该使用 Statement 类</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-orgba77df3" class="outline-2">
+<h2 id="orgba77df3"><span class="section-number-2">6.</span> [案例] JDBC 连接 SQLServer</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-orga5715c3" class="outline-3">
+<h3 id="orga5715c3"><span class="section-number-3">6.1.</span> 创建名字为 xxx 的数据库，创建表 book</h3>
+<div class="outline-text-3" id="text-6-1">
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #fb4933;">drop</span> <span style="color: #fb4933;">table</span> <span style="color: #fabd2f;">book</span>;
+
+<span style="color: #fb4933;">create</span> <span style="color: #fb4933;">table</span> <span style="color: #fabd2f;">book</span>
+<span style="color: #458588;">(</span>
+       id <span style="color: #d3869b;">int</span> <span style="color: #fb4933;">primary</span> <span style="color: #fb4933;">key</span>,
+       <span style="color: #fb4933;">name</span> <span style="color: #d3869b;">varchar</span><span style="color: #b16286;">(</span>200<span style="color: #b16286;">)</span> <span style="color: #fb4933;">not</span> <span style="color: #fb4933;">null</span>,
+       price <span style="color: #d3869b;">float</span> <span style="color: #fb4933;">default</span> 0
+<span style="color: #458588;">)</span>;
+<span style="color: #fb4933;">insert</span> <span style="color: #fb4933;">into</span> book <span style="color: #fb4933;">values</span> <span style="color: #458588;">(</span>1, <span style="color: #b8bb26;">'x'</span>, 22<span style="color: #458588;">)</span>;
+<span style="color: #fb4933;">insert</span> <span style="color: #fb4933;">into</span> book <span style="color: #fb4933;">values</span> <span style="color: #458588;">(</span>2, <span style="color: #b8bb26;">'y'</span>, 23<span style="color: #458588;">)</span>;
+<span style="color: #fb4933;">insert</span> <span style="color: #fb4933;">into</span> book <span style="color: #fb4933;">values</span> <span style="color: #458588;">(</span>3, <span style="color: #b8bb26;">'z'</span>, 21<span style="color: #458588;">)</span>;
+<span style="color: #fb4933;">insert</span> <span style="color: #fb4933;">into</span> book <span style="color: #fb4933;">values</span> <span style="color: #458588;">(</span>4, <span style="color: #b8bb26;">'a'</span>, 77<span style="color: #458588;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfd7a794" class="outline-3">
+<h3 id="orgfd7a794"><span class="section-number-3">6.2.</span> 下载客户端，即 mssql-jdbc.jar</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+去 <a href="http://mvnrepository.com">http://mvnrepository.com</a> 这个地址下载。
+</p>
+
+
+<figure id="org57b6f92">
+<img src="img/jdbc-sqlserver-download.png" alt="jdbc-sqlserver-download.png">
+
+</figure>
+
+
+<p>
+下载完成之后，放到 e:/libs 文件夹下面。
+</p>
+
+<p>
+比如，我们下载完后，保存为 e:/libs/mssql-jdbc-8.2.2.jre8.jar
+</p>
+
+<p>
+它跟普通的客户端相比，它不需要安装。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2f07bf7" class="outline-3">
+<h3 id="org2f07bf7"><span class="section-number-3">6.3.</span> 配置 jdbc.jar 到项目中，让项目能够使用它</h3>
+<div class="outline-text-3" id="text-6-3">
+</div>
+<div id="outline-container-orgb2b227f" class="outline-5">
+<h5 id="orgb2b227f"><span class="section-number-5">6.3.0.1.</span> 第一种，直接放到 WebContent/WEB-INF/lib 文件夹下面</h5>
+</div>
+<div id="outline-container-org858641b" class="outline-5">
+<h5 id="org858641b"><span class="section-number-5">6.3.0.2.</span> 第二种，配置项目，让项目能够引用到这个 jar 包</h5>
+<div class="outline-text-5" id="text-6-3-0-2">
+
+<figure id="orgede1e70">
+<img src="img/jdbc-jar.png" alt="jdbc-jar.png">
+
+</figure>
+
+<p>
+点击 Add External JAR 后，选择 E:/libs/mssql-jdbc-8.2.2.jre8.jar 将其添加到项目即可。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc30cb95" class="outline-3">
+<h3 id="orgc30cb95"><span class="section-number-3">6.4.</span> 万事俱备，开始使用</h3>
+<div class="outline-text-3" id="text-6-4">
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">public</span> <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">main</span><span style="color: #458588;">(</span><span style="color: #d3869b;">String</span><span style="color: #b16286;">[]</span> <span style="color: #83a598;">args</span><span style="color: #458588;">)</span> <span style="color: #fb4933;">throws</span> <span style="color: #d3869b;">Exception</span> <span style="color: #458588;">{</span>
+    <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">0. &#39537;&#21160; [&#20174; JDK6/jdbc4 &#24320;&#22987;&#65292;&#36825;&#21477;&#21487;&#20197;&#19981;&#20889;&#65292;&#23427;&#20250;&#33258;&#21160;&#34987;&#27880;&#20876;&#65307;&#22312; Web &#39033;&#30446;&#20013;&#65292;&#22914;&#26524;&#20986;&#29616;&#39537;&#21160;&#25214;&#19981;&#21040;&#30340;&#38382;&#39064;&#65292;&#23558;&#36825;&#21477;&#20889;&#19978;]</span>
+    Class.forName<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"com.microsoft.sqlserver.jdbc.SQLServerDriver"</span><span style="color: #b16286;">)</span>;
+
+    <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">1. &#36830;&#25509;</span>
+    <span style="color: #d3869b;">String</span> <span style="color: #83a598;">url</span> = <span style="color: #b8bb26;">"jdbc:sqlserver://localhost:1434;databaseName=xxx;user=sa;password="</span>;
+    <span style="color: #d3869b;">Connection</span> <span style="color: #83a598;">connection</span> = DriverManager.getConnection<span style="color: #b16286;">(</span>url<span style="color: #b16286;">)</span>;
+
+    <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">2. &#20351;&#29992;</span>
+    <span style="color: #d3869b;">Statement</span> <span style="color: #83a598;">statement</span> = connection.createStatement<span style="color: #b16286;">()</span>;
+
+    statement.executeUpdate<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"create database aabbcc"</span><span style="color: #b16286;">)</span>;
+    statement.executeUpdate<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"use aabbcc"</span><span style="color: #b16286;">)</span>;
+    statement.executeUpdate<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"create table hello (id int, ttt varchar(20))"</span><span style="color: #b16286;">)</span>;
+    statement.executeUpdate<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"insert into hello values (1, 'aaa')"</span><span style="color: #b16286;">)</span>;
+    statement.executeUpdate<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"insert into hello values (2, 'bbb')"</span><span style="color: #b16286;">)</span>;
+    statement.executeUpdate<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"insert into hello values (3, 'ccc')"</span><span style="color: #b16286;">)</span>;
+    statement.executeUpdate<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"insert into hello values (4, 'ddd')"</span><span style="color: #b16286;">)</span>;
+
+    <span style="color: #d3869b;">ResultSet</span> <span style="color: #83a598;">resultset</span> = statement.executeQuery<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"select * from book"</span><span style="color: #b16286;">)</span>;
+    <span style="color: #fb4933;">while</span> <span style="color: #b16286;">(</span>resultset.next<span style="color: #8ec07c;">()</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #d3869b;">int</span> <span style="color: #83a598;">id</span> = resultset.getInt<span style="color: #8ec07c;">(</span>1<span style="color: #8ec07c;">)</span>;
+        <span style="color: #d3869b;">String</span> <span style="color: #83a598;">name</span> = resultset.getString<span style="color: #8ec07c;">(</span>2<span style="color: #8ec07c;">)</span>;
+        <span style="color: #d3869b;">float</span> <span style="color: #83a598;">price</span> = resultset.getFloat<span style="color: #8ec07c;">(</span>3<span style="color: #8ec07c;">)</span>;
+        System.out.println<span style="color: #8ec07c;">(</span><span style="color: #b8bb26;">"id: "</span> + id + <span style="color: #b8bb26;">" name: "</span> + name + <span style="color: #b8bb26;">" price: "</span> + price<span style="color: #8ec07c;">)</span>;
+    <span style="color: #b16286;">}</span>
+
+    <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#37322;&#25918;&#36164;&#28304;&#65292;&#35201;&#27880;&#24847;&#37322;&#25918;&#30340;&#39034;&#24207;</span>
+    resultset.close<span style="color: #b16286;">()</span>;
+    statement.close<span style="color: #b16286;">()</span>;
+    connection.close<span style="color: #b16286;">()</span>;
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+
+<details id="orgb301566">
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">package</span> <span style="color: #d3869b;">nihao</span>;
+
+<span style="color: #fb4933;">import</span> <span style="color: #d3869b;">java</span>.<span style="color: #d3869b;">sql</span>.<span style="color: #d3869b;">Connection</span>;
+<span style="color: #fb4933;">import</span> <span style="color: #d3869b;">java</span>.<span style="color: #d3869b;">sql</span>.<span style="color: #d3869b;">Statement</span>;
+<span style="color: #fb4933;">import</span> <span style="color: #d3869b;">java</span>.<span style="color: #d3869b;">sql</span>.<span style="color: #d3869b;">PreparedStatement</span>;
+<span style="color: #fb4933;">import</span> <span style="color: #d3869b;">java</span>.<span style="color: #d3869b;">sql</span>.<span style="color: #d3869b;">ResultSet</span>;
+<span style="color: #fb4933;">import</span> <span style="color: #d3869b;">java</span>.<span style="color: #d3869b;">sql</span>.<span style="color: #d3869b;">DriverManager</span>;
+
+<span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">App</span> <span style="color: #458588;">{</span>
+
+    <span style="color: #fb4933;">public</span> <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">main</span><span style="color: #b16286;">(</span><span style="color: #d3869b;">String</span><span style="color: #8ec07c;">[]</span> <span style="color: #83a598;">args</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+
+        System.out.println<span style="color: #8ec07c;">(</span><span style="color: #b8bb26;">"Connect to SQL Server and demo Create, Read, Update and Delete operations."</span><span style="color: #8ec07c;">)</span>;
+
+        <span style="color: #7c6f64;">//</span><span style="color: #7c6f64;">Update the username and password below</span>
+        <span style="color: #d3869b;">String</span> <span style="color: #83a598;">connectionUrl</span> = <span style="color: #b8bb26;">"jdbc:sqlserver://localhost:1434;databaseName=master;user=sa;password="</span>;
+
+        <span style="color: #fb4933;">try</span> <span style="color: #8ec07c;">{</span>
+            <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">Load SQL Server JDBC driver and establish connection.</span>
+            System.out.print<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"Connecting to SQL Server ... "</span><span style="color: #d65d0e;">)</span>;
+            <span style="color: #fb4933;">try</span> <span style="color: #d65d0e;">(</span><span style="color: #d3869b;">Connection</span> <span style="color: #83a598;">connection</span> = DriverManager.getConnection<span style="color: #458588;">(</span>connectionUrl<span style="color: #458588;">)</span><span style="color: #d65d0e;">)</span> <span style="color: #d65d0e;">{</span>
+                System.out.println<span style="color: #458588;">(</span><span style="color: #b8bb26;">"Done."</span><span style="color: #458588;">)</span>;
+
+                <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">Create a sample database</span>
+                System.out.print<span style="color: #458588;">(</span><span style="color: #b8bb26;">"Dropping and creating database 'yyy' ... "</span><span style="color: #458588;">)</span>;
+                <span style="color: #d3869b;">String</span> <span style="color: #83a598;">sql</span> = <span style="color: #b8bb26;">"CREATE DATABASE [yyy]"</span>;
+                <span style="color: #fb4933;">try</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">Statement</span> <span style="color: #83a598;">statement</span> = connection.createStatement<span style="color: #b16286;">()</span><span style="color: #458588;">)</span> <span style="color: #458588;">{</span>
+                    statement.executeUpdate<span style="color: #b16286;">(</span>sql<span style="color: #b16286;">)</span>;
+                    System.out.println<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"Done."</span><span style="color: #b16286;">)</span>;
+                <span style="color: #458588;">}</span>
+
+                <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">Create a Table and insert some sample data</span>
+                System.out.print<span style="color: #458588;">(</span><span style="color: #b8bb26;">"Creating sample table with data, press ENTER to continue..."</span><span style="color: #458588;">)</span>;
+                System.in.read<span style="color: #458588;">()</span>;
+                sql = <span style="color: #fb4933;">new</span> <span style="color: #d3869b;">StringBuilder</span><span style="color: #458588;">()</span>.append<span style="color: #458588;">(</span><span style="color: #b8bb26;">"USE yyy; "</span><span style="color: #458588;">)</span>.append<span style="color: #458588;">(</span><span style="color: #b8bb26;">"CREATE TABLE Employees ( "</span><span style="color: #458588;">)</span>
+                        .append<span style="color: #458588;">(</span><span style="color: #b8bb26;">" Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, "</span><span style="color: #458588;">)</span>.append<span style="color: #458588;">(</span><span style="color: #b8bb26;">" Name NVARCHAR(50), "</span><span style="color: #458588;">)</span>
+                        .append<span style="color: #458588;">(</span><span style="color: #b8bb26;">" Location NVARCHAR(50) "</span><span style="color: #458588;">)</span>.append<span style="color: #458588;">(</span><span style="color: #b8bb26;">"); "</span><span style="color: #458588;">)</span>
+                        .append<span style="color: #458588;">(</span><span style="color: #b8bb26;">"INSERT INTO Employees (Name, Location) VALUES "</span><span style="color: #458588;">)</span>.append<span style="color: #458588;">(</span><span style="color: #b8bb26;">"(N'Jared', N'Australia'), "</span><span style="color: #458588;">)</span>
+                        .append<span style="color: #458588;">(</span><span style="color: #b8bb26;">"(N'Nikita', N'India'), "</span><span style="color: #458588;">)</span>.append<span style="color: #458588;">(</span><span style="color: #b8bb26;">"(N'Tom', N'Germany'); "</span><span style="color: #458588;">)</span>.toString<span style="color: #458588;">()</span>;
+                <span style="color: #fb4933;">try</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">Statement</span> <span style="color: #83a598;">statement</span> = connection.createStatement<span style="color: #b16286;">()</span><span style="color: #458588;">)</span> <span style="color: #458588;">{</span>
+                    statement.executeUpdate<span style="color: #b16286;">(</span>sql<span style="color: #b16286;">)</span>;
+                    System.out.println<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"Done."</span><span style="color: #b16286;">)</span>;
+                <span style="color: #458588;">}</span>
+
+                <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">INSERT demo</span>
+                System.out.print<span style="color: #458588;">(</span><span style="color: #b8bb26;">"Inserting a new row into table, press ENTER to continue..."</span><span style="color: #458588;">)</span>;
+                System.in.read<span style="color: #458588;">()</span>;
+                sql = <span style="color: #fb4933;">new</span> <span style="color: #d3869b;">StringBuilder</span><span style="color: #458588;">()</span>.append<span style="color: #458588;">(</span><span style="color: #b8bb26;">"INSERT Employees (Name, Location) "</span><span style="color: #458588;">)</span>.append<span style="color: #458588;">(</span><span style="color: #b8bb26;">"VALUES (?, ?);"</span><span style="color: #458588;">)</span>
+                        .toString<span style="color: #458588;">()</span>;
+                <span style="color: #fb4933;">try</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">PreparedStatement</span> <span style="color: #83a598;">statement</span> = connection.prepareStatement<span style="color: #b16286;">(</span>sql<span style="color: #b16286;">)</span><span style="color: #458588;">)</span> <span style="color: #458588;">{</span>
+                    statement.setString<span style="color: #b16286;">(</span>1, <span style="color: #b8bb26;">"Jake"</span><span style="color: #b16286;">)</span>;
+                    statement.setString<span style="color: #b16286;">(</span>2, <span style="color: #b8bb26;">"United States"</span><span style="color: #b16286;">)</span>;
+                    <span style="color: #d3869b;">int</span> <span style="color: #83a598;">rowsAffected</span> = statement.executeUpdate<span style="color: #b16286;">()</span>;
+                    System.out.println<span style="color: #b16286;">(</span>rowsAffected + <span style="color: #b8bb26;">" row(s) inserted"</span><span style="color: #b16286;">)</span>;
+                <span style="color: #458588;">}</span>
+
+                <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">UPDATE demo</span>
+                <span style="color: #d3869b;">String</span> <span style="color: #83a598;">userToUpdate</span> = <span style="color: #b8bb26;">"Nikita"</span>;
+                System.out.print<span style="color: #458588;">(</span><span style="color: #b8bb26;">"Updating 'Location' for user '"</span> + userToUpdate + <span style="color: #b8bb26;">"', press ENTER to continue..."</span><span style="color: #458588;">)</span>;
+                System.in.read<span style="color: #458588;">()</span>;
+                sql = <span style="color: #b8bb26;">"UPDATE Employees SET Location = N'United States' WHERE Name = ?"</span>;
+                <span style="color: #fb4933;">try</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">PreparedStatement</span> <span style="color: #83a598;">statement</span> = connection.prepareStatement<span style="color: #b16286;">(</span>sql<span style="color: #b16286;">)</span><span style="color: #458588;">)</span> <span style="color: #458588;">{</span>
+                    statement.setString<span style="color: #b16286;">(</span>1, userToUpdate<span style="color: #b16286;">)</span>;
+                    <span style="color: #d3869b;">int</span> <span style="color: #83a598;">rowsAffected</span> = statement.executeUpdate<span style="color: #b16286;">()</span>;
+                    System.out.println<span style="color: #b16286;">(</span>rowsAffected + <span style="color: #b8bb26;">" row(s) updated"</span><span style="color: #b16286;">)</span>;
+                <span style="color: #458588;">}</span>
+
+                <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">DELETE demo</span>
+                <span style="color: #d3869b;">String</span> <span style="color: #83a598;">userToDelete</span> = <span style="color: #b8bb26;">"Jared"</span>;
+                System.out.print<span style="color: #458588;">(</span><span style="color: #b8bb26;">"Deleting user '"</span> + userToDelete + <span style="color: #b8bb26;">"', press ENTER to continue..."</span><span style="color: #458588;">)</span>;
+                System.in.read<span style="color: #458588;">()</span>;
+                sql = <span style="color: #b8bb26;">"DELETE FROM Employees WHERE Name = ?;"</span>;
+                <span style="color: #fb4933;">try</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">PreparedStatement</span> <span style="color: #83a598;">statement</span> = connection.prepareStatement<span style="color: #b16286;">(</span>sql<span style="color: #b16286;">)</span><span style="color: #458588;">)</span> <span style="color: #458588;">{</span>
+                    statement.setString<span style="color: #b16286;">(</span>1, userToDelete<span style="color: #b16286;">)</span>;
+                    <span style="color: #d3869b;">int</span> <span style="color: #83a598;">rowsAffected</span> = statement.executeUpdate<span style="color: #b16286;">()</span>;
+                    System.out.println<span style="color: #b16286;">(</span>rowsAffected + <span style="color: #b8bb26;">" row(s) deleted"</span><span style="color: #b16286;">)</span>;
+                <span style="color: #458588;">}</span>
+
+                <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">READ demo</span>
+                System.out.print<span style="color: #458588;">(</span><span style="color: #b8bb26;">"Reading data from table, press ENTER to continue..."</span><span style="color: #458588;">)</span>;
+                System.in.read<span style="color: #458588;">()</span>;
+                sql = <span style="color: #b8bb26;">"SELECT Id, Name, Location FROM Employees;"</span>;
+                <span style="color: #fb4933;">try</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">Statement</span> <span style="color: #83a598;">statement</span> = connection.createStatement<span style="color: #b16286;">()</span>;
+                        <span style="color: #d3869b;">ResultSet</span> <span style="color: #83a598;">resultSet</span> = statement.executeQuery<span style="color: #b16286;">(</span>sql<span style="color: #b16286;">)</span><span style="color: #458588;">)</span> <span style="color: #458588;">{</span>
+                    <span style="color: #fb4933;">while</span> <span style="color: #b16286;">(</span>resultSet.next<span style="color: #8ec07c;">()</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+                        System.out.println<span style="color: #8ec07c;">(</span>
+                                resultSet.getInt<span style="color: #d65d0e;">(</span>1<span style="color: #d65d0e;">)</span> + <span style="color: #b8bb26;">" "</span> + resultSet.getString<span style="color: #d65d0e;">(</span>2<span style="color: #d65d0e;">)</span> + <span style="color: #b8bb26;">" "</span> + resultSet.getString<span style="color: #d65d0e;">(</span>3<span style="color: #d65d0e;">)</span><span style="color: #8ec07c;">)</span>;
+                    <span style="color: #b16286;">}</span>
+                <span style="color: #458588;">}</span>
+                connection.close<span style="color: #458588;">()</span>;
+                System.out.println<span style="color: #458588;">(</span><span style="color: #b8bb26;">"All done."</span><span style="color: #458588;">)</span>;
+            <span style="color: #d65d0e;">}</span>
+        <span style="color: #8ec07c;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #8ec07c;">(</span>Exception e<span style="color: #8ec07c;">)</span> <span style="color: #8ec07c;">{</span>
+            System.out.println<span style="color: #d65d0e;">()</span>;
+            e.printStackTrace<span style="color: #d65d0e;">()</span>;
+        <span style="color: #8ec07c;">}</span>
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+</details>
+</div>
+</div>
+
+<div id="outline-container-org1b2edf9" class="outline-3">
+<h3 id="org1b2edf9"><span class="section-number-3">6.5.</span> 增加异常的处理，让代码更健壮</h3>
+<div class="outline-text-3" id="text-6-5">
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">JDBCDemo</span> <span style="color: #458588;">{</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">main</span><span style="color: #b16286;">(</span><span style="color: #d3869b;">String</span><span style="color: #8ec07c;">[]</span> <span style="color: #83a598;">args</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #d3869b;">Connection</span> <span style="color: #83a598;">connection</span> = <span style="color: #d3869b;">null</span>;
+        <span style="color: #d3869b;">Statement</span> <span style="color: #83a598;">statement</span> = <span style="color: #d3869b;">null</span>;
+        <span style="color: #d3869b;">ResultSet</span> <span style="color: #83a598;">resultset</span> = <span style="color: #d3869b;">null</span>;
+        <span style="color: #fb4933;">try</span> <span style="color: #8ec07c;">{</span>
+            <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">1. &#36830;&#25509;</span>
+            <span style="color: #d3869b;">String</span> <span style="color: #83a598;">url</span> = <span style="color: #b8bb26;">"jdbc:sqlserver://localhost:1434;databaseName=xxx;user=sa;password="</span>;
+            connection = DriverManager.getConnection<span style="color: #d65d0e;">(</span>url<span style="color: #d65d0e;">)</span>;
+
+            <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">2. &#20351;&#29992;</span>
+            statement = connection.createStatement<span style="color: #d65d0e;">()</span>;
+
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"create database aabbcc"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"use aabbcc"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"create table hello (id int, ttt varchar(20))"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"insert into hello values (1, 'aaa')"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"insert into hello values (2, 'bbb')"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"insert into hello values (3, 'ccc')"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"insert into hello values (4, 'ddd')"</span><span style="color: #d65d0e;">)</span>;
+
+            resultset = statement.executeQuery<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"select * from book"</span><span style="color: #d65d0e;">)</span>;
+            <span style="color: #fb4933;">while</span> <span style="color: #d65d0e;">(</span>resultset.next<span style="color: #458588;">()</span><span style="color: #d65d0e;">)</span> <span style="color: #d65d0e;">{</span>
+                <span style="color: #d3869b;">int</span> <span style="color: #83a598;">id</span> = resultset.getInt<span style="color: #458588;">(</span>1<span style="color: #458588;">)</span>;
+                <span style="color: #d3869b;">String</span> <span style="color: #83a598;">name</span> = resultset.getString<span style="color: #458588;">(</span>2<span style="color: #458588;">)</span>;
+                <span style="color: #d3869b;">float</span> <span style="color: #83a598;">price</span> = resultset.getFloat<span style="color: #458588;">(</span>3<span style="color: #458588;">)</span>;
+                System.out.println<span style="color: #458588;">(</span><span style="color: #b8bb26;">"id: "</span> + id + <span style="color: #b8bb26;">" name: "</span> + name + <span style="color: #b8bb26;">" price: "</span> + price<span style="color: #458588;">)</span>;
+            <span style="color: #d65d0e;">}</span>
+        <span style="color: #8ec07c;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #8ec07c;">(</span>Exception e<span style="color: #8ec07c;">)</span> <span style="color: #8ec07c;">{</span>
+            System.out.println<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"&#25968;&#25454;&#24211;&#36830;&#25509;&#30340;&#26102;&#20505;&#20986;&#29616;&#20102;&#38169;&#35823;: "</span> + e.getMessage<span style="color: #458588;">()</span><span style="color: #d65d0e;">)</span>;
+        <span style="color: #8ec07c;">}</span> <span style="color: #fb4933;">finally</span> <span style="color: #8ec07c;">{</span>
+            <span style="color: #fb4933;">if</span> <span style="color: #d65d0e;">(</span>resultset != <span style="color: #d3869b;">null</span><span style="color: #d65d0e;">)</span>
+                <span style="color: #fb4933;">try</span> <span style="color: #d65d0e;">{</span>
+                    resultset.close<span style="color: #458588;">()</span>;
+                <span style="color: #d65d0e;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #d65d0e;">(</span>SQLException e<span style="color: #d65d0e;">)</span> <span style="color: #d65d0e;">{</span>
+                <span style="color: #d65d0e;">}</span>
+            <span style="color: #fb4933;">if</span> <span style="color: #d65d0e;">(</span>statement != <span style="color: #d3869b;">null</span><span style="color: #d65d0e;">)</span>
+                <span style="color: #fb4933;">try</span> <span style="color: #d65d0e;">{</span>
+                    statement.close<span style="color: #458588;">()</span>;
+                <span style="color: #d65d0e;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #d65d0e;">(</span>SQLException e<span style="color: #d65d0e;">)</span> <span style="color: #d65d0e;">{</span>
+                <span style="color: #d65d0e;">}</span>
+            <span style="color: #fb4933;">if</span> <span style="color: #d65d0e;">(</span>connection != <span style="color: #d3869b;">null</span><span style="color: #d65d0e;">)</span>
+                <span style="color: #fb4933;">try</span> <span style="color: #d65d0e;">{</span>
+                    connection.close<span style="color: #458588;">()</span>;
+                <span style="color: #d65d0e;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #d65d0e;">(</span>SQLException e<span style="color: #d65d0e;">)</span> <span style="color: #d65d0e;">{</span>
+                <span style="color: #d65d0e;">}</span>
+        <span style="color: #8ec07c;">}</span>
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+
+<p>
+请大家务必要去了解为什么关闭语句要写得这么复杂！
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6555e2a" class="outline-3">
+<h3 id="org6555e2a"><span class="section-number-3">6.6.</span> 基于上述的代码，对相关的处理逻辑进行封装 (复用)</h3>
+<div class="outline-text-3" id="text-6-6">
+<p>
+业务类:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">JDBCDemo</span> <span style="color: #458588;">{</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">main</span><span style="color: #b16286;">(</span><span style="color: #d3869b;">String</span><span style="color: #8ec07c;">[]</span> <span style="color: #83a598;">args</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #d3869b;">Connection</span> <span style="color: #83a598;">connection</span> = <span style="color: #d3869b;">null</span>;
+        <span style="color: #d3869b;">Statement</span> <span style="color: #83a598;">statement</span> = <span style="color: #d3869b;">null</span>;
+        <span style="color: #d3869b;">ResultSet</span> <span style="color: #83a598;">resultset</span> = <span style="color: #d3869b;">null</span>;
+        <span style="color: #fb4933;">try</span> <span style="color: #8ec07c;">{</span>
+            <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">1. &#36830;&#25509;</span>
+            connection = Xxx.getConnection<span style="color: #d65d0e;">()</span>;
+
+            <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">2. &#20351;&#29992;</span>
+            statement = connection.createStatement<span style="color: #d65d0e;">()</span>;
+
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"create database aabbcc"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"use aabbcc"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"create table hello (id int, ttt varchar(20))"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"insert into hello values (1, 'aaa')"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"insert into hello values (2, 'bbb')"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"insert into hello values (3, 'ccc')"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"insert into hello values (4, 'ddd')"</span><span style="color: #d65d0e;">)</span>;
+
+            resultset = statement.executeQuery<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"select * from book"</span><span style="color: #d65d0e;">)</span>;
+            <span style="color: #fb4933;">while</span> <span style="color: #d65d0e;">(</span>resultset.next<span style="color: #458588;">()</span><span style="color: #d65d0e;">)</span> <span style="color: #d65d0e;">{</span>
+                <span style="color: #d3869b;">int</span> <span style="color: #83a598;">id</span> = resultset.getInt<span style="color: #458588;">(</span>1<span style="color: #458588;">)</span>;
+                <span style="color: #d3869b;">String</span> <span style="color: #83a598;">name</span> = resultset.getString<span style="color: #458588;">(</span>2<span style="color: #458588;">)</span>;
+                <span style="color: #d3869b;">float</span> <span style="color: #83a598;">price</span> = resultset.getFloat<span style="color: #458588;">(</span>3<span style="color: #458588;">)</span>;
+                System.out.println<span style="color: #458588;">(</span><span style="color: #b8bb26;">"id: "</span> + id + <span style="color: #b8bb26;">" name: "</span> + name + <span style="color: #b8bb26;">" price: "</span> + price<span style="color: #458588;">)</span>;
+            <span style="color: #d65d0e;">}</span>
+        <span style="color: #8ec07c;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #8ec07c;">(</span>Exception e<span style="color: #8ec07c;">)</span> <span style="color: #8ec07c;">{</span>
+            System.out.println<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"&#25968;&#25454;&#24211;&#36830;&#25509;&#30340;&#26102;&#20505;&#20986;&#29616;&#20102;&#38169;&#35823;: "</span> + e.getMessage<span style="color: #458588;">()</span><span style="color: #d65d0e;">)</span>;
+        <span style="color: #8ec07c;">}</span> <span style="color: #fb4933;">finally</span> <span style="color: #8ec07c;">{</span>
+            Xxx.closeDBResources<span style="color: #d65d0e;">(</span>connection, statement, resultset<span style="color: #d65d0e;">)</span>;
+        <span style="color: #8ec07c;">}</span>
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+
+<p>
+辅助类:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">Xxx</span> <span style="color: #458588;">{</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">Connection</span> <span style="color: #fabd2f;">getConnection</span><span style="color: #b16286;">()</span> <span style="color: #fb4933;">throws</span> <span style="color: #d3869b;">SQLException</span> <span style="color: #b16286;">{</span>
+        <span style="color: #d3869b;">String</span> <span style="color: #83a598;">url</span> = <span style="color: #b8bb26;">"jdbc:sqlserver://localhost:1434;databaseName=xxx;user=sa;password="</span>;
+        <span style="color: #fb4933;">return</span> DriverManager.getConnection<span style="color: #8ec07c;">(</span>url<span style="color: #8ec07c;">)</span>;
+    <span style="color: #b16286;">}</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">closeDBResources</span><span style="color: #b16286;">(</span><span style="color: #d3869b;">Connection</span> <span style="color: #83a598;">connection</span>, <span style="color: #d3869b;">Statement</span> <span style="color: #83a598;">statement</span>, <span style="color: #d3869b;">ResultSet</span> <span style="color: #83a598;">resultset</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #fb4933;">if</span> <span style="color: #8ec07c;">(</span>resultset != <span style="color: #d3869b;">null</span><span style="color: #8ec07c;">)</span>
+            <span style="color: #fb4933;">try</span> <span style="color: #8ec07c;">{</span>
+                resultset.close<span style="color: #d65d0e;">()</span>;
+            <span style="color: #8ec07c;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #8ec07c;">(</span>SQLException e<span style="color: #8ec07c;">)</span> <span style="color: #8ec07c;">{</span>
+            <span style="color: #8ec07c;">}</span>
+        <span style="color: #fb4933;">if</span> <span style="color: #8ec07c;">(</span>statement != <span style="color: #d3869b;">null</span><span style="color: #8ec07c;">)</span>
+            <span style="color: #fb4933;">try</span> <span style="color: #8ec07c;">{</span>
+                statement.close<span style="color: #d65d0e;">()</span>;
+            <span style="color: #8ec07c;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #8ec07c;">(</span>SQLException e<span style="color: #8ec07c;">)</span> <span style="color: #8ec07c;">{</span>
+            <span style="color: #8ec07c;">}</span>
+        <span style="color: #fb4933;">if</span> <span style="color: #8ec07c;">(</span>connection != <span style="color: #d3869b;">null</span><span style="color: #8ec07c;">)</span>
+            <span style="color: #fb4933;">try</span> <span style="color: #8ec07c;">{</span>
+                connection.close<span style="color: #d65d0e;">()</span>;
+            <span style="color: #8ec07c;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #8ec07c;">(</span>SQLException e<span style="color: #8ec07c;">)</span> <span style="color: #8ec07c;">{</span>
+            <span style="color: #8ec07c;">}</span>
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org053d6d1" class="outline-3">
+<h3 id="org053d6d1"><span class="section-number-3">6.7.</span> 使用 Try-With-Resource 进行资源的释放</h3>
+<div class="outline-text-3" id="text-6-7">
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">JDBCDemo</span> <span style="color: #458588;">{</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">main</span><span style="color: #b16286;">(</span><span style="color: #d3869b;">String</span><span style="color: #8ec07c;">[]</span> <span style="color: #83a598;">args</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #fb4933;">try</span> <span style="color: #8ec07c;">(</span><span style="color: #d3869b;">Connection</span> <span style="color: #83a598;">connection</span> = Xxx.getConnection<span style="color: #d65d0e;">()</span>; <span style="color: #d3869b;">Statement</span> <span style="color: #83a598;">statement</span> = connection.createStatement<span style="color: #d65d0e;">()</span>;<span style="color: #8ec07c;">)</span> <span style="color: #8ec07c;">{</span>
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"create database aabbcc"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"use aabbcc"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"create table hello (id int, ttt varchar(20))"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"insert into hello values (1, 'aaa')"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"insert into hello values (2, 'bbb')"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"insert into hello values (3, 'ccc')"</span><span style="color: #d65d0e;">)</span>;
+            statement.executeUpdate<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"insert into hello values (4, 'ddd')"</span><span style="color: #d65d0e;">)</span>;
+
+            <span style="color: #fb4933;">try</span> <span style="color: #d65d0e;">(</span><span style="color: #d3869b;">ResultSet</span> <span style="color: #83a598;">resultset</span> = statement.executeQuery<span style="color: #458588;">(</span><span style="color: #b8bb26;">"select * from book"</span><span style="color: #458588;">)</span><span style="color: #d65d0e;">)</span> <span style="color: #d65d0e;">{</span>
+                <span style="color: #fb4933;">while</span> <span style="color: #458588;">(</span>resultset.next<span style="color: #b16286;">()</span><span style="color: #458588;">)</span> <span style="color: #458588;">{</span>
+                    <span style="color: #d3869b;">int</span> <span style="color: #83a598;">id</span> = resultset.getInt<span style="color: #b16286;">(</span>1<span style="color: #b16286;">)</span>;
+                    <span style="color: #d3869b;">String</span> <span style="color: #83a598;">name</span> = resultset.getString<span style="color: #b16286;">(</span>2<span style="color: #b16286;">)</span>;
+                    <span style="color: #d3869b;">float</span> <span style="color: #83a598;">price</span> = resultset.getFloat<span style="color: #b16286;">(</span>3<span style="color: #b16286;">)</span>;
+                    System.out.println<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"id: "</span> + id + <span style="color: #b8bb26;">" name: "</span> + name + <span style="color: #b8bb26;">" price: "</span> + price<span style="color: #b16286;">)</span>;
+                <span style="color: #458588;">}</span>
+            <span style="color: #d65d0e;">}</span>
+        <span style="color: #8ec07c;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #8ec07c;">(</span>Exception e<span style="color: #8ec07c;">)</span> <span style="color: #8ec07c;">{</span>
+            System.out.println<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"&#25968;&#25454;&#24211;&#36830;&#25509;&#30340;&#26102;&#20505;&#20986;&#29616;&#20102;&#38169;&#35823;: "</span> + e.getMessage<span style="color: #458588;">()</span><span style="color: #d65d0e;">)</span>;
+        <span style="color: #8ec07c;">}</span>
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 31415929</p>
+<p class="date">Created: 2024-03-07</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>

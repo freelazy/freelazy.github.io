@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2024-03-07 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>User/Permission</title>
+<meta name="author" content="31415929" />
+<meta name="generator" content="Org Mode" />
+<link rel='stylesheet' href='/asset/common.css?33442' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">User/Permission</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgb8a5462">1. Login 登录名 (sa)</a></li>
+<li><a href="#org6246d0c">2. User 用户 (dbo/guest)</a></li>
+<li><a href="#orgf6720f0">3. Permission 权限 (select/insert/update/&#x2026;)</a></li>
+<li><a href="#orgee0942b">4. Role 角色 (db_owner)</a></li>
+</ul>
+</div>
+</nav>
+
+
+
+<section id="outline-container-orgb8a5462" class="outline-2">
+<h2 id="orgb8a5462"><span class="section-number-2">1.</span> Login 登录名 (sa)</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+拿来进行登录 sqlserver 的。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #fb4933;">create</span> login wodedengluming <span style="color: #fb4933;">with</span> password = <span style="color: #b8bb26;">'nishishui'</span>;
+<span style="color: #fb4933;">drop</span> login wodedengluming;
+</pre>
+</div>
+
+<p>
+新创建的登录名 (login) 是没有任何操作数据库的权利的。
+</p>
+
+<p>
+必须要为 login 在不同的数据库上绑定 user 它才可能有相关的权利。
+</p>
+</div>
+</section>
+
+<section id="outline-container-org6246d0c" class="outline-2">
+<h2 id="org6246d0c"><span class="section-number-2">2.</span> User 用户 (dbo/guest)</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-sql">use oa;
+<span style="color: #fb4933;">create</span> <span style="color: #fe8019;">user</span> aabc <span style="color: #fb4933;">for</span> wodedengluming; <span style="color: #7c6f64;">-- </span><span style="color: #7c6f64;">&#22312; oa &#19978;&#20026; wodedengluming &#38468;&#21152;&#19968;&#20010;&#29992;&#25143;</span>
+</pre>
+</div>
+
+<p>
+虽然默认的用户是没有任何权利的，但是我们可以为它赋予权限和角色呀!
+</p>
+
+<p>
+也就是说，用户 (user) 是权限和角色的载体。
+</p>
+</div>
+</section>
+
+<section id="outline-container-orgf6720f0" class="outline-2">
+<h2 id="orgf6720f0"><span class="section-number-2">3.</span> Permission 权限 (select/insert/update/&#x2026;)</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+<pre class="src src-sql">use oa;
+<span style="color: #fb4933;">grant</span> <span style="color: #fb4933;">select</span> <span style="color: #fb4933;">on</span> emp <span style="color: #fb4933;">to</span> aabc; <span style="color: #7c6f64;">-- </span><span style="color: #7c6f64;">&#25480;&#26435;&#35821;&#21477;</span>
+<span style="color: #fb4933;">grant</span> <span style="color: #fb4933;">delete</span> <span style="color: #fb4933;">on</span> emp <span style="color: #fb4933;">to</span> aabc; <span style="color: #7c6f64;">-- </span><span style="color: #7c6f64;">&#25480;&#26435;&#35821;&#21477;</span>
+
+<span style="color: #7c6f64;">-- </span><span style="color: #7c6f64;">&#25764;&#38144;</span>
+<span style="color: #fb4933;">revoke</span> <span style="color: #fb4933;">delete</span> <span style="color: #fb4933;">on</span> emp <span style="color: #fb4933;">from</span> aabc;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgee0942b" class="outline-2">
+<h2 id="orgee0942b"><span class="section-number-2">4.</span> Role 角色 (db_owner)</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+将各种权限打包，起个名字，便于使用。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #fb4933;">exec</span> sp_addrolemember <span style="color: #b8bb26;">'db_owner'</span>, <span style="color: #b8bb26;">'aabc'</span>
+</pre>
+</div>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 31415929</p>
+<p class="date">Created: 2024-03-07</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>

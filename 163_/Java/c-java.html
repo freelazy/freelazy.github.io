@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2024-03-07 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Java 基础</title>
+<meta name="author" content="31415929" />
+<meta name="generator" content="Org Mode" />
+<link rel='stylesheet' href='/asset/common.css?33442' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">Java 基础</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org9f58c62">1. JDK vs JRE</a></li>
+<li><a href="#org23b9d05">2. javac/java 命令</a></li>
+<li><a href="#orga80a158">3. 三目运算符</a></li>
+<li><a href="#org77e4054">4. 类/接口/抽象类</a>
+<ul>
+<li><a href="#orgf40120b">4.1. 类 (class)</a></li>
+<li><a href="#org8d2c29f">4.2. 接口 (interface)</a></li>
+<li><a href="#org10f3bf7">4.3. 抽象类 (abstract class)</a></li>
+</ul>
+</li>
+<li><a href="#orgd77a682">5. File/Path 文件</a></li>
+<li><a href="#orgdfb1e45">6. Input/Output Stream 流</a></li>
+<li><a href="#orge121d00">7. Exception 异常</a>
+<ul>
+<li><a href="#org710cd42">7.1. 例子</a></li>
+<li><a href="#org3773e2e">7.2. 异常类</a></li>
+<li><a href="#org6088165">7.3. 异常的处理</a>
+<ul>
+<li><a href="#org6a394f0">7.3.1. 甩手掌柜 (throws)</a></li>
+<li><a href="#orge4a22d1">7.3.2. 亲手给予方案 (try&#x2026;catch&#x2026;catch&#x2026;finally)</a></li>
+<li><a href="#orgfcca0a5">7.3.3. 将上面的两种结合起来</a></li>
+</ul>
+</li>
+<li><a href="#org1e439c3">7.4. 手动创建并抛出异常 (throw)</a></li>
+<li><a href="#org3bcf712">7.5. JDK7 推出的 Try-With-Resource</a></li>
+<li><a href="#org680e4c2">7.6. 空指针异常 (NullPointerException)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+
+
+<section id="outline-container-org9f58c62" class="outline-2">
+<h2 id="org9f58c62"><span class="section-number-2">1.</span> JDK vs JRE</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+JDK:
+</p>
+<ul class="org-ul">
+<li>Java Develop Kit，开发包</li>
+<li>面对的是 *开发人员*，比较大</li>
+<li>包含将一个 xxx.java 文件编译成 xxx.class 文件相关的一些组件跟命令</li>
+<li>包含生成相关文档的一些工具或命令</li>
+<li>包含一些跟调试相关的工具和命令</li>
+<li>当然，它也包含 JRE 环境</li>
+</ul>
+
+<p>
+JRE:
+</p>
+<ul class="org-ul">
+<li>Java Runtime Environment，运行环境</li>
+<li>面对的是普通的 *用户*，相对来说，很精简</li>
+<li>是 Java 程序能在操作系统中运行起来的 <b>必备</b> 软件</li>
+<li>它的最主要组成部分就是 JVM (Java Virtual Machine)</li>
+<li>还包含一些跟运行相关的工具</li>
+</ul>
+
+<p>
+目前来说，学习的话，建议大家下载 JDK8.
+</p>
+</div>
+</section>
+
+<section id="outline-container-org23b9d05" class="outline-2">
+<h2 id="org23b9d05"><span class="section-number-2">2.</span> javac/java 命令</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>安装完 JRE 后，得到的一个重要的命令是 java;</li>
+<li>安装完 JDK 后，得到的一个重要的命令是 javac;</li>
+</ul>
+
+<p>
+<code>javac</code> 的目的，是将 A.java 文件编译成 A.class 文件。所谓编译就是，当你执行了如下语句，就生成了 A.class 文件:
+</p>
+<div class="org-src-container">
+<pre class="src src-bat">javac E:\xxx\yyy\A.java
+
+REM &#25110;
+<span style="color: #fe8019;">cd</span> E:\xxx\yyy
+javac A.java
+</pre>
+</div>
+
+<p>
+<code>java</code> 的目的，就是将生成的 A.class 文件，交给 JVM 虚拟机去运行:
+</p>
+<pre class="example">
+java A
+</pre>
+
+
+<p>
+因此，一个正常的 A.java 文件，要运行分两步:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #7c6f64;"># </span><span style="color: #7c6f64;">&#39318;&#20808;&#65292;&#32534;&#35793;</span>
+javac A.java <span style="color: #7c6f64;"># </span><span style="color: #7c6f64;">&#24471;&#21040;&#19968;&#20010; A.class &#25991;&#20214;</span>
+
+<span style="color: #7c6f64;"># </span><span style="color: #7c6f64;">&#20043;&#21518;&#65292;&#25191;&#34892;</span>
+java A
+</pre>
+</div>
+
+<p>
+另外，~javac~ 还可以跟不同的参数，通过参数控制编译细节:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">javac -encoding utf-8 A.java   <span style="color: #7c6f64;"># </span><span style="color: #7c6f64;">&#25351;&#23450;&#20351;&#29992; utf-8 &#30340;&#26684;&#24335;&#36827;&#34892;&#32534;&#35793;&#12290;&#22914;&#26524; Win &#19979;&#20986;&#29616;&#20081;&#30721;&#21487;&#33021;&#38656;&#35201;&#21152;&#36825;&#21477;</span>
+javac -classpath E:\aaa\lib\aaa.jar A.java <span style="color: #7c6f64;"># </span><span style="color: #7c6f64;">&#25351;&#23450;&#32534;&#35793;&#30340;&#26102;&#20505;&#65292;&#20351;&#29992;&#21040; aaa.jar &#20013;&#23450;&#20041;&#30340;&#26576;&#20123;&#19996;&#35199;</span>
+</pre>
+</div>
+
+<hr>
+
+<p>
+一个具体的例子。
+</p>
+
+<p>
+比如，有一个名为 Study.java 的源文件:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">package</span> com.<span style="color: #d3869b;">nf</span>;
+<span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">Study</span> <span style="color: #458588;">{</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">main</span> <span style="color: #b16286;">(</span><span style="color: #d3869b;">String</span><span style="color: #8ec07c;">[]</span> <span style="color: #83a598;">args</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        System.out.println<span style="color: #8ec07c;">(</span><span style="color: #b8bb26;">"day day up."</span><span style="color: #8ec07c;">)</span>;
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+
+<span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#38656;&#35201;&#27880;&#24847;:</span>
+<span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">1. &#22312; java &#20013;&#65292;&#23383;&#27597;&#30340;&#22823;&#23567;&#20889;&#26159;&#25935;&#24863;&#30340;</span>
+<span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">2. &#28304;&#25991;&#20214;&#30340;&#21517;&#23383;&#65292;&#24517;&#39035;&#36319;&#31867;&#30340;&#21517;&#23383;&#23436;&#20840;&#19968;&#33268; (Study)</span>
+<span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">3. &#30001;&#20110;&#23450;&#20041;&#20102; package &#20026; com.nf&#65292;&#22240;&#27492;:</span>
+<span style="color: #7c6f64;">//    </span><span style="color: #7c6f64;">- &#25991;&#20214;&#36335;&#24452;&#24517;&#39035;&#26159; com\nf\Study.java</span>
+<span style="color: #7c6f64;">//    </span><span style="color: #7c6f64;">- &#31867;&#30340;&#20840;&#21517;&#21017;&#20026;   com.nf.Study</span>
+</pre>
+</div>
+
+<p>
+假设，我们将文件放在 E:\aaa\com\nf\Study.java，那么进行编译:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">E:<span style="color: #b8bb26;">\ </span>             <span style="color: #7c6f64;"># </span><span style="color: #7c6f64;">&#20999;&#25442;&#30424;&#31526;</span>
+<span style="color: #fe8019;">cd</span> E:\aaa        <span style="color: #7c6f64;"># </span><span style="color: #7c6f64;">&#20999;&#25442;&#21040;&#25991;&#20214;&#22841;</span>
+
+<span style="color: #7c6f64;"># </span><span style="color: #7c6f64;">&#32534;&#35793;</span>
+<span style="color: #7c6f64;"># </span><span style="color: #7c6f64;">&#23558;&#22312; com\nf &#19979;&#38754;&#29983;&#25104;&#20102; Study.class &#25991;&#20214;</span>
+javac -encoding utf-8 com\nf\Study.java
+</pre>
+</div>
+
+<p>
+最后，运行:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #7c6f64;"># </span><span style="color: #7c6f64;">&#39318;&#20808;&#65292;&#24517;&#39035;&#20999;&#25442;&#21040;&#30456;&#24212;&#25991;&#20214;&#22841; (&#31867;&#30340;&#26681;&#25991;&#20214;&#22841;)</span>
+<span style="color: #fe8019;">cd</span> E:\aaa
+
+<span style="color: #7c6f64;"># </span><span style="color: #7c6f64;">&#20351;&#29992;&#31867;&#30340;&#20840;&#21517; (com.nf.Study) &#36827;&#34892;&#35843;&#29992;</span>
+java com.nf.Study
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orga80a158" class="outline-2">
+<h2 id="orga80a158"><span class="section-number-2">3.</span> 三目运算符</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">Test</span> <span style="color: #458588;">{</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">main</span> <span style="color: #b16286;">(</span><span style="color: #d3869b;">String</span>... <span style="color: #83a598;">arg</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #d3869b;">int</span> <span style="color: #83a598;">i</span> = 10;
+        <span style="color: #d3869b;">String</span> <span style="color: #83a598;">a</span> = <span style="color: #b8bb26;">"10"</span>;
+
+        <span style="color: #fb4933;">if</span> <span style="color: #8ec07c;">(</span>a.length<span style="color: #d65d0e;">()</span> &gt; 10<span style="color: #8ec07c;">)</span> <span style="color: #8ec07c;">{</span>
+            System.out.println<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"great than 10"</span><span style="color: #d65d0e;">)</span>;
+        <span style="color: #8ec07c;">}</span> <span style="color: #fb4933;">else</span> <span style="color: #8ec07c;">{</span>
+            System.out.println<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"short than 10"</span><span style="color: #d65d0e;">)</span>;
+        <span style="color: #8ec07c;">}</span>
+
+        System.out.println<span style="color: #8ec07c;">(</span>a.length<span style="color: #d65d0e;">()</span> &gt; 10 ? <span style="color: #b8bb26;">"great than 10"</span> : <span style="color: #b8bb26;">"short than 10"</span><span style="color: #8ec07c;">)</span>;
+    <span style="color: #b16286;">}</span>
+
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+<p>
+short than 10
+short than 10
+</p>
+</div>
+</section>
+
+<section id="outline-container-org77e4054" class="outline-2">
+<h2 id="org77e4054"><span class="section-number-2">4.</span> 类/接口/抽象类</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgf40120b" class="outline-3">
+<h3 id="orgf40120b"><span class="section-number-3">4.1.</span> 类 (class)</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+类是一种类似菜谱的东西，它描述了构建一个对象 (菜) 需要的数据 (材料) 和行为 (步骤)。
+</p>
+<ul class="org-ul">
+<li>其中数据，称为类的 <b>属性</b></li>
+<li>其中行为，称为类的 <b>方法</b></li>
+</ul>
+
+<p>
+基本示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#39318;&#20808;&#65292;&#23450;&#20041;&#33756;&#35889;</span>
+<span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#20063;&#23601;&#26159;&#21019;&#24314;&#31867;&#65292;&#26159;&#36827;&#34892;&#32534;&#31243;&#30340;&#31532;&#19968;&#27493;</span>
+<span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">Caipu</span> <span style="color: #458588;">{</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #d3869b;">String</span> <span style="color: #83a598;">oil</span>;
+    <span style="color: #fb4933;">public</span> <span style="color: #d3869b;">String</span> <span style="color: #83a598;">salt</span>;
+
+    <span style="color: #fb4933;">public</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">zuo</span> <span style="color: #b16286;">()</span> <span style="color: #b16286;">{</span>
+        System.out.println<span style="color: #8ec07c;">(</span><span style="color: #b8bb26;">"&#25918;&#27833;"</span><span style="color: #8ec07c;">)</span>;
+        System.out.println<span style="color: #8ec07c;">(</span><span style="color: #b8bb26;">"&#25918;&#30416;"</span><span style="color: #8ec07c;">)</span>;
+    <span style="color: #b16286;">}</span>
+
+    <span style="color: #fb4933;">public</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">chi</span><span style="color: #b16286;">()</span> <span style="color: #b16286;">{</span>
+        System.out.println<span style="color: #8ec07c;">(</span><span style="color: #b8bb26;">"&#20808;&#25343;&#21040;&#31607;&#23376;"</span><span style="color: #8ec07c;">)</span>;
+        System.out.println<span style="color: #8ec07c;">(</span><span style="color: #b8bb26;">"&#20877;&#31995;&#22909;&#21475;&#27700;&#24062;"</span><span style="color: #8ec07c;">)</span>;
+        System.out.println<span style="color: #8ec07c;">(</span><span style="color: #b8bb26;">"&#28982;&#21518;&#24320;&#21507;"</span><span style="color: #8ec07c;">)</span>;
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+
+<span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#20854;&#27425;&#65292;&#23601;&#21487;&#20197;&#25353;&#29031;&#33756;&#35889;&#20570;&#20107;&#20102;</span>
+<span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#24517;&#39035;&#30001;&#31867;&#20135;&#29983;&#23545;&#35937; (&#23545;&#35937;&#23601;&#26159;&#25968;&#25454;&#21644;&#36923;&#36753;&#30340;&#30495;&#27491;&#36733;&#20307;)</span>
+<span style="color: #d3869b;">Caipu</span> <span style="color: #83a598;">caipu</span> = <span style="color: #fb4933;">new</span> <span style="color: #d3869b;">Caipu</span><span style="color: #458588;">()</span>;
+caipu.zuo<span style="color: #458588;">()</span>;
+caipu.chi<span style="color: #458588;">()</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8d2c29f" class="outline-3">
+<h3 id="org8d2c29f"><span class="section-number-3">4.2.</span> 接口 (interface)</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+接口是一种 *特殊的类*，它里面的所有方法，都只有声明，没有实现。
+</p>
+
+<p>
+它主要的存在目的，就是为了制定规则，好让实现它的人能够按照规则做事。
+所以，在某些语言中，接口又被称作 *合同*。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#23450;&#19968;&#20010;&#21512;&#21516;&#65292;&#25152;&#26377;&#23653;&#34892;&#21512;&#21516;&#30340;&#65292;&#24517;&#39035;&#35201;&#23558;&#19979;&#38754;&#25152;&#26377;&#35268;&#21017;&#23454;&#29616;</span>
+<span style="color: #fb4933;">public</span> <span style="color: #fb4933;">interface</span> <span style="color: #d3869b;">NewCaipu</span> <span style="color: #458588;">{</span>
+    <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">zuo</span><span style="color: #b16286;">()</span>;
+    <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">chi</span><span style="color: #b16286;">()</span>;
+    <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">mai</span><span style="color: #b16286;">(</span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">price</span><span style="color: #b16286;">)</span>;
+<span style="color: #458588;">}</span>
+
+<span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#28982;&#21518;&#65292;&#20854;&#20182;&#23601;&#21487;&#20197;&#23545;&#21512;&#21516;&#36827;&#34892;&#23454;&#29616;&#20102;</span>
+<span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">jidanchaoXihongshi</span> <span style="color: #fb4933;">implements</span> <span style="color: #d3869b;">NewCaipu</span> <span style="color: #458588;">{</span>
+    <span style="color: #d3869b;">@Override</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">zuo</span><span style="color: #b16286;">()</span> <span style="color: #b16286;">{</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">1</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">2</span>
+    <span style="color: #b16286;">}</span>
+    <span style="color: #d3869b;">@Override</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">chi</span><span style="color: #b16286;">()</span> <span style="color: #b16286;">{</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">1</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">2</span>
+    <span style="color: #b16286;">}</span>
+    <span style="color: #d3869b;">@Override</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">mai</span><span style="color: #b16286;">(</span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">price</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">1</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">2</span>
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">XihongshichaoXihongshi</span> <span style="color: #fb4933;">implements</span> <span style="color: #d3869b;">NewCaipu</span> <span style="color: #458588;">{</span>
+    <span style="color: #d3869b;">@Override</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">zuo</span><span style="color: #b16286;">()</span> <span style="color: #b16286;">{</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">1</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">2</span>
+    <span style="color: #b16286;">}</span>
+    <span style="color: #d3869b;">@Override</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">chi</span><span style="color: #b16286;">()</span> <span style="color: #b16286;">{</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">1</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">2</span>
+    <span style="color: #b16286;">}</span>
+    <span style="color: #d3869b;">@Override</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">mai</span><span style="color: #b16286;">(</span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">price</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">1</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">2</span>
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org10f3bf7" class="outline-3">
+<h3 id="org10f3bf7"><span class="section-number-3">4.3.</span> 抽象类 (abstract class)</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+是对接口的部分实现，或者包含部分没有实现逻辑的类。
+</p>
+
+<p>
+比如，这个 <i>销售人员</i> 只是实现了接口中的一些跟销售相关的事务。
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">abstract</span> <span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">XiaoshouRenyuan</span> <span style="color: #fb4933;">implements</span> <span style="color: #d3869b;">NewCaipu</span> <span style="color: #458588;">{</span>
+    <span style="color: #d3869b;">@Override</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">mai</span><span style="color: #b16286;">(</span><span style="color: #d3869b;">int</span> <span style="color: #83a598;">price</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">1</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">2</span>
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+
+<p>
+其他人就可以在上述基础上，进行任务的接力了:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">XihongshichaoJidan</span> <span style="color: #fb4933;">extends</span> <span style="color: #d3869b;">XiaoshouRenyuan</span> <span style="color: #458588;">{</span>
+    <span style="color: #d3869b;">@Override</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">zuo</span><span style="color: #b16286;">()</span> <span style="color: #b16286;">{</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">1</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">2</span>
+    <span style="color: #b16286;">}</span>
+    <span style="color: #d3869b;">@Override</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">chi</span><span style="color: #b16286;">()</span> <span style="color: #b16286;">{</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">1</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">2</span>
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgd77a682" class="outline-2">
+<h2 id="orgd77a682"><span class="section-number-2">5.</span> File/Path 文件</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+都是用来处理文件系统中的文件。
+</p>
+
+<p>
+File 是传统的方式；Path 是 JDK7 之后引入的，它解决了 File 中的一些问题，更强大，更灵活。
+</p>
+
+<p>
+JDK7 在引入 Path 的同时，还引入了其他相应的文件处理类和包，典型的是 Files 的静态类。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #d3869b;">File</span> <span style="color: #83a598;">f</span> = <span style="color: #fb4933;">new</span> <span style="color: #d3869b;">File</span><span style="color: #458588;">(</span><span style="color: #b8bb26;">"c:/xxx/"</span><span style="color: #458588;">)</span>;
+f.listFiles<span style="color: #458588;">()</span>; <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#24471;&#21040; c:/xxx &#25991;&#20214;&#22841;&#19979;&#25152;&#26377;&#30340;&#25991;&#20214;</span>
+f.getXxx/setXxx/listXxx/.....<span style="color: #458588;">()</span>;
+
+<span style="color: #d3869b;">Path</span> <span style="color: #83a598;">p</span> = Paths.get<span style="color: #458588;">(</span><span style="color: #b8bb26;">"c:/xxx/"</span><span style="color: #458588;">)</span>;
+p.xxx<span style="color: #458588;">()</span>;
+
+Files.copy/delete/createXxx/readXxx<span style="color: #458588;">()</span>;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgdfb1e45" class="outline-2">
+<h2 id="orgdfb1e45"><span class="section-number-2">6.</span> Input/Output Stream 流</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+输入、输出。
+</p>
+</div>
+</section>
+
+<section id="outline-container-orge121d00" class="outline-2">
+<h2 id="orge121d00"><span class="section-number-2">7.</span> Exception 异常</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-org710cd42" class="outline-3">
+<h3 id="org710cd42"><span class="section-number-3">7.1.</span> 例子</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li>可以预见的一些超乎正常的逻辑</li>
+<li>这个超乎正常的逻辑，不会无法挽回</li>
+<li>所谓的异常，就是给这个异常逻辑，一定的解决预案</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-js">&#20320;&#21435;&#21507;&#39277; <span style="color: #458588;">()</span> <span style="color: #458588;">{</span>
+   <span style="color: #fb4933;">try</span> <span style="color: #b16286;">{</span>
+     &#36208;&#21435;&#39135;&#22530;<span style="color: #8ec07c;">()</span>; <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#20986;&#38169;</span>
+   <span style="color: #b16286;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #b16286;">(</span>&#39277;&#30871;&#25481;&#20102;<span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+     &#25441;&#36215;&#26469;<span style="color: #8ec07c;">()</span>;
+   <span style="color: #b16286;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #b16286;">(</span>&#39277;&#21345;&#20002;&#20102;<span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+     <span style="color: #fb4933;">if</span> <span style="color: #8ec07c;">(</span>&#20511;&#19968;&#20010;<span style="color: #8ec07c;">)</span> <span style="color: #fb4933;">else</span> <span style="color: #8ec07c;">(</span>&#34917;&#21150;&#19968;&#24352;<span style="color: #8ec07c;">)</span>
+   <span style="color: #b16286;">}</span>
+
+   &#32473;&#38065;<span style="color: #b16286;">()</span>;
+   &#20280;&#20986;&#39277;&#30871;&#25171;&#39277;<span style="color: #b16286;">()</span>;
+   &#21507;&#39277;<span style="color: #b16286;">()</span>;
+   &#27927;&#30871;<span style="color: #b16286;">()</span>;
+   &#36820;&#22238;<span style="color: #b16286;">()</span>;
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3773e2e" class="outline-3">
+<h3 id="org3773e2e"><span class="section-number-3">7.2.</span> 异常类</h3>
+<div class="outline-text-3" id="text-7-2">
+
+<figure id="orgf1c7ac0">
+<img src="img/java-exception-1.png" alt="java-exception-1.png">
+
+</figure>
+
+<p>
+小结:
+</p>
+<ul class="org-ul">
+<li>异常的根类是 Throwable</li>
+<li>所谓的 Error，就是无法挽回的一些出错</li>
+<li>异常的话，分两种:
+<ol class="org-ol">
+<li>必须要去捕获的，叫 <b>检查型异常</b></li>
+<li>不强制捕获的，叫 <b>运行时异常 (RuntimeException)</b></li>
+</ol></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6088165" class="outline-3">
+<h3 id="org6088165"><span class="section-number-3">7.3.</span> 异常的处理</h3>
+<div class="outline-text-3" id="text-7-3">
+</div>
+<div id="outline-container-org6a394f0" class="outline-4">
+<h4 id="org6a394f0"><span class="section-number-4">7.3.1.</span> 甩手掌柜 (throws)</h4>
+<div class="outline-text-4" id="text-7-3-1">
+<p>
+在方法的上面，加上 throws Exception 用来将异常甩锅给调用它的方法。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">ExceptionDemo</span> <span style="color: #458588;">{</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">main</span><span style="color: #b16286;">(</span><span style="color: #d3869b;">String</span><span style="color: #8ec07c;">[]</span> <span style="color: #83a598;">args</span><span style="color: #b16286;">)</span> <span style="color: #fb4933;">throws</span> <span style="color: #d3869b;">Exception</span> <span style="color: #b16286;">{</span>
+        calc<span style="color: #8ec07c;">()</span>;
+    <span style="color: #b16286;">}</span>
+    <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">calc</span><span style="color: #b16286;">()</span> <span style="color: #fb4933;">throws</span> <span style="color: #d3869b;">Exception</span> <span style="color: #b16286;">{</span>
+        <span style="color: #d3869b;">int</span> <span style="color: #83a598;">a</span> = 6;
+        <span style="color: #d3869b;">int</span> <span style="color: #83a598;">b</span> = 0;
+
+        <span style="color: #d3869b;">float</span> <span style="color: #83a598;">r</span> = a/b;
+        System.out.println<span style="color: #8ec07c;">(</span><span style="color: #b8bb26;">"a / b = "</span> + r<span style="color: #8ec07c;">)</span>;
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge4a22d1" class="outline-4">
+<h4 id="orge4a22d1"><span class="section-number-4">7.3.2.</span> 亲手给予方案 (try&#x2026;catch&#x2026;catch&#x2026;finally)</h4>
+<div class="outline-text-4" id="text-7-3-2">
+<p>
+亲力亲为，使用 try..catch..finally 进行捕获处理:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">ExceptionDemo</span> <span style="color: #458588;">{</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">main</span><span style="color: #b16286;">(</span><span style="color: #d3869b;">String</span><span style="color: #8ec07c;">[]</span> <span style="color: #83a598;">args</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        calc<span style="color: #8ec07c;">()</span>;
+    <span style="color: #b16286;">}</span>
+    <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">calc</span><span style="color: #b16286;">()</span> <span style="color: #b16286;">{</span>
+        <span style="color: #d3869b;">int</span> <span style="color: #83a598;">a</span> = 6;
+        <span style="color: #d3869b;">int</span> <span style="color: #83a598;">b</span> = 0;
+        <span style="color: #fb4933;">try</span> <span style="color: #8ec07c;">{</span>
+            <span style="color: #d3869b;">float</span> <span style="color: #83a598;">r</span> = a/b;
+            System.out.println<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"a / b = "</span> + r<span style="color: #d65d0e;">)</span>;
+        <span style="color: #8ec07c;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #8ec07c;">(</span>Exception e<span style="color: #8ec07c;">)</span> <span style="color: #8ec07c;">{</span>
+            System.out.println<span style="color: #d65d0e;">(</span>e.getMessage<span style="color: #458588;">()</span><span style="color: #d65d0e;">)</span>;
+            System.out.println<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"&#25105;&#24590;&#20040;&#36825;&#20040;&#21629;&#33510;&#21834;"</span><span style="color: #d65d0e;">)</span>;
+        <span style="color: #8ec07c;">}</span> <span style="color: #fb4933;">finally</span> <span style="color: #8ec07c;">{</span>
+            System.out.println<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"&#19981;&#31649;&#20250;&#19981;&#20250;&#26377;&#24322;&#24120;&#65292;&#26368;&#21518;&#25105;&#37117;&#35201;&#34987;&#25191;&#34892;"</span><span style="color: #d65d0e;">)</span>;
+        <span style="color: #8ec07c;">}</span>
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfcca0a5" class="outline-4">
+<h4 id="orgfcca0a5"><span class="section-number-4">7.3.3.</span> 将上面的两种结合起来</h4>
+<div class="outline-text-4" id="text-7-3-3">
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">public</span> <span style="color: #fb4933;">class</span> <span style="color: #d3869b;">ExceptionDemo</span> <span style="color: #458588;">{</span>
+    <span style="color: #fb4933;">public</span> <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">main</span><span style="color: #b16286;">(</span><span style="color: #d3869b;">String</span><span style="color: #8ec07c;">[]</span> <span style="color: #83a598;">args</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #fb4933;">try</span> <span style="color: #8ec07c;">{</span>
+            calc<span style="color: #d65d0e;">()</span>;
+        <span style="color: #8ec07c;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #8ec07c;">(</span>Exception e<span style="color: #8ec07c;">)</span> <span style="color: #8ec07c;">{</span>
+            System.out.println<span style="color: #d65d0e;">(</span>e.getMessage<span style="color: #458588;">()</span><span style="color: #d65d0e;">)</span>;
+            System.out.println<span style="color: #d65d0e;">(</span><span style="color: #b8bb26;">"&#25105;&#24590;&#20040;&#36825;&#20040;&#21629;&#33510;&#21834;"</span><span style="color: #d65d0e;">)</span>;
+        <span style="color: #8ec07c;">}</span>
+    <span style="color: #b16286;">}</span>
+    <span style="color: #fb4933;">static</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">calc</span><span style="color: #b16286;">()</span> <span style="color: #fb4933;">throws</span> <span style="color: #d3869b;">Exception</span> <span style="color: #b16286;">{</span>
+        <span style="color: #d3869b;">int</span> <span style="color: #83a598;">a</span> = 6;
+        <span style="color: #d3869b;">int</span> <span style="color: #83a598;">b</span> = 0;
+
+        <span style="color: #d3869b;">float</span> <span style="color: #83a598;">r</span> = a/b;
+        System.out.println<span style="color: #8ec07c;">(</span><span style="color: #b8bb26;">"a / b = "</span> + r<span style="color: #8ec07c;">)</span>;
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1e439c3" class="outline-3">
+<h3 id="org1e439c3"><span class="section-number-3">7.4.</span> 手动创建并抛出异常 (throw)</h3>
+<div class="outline-text-3" id="text-7-4">
+<p>
+什么是不正常的情况？我们可以自定义。
+</p>
+
+<p>
+使用 <code>throw</code> 关键词来手动抛出、产生一个异常。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#21487;&#20197;&#36890;&#36807;&#38598;&#25104; Exception &#21019;&#24314;&#33258;&#24049;&#30340;&#24322;&#24120;</span>
+<span style="color: #fb4933;">class</span> <span style="color: #d3869b;">QianTaiDuoLeException</span> <span style="color: #fb4933;">extends</span> <span style="color: #d3869b;">Exception</span> <span style="color: #458588;">{}</span>
+
+<span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">cunqian</span><span style="color: #458588;">(</span><span style="color: #d3869b;">float</span> <span style="color: #83a598;">duoshaoqian</span><span style="color: #458588;">)</span> <span style="color: #458588;">{</span>
+    <span style="color: #fb4933;">if</span> <span style="color: #b16286;">(</span>duoshaoqian &gt; 1000000<span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#24576;&#30097;&#36825;&#26159;&#19968;&#31508;&#38750;&#27861;&#30340;&#23384;&#20648;</span>
+        <span style="color: #fb4933;">throw</span> <span style="color: #fb4933;">new</span> <span style="color: #d3869b;">QianTaiDuoLeException</span><span style="color: #8ec07c;">()</span>;
+    <span style="color: #b16286;">}</span>
+    <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#27491;&#24120;&#36923;&#36753;</span>
+<span style="color: #458588;">}</span>
+<span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">cunqianDae</span><span style="color: #458588;">(</span><span style="color: #d3869b;">float</span> <span style="color: #83a598;">duoshaoqian</span><span style="color: #458588;">)</span> <span style="color: #458588;">{</span>
+    <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#27491;&#24120;&#36923;&#36753;</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3bcf712" class="outline-3">
+<h3 id="org3bcf712"><span class="section-number-3">7.5.</span> JDK7 推出的 Try-With-Resource</h3>
+<div class="outline-text-3" id="text-7-5">
+<div class="div" id="org20ed505">
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #d3869b;">Connection</span> <span style="color: #83a598;">connection</span> = <span style="color: #d3869b;">null</span>;
+<span style="color: #d3869b;">Statement</span> <span style="color: #83a598;">statement</span> = <span style="color: #d3869b;">null</span>;
+<span style="color: #d3869b;">Resultset</span> <span style="color: #83a598;">resultset</span> = <span style="color: #d3869b;">null</span>;
+<span style="color: #fb4933;">try</span> <span style="color: #458588;">{</span>
+    connection = Xxx.getConnection<span style="color: #b16286;">()</span>;
+    statement = connection.createStatement<span style="color: #b16286;">()</span>;
+    resultset = statement.executeQuery<span style="color: #b16286;">(</span>sql<span style="color: #b16286;">)</span>;
+<span style="color: #458588;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #458588;">(</span>Exception e<span style="color: #458588;">)</span> <span style="color: #458588;">{</span>
+    <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#34917;&#25937;&#25514;&#26045;</span>
+<span style="color: #458588;">}</span> <span style="color: #fb4933;">finally</span> <span style="color: #458588;">{</span>
+    <span style="color: #fb4933;">if</span> <span style="color: #b16286;">(</span>resultset != <span style="color: #d3869b;">null</span><span style="color: #b16286;">)</span>
+        <span style="color: #fb4933;">try</span> <span style="color: #b16286;">{</span>
+            resultset.close<span style="color: #8ec07c;">()</span>;
+        <span style="color: #b16286;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #b16286;">(</span>SQLException e<span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #b16286;">}</span>
+    <span style="color: #fb4933;">if</span> <span style="color: #b16286;">(</span>statement != <span style="color: #d3869b;">null</span><span style="color: #b16286;">)</span>
+        <span style="color: #fb4933;">try</span> <span style="color: #b16286;">{</span>
+            statement.close<span style="color: #8ec07c;">()</span>;
+        <span style="color: #b16286;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #b16286;">(</span>SQLException e<span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #b16286;">}</span>
+    <span style="color: #fb4933;">if</span> <span style="color: #b16286;">(</span>connection != <span style="color: #d3869b;">null</span><span style="color: #b16286;">)</span>
+        <span style="color: #fb4933;">try</span> <span style="color: #b16286;">{</span>
+            connection.close<span style="color: #8ec07c;">()</span>;
+        <span style="color: #b16286;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #b16286;">(</span>SQLException e<span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span>
+
+</pre>
+</div>
+<p>
+:break:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">try</span> <span style="color: #458588;">(</span><span style="color: #d3869b;">Connection</span> <span style="color: #83a598;">conn</span> = Xxx.getConnection<span style="color: #b16286;">()</span>;
+     <span style="color: #d3869b;">Statement</span> <span style="color: #83a598;">statment</span> = conn.createStatement<span style="color: #b16286;">()</span><span style="color: #458588;">)</span> <span style="color: #458588;">{</span>
+    <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#36827;&#34892;&#20320;&#30340;&#34920;&#28436;&#65292;&#21487;&#20197;&#20351;&#29992; conn/statment &#23545;&#35937;&#20102;</span>
+
+    <span style="color: #fb4933;">try</span> <span style="color: #b16286;">(</span><span style="color: #d3869b;">ResultSet</span> <span style="color: #83a598;">rs</span> = statment.executeQuery<span style="color: #8ec07c;">(</span>sql<span style="color: #8ec07c;">)</span><span style="color: #b16286;">)</span> <span style="color: #b16286;">{</span>
+        <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#20351;&#29992;&#32467;&#26524;&#38598;&#65292;&#20570;&#20107;</span>
+    <span style="color: #b16286;">}</span>
+<span style="color: #458588;">}</span> <span style="color: #fb4933;">catch</span> <span style="color: #458588;">(</span>Exception e<span style="color: #458588;">)</span> <span style="color: #458588;">{</span>
+    <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#20986;&#38169;&#20043;&#21518;&#30340;&#34917;&#25937;&#25514;&#26045;</span>
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org680e4c2" class="outline-3">
+<h3 id="org680e4c2"><span class="section-number-3">7.6.</span> 空指针异常 (NullPointerException)</h3>
+<div class="outline-text-3" id="text-7-6">
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #fb4933;">protected</span> <span style="color: #d3869b;">void</span> <span style="color: #fabd2f;">service</span><span style="color: #458588;">(</span><span style="color: #d3869b;">HttpServletRequest</span> <span style="color: #83a598;">req</span>, <span style="color: #d3869b;">HttpServletResponse</span> <span style="color: #83a598;">resp</span><span style="color: #458588;">)</span> <span style="color: #fb4933;">throws</span> <span style="color: #d3869b;">ServletException</span>, <span style="color: #d3869b;">IOException</span> <span style="color: #458588;">{</span>
+    <span style="color: #d3869b;">String</span> <span style="color: #83a598;">x</span> = req.getParameter<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"aaa"</span><span style="color: #b16286;">)</span>;     <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#22914;&#26524;&#35831;&#27714;&#30340;&#21442;&#25968;&#20013;&#65292;&#27809;&#26377; aaa&#65292;&#37027;&#20040; x &#30340;&#20540;&#23601;&#26159; null</span>
+    System.out.println<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"x: "</span> + x.length<span style="color: #8ec07c;">()</span><span style="color: #b16286;">)</span>; <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#22914;&#26524;&#19978;&#38754;&#24471;&#21040;&#30340;&#26159; null, &#21017; x.length() &#23601;&#20250;&#25253; NullPointerException &#24322;&#24120;</span>
+
+    <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">System.out.println("x: " + (x == null ? 0 : x.length()));</span>
+    <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">if (x == null) {} else { System.out.println("x: " + x.length()) }</span>
+
+    <span style="color: #d3869b;">PrintWriter</span> <span style="color: #83a598;">writer</span> = resp.getWriter<span style="color: #b16286;">()</span>;
+    writer = <span style="color: #d3869b;">null</span>; <span style="color: #7c6f64;">// </span><span style="color: #7c6f64;">&#19981;&#24576;&#22909;&#24847;&#65292;&#36896;&#25104;&#20102;&#19979;&#38754;&#19968;&#21477; NullPointerException</span>
+    writer.write<span style="color: #b16286;">(</span><span style="color: #b8bb26;">"&lt;html&gt;&lt;h3&gt;Hello Java Web&lt;/h3&gt;&lt;/html&gt;"</span><span style="color: #b16286;">)</span>;
+<span style="color: #458588;">}</span>
+</pre>
+</div>
+
+
+<figure id="org996b656">
+<img src="img/null-pointer-exception.png" alt="null-pointer-exception.png">
+
+</figure>
+</div>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 31415929</p>
+<p class="date">Created: 2024-03-07</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>
