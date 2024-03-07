@@ -17,7 +17,7 @@
                          :recursive t
                          :headline-levels 5
                          :with-toc 5
-                         :author "zombiiiie"
+                         :author "31415929"
                          :html-metadata-timestamp-format "%Y-%m-%d"
                          :html-preamble t
                          :auto-sitemap t
@@ -31,4 +31,5 @@
                          :recursive t)
                         ("nnn" :components
                          ("freelazy_assets" "freelazy_org")))))
-  (eval . (ignore-errors (load-file "./.local.el")))))
+  (eval . (ignore-errors (load-file "./.local.el"))) ; set `note-publish-post-hook' here
+  ))
