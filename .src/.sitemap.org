@@ -1,11 +1,12 @@
-#+TITLE: Sitemap for project _notes_yao63
+#+TITLE: Sitemap for project freelazy_org
 
 - [[file:index.org][AIT.NET]]
-- ccc
-  - [[file:ccc/reports_190.org][Report of 190]]
-  - [[file:ccc/reports_191.org][Report of 191]]
-  - [[file:ccc/reports_192.org][Report of 192]]
-- dotnet
-  - [[file:dotnet/1-csharp.org][C♯ 语言]]
-- skills
-  - [[file:skills/windows.org][Windows]]
+- 190
+  - [[file:190/index.org][190]]
+- 191
+  - [[file:191/index.org][Report of 191]]
+- 192
+  - [[file:192/index.org][Report of 192]]
+- vvv
+  - [[file:vvv/1-csharp.org][C♯ 语言]]
+  - [[file:vvv/9-windows.org][Windows]]
