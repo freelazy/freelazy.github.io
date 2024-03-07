@@ -91,71 +91,75 @@
 
 * 练习题备忘
 ** 循环和条件判断
+- 打印从 1 到 1000 的所有数
 
-{{{details(打印从 1 到 1000 的所有数)}}}
-
-#+begin_src csx -n
-  for (int i = 1; i <= 1000; i++)
-  {
-      Console.WriteLine(i);
-  }
-#+end_src
-
-{{{details(/)}}}
-
-{{{details(求取从 1 到 1000 的所有数的和)}}}
-
-#+begin_src csx -n
-  int sum = 0;
-  for (int i = 1; i <= 1000; i++)
-  {
-      sum = sum + i;
-  }
-  Console.WriteLine($"他们的和是 {sum}");
-#+end_src
-
-#+RESULTS:
-: 他们的和是 500500
-
-{{{details(/)}}}
-
-{{{details(求取从 1 到 1000 的所有数的平均数)}}}
-
-#+begin_src csx -n
-  int sum = 0;
-  int n = 1000;
-
-  for (int i = 1; i <= 1000; i++)
-  {
-      sum = sum + i;
-  }
-
-  double avg = sum / (double)n; // 平均数 = 和 ÷ 个数
+  {{{details(参考答案, sumopc)}}}
   
-  Console.WriteLine($"他们的和是 {sum}, 平均数是 {avg}");
-#+end_src
+  #+begin_src csx -n
+    for (int i = 1; i <= 1000; i++)
+    {
+        Console.WriteLine(i);
+    }
+  #+end_src
+  
+  {{{details(/)}}}
+- 求取从 1 到 1000 的所有数的和
 
-#+RESULTS:
-| 他们的和是 500500 | 平均数是 500.5 |
+  {{{details(参考答案, sumopc)}}}
 
-{{{details(/)}}}
-
-{{{details(求取 int[] numbers = {1，2，3，4，5，6，7，8，9，10} 的平均值)}}}
-
-#+begin_src csx -n
-  int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-  int sum = 0;
-  int n = numbers.Length;
-
-  foreach (int i in numbers)
-  {
-      sum = sum + i;
-  }
-
-  double avg = (double) sum / n; // 平均数 = 和 ÷ 个数
-
-  Console.WriteLine($"他们的和是 {sum}, 平均数是 {avg}");
-#+end_src
-
-{{{details(/)}}}
+  #+begin_src csx -n
+    int sum = 0;
+    for (int i = 1; i <= 1000; i++)
+    {
+        sum = sum + i;
+    }
+    Console.WriteLine($"他们的和是 {sum}");
+  #+end_src
+  
+  #+RESULTS:
+  : 他们的和是 500500
+  
+  {{{details(/)}}}
+- 求取从 1 到 1000 的所有数的平均数
+  
+  {{{details(参考答案, sumopc)}}}
+  
+  #+begin_src csx -n
+    int sum = 0;
+    int n = 1000;
+  
+    for (int i = 1; i <= 1000; i++)
+    {
+        sum = sum + i;
+    }
+  
+    double avg = sum / (double)n; // 平均数 = 和 ÷ 个数
+    
+    Console.WriteLine($"他们的和是 {sum}, 平均数是 {avg}");
+  #+end_src
+  
+  #+RESULTS:
+  | 他们的和是 500500 | 平均数是 500.5 |
+  
+  {{{details(/)}}}
+- 求取 int[] numbers = {1,2,3,4,5,6,7,8,9,10} 的平均值
+  
+  {{{details(参考答案, sumopt)}}}
+  
+  #+begin_src csx -n
+    int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  
+    int sum = 0;
+    int n = numbers.Length;
+  
+    foreach (int i in numbers)
+    {
+        sum = sum + i;
+    }
+  
+    double avg = (double) sum / n; // 平均数 = 和 ÷ 个数
+  
+    Console.WriteLine($"他们的和是 {sum}, 平均数是 {avg}");
+  #+end_src
+  
+  {{{details(/)}}}

@@ -1250,6 +1250,10 @@ h2.footnotes{
 
 
 
+.sumopc { margin-bottom: 1em; opacity: 0.5; }
+
+
+
 @media all /* details */
 {
     .detail-summary { margin: 10px 0 30px 10px; color: darkorange; }
