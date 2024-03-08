@@ -120,7 +120,7 @@
 
 *** 在控制台上，输出 99 乘法表
 :PROPERTIES:
-:tpl: <div><details><summary>参考答案</summary>%s</details></div>
+:tpl: <details><summary>参考答案</summary>%s</details>
 :END:
 
 TODO111
