@@ -119,11 +119,6 @@
 {{{details(/)}}}
 
 *** 在控制台上，输出 99 乘法表
-:PROPERTIES:
-:tpl: <details><summary>参考答案</summary>%s</details>
-:END:
-
-TODO111
 
 * Logbook
 ** 2024-03-08 08:40:26
