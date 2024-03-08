@@ -120,8 +120,10 @@
 
 *** 在控制台上，输出 99 乘法表
 :PROPERTIES:
-:wrap: <details><summary>kdf</sum>$1</details>
+:details: 参考答案
 :END:
+
+
 * Logbook
 ** 2024-03-08 08:40:26
 
