@@ -31,7 +31,7 @@
 
 [[file:img/oimg_20240311_150853.png]]
 
-参考代码:
+{{{details(参考代码)}}}
 
 #+begin_src csharp -n
   double sg = double.Parse(sgbox.Text);
@@ -42,7 +42,11 @@
   MessageBox.Show(jieguo);
 
   jglabel.Text = jieguo;
-#+end_src** 2024-03-11 08:30:00
+#+end_src
+
+{{{details(/)}}}
+
+** 2024-03-11 08:30:00
 
 Winform 项目，VS 界面:
 - 界面设计器 (中间)

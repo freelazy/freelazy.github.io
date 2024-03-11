@@ -20,13 +20,35 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8cbbc25">1. 2024-03-11 14:52:05</a></li>
+<li><a href="#org14957c5">1. 笔记</a>
+<ul>
+<li><a href="#org8cbbc25">1.1. 2024-03-11 14:52:05</a></li>
+<li><a href="#org484b6e1">1.2. 2024-03-11 08:30:00</a></li>
+<li><a href="#org8452469">1.3. 2024-01-15 (寒假作业)</a></li>
+<li><a href="#org82189a0">1.4. 2024-01-15 (期末成绩)</a></li>
+<li><a href="#org9e9b6ae">1.5. 2023-12-28 (任务)</a></li>
+<li><a href="#org0a2cf87">1.6. 2023-10-30 (任务)</a></li>
+<li><a href="#orgf5f6210">1.7. 2023-09-07 (任务)</a></li>
+</ul>
+</li>
+<li><a href="#orga1a6079">2. 任务结果</a></li>
 </ul>
 </div>
 </nav>
-<section id="outline-container-org8cbbc25" class="outline-2">
-<h2 id="org8cbbc25"><span class="section-number-2">1.</span> 2024-03-11 14:52:05</h2>
+<ul class="org-ul">
+<li>班长: 林俊贤</li>
+<li>学委: 黄军帮</li>
+</ul>
+
+
+
+<section id="outline-container-org14957c5" class="outline-2">
+<h2 id="org14957c5"><span class="section-number-2">1.</span> 笔记</h2>
 <div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org8cbbc25" class="outline-3">
+<h3 id="org8cbbc25"><span class="section-number-3">1.1.</span> 2024-03-11 14:52:05</h3>
+<div class="outline-text-3" id="text-1-1">
 <p>
 请大家保持安静，谢谢合作。
 </p>
@@ -68,14 +90,12 @@
 </p>
 
 
-<figure id="org9d348dc">
+<figure id="orge8c71e1">
 <img src="img/oimg_20240311_150853.png" alt="oimg_20240311_150853.png">
 
 </figure>
 
-<p>
-参考代码:
-</p>
+<details><summary>参考代码</summary>
 
 <div class="org-src-container">
 <pre class="src src-csharp"><span class="linenr">1: </span><span style="color: #005a5f;">double</span> <span style="color: #00538b;">sg</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #000000;">(</span>sgbox.Text<span style="color: #000000;">)</span>;
@@ -88,6 +108,1025 @@
 <span class="linenr">8: </span>jglabel.Text = jieguo;
 </pre>
 </div>
+
+</details>
+</div>
+</div>
+
+<div id="outline-container-org484b6e1" class="outline-3">
+<h3 id="org484b6e1"><span class="section-number-3">1.2.</span> 2024-03-11 08:30:00</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Winform 项目，VS 界面:
+</p>
+<ul class="org-ul">
+<li>界面设计器 (中间)</li>
+<li>工具箱 （左边）</li>
+<li>属性管理器 (右下)</li>
+<li>解决方案管理器 (右上)</li>
+</ul>
+
+<p>
+如果上述布局不是如上所说，或者是某些图标不见了:
+</p>
+<ol class="org-ol">
+<li>从菜单中的【视图】中找回</li>
+<li>从菜单中的【窗口-重置窗口布局】恢复成原样</li>
+</ol>
+
+<p>
+对 <b>控件</b> 进行操控的方式:
+</p>
+<ol class="org-ol">
+<li>通过界面设计器，进行拖拖拽拽 (最简单，最直接) ✓</li>
+<li>通过属性管理器，进行调整 (细节) ✓</li>
+<li>在对应的代码文件中，直接编码实现 (优先级更高)</li>
+</ol>
+
+<p>
+所谓的控件:
+</p>
+<ul class="org-ul">
+<li>是对页面的某个元素的一种描述 (按钮、文字、窗口、进度条)</li>
+<li>实际上对应的是 C# 中的一个类型 (class Button/Label/Form)</li>
+<li>常见的一些控件:
+<ul class="org-ul">
+<li>Button 按钮</li>
+<li>Label 文字</li>
+<li>PictureBox 图片</li>
+<li>TextBox 输入框</li>
+</ul></li>
+<li>控件都有一个叫 name 的属性，它是唯一的，在代码中可以用它来引用这个控件的实例。
+建议为每个控件取一个合适的名字。</li>
+<li>通过 <code>MessageBox.Show</code> 的方式，创建弹窗显示信息 (mbox TAB)</li>
+</ul>
+
+<p>
+下一节:
+</p>
+<ul class="org-ul">
+<li>复习本节所讲，多多练习</li>
+<li>在界面上将身体状况的信息合理展示出来</li>
+<li>注意纪律。有问题主动提问</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8452469" class="outline-3">
+<h3 id="org8452469"><span class="section-number-3">1.3.</span> 2024-01-15 (寒假作业)</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+做一个求取 BMI 的控制台应用:
+</p>
+<ol class="org-ol">
+<li>首先，提示用户输入身高和体重 (<code>Console.ReadLine</code>)</li>
+<li>其次，根据用户输入的身高和体重，计算 BMI，并判定身体状态 (<code>if..else</code>)</li>
+<li>最后，输出给用户 (<code>Console.WriteLine</code>)</li>
+<li>进入第一步，循环 (<code>for/while</code>)</li>
+</ol>
+
+<p>
+参考网站: <a href="https://cn.onlinebmicalculator.com/">https://cn.onlinebmicalculator.com/</a>
+</p>
+
+<p>
+其他:
+</p>
+<ul class="org-ul">
+<li>如果有兴趣的同学，可以自行学习一下 Winform 应用的创建，尝试使用窗口的方式将这个功能实现一下</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org82189a0" class="outline-3">
+<h3 id="org82189a0"><span class="section-number-3">1.4.</span> 2024-01-15 (期末成绩)</h3>
+<div class="outline-text-3" id="text-1-4">
+<table>
+
+
+<colgroup>
+<col  class="org-right">
+
+<col  class="org-left">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">No</th>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-right">Test1</th>
+<th scope="col" class="org-right">Test2</th>
+<th scope="col" class="org-right">Test3</th>
+<th scope="col" class="org-right">Final</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">甘成杰</td>
+<td class="org-right">99</td>
+<td class="org-right">100</td>
+<td class="org-right">100</td>
+<td class="org-right">100</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">刘鹏</td>
+<td class="org-right">100</td>
+<td class="org-right">94</td>
+<td class="org-right">97</td>
+<td class="org-right">97</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">吴淑豪</td>
+<td class="org-right">95</td>
+<td class="org-right">98</td>
+<td class="org-right">94</td>
+<td class="org-right">96</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">官名福</td>
+<td class="org-right">86</td>
+<td class="org-right">89</td>
+<td class="org-right">99</td>
+<td class="org-right">91</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">林俊贤</td>
+<td class="org-right">91</td>
+<td class="org-right">79</td>
+<td class="org-right">95</td>
+<td class="org-right">88</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">刘天宇</td>
+<td class="org-right">69</td>
+<td class="org-right">99</td>
+<td class="org-right">96</td>
+<td class="org-right">88</td>
+</tr>
+
+<tr>
+<td class="org-right">7</td>
+<td class="org-left">江金涛</td>
+<td class="org-right">72</td>
+<td class="org-right">96</td>
+<td class="org-right">93</td>
+<td class="org-right">87</td>
+</tr>
+
+<tr>
+<td class="org-right">8</td>
+<td class="org-left">肖毅良</td>
+<td class="org-right">77</td>
+<td class="org-right">72</td>
+<td class="org-right">98</td>
+<td class="org-right">82</td>
+</tr>
+
+<tr>
+<td class="org-right">9</td>
+<td class="org-left">邓义柏</td>
+<td class="org-right">93</td>
+<td class="org-right">91</td>
+<td class="org-right">60</td>
+<td class="org-right">81</td>
+</tr>
+
+<tr>
+<td class="org-right">10</td>
+<td class="org-left">刘金麓</td>
+<td class="org-right">94</td>
+<td class="org-right">87</td>
+<td class="org-right">60</td>
+<td class="org-right">80</td>
+</tr>
+
+<tr>
+<td class="org-right">11</td>
+<td class="org-left">黄锡东</td>
+<td class="org-right">90</td>
+<td class="org-right">88</td>
+<td class="org-right">60</td>
+<td class="org-right">79</td>
+</tr>
+
+<tr>
+<td class="org-right">12</td>
+<td class="org-left">李毅</td>
+<td class="org-right">89</td>
+<td class="org-right">82</td>
+<td class="org-right">60</td>
+<td class="org-right">77</td>
+</tr>
+
+<tr>
+<td class="org-right">13</td>
+<td class="org-left">陈宇川</td>
+<td class="org-right">85</td>
+<td class="org-right">85</td>
+<td class="org-right">60</td>
+<td class="org-right">77</td>
+</tr>
+
+<tr>
+<td class="org-right">14</td>
+<td class="org-left">江坤涛</td>
+<td class="org-right">97</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">76</td>
+</tr>
+
+<tr>
+<td class="org-right">15</td>
+<td class="org-left">杨富</td>
+<td class="org-right">98</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">76</td>
+</tr>
+
+<tr>
+<td class="org-right">16</td>
+<td class="org-left">梁炽勇</td>
+<td class="org-right">92</td>
+<td class="org-right">77</td>
+<td class="org-right">60</td>
+<td class="org-right">76</td>
+</tr>
+
+<tr>
+<td class="org-right">17</td>
+<td class="org-left">李进斌</td>
+<td class="org-right">88</td>
+<td class="org-right">80</td>
+<td class="org-right">60</td>
+<td class="org-right">76</td>
+</tr>
+
+<tr>
+<td class="org-right">18</td>
+<td class="org-left">程春平</td>
+<td class="org-right">96</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">19</td>
+<td class="org-left">杨耀嘉</td>
+<td class="org-right">87</td>
+<td class="org-right">78</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">20</td>
+<td class="org-left">王艺楠</td>
+<td class="org-right">81</td>
+<td class="org-right">83</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">21</td>
+<td class="org-left">盘泽强</td>
+<td class="org-right">80</td>
+<td class="org-right">86</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">22</td>
+<td class="org-left">王俊杰</td>
+<td class="org-right">74</td>
+<td class="org-right">92</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">23</td>
+<td class="org-left">陈翕</td>
+<td class="org-right">71</td>
+<td class="org-right">95</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">24</td>
+<td class="org-left">吴嘉城</td>
+<td class="org-right">68</td>
+<td class="org-right">97</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">25</td>
+<td class="org-left">曾翔</td>
+<td class="org-right">73</td>
+<td class="org-right">90</td>
+<td class="org-right">60</td>
+<td class="org-right">74</td>
+</tr>
+
+<tr>
+<td class="org-right">26</td>
+<td class="org-left">黄军帮</td>
+<td class="org-right">70</td>
+<td class="org-right">93</td>
+<td class="org-right">60</td>
+<td class="org-right">74</td>
+</tr>
+
+<tr>
+<td class="org-right">27</td>
+<td class="org-left">杜喆</td>
+<td class="org-right">84</td>
+<td class="org-right">75</td>
+<td class="org-right">60</td>
+<td class="org-right">73</td>
+</tr>
+
+<tr>
+<td class="org-right">28</td>
+<td class="org-left">李德致</td>
+<td class="org-right">79</td>
+<td class="org-right">81</td>
+<td class="org-right">60</td>
+<td class="org-right">73</td>
+</tr>
+
+<tr>
+<td class="org-right">29</td>
+<td class="org-left">罗秀洋</td>
+<td class="org-right">82</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">71</td>
+</tr>
+
+<tr>
+<td class="org-right">30</td>
+<td class="org-left">黄颜徽</td>
+<td class="org-right">83</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">71</td>
+</tr>
+
+<tr>
+<td class="org-right">31</td>
+<td class="org-left">曾宏燊</td>
+<td class="org-right">70</td>
+<td class="org-right">84</td>
+<td class="org-right">60</td>
+<td class="org-right">71</td>
+</tr>
+
+<tr>
+<td class="org-right">32</td>
+<td class="org-left">张明达</td>
+<td class="org-right">76</td>
+<td class="org-right">74</td>
+<td class="org-right">60</td>
+<td class="org-right">70</td>
+</tr>
+
+<tr>
+<td class="org-right">33</td>
+<td class="org-left">王上标</td>
+<td class="org-right">78</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">69</td>
+</tr>
+
+<tr>
+<td class="org-right">34</td>
+<td class="org-left">周远龙</td>
+<td class="org-right">75</td>
+<td class="org-right">73</td>
+<td class="org-right">60</td>
+<td class="org-right">69</td>
+</tr>
+
+<tr>
+<td class="org-right">35</td>
+<td class="org-left">符文财</td>
+<td class="org-right">70</td>
+<td class="org-right">76</td>
+<td class="org-right">60</td>
+<td class="org-right">69</td>
+</tr>
+
+<tr>
+<td class="org-right">36</td>
+<td class="org-left">韦代帅</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">37</td>
+<td class="org-left">谢鹤鸣</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">38</td>
+<td class="org-left">邓炜祺</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">39</td>
+<td class="org-left">郭小龙</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">40</td>
+<td class="org-left">刘仁杰</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">41</td>
+<td class="org-left">左亮</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">42</td>
+<td class="org-left">车斌涛</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">43</td>
+<td class="org-left">周枫</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">44</td>
+<td class="org-left">何锦晖</td>
+<td class="org-right">70</td>
+<td class="org-right">71</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">45</td>
+<td class="org-left">夏志豪</td>
+<td class="org-right">67</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">66</td>
+</tr>
+
+<tr>
+<td class="org-right">46</td>
+<td class="org-left">林显诚</td>
+<td class="org-right">66</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">65</td>
+</tr>
+
+<tr>
+<td class="org-right">47</td>
+<td class="org-left">肖峰</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">60</td>
+<td class="org-right">63</td>
+</tr>
+
+<tr>
+<td class="org-right">48</td>
+<td class="org-left">魏坤</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">60</td>
+<td class="org-right">63</td>
+</tr>
+
+<tr>
+<td class="org-right">49</td>
+<td class="org-left">黄萧</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">60</td>
+<td class="org-right">63</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org9e9b6ae" class="outline-3">
+<h3 id="org9e9b6ae"><span class="section-number-3">1.5.</span> 2023-12-28 (任务)</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+使用控制台实现点名的功能。
+</p>
+
+<p>
+[列出所有名字 - 喊名字 - 回车 - 下一个名字 - 循环 - 点名结束]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0a2cf87" class="outline-3">
+<h3 id="org0a2cf87"><span class="section-number-3">1.6.</span> 2023-10-30 (任务)</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+创建类 Device，描述设备的基本信息并添加基本控制
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf5f6210" class="outline-3">
+<h3 id="orgf5f6210"><span class="section-number-3">1.7.</span> 2023-09-07 (任务)</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+01-张三.txt, 创建源文件、编写代码、编译、运行
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orga1a6079" class="outline-2">
+<h2 id="orga1a6079"><span class="section-number-2">2.</span> 任务结果</h2>
+<div class="outline-text-2" id="text-2">
+<table id="org2a188e3">
+
+
+<colgroup>
+<col  class="org-right">
+
+<col  class="org-left">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">G</th>
+<th scope="col" class="org-left">姓名</th>
+<th scope="col" class="org-right"><a href="#orgf5f6210">2023-09-07</a></th>
+<th scope="col" class="org-right"><a href="#org0a2cf87">2023-10-30</a></th>
+<th scope="col" class="org-right"><a href="#org9e9b6ae">2023-12-28</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">甘成杰</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">官名福</td>
+<td class="org-right">15</td>
+<td class="org-right">12</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">肖毅良</td>
+<td class="org-right">24</td>
+<td class="org-right">29</td>
+<td class="org-right">3</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">刘鹏</td>
+<td class="org-right">1</td>
+<td class="org-right">7</td>
+<td class="org-right">4</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">刘天宇</td>
+<td class="org-right">32</td>
+<td class="org-right">2</td>
+<td class="org-right">5</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">林俊贤</td>
+<td class="org-right">10</td>
+<td class="org-right">22</td>
+<td class="org-right">6</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">吴淑豪</td>
+<td class="org-right">6</td>
+<td class="org-right">3</td>
+<td class="org-right">7</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">江金涛</td>
+<td class="org-right">29</td>
+<td class="org-right">5</td>
+<td class="org-right">8</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">吴嘉城</td>
+<td class="org-right">33</td>
+<td class="org-right">4</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">陈翕</td>
+<td class="org-right">30</td>
+<td class="org-right">6</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">黄军帮</td>
+<td class="org-right">31</td>
+<td class="org-right">8</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">王俊杰</td>
+<td class="org-right">27</td>
+<td class="org-right">9</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">邓义柏</td>
+<td class="org-right">8</td>
+<td class="org-right">10</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">曾翔</td>
+<td class="org-right">28</td>
+<td class="org-right">11</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">黄锡东</td>
+<td class="org-right">11</td>
+<td class="org-right">13</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">刘金麓</td>
+<td class="org-right">7</td>
+<td class="org-right">14</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">盘泽强</td>
+<td class="org-right">21</td>
+<td class="org-right">15</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">陈宇川</td>
+<td class="org-right">16</td>
+<td class="org-right">16</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">曾宏燊</td>
+<td class="org-right">-</td>
+<td class="org-right">17</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">王艺楠</td>
+<td class="org-right">20</td>
+<td class="org-right">18</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">李毅</td>
+<td class="org-right">12</td>
+<td class="org-right">19</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">李德致</td>
+<td class="org-right">22</td>
+<td class="org-right">20</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">李进斌</td>
+<td class="org-right">13</td>
+<td class="org-right">21</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">杨耀嘉</td>
+<td class="org-right">14</td>
+<td class="org-right">23</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">梁炽勇</td>
+<td class="org-right">9</td>
+<td class="org-right">24</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">符文财</td>
+<td class="org-right">-</td>
+<td class="org-right">25</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">杜喆</td>
+<td class="org-right">17</td>
+<td class="org-right">26</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">张明达</td>
+<td class="org-right">25</td>
+<td class="org-right">27</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">周远龙</td>
+<td class="org-right">26</td>
+<td class="org-right">28</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">何锦晖</td>
+<td class="org-right">-</td>
+<td class="org-right">30</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">杨富</td>
+<td class="org-right">3</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">江坤涛</td>
+<td class="org-right">4</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">程春平</td>
+<td class="org-right">5</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">夏志豪</td>
+<td class="org-right">34</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">韦代帅</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">黄颜徽</td>
+<td class="org-right">18</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">林显诚</td>
+<td class="org-right">35</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">谢鹤鸣</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">邓炜祺</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">郭小龙</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">刘仁杰</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">罗秀洋</td>
+<td class="org-right">19</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">左亮</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">车斌涛</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">王上标</td>
+<td class="org-right">23</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">周枫</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">肖峰</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">魏坤</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">黄萧</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
 </div>
