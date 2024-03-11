@@ -7,7 +7,42 @@
 
 
 * 笔记
-** 2024-03-11 08:30:00
+** 2024-03-11 14:52:05
+
+请大家保持安静，谢谢合作。
+
+求取 BMI 的值。完善，添加身体状况。有什么问题吗？
+
+有问题，现在提。
+
+没人提，是不是就是没问题。没问题的话，没做完是什么原因？
+
+刚才举手的就1个人？没时间，没心情做。如果没时间，我给时间。
+
+好，我现在，再一次演示一下，怎么创建 Winform 应用。我把步骤再搞一遍。
+
+保持安静，谢谢。
+
+创建项目。
+
+实现界面。
+
+响应用户的动作。
+
+[[file:img/oimg_20240311_150853.png]]
+
+参考代码:
+
+#+begin_src csharp
+  double sg = double.Parse(sgbox.Text);
+  double tz = double.Parse(tzbox.Text);
+  double bmi = tz / (sg * sg);
+  string jieguo = $"您的 BMI 为: {bmi}";
+
+  MessageBox.Show(jieguo);
+
+  jglabel.Text = jieguo;
+#+end_src** 2024-03-11 08:30:00
 
 Winform 项目，VS 界面:
 - 界面设计器 (中间)
