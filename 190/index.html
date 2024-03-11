@@ -25,6 +25,7 @@
 <ul>
 <li><a href="#orge9bf96d">2.1. 2024-03-11 08:30:00</a></li>
 <li><a href="#org4c6717e">2.2. 2024-01-15 (寒假作业)</a></li>
+<li><a href="#orgad3d36e">2.3. 2024-01-15 (期末成绩)</a></li>
 </ul>
 </li>
 </ul>
@@ -465,11 +466,102 @@
 <li>2023-10-30, 创建类 Device，描述设备的基本信息并添加基本控制</li>
 <li>2023-12-28, 使用控制台实现点名的功能。[列出所有名字 - 喊名字 - 回车 - 下一个名字 - 循环 - 点名结束]</li>
 </ul>
+</div>
+</section>
 
+<section id="outline-container-orgd3da505" class="outline-2">
+<h2 id="orgd3da505"><span class="section-number-2">2.</span> 课堂笔记</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orge9bf96d" class="outline-3">
+<h3 id="orge9bf96d"><span class="section-number-3">2.1.</span> 2024-03-11 08:30:00</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Winform 项目，VS 界面:
+</p>
+<ul class="org-ul">
+<li>界面设计器 (中间)</li>
+<li>工具箱 （左边）</li>
+<li>属性管理器 (右下)</li>
+<li>解决方案管理器 (右上)</li>
+</ul>
 
 <p>
-期末考试成绩 (2024-01-15):
+如果上述布局不是如上所说，或者是某些图标不见了:
 </p>
+<ol class="org-ol">
+<li>从菜单中的【视图】中找回</li>
+<li>从菜单中的【窗口-重置窗口布局】恢复成原样</li>
+</ol>
+
+<p>
+对 <b>控件</b> 进行操控的方式:
+</p>
+<ol class="org-ol">
+<li>通过界面设计器，进行拖拖拽拽 (最简单，最直接) ✓</li>
+<li>通过属性管理器，进行调整 (细节) ✓</li>
+<li>在对应的代码文件中，直接编码实现 (优先级更高)</li>
+</ol>
+
+<p>
+所谓的控件:
+</p>
+<ul class="org-ul">
+<li>是对页面的某个元素的一种描述 (按钮、文字、窗口、进度条)</li>
+<li>实际上对应的是 C# 中的一个类型 (class Button/Label/Form)</li>
+<li>常见的一些控件:
+<ul class="org-ul">
+<li>Button 按钮</li>
+<li>Label 文字</li>
+<li>PictureBox 图片</li>
+<li>TextBox 输入框</li>
+</ul></li>
+<li>控件都有一个叫 name 的属性，它是唯一的，在代码中可以用它来引用这个控件的实例。
+建议为每个控件取一个合适的名字。</li>
+<li>通过 <code>MessageBox.Show</code> 的方式，创建弹窗显示信息 (mbox TAB)</li>
+</ul>
+
+<p>
+下一节:
+</p>
+<ul class="org-ul">
+<li>复习本节所讲，多多练习</li>
+<li>在界面上讲身体状况的信息合理展示出来</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4c6717e" class="outline-3">
+<h3 id="org4c6717e"><span class="section-number-3">2.2.</span> 2024-01-15 (寒假作业)</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+做一个求取 BMI 的控制台应用:
+</p>
+<ol class="org-ol">
+<li>首先，提示用户输入身高和体重 (<code>Console.ReadLine</code>)</li>
+<li>其次，根据用户输入的身高和体重，计算 BMI，并判定身体状态 (<code>if..else</code>)</li>
+<li>最后，输出给用户 (<code>Console.WriteLine</code>)</li>
+<li>进入第一步，循环 (<code>for/while</code>)</li>
+</ol>
+
+<p>
+参考网站: <a href="https://cn.onlinebmicalculator.com/">https://cn.onlinebmicalculator.com/</a>
+</p>
+
+<p>
+其他:
+</p>
+<ul class="org-ul">
+<li>如果有兴趣的同学，可以自行学习一下 Winform 应用的创建，尝试使用窗口的方式将这个功能实现一下</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgad3d36e" class="outline-3">
+<h3 id="orgad3d36e"><span class="section-number-3">2.3.</span> 2024-01-15 (期末成绩)</h3>
+<div class="outline-text-3" id="text-2-3">
 <table>
 
 
@@ -939,94 +1031,6 @@
 </tr>
 </tbody>
 </table>
-</div>
-</section>
-
-<section id="outline-container-orgd3da505" class="outline-2">
-<h2 id="orgd3da505"><span class="section-number-2">2.</span> 课堂笔记</h2>
-<div class="outline-text-2" id="text-2">
-</div>
-<div id="outline-container-orge9bf96d" class="outline-3">
-<h3 id="orge9bf96d"><span class="section-number-3">2.1.</span> 2024-03-11 08:30:00</h3>
-<div class="outline-text-3" id="text-2-1">
-<p>
-Winform 项目，VS 界面:
-</p>
-<ul class="org-ul">
-<li>界面设计器 (中间)</li>
-<li>工具箱 （左边）</li>
-<li>属性管理器 (右下)</li>
-<li>解决方案管理器 (右上)</li>
-</ul>
-
-<p>
-如果上述布局不是如上所说，或者是某些图标不见了:
-</p>
-<ol class="org-ol">
-<li>从菜单中的【视图】中找回</li>
-<li>从菜单中的【窗口-重置窗口布局】恢复成原样</li>
-</ol>
-
-<p>
-对 <b>控件</b> 进行操控的方式:
-</p>
-<ol class="org-ol">
-<li>通过界面设计器，进行拖拖拽拽 (最简单，最直接) ✓</li>
-<li>通过属性管理器，进行调整 (细节) ✓</li>
-<li>在对应的代码文件中，直接编码实现 (优先级更高)</li>
-</ol>
-
-<p>
-所谓的控件:
-</p>
-<ul class="org-ul">
-<li>是对页面的某个元素的一种描述 (按钮、文字、窗口、进度条)</li>
-<li>实际上对应的是 C# 中的一个类型 (class Button/Label/Form)</li>
-<li>常见的一些控件:
-<ul class="org-ul">
-<li>Button 按钮</li>
-<li>Label 文字</li>
-<li>PictureBox 图片</li>
-<li>TextBox 输入框</li>
-</ul></li>
-<li>控件都有一个叫 name 的属性，它是唯一的，在代码中可以用它来引用这个控件的实例。
-建议为每个控件取一个合适的名字。</li>
-<li>通过 <code>MessageBox.Show</code> 的方式，创建弹窗显示信息 (mbox TAB)</li>
-</ul>
-
-<p>
-下一节:
-</p>
-<ul class="org-ul">
-<li>复习本节所讲，多多练习</li>
-<li>在界面上讲身体状况的信息合理展示出来</li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-org4c6717e" class="outline-3">
-<h3 id="org4c6717e"><span class="section-number-3">2.2.</span> 2024-01-15 (寒假作业)</h3>
-<div class="outline-text-3" id="text-2-2">
-<p>
-做一个求取 BMI 的控制台应用:
-</p>
-<ol class="org-ol">
-<li>首先，提示用户输入身高和体重 (<code>Console.ReadLine</code>)</li>
-<li>其次，根据用户输入的身高和体重，计算 BMI，并判定身体状态 (<code>if..else</code>)</li>
-<li>最后，输出给用户 (<code>Console.WriteLine</code>)</li>
-<li>进入第一步，循环 (<code>for/while</code>)</li>
-</ol>
-
-<p>
-参考网站: <a href="https://cn.onlinebmicalculator.com/">https://cn.onlinebmicalculator.com/</a>
-</p>
-
-<p>
-其他:
-</p>
-<ul class="org-ul">
-<li>如果有兴趣的同学，可以自行学习一下 Winform 应用的创建，尝试使用窗口的方式将这个功能实现一下</li>
-</ul>
 </div>
 </div>
 </section>
