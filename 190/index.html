@@ -68,7 +68,7 @@
 </p>
 
 
-<figure id="orgc461502">
+<figure id="org9d348dc">
 <img src="img/oimg_20240311_150853.png" alt="oimg_20240311_150853.png">
 
 </figure>
@@ -78,14 +78,14 @@
 </p>
 
 <div class="org-src-container">
-<pre class="src src-csharp"><span style="color: #005a5f;">double</span> <span style="color: #00538b;">sg</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #000000;">(</span>sgbox.Text<span style="color: #000000;">)</span>;
-<span style="color: #005a5f;">double</span> <span style="color: #00538b;">tz</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #000000;">(</span>tzbox.Text<span style="color: #000000;">)</span>;
-<span style="color: #005a5f;">double</span> <span style="color: #00538b;">bmi</span> = tz / <span style="color: #000000;">(</span>sg * sg<span style="color: #000000;">)</span>;
-<span style="color: #005a5f;">string</span> <span style="color: #00538b;">jieguo</span> = $<span style="color: #2544bb;">"&#24744;&#30340; BMI &#20026;: {bmi}"</span>;
-
-MessageBox.<span style="color: #721045;">Show</span><span style="color: #000000;">(</span>jieguo<span style="color: #000000;">)</span>;
-
-jglabel.Text = jieguo;
+<pre class="src src-csharp"><span class="linenr">1: </span><span style="color: #005a5f;">double</span> <span style="color: #00538b;">sg</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #000000;">(</span>sgbox.Text<span style="color: #000000;">)</span>;
+<span class="linenr">2: </span><span style="color: #005a5f;">double</span> <span style="color: #00538b;">tz</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #000000;">(</span>tzbox.Text<span style="color: #000000;">)</span>;
+<span class="linenr">3: </span><span style="color: #005a5f;">double</span> <span style="color: #00538b;">bmi</span> = tz / <span style="color: #000000;">(</span>sg * sg<span style="color: #000000;">)</span>;
+<span class="linenr">4: </span><span style="color: #005a5f;">string</span> <span style="color: #00538b;">jieguo</span> = $<span style="color: #2544bb;">"&#24744;&#30340; BMI &#20026;: {bmi}"</span>;
+<span class="linenr">5: </span>
+<span class="linenr">6: </span>MessageBox.<span style="color: #721045;">Show</span><span style="color: #000000;">(</span>jieguo<span style="color: #000000;">)</span>;
+<span class="linenr">7: </span>
+<span class="linenr">8: </span>jglabel.Text = jieguo;
 </pre>
 </div>
 </div>

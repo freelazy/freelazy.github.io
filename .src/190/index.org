@@ -33,7 +33,7 @@
 
 参考代码:
 
-#+begin_src csharp
+#+begin_src csharp -n
   double sg = double.Parse(sgbox.Text);
   double tz = double.Parse(tzbox.Text);
   double bmi = tz / (sg * sg);
