@@ -240,7 +240,7 @@
 3. 99乘法表
 
 {{{details(参考答案)}}}
-#+begin_src csx
+#+begin_src csx -n
   for (int i = 1; i <= 9; i++)
   {
       for (int j = 1; j <= i; j++)
