@@ -100,7 +100,7 @@
 </p>
 
 
-<figure id="org3455baa">
+<figure id="org7e94e90">
 <img src="img/191-3338282.png" alt="191-3338282.png">
 
 </figure>
@@ -758,6 +758,31 @@
 1x2=2 2x2=4
 1x3=3 2x3=6 3x3=9
 </pre>
+
+
+<p>
+步骤:
+</p>
+<ol class="org-ol">
+<li>九行星</li>
+<li>正三角</li>
+<li>99乘法表</li>
+</ol>
+
+<details><summary>参考答案</summary>
+<div class="org-src-container">
+<pre class="src src-csx"><span style="color: #5317ac;">for</span> <span style="color: #000000;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">i</span> = 1; i &lt;= 9; i++<span style="color: #000000;">)</span>
+<span style="color: #000000;">{</span>
+    <span style="color: #5317ac;">for</span> <span style="color: #a8007f;">(</span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">j</span> = 1; j &lt;= i; j++<span style="color: #a8007f;">)</span>
+    <span style="color: #a8007f;">{</span>
+        <span style="color: #505050;">//</span><span style="color: #505050;">string r = $"{j}x{i}={j * i}\t";</span>
+        Console.<span style="color: #721045;">Write</span><span style="color: #005f88;">(</span>$<span style="color: #2544bb;">"{j}x{i}={j * i}\t"</span><span style="color: #005f88;">)</span>;
+    <span style="color: #a8007f;">}</span>
+    Console.<span style="color: #721045;">WriteLine</span><span style="color: #a8007f;">()</span>;
+<span style="color: #000000;">}</span>
+</pre>
+</div>
+</details>
 </div>
 </div>
 </div>

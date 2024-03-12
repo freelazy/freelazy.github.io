@@ -233,3 +233,22 @@
 : 1x1=1
 : 1x2=2 2x2=4
 : 1x3=3 2x3=6 3x3=9
+
+步骤:
+1. 九行星
+2. 正三角
+3. 99乘法表
+
+{{{details(参考答案)}}}
+#+begin_src csx
+  for (int i = 1; i <= 9; i++)
+  {
+      for (int j = 1; j <= i; j++)
+      {
+          //string r = $"{j}x{i}={j * i}\t";
+          Console.Write($"{j}x{i}={j * i}\t");
+      }
+      Console.WriteLine();
+  }
+#+end_src
+{{{details(/)}}}
