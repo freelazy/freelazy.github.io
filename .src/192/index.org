@@ -176,7 +176,88 @@ C/S架构编程，做完第一章所有的上机题:
 #+end_src
 
 {{{details(点击查看答案，仅供参考)}}}
-TODO
+#+begin_src csharp -n
+  using System;
+
+  class Program
+  {
+      static void Main()
+      {
+          Console.WriteLine("欢迎使用 BMI 计算器！");
+
+          bool run = true;
+          while (run)
+          {
+              // 定义变量
+              double height, weight;
+
+              // 读取身高
+              while (true)
+              {
+                  Console.Write("请输入您的身高（米）：");
+                  if (double.TryParse(Console.ReadLine(), out height) && height > 0)
+                  {
+                      break;
+                  }
+                  else
+                  {
+                      Console.WriteLine("输入的身高无效，请重新输入。");
+                  }
+              }
+
+              // 读取体重
+              while (true)
+              {
+                  Console.Write("请输入您的体重（公斤）：");
+                  if (double.TryParse(Console.ReadLine(), out weight) && weight > 0)
+                  {
+                      break;
+                  }
+                  else
+                  {
+                      Console.WriteLine("输入的体重无效，请重新输入。");
+                  }
+              }
+
+              // 计算并输出 BMI
+              double bmi = weight / (height * height);
+              Console.Write($"您的 BMI 值为：{bmi}\n");
+
+              // 计算身体状况
+              if (bmi < 18.5)
+              {
+                  Console.WriteLine("您的体重过轻！");
+              }
+              else if (bmi < 24)
+              {
+                  Console.WriteLine("您的体重正常。");
+              }
+              else if (bmi < 28)
+              {
+                  Console.WriteLine("您的体重超重。");
+              }
+              else
+              {
+                  Console.WriteLine("您的体重肥胖！");
+              }
+
+              Console.WriteLine();
+
+              // 判定是不是继续下一次
+              Console.Write("是否继续计算BMI？（是/否）：");
+              string input = Console.ReadLine();
+
+              if (input != "是")
+              {
+                  run = false;
+              }
+
+              Console.WriteLine();
+          }
+      }
+  }
+
+#+end_src
 {{{details(/)}}}
 
 * 知识点
