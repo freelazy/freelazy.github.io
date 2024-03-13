@@ -5,6 +5,75 @@
 
   
 * 笔记
+** 2024-03-13 08:31:23
+
+上课了
+
+控制台应用程序 (CLI)
+- Console.XXX
+
+GUI 程序 (Graphic User Interface):
+- 有用户界面的程序
+- Winform/WPF/MAUI
+
+创建 Windows 窗体项目之后:
+- 中间是界面设计器
+- 左边是工具箱
+- 右上角是项目管理器
+- 右下角是属性管理器
+
+如果你的 VS 不是上述布局:
+1. 通过菜单上的【视图】找回相应的功能
+2. 通过菜单上的【窗口-重置窗口布局】的方式，恢复默认布局
+
+基本步骤:
+0. 拿出纸笔，设计程序界面
+1. 创建项目
+2. 拖拽控件
+3. 修改属性
+4. 完善交互逻辑
+
+从工具箱每一个拖进来的东西，都叫做一个 *控件*:
+- 实质上，一个控件就是一个 C# 类型的实例
+- 通过界面设计器，进行拖拽，实质上是 VS 帮助我们自动生成了一坨坨的代码
+- 每一个控件都有一个[Name]的属性，这个是控件的唯一引用ID。
+  要养成一个好的习惯，就是将常用的控件，改一个合适的名字
+- MessageBox.Show 对应的是控制台项目中的 Console.Write
+
+{{{details(求取BMI，代码片段，仅供参考)}}}
+#+begin_src csx -n
+  private void button1_Click(object sender, EventArgs e)
+  {
+      double sg = double.Parse(sgBox.Text);
+      double tz = double.Parse(tzBox.Text);
+      double bmi = tz / sg / sg;
+
+      string stzk = null;
+      if (bmi < 18.5)
+      {
+          stzk = "过轻";
+      }
+      else if (bmi < 24)
+      {
+          stzk = "正常";
+      }
+      else if (bmi < 28)
+      {
+          stzk = "超重";
+      }
+      else
+      {
+          stzk = "肥胖";
+      }
+
+      string jg = $"您的BMI为{bmi}, 身体状况为[{stzk}]";
+      //Console.WriteLine(jg);
+      //MessageBox.Show(jg);
+      jgLabel.Text = jg;
+  }
+#+end_src
+{{{details(/)}}}
+
 ** 2024-03-12 11:07:40
 
 记住: *Console.ReadLine 方法，返回的是一个字符串类型!!!*
