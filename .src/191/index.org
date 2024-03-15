@@ -5,6 +5,40 @@
 
 
 * 笔记
+** 2024-03-15 08:30:49
+
+翻转字符串，参考代码：
+#+begin_src csx -n
+  static void Main(string[] args)
+  {
+      // 1. 用户输入字符串
+      Console.Write("请输入您要操作的字符串: ");
+      string input = Console.ReadLine();
+
+      // 2. 求取翻转的字符串
+      string output = ReverseString(input);
+
+      // 3. 输出字符串
+      Console.WriteLine($"翻转后的结果是: {output}");
+  }
+
+  static string ReverseString(string input)
+  {
+      // 最好不用直接用 string 进行拼接 (string vs StringBuilder)
+      string result = "";
+      foreach (char c in input)
+      {
+          result = c + result;
+      }
+
+      return result;
+  }
+#+end_src
+
+改进:
+1. 优化代码，让其更加高效合理 (stringbuilder)
+2. 在主程序中，增加逻辑，让代码一直执行。除非输入了【退出】，程序结束
+
 ** 2024-03-12 09:46:16
 
 99乘法表，实际上跟倒三角的题目是一样的:
