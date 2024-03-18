@@ -10,7 +10,7 @@
 
 为 BMI 计算器增加身体状况的判断和显示。
 
-{{{details(参考代码)}}}
+{{{details(修改按钮的事件逻辑，大致改为如下)}}}
 #+begin_src csx -n
   private void jsbtn_Click(object sender, EventArgs e)
   {
