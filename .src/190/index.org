@@ -5,8 +5,47 @@
 - 学委: 黄军帮
 
 
-
 * 笔记
+** 2024-03-13 11:01:46
+
+为 BMI 计算器增加身体状况的判断和显示。
+
+{{{details(参考代码)}}}
+#+begin_src csx -n
+  private void jsbtn_Click(object sender, EventArgs e)
+  {
+      double sg = double.Parse(sgbox.Text);
+      double tz = double.Parse(tzbox.Text);
+
+      double bmi = tz / (sg * sg);
+
+      string stzk = null;
+      if (bmi < 18.5)
+      {
+          stzk = "偏瘦";
+      }
+      else if (bmi < 24)
+      {
+          stzk = "正常";
+      }
+      else if (bmi < 28)
+      {
+          stzk = "过重";
+      }
+      else
+      {
+          stzk = "肥胖";
+      }
+
+      string jieguo = $"您的 BMI 为: {bmi}\n您的身体状况为: {stzk}";
+
+      //MessageBox.Show(jieguo);
+
+      jglabel.Text = jieguo;
+  }
+#+end_src
+{{{details(/)}}}
+
 ** 2024-03-11 14:52:05
 
 请大家保持安静，谢谢合作。
