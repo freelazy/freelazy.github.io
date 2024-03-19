@@ -5,6 +5,8 @@
 
 
 * 笔记
+** 2024-03-19 09:32:31
+
 ** 2024-03-15 14:52:53
 
 Winform练习题:
@@ -68,6 +70,41 @@ Winform练习题:
 改进:
 1. 优化代码，让其更加高效合理 (stringbuilder)
 2. 在主程序中，增加逻辑，让代码一直执行。除非输入了【退出】，程序结束
+
+{{{details(参考答案)}}}
+
+优化效率:
+#+begin_src csx -n
+  StringBuilder result = new StringBuilder();
+  for (int i = input.Length - 1; i >= 0; i--)
+  {
+      result = result.Append(input[i]);
+  }
+  return result.ToString();
+#+end_src
+
+增加循环和退出:
+#+begin_src csx -n
+  while (true)
+  {
+      // 1. 用户输入字符串
+      Console.Write("请输入您要操作的字符串: ");
+      string input = Console.ReadLine();
+
+      // 判定是不是要结束
+      if (input == "退出" || input == "tuichu")
+      {
+          break;
+      }
+
+      // 2. 求取翻转的字符串
+      string output = ReverseString(input);
+
+      // 3. 输出字符串
+      Console.WriteLine($"翻转后的结果是: {output}");
+  }
+#+end_src
+{{{details(/)}}}
 
 ** 2024-03-12 09:46:16
 
