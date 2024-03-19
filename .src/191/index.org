@@ -321,7 +321,7 @@ String vs StringBuilder, 效率差别。请执行下面两段代码，进行观�
 #+end_src
 
 #+begin_src csx -n
-  StringBuilder s = null;
+  StringBuilder s = new StringBuilder();
 
   for (int i = 0; i < 1000000; i++)
   {
