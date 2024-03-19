@@ -290,6 +290,7 @@ Winform练习题:
 * 知识点
 ** 字符串的拼接
 
+简而言之，字符串有如下 4 种常用的拼接方式。代码示例如下:
 #+begin_src csx -n
   string a = "hello";
   string b = "world";
