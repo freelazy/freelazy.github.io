@@ -287,6 +287,50 @@ Winform练习题:
 #+end_src
 {{{details(/)}}}
 
+* 知识点
+** 字符串的拼接
+
+#+begin_src csx -n
+  string a = "hello";
+  string b = "world";
+  string c = "!";
+
+  // 拼接起来
+  string r1 = a + b + c; // 语法简单自然
+  string r2 = new StringBuilder().Append(a).Append(b).Append(c).ToString(); // 效率更高 (✓)
+  string r3 = string.Format("{0}{1}{2}", a, b, c); // 结合了前面两种方式的优点
+  string r4 = $"{a}{b}{c}";                        // 是在 string.Format 基础上进一步优化语法 (✓)
+
+  Console.WriteLine(r1);
+  Console.WriteLine(r2);
+  Console.WriteLine(r3);
+  Console.WriteLine(r4);
+#+end_src
+
+String vs StringBuilder, 效率差别。请执行下面两段代码，进行观察。
+
+#+begin_src csx -n
+  string s = null;
+
+  for (int i = 0; i < 1000000; i++)
+  {
+      s = s + "hello.";
+  }
+
+  Console.WriteLine(s);
+#+end_src
+
+#+begin_src csx -n
+  StringBuilder s = null;
+
+  for (int i = 0; i < 1000000; i++)
+  {
+      s = s.Append("hello.");
+  }
+
+  Console.WriteLine(s);
+#+end_src
+
 * 任务结果
 
 #+NAME: rs
