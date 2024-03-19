@@ -5,6 +5,23 @@
 
   
 * 笔记
+** 2024-03-19 10:49:19
+
+实际上，一个窗体就是一个 C# 的类型。对应三个文件：
+1. Form1.cs
+2. Form1.Designer.cs
+3. Form1.resx
+
+通过 partial 分部类的方式，将不同部分的代码分离开来。
+
+窗体的基本属性:
+- FormBorderStyle
+- Size/StartPosition/WindowState
+
+窗体的基本方法:
+- Hide/Close/Dispose
+- Show/ShowDialog/Activate
+
 ** 2024-03-13 08:31:23
 
 上课了
@@ -14,7 +31,7 @@
 
 GUI 程序 (Graphic User Interface):
 - 有用户界面的程序
-- Winform/WPF/MAUI
+- Winform/WPF/MAUI.
 
 创建 Windows 窗体项目之后:
 - 中间是界面设计器
