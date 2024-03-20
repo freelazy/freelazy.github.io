@@ -49,6 +49,29 @@
   }
 #+end_src
 
+事件属性的使用示例:
+#+begin_src csx -n
+  private void Form2_MouseClick(object sender, MouseEventArgs e)
+  {
+      if (e.Button == MouseButtons.Left)
+      {
+          MessageBox.Show("我的左键被点击了");
+      }
+      else if (e.Button == MouseButtons.Right)
+      {
+          MessageBox.Show("你点我干啥");
+      }
+  }
+
+  private void Form2_KeyDown(object sender, KeyEventArgs e)
+  {
+      if (e.KeyCode == Keys.H && e.Control)
+      {
+          MessageBox.Show("帮帮我");
+      }
+  }
+#+end_src
+
 ** 2024-03-13 08:31:23
 
 上课了

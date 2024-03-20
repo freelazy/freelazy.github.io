@@ -120,6 +120,32 @@
 <span class="linenr">16: </span><span style="color: #000000;">}</span>
 </pre>
 </div>
+
+<p>
+事件属性的使用示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-csx"><span class="linenr"> 1: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Form2_MouseClick</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">MouseEventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr"> 2: </span><span style="color: #000000;">{</span>
+<span class="linenr"> 3: </span>    <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>e.Button == MouseButtons.Left<span style="color: #a8007f;">)</span>
+<span class="linenr"> 4: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr"> 5: </span>        MessageBox.<span style="color: #721045;">Show</span><span style="color: #005f88;">(</span><span style="color: #2544bb;">"&#25105;&#30340;&#24038;&#38190;&#34987;&#28857;&#20987;&#20102;"</span><span style="color: #005f88;">)</span>;
+<span class="linenr"> 6: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr"> 7: </span>    <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>e.Button == MouseButtons.Right<span style="color: #a8007f;">)</span>
+<span class="linenr"> 8: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr"> 9: </span>        MessageBox.<span style="color: #721045;">Show</span><span style="color: #005f88;">(</span><span style="color: #2544bb;">"&#20320;&#28857;&#25105;&#24178;&#21861;"</span><span style="color: #005f88;">)</span>;
+<span class="linenr">10: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">11: </span><span style="color: #000000;">}</span>
+<span class="linenr">12: </span>
+<span class="linenr">13: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Form2_KeyDown</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">KeyEventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr">14: </span><span style="color: #000000;">{</span>
+<span class="linenr">15: </span>    <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>e.KeyCode == Keys.H &amp;&amp; e.Control<span style="color: #a8007f;">)</span>
+<span class="linenr">16: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">17: </span>        MessageBox.<span style="color: #721045;">Show</span><span style="color: #005f88;">(</span><span style="color: #2544bb;">"&#24110;&#24110;&#25105;"</span><span style="color: #005f88;">)</span>;
+<span class="linenr">18: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">19: </span><span style="color: #000000;">}</span>
+</pre>
+</div>
 </div>
 </div>
 
