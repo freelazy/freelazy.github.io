@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-03-19 -->
+<!-- 2024-03-20 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>192</title>
@@ -87,6 +87,39 @@
 <li>Hide/Close/Dispose</li>
 <li>Show/ShowDialog/Activate</li>
 </ul>
+
+<p>
+常用事件:
+</p>
+<ul class="org-ul">
+<li>窗体的加载时机: Load, FormClosed/FormClosing</li>
+<li>鼠标动作: MouseClick/Down/Up, MouseEnter/Leave/Hover/Move</li>
+<li>键盘动作: KeyPress/Down/Up</li>
+<li>通用的动作: Click/DoubleClick</li>
+</ul>
+
+<p>
+通过编码直接绑定事件:
+</p>
+<div class="org-src-container">
+<pre class="src src-csx"><span class="linenr"> 1: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Form1_Load</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr"> 2: </span><span style="color: #000000;">{</span>
+<span class="linenr"> 3: </span>    <span style="color: #505050;">// </span><span style="color: #505050;">&#20107;&#20214;&#26041;&#27861;</span>
+<span class="linenr"> 4: </span>    <span style="color: #5317ac;">this</span>.Click += &#25105;&#26159;&#20107;&#20214;&#26041;&#27861;; 
+<span class="linenr"> 5: </span>
+<span class="linenr"> 6: </span>    <span style="color: #505050;">// </span><span style="color: #505050;">&#36890;&#36807;&#34920;&#36798;&#24335;&#35821;&#27861;</span>
+<span class="linenr"> 7: </span>    <span style="color: #5317ac;">this</span>.Click += <span style="color: #a8007f;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #00538b;">EventArgs</span> e<span style="color: #a8007f;">)</span> =&gt;
+<span class="linenr"> 8: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr"> 9: </span>        MessageBox.<span style="color: #721045;">Show</span><span style="color: #005f88;">(</span><span style="color: #2544bb;">"&#20987;"</span><span style="color: #005f88;">)</span>;
+<span class="linenr">10: </span>    <span style="color: #a8007f;">}</span>;
+<span class="linenr">11: </span><span style="color: #000000;">}</span>
+<span class="linenr">12: </span>
+<span class="linenr">13: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">&#25105;&#26159;&#20107;&#20214;&#26041;&#27861;</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr">14: </span><span style="color: #000000;">{</span>
+<span class="linenr">15: </span>    MessageBox.<span style="color: #721045;">Show</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"ji"</span><span style="color: #a8007f;">)</span>;
+<span class="linenr">16: </span><span style="color: #000000;">}</span>
+</pre>
+</div>
 </div>
 </div>
 
@@ -1318,7 +1351,7 @@ Console.<span style="color: #721045;">WriteLine</span><span style="color: #00000
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 31415929</p>
-<p class="date">Created: 2024-03-19</p>
+<p class="date">Created: 2024-03-20</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

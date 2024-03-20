@@ -5,6 +5,7 @@
 
   
 * 笔记
+
 ** 2024-03-19 10:49:19
 
 实际上，一个窗体就是一个 C# 的类型。对应三个文件：
@@ -21,6 +22,32 @@
 窗体的基本方法:
 - Hide/Close/Dispose
 - Show/ShowDialog/Activate
+
+常用事件:
+- 窗体的加载时机: Load, FormClosed/FormClosing
+- 鼠标动作: MouseClick/Down/Up, MouseEnter/Leave/Hover/Move
+- 键盘动作: KeyPress/Down/Up
+- 通用的动作: Click/DoubleClick
+
+通过编码直接绑定事件:
+#+begin_src csx -n
+  private void Form1_Load(object sender, EventArgs e)
+  {
+      // 事件方法
+      this.Click += 我是事件方法; 
+
+      // 通过表达式语法
+      this.Click += (object sender, EventArgs e) =>
+      {
+          MessageBox.Show("击");
+      };
+  }
+
+  private void 我是事件方法(object sender, EventArgs e)
+  {
+      MessageBox.Show("ji");
+  }
+#+end_src
 
 ** 2024-03-13 08:31:23
 
