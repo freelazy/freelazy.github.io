@@ -33,7 +33,7 @@
 #+begin_src csx -n
   private void Form1_Load(object sender, EventArgs e)
   {
-      // 事件方法
+      // 事件方法 (注意，通过 += 操作符添加事件)
       this.Click += 我是事件方法; 
 
       // 通过表达式语法
