@@ -34,7 +34,7 @@ Form1.ShowDialog 是打开模态窗口的意思，即在最顶层
 partial, 一部分。分部类
 
 参考代码:
-#+begin_src csharp -n
+#+begin_src csx -n
   private void button2_Click(object sender, EventArgs e)
   {
       string[] words = { "你喜欢我吗", "考虑一下做我朋友吧", "xxx", "yyy" };
@@ -46,7 +46,9 @@ partial, 一部分。分部类
           form3.ShowDialog();
       }
   }
-#+end_src** 2024-03-15 14:52:53
+#+end_src
+
+** 2024-03-15 14:52:53
 
 Winform练习题:
 1. 创建一个简单的登录窗体，包含用户名和密码的文本框，以及登录按钮。
