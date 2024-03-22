@@ -76,6 +76,47 @@ Winform练习题:
     当用户选中列表框中的待办事项并点击删除按钮时，删除选中的待办事项；
     当用户选中列表框中的待办事项并点击完成按钮时，将选中的待办事项标记为已完成。
 
+** 2024-03-19 09:32:31
+
+翻转字符串，添加循环和退出，并优化效率。
+
+{{{details(参考实现)}}}
+#+begin_src csx -n
+  static void Main(string[] args)
+  {
+      while (true)
+      {
+          // 1. 用户输入字符串
+          Console.Write("请输入您要操作的字符串: ");
+          string input = Console.ReadLine();
+
+          // 判定是不是要结束
+          if (input == "退出" || input == "tuichu")
+          {
+              break;
+          }
+
+          // 2. 求取翻转的字符串
+          string output = ReverseString(input);
+
+          // 3. 输出字符串
+          Console.WriteLine($"翻转后的结果是: {output}");
+      }
+  }
+
+  static string ReverseString(string input)
+  {
+      // 最好不用直接用 string 进行拼接 (string vs StringBuilder)
+      StringBuilder result = new StringBuilder();
+      for (int i = input.Length - 1; i >= 0; i--)
+      {
+          result = result.Append(input[i]);
+      }
+      return result.ToString();
+  }
+#+end_src
+{{{details(/)}}}
+
 ** 2024-03-15 08:30:49
 
 翻转字符串，参考代码：
