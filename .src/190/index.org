@@ -6,6 +6,80 @@
 
 
 * 笔记
+** 2024-03-25 14:58:22
+
+课本第 5 页，事件。
+
+先创建一个项目，增加一个窗体，总共两个窗体。
+
+在某个时刻被触发执行的逻辑:
+- 窗体加载到某个阶段
+- 用户执行了某个操作的时候
+
+示例代码:
+#+begin_src csx -n 
+  private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+  {
+     // MessageBox.Show("再见");
+  }
+
+  private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+  {
+      //MessageBox.Show("我要关闭了");
+  }
+
+  private void Form2_KeyDown(object sender, KeyEventArgs e)
+  {
+      if (e.KeyCode == Keys.Enter)
+      {
+          Close();
+      }
+      else if (e.KeyCode == Keys.Up)
+      {
+          label1.Location
+              = new Point(
+                  label1.Location.X,
+                  label1.Location.Y - 20
+                  );
+      }
+      else if (e.KeyCode == Keys.Down)
+      {
+          label1.Location
+              = new Point(
+                  label1.Location.X,
+                  label1.Location.Y + 20
+                  );
+      }
+      else if (e.KeyCode == Keys.Left)
+      {
+          label1.Location
+              = new Point(
+                  label1.Location.X - 20,
+                  label1.Location.Y
+                  );
+      }
+      else if (e.KeyCode == Keys.Right)
+      {
+          label1.Location
+              = new Point(
+                  label1.Location.X + 20,
+                  label1.Location.Y
+                  );
+      }
+      else
+      {
+          MessageBox.Show("您按了一个键");
+      }
+  }
+
+  private void Form2_Load(object sender, EventArgs e)
+  {
+      // 窗体完全准备好的时候执行
+      // 常用来做一些初始化工作
+      MessageBox.Show("我准备好了");
+  }
+#+end_src
+
 ** 2024-03-18 09:55:03
 
 接下来进行练习:
