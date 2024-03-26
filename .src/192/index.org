@@ -5,6 +5,55 @@
 
   
 * 笔记
+** 2024-03-26 10:36:40
+
+组件、控件、Control，在 C# 中，实际就是一个类的实例。
+
+代码示例:
+#+begin_src csx -n
+  Timer timer;
+  public Form1()
+  {
+      InitializeComponent();
+
+      //定时器
+      timer = new Timer();
+      timer.Interval = 20;
+      timer.Tick += sdfksdjfksd;
+      timer.Start();
+  }
+
+  private void sdfksdjfksd(object sender, EventArgs e)
+  {
+      var loc = button1.Location;
+      button1.Location = new Point(
+          loc.X + 5 > 300 ? 0 : loc.X + 5,
+          loc.Y + 1 > 200 ? 0 : loc.Y + 1);
+  }
+
+  private void Form1_Load(object sender, EventArgs e)
+  {
+      // 可以手动添加组件
+    
+      var button1 = new Button();
+      button1.Text = "谢谢，安静";
+      button1.Location = new Point(200, 300);
+
+      var label = new Label();
+      label.Text = "安静，谢谢";
+
+      this.Controls.Add(button1);
+      this.Controls.Add(label);
+
+  }
+
+  private void button2_Click(object sender, EventArgs e)
+  {
+      // 可以控制定时器的开始与结束
+      timer.Enabled = !timer.Enabled;
+  }
+#+end_src
+
 ** 2024-03-20 14:58:37
 
 一个小挑战。
