@@ -5,6 +5,21 @@
 
 
 * 笔记
+** 2024-03-26 08:29:19
+
+窗体的属性:
+- 标题文字: Text
+- 位置: StartPosition/Location
+- 尺寸: Size/MinSize/MaxSize
+- 初始最大化最小化: WindowState
+- 定制边框和标题栏的样式: FormBorderStyle
+- 背景: BackgroundColor/BackgroundImage
+
+窗口的方法:
+- Activate
+- Close/Dispose/Hide
+- Show/ShowDialog
+
 ** 2024-03-22 08:41:13
 
 项目类型:
