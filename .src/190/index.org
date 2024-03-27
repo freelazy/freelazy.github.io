@@ -11,7 +11,7 @@
 一个窗体中有很多图形元素，这些称为控件 (Control)。
 
 一个控件，实际上对应 C# 中的一个类型的实例:
-#+begin_src csx
+#+begin_src csx -n
   // 1. 创建控件实例
   this.button1 = new Button();
   this.label1 = new Label();

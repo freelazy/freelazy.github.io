@@ -60,21 +60,21 @@
 一个控件，实际上对应 C# 中的一个类型的实例:
 </p>
 <div class="org-src-container">
-<pre class="src src-csx"><span style="color: #505050;">// </span><span style="color: #505050;">1. &#21019;&#24314;&#25511;&#20214;&#23454;&#20363;</span>
-<span style="color: #5317ac;">this</span>.button1 = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Button</span><span style="color: #000000;">()</span>;
-<span style="color: #5317ac;">this</span>.label1 = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Label</span><span style="color: #000000;">()</span>;
-
-<span style="color: #505050;">// </span><span style="color: #505050;">2. &#35774;&#32622;&#23646;&#24615;</span>
-<span style="color: #5317ac;">this</span>.button1.Name = <span style="color: #2544bb;">"button1"</span>;
-<span style="color: #5317ac;">this</span>.button1.Location = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Point</span><span style="color: #000000;">(</span>356, 66<span style="color: #000000;">)</span>;
-<span style="color: #5317ac;">this</span>.button1.Size = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Size</span><span style="color: #000000;">(</span>75, 23<span style="color: #000000;">)</span>;
-<span style="color: #5317ac;">this</span>.button1.TabIndex = 0;
-<span style="color: #5317ac;">this</span>.button1.Text = <span style="color: #2544bb;">"button1"</span>;
-<span style="color: #5317ac;">this</span>.button1.UseVisualStyleBackColor = <span style="color: #0000c0;">true</span>;
-
-<span style="color: #505050;">// </span><span style="color: #505050;">3. &#28155;&#21152;&#21040;&#31383;&#20307;&#19978;</span>
-<span style="color: #5317ac;">this</span>.Controls.<span style="color: #721045;">Add</span><span style="color: #000000;">(</span><span style="color: #5317ac;">this</span>.label1<span style="color: #000000;">)</span>;
-<span style="color: #5317ac;">this</span>.Controls.<span style="color: #721045;">Add</span><span style="color: #000000;">(</span><span style="color: #5317ac;">this</span>.button1<span style="color: #000000;">)</span>;
+<pre class="src src-csx"><span class="linenr"> 1: </span><span style="color: #505050;">// </span><span style="color: #505050;">1. &#21019;&#24314;&#25511;&#20214;&#23454;&#20363;</span>
+<span class="linenr"> 2: </span><span style="color: #5317ac;">this</span>.button1 = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Button</span><span style="color: #000000;">()</span>;
+<span class="linenr"> 3: </span><span style="color: #5317ac;">this</span>.label1 = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Label</span><span style="color: #000000;">()</span>;
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span><span style="color: #505050;">// </span><span style="color: #505050;">2. &#35774;&#32622;&#23646;&#24615;</span>
+<span class="linenr"> 6: </span><span style="color: #5317ac;">this</span>.button1.Name = <span style="color: #2544bb;">"button1"</span>;
+<span class="linenr"> 7: </span><span style="color: #5317ac;">this</span>.button1.Location = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Point</span><span style="color: #000000;">(</span>356, 66<span style="color: #000000;">)</span>;
+<span class="linenr"> 8: </span><span style="color: #5317ac;">this</span>.button1.Size = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Size</span><span style="color: #000000;">(</span>75, 23<span style="color: #000000;">)</span>;
+<span class="linenr"> 9: </span><span style="color: #5317ac;">this</span>.button1.TabIndex = 0;
+<span class="linenr">10: </span><span style="color: #5317ac;">this</span>.button1.Text = <span style="color: #2544bb;">"button1"</span>;
+<span class="linenr">11: </span><span style="color: #5317ac;">this</span>.button1.UseVisualStyleBackColor = <span style="color: #0000c0;">true</span>;
+<span class="linenr">12: </span>
+<span class="linenr">13: </span><span style="color: #505050;">// </span><span style="color: #505050;">3. &#28155;&#21152;&#21040;&#31383;&#20307;&#19978;</span>
+<span class="linenr">14: </span><span style="color: #5317ac;">this</span>.Controls.<span style="color: #721045;">Add</span><span style="color: #000000;">(</span><span style="color: #5317ac;">this</span>.label1<span style="color: #000000;">)</span>;
+<span class="linenr">15: </span><span style="color: #5317ac;">this</span>.Controls.<span style="color: #721045;">Add</span><span style="color: #000000;">(</span><span style="color: #5317ac;">this</span>.button1<span style="color: #000000;">)</span>;
 </pre>
 </div>
 
@@ -328,7 +328,7 @@
 </p>
 
 
-<figure id="org493f9f4">
+<figure id="orgf07ecd8">
 <img src="img/oimg_20240311_150853.png" alt="oimg_20240311_150853.png">
 
 </figure>
