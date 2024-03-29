@@ -29,7 +29,7 @@
  (set-face-attribute 'mode-line-inactive nil :height 100 :family "Droid"))
 
 (setq backup-by-copying nil)
-(setq initial-major-mode 'org-mode initial-scratch-message "\n
+(setq initial-major-mode 'org-mode initial-scratch-message "
   1. 手机放好
   2. 保持安静
   3. 不要睡觉\n\n")
