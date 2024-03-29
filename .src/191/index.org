@@ -5,6 +5,71 @@
 
 
 * 笔记
+** 2024-03-29 08:38:50
+
+事件。择机执行 (触发):
+- 某些状态发生了变化 (Load/FormClosed/FormClosing/Resize)
+- 用户产生了某些动作 (KeyUp/KeyDown/KeyPress, Click/MouseDown/MouseUp/MouseEnter/MouseLeave/MouseHover)
+
+代码示例:
+#+begin_src csx -n
+  private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+  {
+      //MessageBox.Show("再见，后会有期");
+  }
+
+  private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+  {
+      //MessageBox.Show("我就要离开了...");
+  }
+
+  private void hello_jiazaiwanbi_shijian(object sender, EventArgs e)
+  {
+      //MessageBox.Show("我已经准备好了");
+  }
+
+  private void Form1_Resize(object sender, EventArgs e)
+  {
+      var chicun = this.Size;
+      label1.Text = $"当前窗口的尺寸为: {chicun.Width} x {chicun.Height}";
+      label1.Font = new Font("楷体", chicun.Width / 25);
+  }
+
+  private void Form1_KeyDown(object sender, KeyEventArgs e)
+  {
+      if (e.KeyCode == Keys.A)
+      {
+          MessageBox.Show("你按到了 A");
+      }
+      else if (e.KeyCode == Keys.Enter)
+      {
+          label1.ForeColor = Color.Red;
+      }
+      else
+      {
+          MessageBox.Show("瞎乱按啥呢");
+      }
+  }
+
+  private void Form1_KeyUp(object sender, KeyEventArgs e)
+  {
+      if (e.KeyCode == Keys.Enter)
+      {
+          label1.ForeColor = SystemColors.ControlText;
+      }
+  }
+
+  private void Form1_Click(object sender, EventArgs e)
+  {
+      label1.Text = $"{label1.Text}!";
+  }
+
+  private void Form1_MouseEnter(object sender, EventArgs e)
+  {
+      this.Location = new Point(new Random().Next(500), this.Location.Y - 59);
+  }
+#+end_src
+
 ** 2024-03-26 08:29:19
 
 窗体的属性:
