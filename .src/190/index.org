@@ -17,8 +17,6 @@
       timer1.Interval = 100;
       timer1.Tick += GengxinShijian;
       timer1.Enabled = true;
-
-
   }
 
   private void GengxinShijian(object sender, EventArgs e)
