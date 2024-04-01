@@ -6,6 +6,27 @@
 
 
 * 笔记
+** 2024-04-01 09:01:09
+
+时钟程序实例:
+#+begin_src csx -n
+  public Form1()
+  {
+      InitializeComponent();
+
+      timer1.Interval = 100;
+      timer1.Tick += GengxinShijian;
+      timer1.Enabled = true;
+
+
+  }
+
+  private void GengxinShijian(object sender, EventArgs e)
+  {
+      label2.Text = DateTime.Now.ToString();
+  }
+#+end_src
+
 ** 2024-03-27 10:33:05
 
 一个窗体中有很多图形元素，这些称为控件 (Control)。

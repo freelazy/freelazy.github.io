@@ -80,26 +80,22 @@
  (global-set-key [f5] 'gts-do-translate)
  (defvar gts-enable-paragraph nil)
  (setq gts-translate-list '(("en" "zh")))
+ (setq gts-langs '("en" "zh"))
  (setq gts-cache-enable nil)
+ ;;(setq gts-default-http-client (gts-plz-http-client))
  (setq gts-default-translator
        (gts-translator
-        :splitter (if gts-enable-paragraph (gts-paragraph-splitter))
-
         :picker
         ;;(gts-noprompt-picker)
         ;;(gts-noprompt-picker :texter (gts-whole-buffer-texter))
-        (gts-prompt-picker)
+        (gts-picker)
         ;;(gts-prompt-picker :single t)
         ;;(gts-prompt-picker :texter (gts-current-or-selection-texter) :single t)
 
         :engines
-         (lambda ()
-           (with-slots (text) gts-default-translator
-             (if gts-enable-paragraph
-                 (gts-bing-engine)
-               (list (gts-bing-engine)
-                     ;;(gts-youdao-dict-engine)
-                     (gts-google-engine :parser (gts-google-parser))))))
+        (list (gts-bing-engine)
+              ;;(gts-youdao-dict-engine)
+              (gts-google-engine :parser (gts-google-parser)))
         ;;(list
         ;; (gts-bing-engine)
         ;;(gts-google-engine)
@@ -141,7 +137,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(gptel fuzzy-finder treesit-auto ox-spectacle pcre2el trashed org-reverse-datetree ztree yasnippet yaml-mode xterm-color which-key web-mode web-beautify vundo vlf vertico uuidgen use-package udev-mode typescript-mode systemd syntax-subword sx ssh-agency srcery-theme sql-indent sis sharper session scala-mode sass-mode rust-mode robe rime rg rainbow-mode rainbow-delimiters pyim-basedict pyim powershell poly-org poly-markdown plantuml-mode php-mode page-break-lines package-lint ox-pandoc org-roam-ui org-present org-noter-pdftools org-contrib orderless ob-typescript ob-restclient ob-powershell ob-fsharp nov nhexl-mode nano-theme mpv modus-themes memory-usage markdown-toc marginalia macrostep lua-mode lsp-ui lsp-java license-templates leaf-keywords kubernetes kotlin-mode know-your-http-well keycast json-mode jdecomp hyperbole httprepl htmlize hindent hide-lines haskell-mode gruvbox-theme groovy-mode graphviz-dot-mode go-translate go-mode gnuplot gitignore-templates git-timemachine git-modes forge flycheck evil erlang erc-hl-nicks engine-mode emms emmet-mode embark-consult editorconfig edit-indirect eat dockerfile-mode docker dired-dups delight csv-mode csproj-mode cowsay corfu consult-eglot cmake-mode clojure-mode citre cape c-eldoc blackout bbdb auctex attrap android-mode all-the-icons alchemist aes))
+   '(plz gptel fuzzy-finder treesit-auto ox-spectacle pcre2el trashed org-reverse-datetree ztree yasnippet yaml-mode xterm-color which-key web-mode web-beautify vundo vlf vertico uuidgen use-package udev-mode typescript-mode systemd syntax-subword sx ssh-agency srcery-theme sql-indent sis sharper session scala-mode sass-mode rust-mode robe rime rg rainbow-mode rainbow-delimiters pyim-basedict pyim powershell poly-org poly-markdown plantuml-mode php-mode page-break-lines package-lint ox-pandoc org-roam-ui org-present org-noter-pdftools org-contrib orderless ob-typescript ob-restclient ob-powershell ob-fsharp nov nhexl-mode nano-theme mpv modus-themes memory-usage markdown-toc marginalia macrostep lua-mode lsp-ui lsp-java license-templates leaf-keywords kubernetes kotlin-mode know-your-http-well keycast json-mode jdecomp hyperbole httprepl htmlize hindent hide-lines haskell-mode gruvbox-theme groovy-mode graphviz-dot-mode go-translate go-mode gnuplot gitignore-templates git-timemachine git-modes forge flycheck evil erlang erc-hl-nicks engine-mode emms emmet-mode embark-consult editorconfig edit-indirect eat dockerfile-mode docker dired-dups delight csv-mode csproj-mode cowsay corfu consult-eglot cmake-mode clojure-mode citre cape c-eldoc blackout bbdb auctex attrap android-mode all-the-icons alchemist aes))
  '(warning-suppress-log-types '(((editorconfig editorconfig--advice-find-file-noselect)))))
 
 (custom-set-faces
