@@ -5,6 +5,48 @@
 
 
 * 笔记
+** 2024-04-02 09:04:27
+
+定时器:
+#+begin_src csx -n
+  public Form1()
+  {
+      InitializeComponent();
+
+      timer1.Interval = 200;  // 隔多少时间执行一次
+      timer1.Tick += 刷新时间; // 执行的逻辑
+
+      timer2.Interval = 100;
+      timer2.Tick += skdjfksjdfks;
+      timer2.Start();
+  }
+
+  private void skdjfksjdfks(object sender, EventArgs e)
+  {
+      var y = button1.Location.Y + 3;
+      if (y > 250)
+      {
+          timer2.Enabled = false;
+          MessageBox.Show("爆炸了!!!");
+      }
+      else
+      {
+          button1.Location = new Point(button1.Location.X, y);
+      }
+  }
+
+  private void 刷新时间(object sender, EventArgs e)
+  {
+      // 使用内置的 DateTime 类，来表达时间
+      shijianbiaoqian.Text = DateTime.Now.ToString();
+  }
+
+  private void button1_Click(object sender, EventArgs e)
+  {
+      timer1.Enabled = !timer1.Enabled;
+  }
+#+end_src
+
 ** 2024-03-29 08:38:50
 
 事件。择机执行 (触发):
@@ -43,7 +85,7 @@
       }
       else if (e.KeyCode == Keys.Enter)
       {
-          label1.ForeColor = Color.Red;
+          label1.ForeColor = Co lor.Red;
       }
       else
       {
