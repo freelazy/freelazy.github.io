@@ -88,7 +88,7 @@
         :picker
         ;;(gts-noprompt-picker)
         ;;(gts-noprompt-picker :texter (gts-whole-buffer-texter))
-        (gts-picker)
+        (gts-picker :text 'word)
         ;;(gts-prompt-picker :single t)
         ;;(gts-prompt-picker :texter (gts-current-or-selection-texter) :single t)
 

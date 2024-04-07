@@ -5,6 +5,66 @@
 
 
 * 笔记
+** 2024-04-07 08:58:20
+
+定时器的另一个例子，自由落体运动:
+#+begin_src csx -n
+  int guoleduoshaomiao = 0;
+  int kaishidegaodu;
+
+  public Form1()
+  {
+      InitializeComponent();
+
+      // 下落的定时器
+      timer1.Interval = 20;
+      timer1.Tick += Timer1_Tick;
+
+      // 消失的定时器
+      timer2.Interval = 3000;
+      timer2.Tick += Timer2_Tick;
+
+      kaishidegaodu = button1.Location.Y;
+  }
+
+  private void Timer1_Tick(object sender, EventArgs e)
+  {
+      // 下降的高度 = g*t*t/2
+
+      // 过去了多少时间
+      guoleduoshaomiao = guoleduoshaomiao + 1;
+      // 下降了多少高度
+      int xiajiangdegaodu = 9 * guoleduoshaomiao * guoleduoshaomiao / 20;
+      // 现在应该在什么位置
+      int xianzaiyinggaidegaodu = kaishidegaodu + xiajiangdegaodu;
+
+      // 刷新位置
+      if (xianzaiyinggaidegaodu < 800)
+      {
+          button1.Location = new Point(button1.Location.X, xianzaiyinggaidegaodu);
+
+      }
+      // 到底了，爆炸
+      else
+      {
+          timer1.Stop();
+          timer2.Start();
+          button1.BackColor = Color.Red;
+      }
+  }
+
+  private void Timer2_Tick(object sender, EventArgs e)
+  {
+      button1.Dispose();
+      timer2.Stop();
+  }
+
+  private void button1_Click(object sender, EventArgs e)
+  {
+      timer1.Enabled = !timer1.Enabled;
+  }
+#+end_src
+
 ** 2024-04-02 09:04:27
 
 定时器:
