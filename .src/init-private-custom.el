@@ -75,59 +75,21 @@
 ;; Translate
 
 (with-over
- (global-hl-line-mode 1)
  (require 'go-translate)
- (global-set-key [f5] 'gts-do-translate)
- (defvar gts-enable-paragraph nil)
- (setq gts-translate-list '(("en" "zh")))
- (setq gts-langs '("en" "zh"))
- (setq gts-cache-enable nil)
- ;;(setq gts-default-http-client (gts-plz-http-client))
- (setq gts-default-translator
+ (setq gts-cache-enable nil
+       gts-default-translator
        (gts-translator
-        :picker
-        ;;(gts-noprompt-picker)
-        ;;(gts-noprompt-picker :texter (gts-whole-buffer-texter))
-        (gts-picker :text 'word)
-        ;;(gts-prompt-picker :single t)
-        ;;(gts-prompt-picker :texter (gts-current-or-selection-texter) :single t)
+        :taker (gts-taker :langs '(en zh ja ru fr) :text 'word)
+        :engines (list
+                  (gts-bing-engine)
+                  ;;(gts-youdao-dict-engine)
+                  ;;(gts-google-engine :parser (gts-google-parser))
+                  )
+        :render (gts-buffer-render)))
 
-        :engines
-        (list (gts-bing-engine)
-              ;;(gts-youdao-dict-engine)
-              (gts-google-engine :parser (gts-google-parser)))
-        ;;(list
-        ;; (gts-bing-engine)
-        ;;(gts-google-engine)
-        ;; (gts-google-engine :parser (gts-google-summary-parser))
-        ;; (gts-google-rpc-engine)
-        ;;(gts-deepl-engine :auth-key "2e20bade-88e9-02f3-169f-ab3c445d7984:fx" :pro nil)
-
-        ;;(gts-google-engine :parser (gts-google-parser))
-        ;;(gts-google-rpc-engine :parser (gts-google-rpc-summary-parser))
-        ;;)
-
-        :render
-        (gts-buffer-render)
-
-        ;;(gts-posframe-pop-render)
-        ;;(gts-posframe-pop-render :backcolor "#333333" :forecolor "#ffffff")
-
-        ;;(gts-posframe-pin-render)
-        ;;(gts-posframe-pin-render :position (cons 1200 20) :width 50 :height 18)
-        ;;(gts-posframe-pin-render :width 80 :height 25 :position (cons 1000 20) :forecolor "#ffffff" :backcolor "#111111")
-
-        ;;(gts-kill-ring-render)
-        ))
-
- (define-key gts-prompt-picker-keymap [f5]
-   (lambda () (interactive) (exit-minibuffer)))
-
- (global-set-key [C-f5]
-                 (lambda () (interactive)
-                   (setq gts-enable-paragraph (not gts-enable-paragraph))
-                   (message "Enable paragraph: %s" (if gts-enable-paragraph "yes" "no"))))
- )
+ (global-set-key [f5] 'gts-do-translate)
+ (define-key gts-prompt-taker-keymap [f5] #'exit-minibuffer)
+ (global-hl-line-mode 1))
 
 
 
