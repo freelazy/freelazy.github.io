@@ -6,6 +6,42 @@
 
 
 * 笔记
+** 2024-04-08 08:44:08
+
+另一个定时器的例子，倒计时:
+#+begin_src csx -n
+  int 剩余时间;
+
+  public Form1()
+  {
+      InitializeComponent();
+
+
+      timer1.Interval = 1000;
+      timer1.Tick += Timer1_Tick;
+  }
+
+  private void Timer1_Tick(object sender, EventArgs e)
+  {
+      剩余时间 = 剩余时间 - 1;
+      if (剩余时间 <= 0)
+      {
+          label2.Text = "嘭!!!";
+          timer1.Stop();
+      }
+      else
+      {
+          label2.Text = $"{剩余时间}";
+      }
+  }
+
+  private void button1_Click(object sender, EventArgs e)
+  {
+      剩余时间 = int.Parse(textBox1.Text); // 初始值
+      timer1.Enabled = !timer1.Enabled;
+  }
+#+end_src
+
 ** 2024-04-03 10:34:53
 :PROPERTIES:
 :ID:       20240403T105336.671977

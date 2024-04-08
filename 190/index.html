@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2024-04-08 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>190</title>
+<meta name="author" content="31415929" />
+<meta name="generator" content="Org Mode" />
+<link rel='stylesheet' href='/asset/common.css?33445' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">190</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org14957c5">1. 笔记</a>
+<ul>
+<li><a href="#org0c20197">1.1. 2024-04-08 08:44:08</a></li>
+<li><a href="#org4963414">1.2. 2024-04-03 10:34:53</a></li>
+<li><a href="#orgc0f7781">1.3. 2024-04-01 09:01:09</a></li>
+<li><a href="#orga282cb6">1.4. 2024-03-27 10:33:05</a></li>
+<li><a href="#orge5308c9">1.5. 2024-03-25 14:58:22</a></li>
+<li><a href="#orgf1ae66e">1.6. 2024-03-18 09:55:03</a></li>
+<li><a href="#orgb435766">1.7. 2024-03-13 11:01:46</a></li>
+<li><a href="#org8cbbc25">1.8. 2024-03-11 14:52:05</a></li>
+<li><a href="#org484b6e1">1.9. 2024-03-11 08:30:00</a></li>
+<li><a href="#org8452469">1.10. 2024-01-15 (寒假作业)</a></li>
+<li><a href="#org82189a0">1.11. 2024-01-15 (期末成绩)</a></li>
+<li><a href="#org9e9b6ae">1.12. 2023-12-28 (任务)</a></li>
+<li><a href="#org0a2cf87">1.13. 2023-10-30 (任务)</a></li>
+<li><a href="#orgf5f6210">1.14. 2023-09-07 (任务)</a></li>
+</ul>
+</li>
+<li><a href="#orga1a6079">2. 任务结果</a></li>
+</ul>
+</div>
+</nav>
+<ul class="org-ul">
+<li>班长: 林俊贤</li>
+<li>学委: 黄军帮</li>
+</ul>
+
+
+<section id="outline-container-org14957c5" class="outline-2">
+<h2 id="org14957c5"><span class="section-number-2">1.</span> 笔记</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org0c20197" class="outline-3">
+<h3 id="org0c20197"><span class="section-number-3">1.1.</span> 2024-04-08 08:44:08</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+另一个定时器的例子，倒计时:
+</p>
+<div class="org-src-container">
+<pre class="src src-csx"><span class="linenr"> 1: </span><span style="color: #005a5f;">int</span> <span style="color: #00538b;">&#21097;&#20313;&#26102;&#38388;</span>;
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span><span style="color: #5317ac;">public</span> <span style="color: #721045;">Form1</span><span style="color: #000000;">()</span>
+<span class="linenr"> 4: </span><span style="color: #000000;">{</span>
+<span class="linenr"> 5: </span>    <span style="color: #721045;">InitializeComponent</span><span style="color: #a8007f;">()</span>;
+<span class="linenr"> 6: </span>
+<span class="linenr"> 7: </span>
+<span class="linenr"> 8: </span>    timer1.Interval = 1000;
+<span class="linenr"> 9: </span>    timer1.Tick += Timer1_Tick;
+<span class="linenr">10: </span><span style="color: #000000;">}</span>
+<span class="linenr">11: </span>
+<span class="linenr">12: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Timer1_Tick</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr">13: </span><span style="color: #000000;">{</span>
+<span class="linenr">14: </span>    &#21097;&#20313;&#26102;&#38388; = &#21097;&#20313;&#26102;&#38388; - 1;
+<span class="linenr">15: </span>    <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>&#21097;&#20313;&#26102;&#38388; &lt;= 0<span style="color: #a8007f;">)</span>
+<span class="linenr">16: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">17: </span>        label2.Text = <span style="color: #2544bb;">"&#22061;!!!"</span>;
+<span class="linenr">18: </span>        timer1.<span style="color: #721045;">Stop</span><span style="color: #005f88;">()</span>;
+<span class="linenr">19: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">20: </span>    <span style="color: #5317ac;">else</span>
+<span class="linenr">21: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">22: </span>        label2.Text = $<span style="color: #2544bb;">"{&#21097;&#20313;&#26102;&#38388;}"</span>;
+<span class="linenr">23: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">24: </span><span style="color: #000000;">}</span>
+<span class="linenr">25: </span>
+<span class="linenr">26: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">button1_Click</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr">27: </span><span style="color: #000000;">{</span>
+<span class="linenr">28: </span>    &#21097;&#20313;&#26102;&#38388; = <span style="color: #005a5f;">int</span>.<span style="color: #721045;">Parse</span><span style="color: #a8007f;">(</span>textBox1.Text<span style="color: #a8007f;">)</span>; <span style="color: #505050;">// </span><span style="color: #505050;">&#21021;&#22987;&#20540;</span>
+<span class="linenr">29: </span>    timer1.Enabled = <span style="color: #813e00;">!</span>timer1.Enabled;
+<span class="linenr">30: </span><span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4963414" class="outline-3">
+<h3 id="org4963414"><span class="section-number-3">1.2.</span> 2024-04-03 10:34:53</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+小测验:
+</p>
+<ul class="org-ul">
+<li>制作一个简单的时钟程序，将时间显示出来</li>
+<li>界面:
+<ul class="org-ul">
+<li>一个不规则的图片作为窗体外观</li>
+<li>窗体启动时，要求位于屏幕中央</li>
+<li>窗体无法改变大小</li>
+</ul></li>
+</ul>
+
+<p>
+详情见课本第 22 页。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc0f7781" class="outline-3">
+<h3 id="orgc0f7781"><span class="section-number-3">1.3.</span> 2024-04-01 09:01:09</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+时钟程序实例:
+</p>
+<div class="org-src-container">
+<pre class="src src-csx"><span class="linenr"> 1: </span><span style="color: #5317ac;">public</span> <span style="color: #721045;">Form1</span><span style="color: #000000;">()</span>
+<span class="linenr"> 2: </span><span style="color: #000000;">{</span>
+<span class="linenr"> 3: </span>    <span style="color: #721045;">InitializeComponent</span><span style="color: #a8007f;">()</span>;
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>    timer1.Interval = 100;
+<span class="linenr"> 6: </span>    timer1.Tick += GengxinShijian;
+<span class="linenr"> 7: </span>    timer1.Enabled = <span style="color: #0000c0;">true</span>;
+<span class="linenr"> 8: </span><span style="color: #000000;">}</span>
+<span class="linenr"> 9: </span>
+<span class="linenr">10: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">GengxinShijian</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr">11: </span><span style="color: #000000;">{</span>
+<span class="linenr">12: </span>    label2.Text = DateTime.Now.<span style="color: #721045;">ToString</span><span style="color: #a8007f;">()</span>;
+<span class="linenr">13: </span><span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga282cb6" class="outline-3">
+<h3 id="orga282cb6"><span class="section-number-3">1.4.</span> 2024-03-27 10:33:05</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+一个窗体中有很多图形元素，这些称为控件 (Control)。
+</p>
+
+<p>
+一个控件，实际上对应 C# 中的一个类型的实例:
+</p>
+<div class="org-src-container">
+<pre class="src src-csx"><span class="linenr"> 1: </span><span style="color: #505050;">// </span><span style="color: #505050;">1. &#21019;&#24314;&#25511;&#20214;&#23454;&#20363;</span>
+<span class="linenr"> 2: </span><span style="color: #5317ac;">this</span>.button1 = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Button</span><span style="color: #000000;">()</span>;
+<span class="linenr"> 3: </span><span style="color: #5317ac;">this</span>.label1 = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Label</span><span style="color: #000000;">()</span>;
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span><span style="color: #505050;">// </span><span style="color: #505050;">2. &#35774;&#32622;&#23646;&#24615;</span>
+<span class="linenr"> 6: </span><span style="color: #5317ac;">this</span>.button1.Name = <span style="color: #2544bb;">"button1"</span>;
+<span class="linenr"> 7: </span><span style="color: #5317ac;">this</span>.button1.Location = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Point</span><span style="color: #000000;">(</span>356, 66<span style="color: #000000;">)</span>;
+<span class="linenr"> 8: </span><span style="color: #5317ac;">this</span>.button1.Size = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Size</span><span style="color: #000000;">(</span>75, 23<span style="color: #000000;">)</span>;
+<span class="linenr"> 9: </span><span style="color: #5317ac;">this</span>.button1.TabIndex = 0;
+<span class="linenr">10: </span><span style="color: #5317ac;">this</span>.button1.Text = <span style="color: #2544bb;">"button1"</span>;
+<span class="linenr">11: </span><span style="color: #5317ac;">this</span>.button1.UseVisualStyleBackColor = <span style="color: #0000c0;">true</span>;
+<span class="linenr">12: </span>
+<span class="linenr">13: </span><span style="color: #505050;">// </span><span style="color: #505050;">3. &#28155;&#21152;&#21040;&#31383;&#20307;&#19978;</span>
+<span class="linenr">14: </span><span style="color: #5317ac;">this</span>.Controls.<span style="color: #721045;">Add</span><span style="color: #000000;">(</span><span style="color: #5317ac;">this</span>.label1<span style="color: #000000;">)</span>;
+<span class="linenr">15: </span><span style="color: #5317ac;">this</span>.Controls.<span style="color: #721045;">Add</span><span style="color: #000000;">(</span><span style="color: #5317ac;">this</span>.button1<span style="color: #000000;">)</span>;
+</pre>
+</div>
+
+<p>
+定时器，示例代码:
+</p>
+<div class="org-src-container">
+<pre class="src src-csx"><span class="linenr"> 1: </span><span style="color: #5317ac;">public</span> <span style="color: #721045;">Form1</span><span style="color: #000000;">()</span>
+<span class="linenr"> 2: </span><span style="color: #000000;">{</span>
+<span class="linenr"> 3: </span>    <span style="color: #721045;">InitializeComponent</span><span style="color: #a8007f;">()</span>;
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>    <span style="color: #505050;">//</span><span style="color: #505050;">for (int i = 0; i &lt; 100; i++)</span>
+<span class="linenr"> 6: </span>    <span style="color: #505050;">//</span><span style="color: #505050;">{</span>
+<span class="linenr"> 7: </span>    <span style="color: #505050;">//    </span><span style="color: #505050;">var button = new Button();</span>
+<span class="linenr"> 8: </span>    <span style="color: #505050;">//    </span><span style="color: #505050;">button.Name = $"btn_{i}";</span>
+<span class="linenr"> 9: </span>    <span style="color: #505050;">//    </span><span style="color: #505050;">button.Text = $"hello {i}";</span>
+<span class="linenr">10: </span>    <span style="color: #505050;">//    </span><span style="color: #505050;">button.Location = new Point(</span>
+<span class="linenr">11: </span>    <span style="color: #505050;">//        </span><span style="color: #505050;">(i % 10) * 100,</span>
+<span class="linenr">12: </span>    <span style="color: #505050;">//        </span><span style="color: #505050;">(i / 10) * 30);</span>
+<span class="linenr">13: </span>    <span style="color: #505050;">//    </span><span style="color: #505050;">this.Controls.Add(button);</span>
+<span class="linenr">14: </span>    <span style="color: #505050;">//</span><span style="color: #505050;">}</span>
+<span class="linenr">15: </span>
+<span class="linenr">16: </span>    timer1.Interval = 100;
+<span class="linenr">17: </span>    timer1.Tick += woyaozuoshen;
+<span class="linenr">18: </span>
+<span class="linenr">19: </span><span style="color: #000000;">}</span>
+<span class="linenr">20: </span>
+<span class="linenr">21: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">woyaozuoshen</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr">22: </span><span style="color: #000000;">{</span>
+<span class="linenr">23: </span>    <span style="color: #505050;">//</span><span style="color: #505050;">MessageBox.Show($"hello, &#29616;&#22312;&#26102;&#38388;: {DateTime.Now}");</span>
+<span class="linenr">24: </span>    button2.Location = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Point</span>
+<span class="linenr">25: </span>        <span style="color: #a8007f;">(</span>
+<span class="linenr">26: </span>            button2.Location.X + 5,
+<span class="linenr">27: </span>            button2.Location.Y + 5
+<span class="linenr">28: </span>        <span style="color: #a8007f;">)</span>;
+<span class="linenr">29: </span><span style="color: #000000;">}</span>
+<span class="linenr">30: </span>
+<span class="linenr">31: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">button1_Click</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr">32: </span><span style="color: #000000;">{</span>
+<span class="linenr">33: </span>    <span style="color: #505050;">//</span><span style="color: #505050;">timer1.Start();</span>
+<span class="linenr">34: </span>    timer1.Enabled = <span style="color: #813e00;">!</span>timer1.Enabled;
+<span class="linenr">35: </span><span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge5308c9" class="outline-3">
+<h3 id="orge5308c9"><span class="section-number-3">1.5.</span> 2024-03-25 14:58:22</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+课本第 5 页，事件。
+</p>
+
+<p>
+先创建一个项目，增加一个窗体，总共两个窗体。
+</p>
+
+<p>
+在某个时刻被触发执行的逻辑:
+</p>
+<ul class="org-ul">
+<li>窗体加载到某个阶段</li>
+<li>用户执行了某个操作的时候</li>
+</ul>
+
+<p>
+示例代码:
+</p>
+<div class="org-src-container">
+<pre class="src src-csx"><span class="linenr"> 1: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Form2_FormClosed</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">FormClosedEventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr"> 2: </span><span style="color: #000000;">{</span>
+<span class="linenr"> 3: </span>   <span style="color: #505050;">// </span><span style="color: #505050;">MessageBox.Show("&#20877;&#35265;");</span>
+<span class="linenr"> 4: </span><span style="color: #000000;">}</span>
+<span class="linenr"> 5: </span>
+<span class="linenr"> 6: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Form2_FormClosing</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">FormClosingEventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr"> 7: </span><span style="color: #000000;">{</span>
+<span class="linenr"> 8: </span>    <span style="color: #505050;">//</span><span style="color: #505050;">MessageBox.Show("&#25105;&#35201;&#20851;&#38381;&#20102;");</span>
+<span class="linenr"> 9: </span><span style="color: #000000;">}</span>
+<span class="linenr">10: </span>
+<span class="linenr">11: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Form2_KeyDown</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">KeyEventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr">12: </span><span style="color: #000000;">{</span>
+<span class="linenr">13: </span>    <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>e.KeyCode == Keys.Enter<span style="color: #a8007f;">)</span>
+<span class="linenr">14: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">15: </span>        <span style="color: #721045;">Close</span><span style="color: #005f88;">()</span>;
+<span class="linenr">16: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">17: </span>    <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>e.KeyCode == Keys.Up<span style="color: #a8007f;">)</span>
+<span class="linenr">18: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">19: </span>        label1.Location
+<span class="linenr">20: </span>            = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Point</span><span style="color: #005f88;">(</span>
+<span class="linenr">21: </span>                label1.Location.X,
+<span class="linenr">22: </span>                label1.Location.Y - 20
+<span class="linenr">23: </span>                <span style="color: #005f88;">)</span>;
+<span class="linenr">24: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">25: </span>    <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>e.KeyCode == Keys.Down<span style="color: #a8007f;">)</span>
+<span class="linenr">26: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">27: </span>        label1.Location
+<span class="linenr">28: </span>            = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Point</span><span style="color: #005f88;">(</span>
+<span class="linenr">29: </span>                label1.Location.X,
+<span class="linenr">30: </span>                label1.Location.Y + 20
+<span class="linenr">31: </span>                <span style="color: #005f88;">)</span>;
+<span class="linenr">32: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">33: </span>    <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>e.KeyCode == Keys.Left<span style="color: #a8007f;">)</span>
+<span class="linenr">34: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">35: </span>        label1.Location
+<span class="linenr">36: </span>            = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Point</span><span style="color: #005f88;">(</span>
+<span class="linenr">37: </span>                label1.Location.X - 20,
+<span class="linenr">38: </span>                label1.Location.Y
+<span class="linenr">39: </span>                <span style="color: #005f88;">)</span>;
+<span class="linenr">40: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">41: </span>    <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>e.KeyCode == Keys.Right<span style="color: #a8007f;">)</span>
+<span class="linenr">42: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">43: </span>        label1.Location
+<span class="linenr">44: </span>            = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Point</span><span style="color: #005f88;">(</span>
+<span class="linenr">45: </span>                label1.Location.X + 20,
+<span class="linenr">46: </span>                label1.Location.Y
+<span class="linenr">47: </span>                <span style="color: #005f88;">)</span>;
+<span class="linenr">48: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">49: </span>    <span style="color: #5317ac;">else</span>
+<span class="linenr">50: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">51: </span>        MessageBox.<span style="color: #721045;">Show</span><span style="color: #005f88;">(</span><span style="color: #2544bb;">"&#24744;&#25353;&#20102;&#19968;&#20010;&#38190;"</span><span style="color: #005f88;">)</span>;
+<span class="linenr">52: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">53: </span><span style="color: #000000;">}</span>
+<span class="linenr">54: </span>
+<span class="linenr">55: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Form2_Load</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr">56: </span><span style="color: #000000;">{</span>
+<span class="linenr">57: </span>    <span style="color: #505050;">// </span><span style="color: #505050;">&#31383;&#20307;&#23436;&#20840;&#20934;&#22791;&#22909;&#30340;&#26102;&#20505;&#25191;&#34892;</span>
+<span class="linenr">58: </span>    <span style="color: #505050;">// </span><span style="color: #505050;">&#24120;&#29992;&#26469;&#20570;&#19968;&#20123;&#21021;&#22987;&#21270;&#24037;&#20316;</span>
+<span class="linenr">59: </span>    MessageBox.<span style="color: #721045;">Show</span><span style="color: #a8007f;">(</span><span style="color: #2544bb;">"&#25105;&#20934;&#22791;&#22909;&#20102;"</span><span style="color: #a8007f;">)</span>;
+<span class="linenr">60: </span><span style="color: #000000;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf1ae66e" class="outline-3">
+<h3 id="orgf1ae66e"><span class="section-number-3">1.6.</span> 2024-03-18 09:55:03</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+接下来进行练习:
+</p>
+<ul class="org-ul">
+<li>了解三个文件的关系: Form1.cs, Form1.Designer.cs, Form1.resx</li>
+<li>了解类创建中 partial 关键词的作用</li>
+<li>熟练配置 Form 的各种常用属性:
+<ul class="org-ul">
+<li>如何设定初始尺寸、位置</li>
+<li>如何固定窗口大小</li>
+<li>如何自定义窗口的颜色、背景</li>
+<li>如何设定边框的样式</li>
+<li>如何不使用窗口的本来样式，而是完全自定义</li>
+</ul></li>
+<li>熟悉打开多个 Form 窗口的操作
+<ul class="org-ul">
+<li>窗口操作的常用方法有哪些</li>
+<li>Show 跟 ShowDialog 有什么区别</li>
+<li>Hide, Close 跟 Dispose 有什么区别</li>
+<li>Activate 跟 Show 有什么区别</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb435766" class="outline-3">
+<h3 id="orgb435766"><span class="section-number-3">1.7.</span> 2024-03-13 11:01:46</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+为 BMI 计算器增加身体状况的判断和显示。
+</p>
+
+<details><summary>修改按钮的事件逻辑，大致改为如下</summary>
+<div class="org-src-container">
+<pre class="src src-csx"><span class="linenr"> 1: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">jsbtn_Click</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">EventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr"> 2: </span><span style="color: #000000;">{</span>
+<span class="linenr"> 3: </span>    <span style="color: #005a5f;">double</span> <span style="color: #00538b;">sg</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #a8007f;">(</span>sgbox.Text<span style="color: #a8007f;">)</span>;
+<span class="linenr"> 4: </span>    <span style="color: #005a5f;">double</span> <span style="color: #00538b;">tz</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #a8007f;">(</span>tzbox.Text<span style="color: #a8007f;">)</span>;
+<span class="linenr"> 5: </span>
+<span class="linenr"> 6: </span>    <span style="color: #005a5f;">double</span> <span style="color: #00538b;">bmi</span> = tz / <span style="color: #a8007f;">(</span>sg * sg<span style="color: #a8007f;">)</span>;
+<span class="linenr"> 7: </span>
+<span class="linenr"> 8: </span>    <span style="color: #005a5f;">string</span> <span style="color: #00538b;">stzk</span> = <span style="color: #0000c0;">null</span>;
+<span class="linenr"> 9: </span>    <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>bmi &lt; 18.5<span style="color: #a8007f;">)</span>
+<span class="linenr">10: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">11: </span>        stzk = <span style="color: #2544bb;">"&#20559;&#30246;"</span>;
+<span class="linenr">12: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">13: </span>    <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>bmi &lt; 24<span style="color: #a8007f;">)</span>
+<span class="linenr">14: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">15: </span>        stzk = <span style="color: #2544bb;">"&#27491;&#24120;"</span>;
+<span class="linenr">16: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">17: </span>    <span style="color: #5317ac;">else</span> <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>bmi &lt; 28<span style="color: #a8007f;">)</span>
+<span class="linenr">18: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">19: </span>        stzk = <span style="color: #2544bb;">"&#36807;&#37325;"</span>;
+<span class="linenr">20: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">21: </span>    <span style="color: #5317ac;">else</span>
+<span class="linenr">22: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">23: </span>        stzk = <span style="color: #2544bb;">"&#32933;&#32982;"</span>;
+<span class="linenr">24: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">25: </span>
+<span class="linenr">26: </span>    <span style="color: #005a5f;">string</span> <span style="color: #00538b;">jieguo</span> = $<span style="color: #2544bb;">"&#24744;&#30340; BMI &#20026;: {bmi}\n&#24744;&#30340;&#36523;&#20307;&#29366;&#20917;&#20026;: {stzk}"</span>;
+<span class="linenr">27: </span>
+<span class="linenr">28: </span>    <span style="color: #505050;">//</span><span style="color: #505050;">MessageBox.Show(jieguo);</span>
+<span class="linenr">29: </span>
+<span class="linenr">30: </span>    jglabel.Text = jieguo;
+<span class="linenr">31: </span><span style="color: #000000;">}</span>
+</pre>
+</div>
+</details>
+</div>
+</div>
+
+<div id="outline-container-org8cbbc25" class="outline-3">
+<h3 id="org8cbbc25"><span class="section-number-3">1.8.</span> 2024-03-11 14:52:05</h3>
+<div class="outline-text-3" id="text-1-8">
+<p>
+请大家保持安静，谢谢合作。
+</p>
+
+<p>
+求取 BMI 的值。完善，添加身体状况。有什么问题吗？
+</p>
+
+<p>
+有问题，现在提。
+</p>
+
+<p>
+没人提，是不是就是没问题。没问题的话，没做完是什么原因？
+</p>
+
+<p>
+刚才举手的就1个人？没时间，没心情做。如果没时间，我给时间。
+</p>
+
+<p>
+好，我现在，再一次演示一下，怎么创建 Winform 应用。我把步骤再搞一遍。
+</p>
+
+<p>
+保持安静，谢谢。
+</p>
+
+<p>
+创建项目。
+</p>
+
+<p>
+实现界面。
+</p>
+
+<p>
+响应用户的动作。
+</p>
+
+
+<figure id="orgb215c9a">
+<img src="img/oimg_20240311_150853.png" alt="oimg_20240311_150853.png">
+
+</figure>
+
+<details><summary>参考代码</summary>
+
+<div class="org-src-container">
+<pre class="src src-csharp"><span class="linenr">1: </span><span style="color: #005a5f;">double</span> <span style="color: #00538b;">sg</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #000000;">(</span>sgbox.Text<span style="color: #000000;">)</span>;
+<span class="linenr">2: </span><span style="color: #005a5f;">double</span> <span style="color: #00538b;">tz</span> = <span style="color: #005a5f;">double</span>.<span style="color: #721045;">Parse</span><span style="color: #000000;">(</span>tzbox.Text<span style="color: #000000;">)</span>;
+<span class="linenr">3: </span><span style="color: #005a5f;">double</span> <span style="color: #00538b;">bmi</span> = tz / <span style="color: #000000;">(</span>sg * sg<span style="color: #000000;">)</span>;
+<span class="linenr">4: </span><span style="color: #005a5f;">string</span> <span style="color: #00538b;">jieguo</span> = $<span style="color: #2544bb;">"&#24744;&#30340; BMI &#20026;: {bmi}"</span>;
+<span class="linenr">5: </span>
+<span class="linenr">6: </span>MessageBox.<span style="color: #721045;">Show</span><span style="color: #000000;">(</span>jieguo<span style="color: #000000;">)</span>;
+<span class="linenr">7: </span>
+<span class="linenr">8: </span>jglabel.Text = jieguo;
+</pre>
+</div>
+
+</details>
+</div>
+</div>
+
+<div id="outline-container-org484b6e1" class="outline-3">
+<h3 id="org484b6e1"><span class="section-number-3">1.9.</span> 2024-03-11 08:30:00</h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+Winform 项目，VS 界面:
+</p>
+<ul class="org-ul">
+<li>界面设计器 (中间)</li>
+<li>工具箱 （左边）</li>
+<li>属性管理器 (右下)</li>
+<li>解决方案管理器 (右上)</li>
+</ul>
+
+<p>
+如果上述布局不是如上所说，或者是某些图标不见了:
+</p>
+<ol class="org-ol">
+<li>从菜单中的【视图】中找回</li>
+<li>从菜单中的【窗口-重置窗口布局】恢复成原样</li>
+</ol>
+
+<p>
+对 <b>控件</b> 进行操控的方式:
+</p>
+<ol class="org-ol">
+<li>通过界面设计器，进行拖拖拽拽 (最简单，最直接) ✓</li>
+<li>通过属性管理器，进行调整 (细节) ✓</li>
+<li>在对应的代码文件中，直接编码实现 (优先级更高)</li>
+</ol>
+
+<p>
+所谓的控件:
+</p>
+<ul class="org-ul">
+<li>是对页面的某个元素的一种描述 (按钮、文字、窗口、进度条)</li>
+<li>实际上对应的是 C# 中的一个类型 (class Button/Label/Form)</li>
+<li>常见的一些控件:
+<ul class="org-ul">
+<li>Button 按钮</li>
+<li>Label 文字</li>
+<li>PictureBox 图片</li>
+<li>TextBox 输入框</li>
+</ul></li>
+<li>控件都有一个叫 name 的属性，它是唯一的，在代码中可以用它来引用这个控件的实例。
+建议为每个控件取一个合适的名字。</li>
+<li>通过 <code>MessageBox.Show</code> 的方式，创建弹窗显示信息 (mbox TAB)</li>
+</ul>
+
+<p>
+下一节:
+</p>
+<ul class="org-ul">
+<li>复习本节所讲，多多练习</li>
+<li>在界面上将身体状况的信息合理展示出来</li>
+<li>注意纪律。有问题主动提问</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8452469" class="outline-3">
+<h3 id="org8452469"><span class="section-number-3">1.10.</span> 2024-01-15 (寒假作业)</h3>
+<div class="outline-text-3" id="text-1-10">
+<p>
+做一个求取 BMI 的控制台应用:
+</p>
+<ol class="org-ol">
+<li>首先，提示用户输入身高和体重 (<code>Console.ReadLine</code>)</li>
+<li>其次，根据用户输入的身高和体重，计算 BMI，并判定身体状态 (<code>if..else</code>)</li>
+<li>最后，输出给用户 (<code>Console.WriteLine</code>)</li>
+<li>进入第一步，循环 (<code>for/while</code>)</li>
+</ol>
+
+<p>
+参考网站: <a href="https://cn.onlinebmicalculator.com/">https://cn.onlinebmicalculator.com/</a>
+</p>
+
+<p>
+其他:
+</p>
+<ul class="org-ul">
+<li>如果有兴趣的同学，可以自行学习一下 Winform 应用的创建，尝试使用窗口的方式将这个功能实现一下</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org82189a0" class="outline-3">
+<h3 id="org82189a0"><span class="section-number-3">1.11.</span> 2024-01-15 (期末成绩)</h3>
+<div class="outline-text-3" id="text-1-11">
+<table>
+
+
+<colgroup>
+<col  class="org-right">
+
+<col  class="org-left">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">No</th>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-right">Test1</th>
+<th scope="col" class="org-right">Test2</th>
+<th scope="col" class="org-right">Test3</th>
+<th scope="col" class="org-right">Final</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">甘成杰</td>
+<td class="org-right">99</td>
+<td class="org-right">100</td>
+<td class="org-right">100</td>
+<td class="org-right">100</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">刘鹏</td>
+<td class="org-right">100</td>
+<td class="org-right">94</td>
+<td class="org-right">97</td>
+<td class="org-right">97</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">吴淑豪</td>
+<td class="org-right">95</td>
+<td class="org-right">98</td>
+<td class="org-right">94</td>
+<td class="org-right">96</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">官名福</td>
+<td class="org-right">86</td>
+<td class="org-right">89</td>
+<td class="org-right">99</td>
+<td class="org-right">91</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">林俊贤</td>
+<td class="org-right">91</td>
+<td class="org-right">79</td>
+<td class="org-right">95</td>
+<td class="org-right">88</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">刘天宇</td>
+<td class="org-right">69</td>
+<td class="org-right">99</td>
+<td class="org-right">96</td>
+<td class="org-right">88</td>
+</tr>
+
+<tr>
+<td class="org-right">7</td>
+<td class="org-left">江金涛</td>
+<td class="org-right">72</td>
+<td class="org-right">96</td>
+<td class="org-right">93</td>
+<td class="org-right">87</td>
+</tr>
+
+<tr>
+<td class="org-right">8</td>
+<td class="org-left">肖毅良</td>
+<td class="org-right">77</td>
+<td class="org-right">72</td>
+<td class="org-right">98</td>
+<td class="org-right">82</td>
+</tr>
+
+<tr>
+<td class="org-right">9</td>
+<td class="org-left">邓义柏</td>
+<td class="org-right">93</td>
+<td class="org-right">91</td>
+<td class="org-right">60</td>
+<td class="org-right">81</td>
+</tr>
+
+<tr>
+<td class="org-right">10</td>
+<td class="org-left">刘金麓</td>
+<td class="org-right">94</td>
+<td class="org-right">87</td>
+<td class="org-right">60</td>
+<td class="org-right">80</td>
+</tr>
+
+<tr>
+<td class="org-right">11</td>
+<td class="org-left">黄锡东</td>
+<td class="org-right">90</td>
+<td class="org-right">88</td>
+<td class="org-right">60</td>
+<td class="org-right">79</td>
+</tr>
+
+<tr>
+<td class="org-right">12</td>
+<td class="org-left">李毅</td>
+<td class="org-right">89</td>
+<td class="org-right">82</td>
+<td class="org-right">60</td>
+<td class="org-right">77</td>
+</tr>
+
+<tr>
+<td class="org-right">13</td>
+<td class="org-left">陈宇川</td>
+<td class="org-right">85</td>
+<td class="org-right">85</td>
+<td class="org-right">60</td>
+<td class="org-right">77</td>
+</tr>
+
+<tr>
+<td class="org-right">14</td>
+<td class="org-left">江坤涛</td>
+<td class="org-right">97</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">76</td>
+</tr>
+
+<tr>
+<td class="org-right">15</td>
+<td class="org-left">杨富</td>
+<td class="org-right">98</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">76</td>
+</tr>
+
+<tr>
+<td class="org-right">16</td>
+<td class="org-left">梁炽勇</td>
+<td class="org-right">92</td>
+<td class="org-right">77</td>
+<td class="org-right">60</td>
+<td class="org-right">76</td>
+</tr>
+
+<tr>
+<td class="org-right">17</td>
+<td class="org-left">李进斌</td>
+<td class="org-right">88</td>
+<td class="org-right">80</td>
+<td class="org-right">60</td>
+<td class="org-right">76</td>
+</tr>
+
+<tr>
+<td class="org-right">18</td>
+<td class="org-left">程春平</td>
+<td class="org-right">96</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">19</td>
+<td class="org-left">杨耀嘉</td>
+<td class="org-right">87</td>
+<td class="org-right">78</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">20</td>
+<td class="org-left">王艺楠</td>
+<td class="org-right">81</td>
+<td class="org-right">83</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">21</td>
+<td class="org-left">盘泽强</td>
+<td class="org-right">80</td>
+<td class="org-right">86</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">22</td>
+<td class="org-left">王俊杰</td>
+<td class="org-right">74</td>
+<td class="org-right">92</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">23</td>
+<td class="org-left">陈翕</td>
+<td class="org-right">71</td>
+<td class="org-right">95</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">24</td>
+<td class="org-left">吴嘉城</td>
+<td class="org-right">68</td>
+<td class="org-right">97</td>
+<td class="org-right">60</td>
+<td class="org-right">75</td>
+</tr>
+
+<tr>
+<td class="org-right">25</td>
+<td class="org-left">曾翔</td>
+<td class="org-right">73</td>
+<td class="org-right">90</td>
+<td class="org-right">60</td>
+<td class="org-right">74</td>
+</tr>
+
+<tr>
+<td class="org-right">26</td>
+<td class="org-left">黄军帮</td>
+<td class="org-right">70</td>
+<td class="org-right">93</td>
+<td class="org-right">60</td>
+<td class="org-right">74</td>
+</tr>
+
+<tr>
+<td class="org-right">27</td>
+<td class="org-left">杜喆</td>
+<td class="org-right">84</td>
+<td class="org-right">75</td>
+<td class="org-right">60</td>
+<td class="org-right">73</td>
+</tr>
+
+<tr>
+<td class="org-right">28</td>
+<td class="org-left">李德致</td>
+<td class="org-right">79</td>
+<td class="org-right">81</td>
+<td class="org-right">60</td>
+<td class="org-right">73</td>
+</tr>
+
+<tr>
+<td class="org-right">29</td>
+<td class="org-left">罗秀洋</td>
+<td class="org-right">82</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">71</td>
+</tr>
+
+<tr>
+<td class="org-right">30</td>
+<td class="org-left">黄颜徽</td>
+<td class="org-right">83</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">71</td>
+</tr>
+
+<tr>
+<td class="org-right">31</td>
+<td class="org-left">曾宏燊</td>
+<td class="org-right">70</td>
+<td class="org-right">84</td>
+<td class="org-right">60</td>
+<td class="org-right">71</td>
+</tr>
+
+<tr>
+<td class="org-right">32</td>
+<td class="org-left">张明达</td>
+<td class="org-right">76</td>
+<td class="org-right">74</td>
+<td class="org-right">60</td>
+<td class="org-right">70</td>
+</tr>
+
+<tr>
+<td class="org-right">33</td>
+<td class="org-left">王上标</td>
+<td class="org-right">78</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">69</td>
+</tr>
+
+<tr>
+<td class="org-right">34</td>
+<td class="org-left">周远龙</td>
+<td class="org-right">75</td>
+<td class="org-right">73</td>
+<td class="org-right">60</td>
+<td class="org-right">69</td>
+</tr>
+
+<tr>
+<td class="org-right">35</td>
+<td class="org-left">符文财</td>
+<td class="org-right">70</td>
+<td class="org-right">76</td>
+<td class="org-right">60</td>
+<td class="org-right">69</td>
+</tr>
+
+<tr>
+<td class="org-right">36</td>
+<td class="org-left">韦代帅</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">37</td>
+<td class="org-left">谢鹤鸣</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">38</td>
+<td class="org-left">邓炜祺</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">39</td>
+<td class="org-left">郭小龙</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">40</td>
+<td class="org-left">刘仁杰</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">41</td>
+<td class="org-left">左亮</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">42</td>
+<td class="org-left">车斌涛</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">43</td>
+<td class="org-left">周枫</td>
+<td class="org-right">70</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">44</td>
+<td class="org-left">何锦晖</td>
+<td class="org-right">70</td>
+<td class="org-right">71</td>
+<td class="org-right">60</td>
+<td class="org-right">67</td>
+</tr>
+
+<tr>
+<td class="org-right">45</td>
+<td class="org-left">夏志豪</td>
+<td class="org-right">67</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">66</td>
+</tr>
+
+<tr>
+<td class="org-right">46</td>
+<td class="org-left">林显诚</td>
+<td class="org-right">66</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">65</td>
+</tr>
+
+<tr>
+<td class="org-right">47</td>
+<td class="org-left">肖峰</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">60</td>
+<td class="org-right">63</td>
+</tr>
+
+<tr>
+<td class="org-right">48</td>
+<td class="org-left">魏坤</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">60</td>
+<td class="org-right">63</td>
+</tr>
+
+<tr>
+<td class="org-right">49</td>
+<td class="org-left">黄萧</td>
+<td class="org-right">70</td>
+<td class="org-right">60</td>
+<td class="org-right">60</td>
+<td class="org-right">63</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org9e9b6ae" class="outline-3">
+<h3 id="org9e9b6ae"><span class="section-number-3">1.12.</span> 2023-12-28 (任务)</h3>
+<div class="outline-text-3" id="text-1-12">
+<p>
+使用控制台实现点名的功能。
+</p>
+
+<p>
+[列出所有名字 - 喊名字 - 回车 - 下一个名字 - 循环 - 点名结束]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0a2cf87" class="outline-3">
+<h3 id="org0a2cf87"><span class="section-number-3">1.13.</span> 2023-10-30 (任务)</h3>
+<div class="outline-text-3" id="text-1-13">
+<p>
+创建类 Device，描述设备的基本信息并添加基本控制
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf5f6210" class="outline-3">
+<h3 id="orgf5f6210"><span class="section-number-3">1.14.</span> 2023-09-07 (任务)</h3>
+<div class="outline-text-3" id="text-1-14">
+<p>
+01-张三.txt, 创建源文件、编写代码、编译、运行
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orga1a6079" class="outline-2">
+<h2 id="orga1a6079"><span class="section-number-2">2.</span> 任务结果</h2>
+<div class="outline-text-2" id="text-2">
+<table id="org42ef7a0">
+
+
+<colgroup>
+<col  class="org-right">
+
+<col  class="org-left">
+
+<col  class="org-right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">G</th>
+<th scope="col" class="org-left">姓名</th>
+<th scope="col" class="org-right"><a href="#org4963414">2024-04-03</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">甘成杰</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">官名福</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">肖毅良</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">刘鹏</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">刘天宇</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">林俊贤</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">吴淑豪</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">江金涛</td>
+<td class="org-right">3</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">吴嘉城</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">陈翕</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">黄军帮</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">王俊杰</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">邓义柏</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">曾翔</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">黄锡东</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">刘金麓</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">盘泽强</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">陈宇川</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">曾宏燊</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">王艺楠</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">李毅</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">李德致</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">李进斌</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">杨耀嘉</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">梁炽勇</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">符文财</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">杜喆</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">张明达</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">周远龙</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">何锦晖</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">杨富</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">江坤涛</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">程春平</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">夏志豪</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">韦代帅</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">黄颜徽</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">林显诚</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">谢鹤鸣</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">邓炜祺</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">郭小龙</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">刘仁杰</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">罗秀洋</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">左亮</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">车斌涛</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">王上标</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">周枫</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">肖峰</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">魏坤</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">黄萧</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+<details><summary>history scores</summary>
+<table id="orgc17639a">
+
+
+<colgroup>
+<col  class="org-right">
+
+<col  class="org-left">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">G</th>
+<th scope="col" class="org-left">姓名</th>
+<th scope="col" class="org-right"><a href="#orgf5f6210">2023-09-07</a></th>
+<th scope="col" class="org-right"><a href="#org0a2cf87">2023-10-30</a></th>
+<th scope="col" class="org-right"><a href="#org9e9b6ae">2023-12-28</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">甘成杰</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">官名福</td>
+<td class="org-right">15</td>
+<td class="org-right">12</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">肖毅良</td>
+<td class="org-right">24</td>
+<td class="org-right">29</td>
+<td class="org-right">3</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">刘鹏</td>
+<td class="org-right">1</td>
+<td class="org-right">7</td>
+<td class="org-right">4</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">刘天宇</td>
+<td class="org-right">32</td>
+<td class="org-right">2</td>
+<td class="org-right">5</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">林俊贤</td>
+<td class="org-right">10</td>
+<td class="org-right">22</td>
+<td class="org-right">6</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">吴淑豪</td>
+<td class="org-right">6</td>
+<td class="org-right">3</td>
+<td class="org-right">7</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">江金涛</td>
+<td class="org-right">29</td>
+<td class="org-right">5</td>
+<td class="org-right">8</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">吴嘉城</td>
+<td class="org-right">33</td>
+<td class="org-right">4</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">陈翕</td>
+<td class="org-right">30</td>
+<td class="org-right">6</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">黄军帮</td>
+<td class="org-right">31</td>
+<td class="org-right">8</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">王俊杰</td>
+<td class="org-right">27</td>
+<td class="org-right">9</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">邓义柏</td>
+<td class="org-right">8</td>
+<td class="org-right">10</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">曾翔</td>
+<td class="org-right">28</td>
+<td class="org-right">11</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">黄锡东</td>
+<td class="org-right">11</td>
+<td class="org-right">13</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">刘金麓</td>
+<td class="org-right">7</td>
+<td class="org-right">14</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">盘泽强</td>
+<td class="org-right">21</td>
+<td class="org-right">15</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">陈宇川</td>
+<td class="org-right">16</td>
+<td class="org-right">16</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">曾宏燊</td>
+<td class="org-right">-</td>
+<td class="org-right">17</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">王艺楠</td>
+<td class="org-right">20</td>
+<td class="org-right">18</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">李毅</td>
+<td class="org-right">12</td>
+<td class="org-right">19</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">李德致</td>
+<td class="org-right">22</td>
+<td class="org-right">20</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">李进斌</td>
+<td class="org-right">13</td>
+<td class="org-right">21</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">杨耀嘉</td>
+<td class="org-right">14</td>
+<td class="org-right">23</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">梁炽勇</td>
+<td class="org-right">9</td>
+<td class="org-right">24</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">符文财</td>
+<td class="org-right">-</td>
+<td class="org-right">25</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">杜喆</td>
+<td class="org-right">17</td>
+<td class="org-right">26</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">张明达</td>
+<td class="org-right">25</td>
+<td class="org-right">27</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">周远龙</td>
+<td class="org-right">26</td>
+<td class="org-right">28</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">何锦晖</td>
+<td class="org-right">-</td>
+<td class="org-right">30</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">杨富</td>
+<td class="org-right">3</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">江坤涛</td>
+<td class="org-right">4</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">程春平</td>
+<td class="org-right">5</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">夏志豪</td>
+<td class="org-right">34</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">韦代帅</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">黄颜徽</td>
+<td class="org-right">18</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">林显诚</td>
+<td class="org-right">35</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">谢鹤鸣</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">邓炜祺</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">郭小龙</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">刘仁杰</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">罗秀洋</td>
+<td class="org-right">19</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">左亮</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">车斌涛</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">王上标</td>
+<td class="org-right">23</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">周枫</td>
+<td class="org-right">-</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">肖峰</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">魏坤</td>
+<td class="org-right">-</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">黄萧</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</details>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 31415929</p>
+<p class="date">Created: 2024-04-08</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>
