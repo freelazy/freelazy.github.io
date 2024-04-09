@@ -1,0 +1,710 @@
+#+TITLE: 191
+
+
+课代表: 曾凯
+
+
+* 笔记
+** 2024-04-09 08:34:21
+:PROPERTIES:
+:ID:       20240409T083448.281804
+:END:
+
+小测验，制作不规则闹钟。课本第 22 页。
+
+** 2024-04-07 15:03:22
+
+要做的事:
+1. 练习前两次讲解的代码，做到无提醒情况下能将其实现出来
+2. 按照课本第10页，练习登录窗体的实现
+3. 完成课本上的课后题
+
+时间本不多，劝君珍惜之。有问题主动提问
+
+** 2024-04-07 08:58:20
+
+定时器的另一个例子，自由落体运动:
+#+begin_src csx -n
+  int guoleduoshaomiao = 0;
+  int kaishidegaodu;
+
+  public Form1()
+  {
+      InitializeComponent();
+
+      // 下落的定时器
+      timer1.Interval = 20;
+      timer1.Tick += Timer1_Tick;
+
+      // 消失的定时器
+      timer2.Interval = 3000;
+      timer2.Tick += Timer2_Tick;
+
+      kaishidegaodu = button1.Location.Y;
+  }
+
+  private void Timer1_Tick(object sender, EventArgs e)
+  {
+      // 下降的高度 = g*t*t/2
+
+      // 过去了多少时间
+      guoleduoshaomiao = guoleduoshaomiao + 1;
+      // 下降了多少高度
+      int xiajiangdegaodu = 9 * guoleduoshaomiao * guoleduoshaomiao / 20;
+      // 现在应该在什么位置
+      int xianzaiyinggaidegaodu = kaishidegaodu + xiajiangdegaodu;
+
+      // 刷新位置
+      if (xianzaiyinggaidegaodu < 800)
+      {
+          button1.Location = new Point(button1.Location.X, xianzaiyinggaidegaodu);
+
+      }
+      // 到底了，爆炸
+      else
+      {
+          timer1.Stop();
+          timer2.Start();
+          button1.BackColor = Color.Red;
+      }
+  }
+
+  private void Timer2_Tick(object sender, EventArgs e)
+  {
+      button1.Dispose();
+      timer2.Stop();
+  }
+
+  private void button1_Click(object sender, EventArgs e)
+  {
+      timer1.Enabled = !timer1.Enabled;
+  }
+#+end_src
+
+** 2024-04-02 09:04:27
+
+定时器:
+#+begin_src csx -n
+  public Form1()
+  {
+      InitializeComponent();
+
+      timer1.Interval = 200;  // 隔多少时间执行一次
+      timer1.Tick += 刷新时间; // 执行的逻辑
+
+      timer2.Interval = 100;
+      timer2.Tick += skdjfksjdfks;
+      timer2.Start();
+  }
+
+  private void skdjfksjdfks(object sender, EventArgs e)
+  {
+      var y = button1.Location.Y + 3;
+      if (y > 250)
+      {
+          timer2.Enabled = false;
+          MessageBox.Show("爆炸了!!!");
+      }
+      else
+      {
+          button1.Location = new Point(button1.Location.X, y);
+      }
+  }
+
+  private void 刷新时间(object sender, EventArgs e)
+  {
+      // 使用内置的 DateTime 类，来表达时间
+      shijianbiaoqian.Text = DateTime.Now.ToString();
+  }
+
+  private void button1_Click(object sender, EventArgs e)
+  {
+      timer1.Enabled = !timer1.Enabled;
+  }
+#+end_src
+
+** 2024-03-29 08:38:50
+
+事件。择机执行 (触发):
+- 某些状态发生了变化 (Load/FormClosed/FormClosing/Resize)
+- 用户产生了某些动作 (KeyUp/KeyDown/KeyPress, Click/MouseDown/MouseUp/MouseEnter/MouseLeave/MouseHover)
+
+代码示例:
+#+begin_src csx -n
+  private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+  {
+      //MessageBox.Show("再见，后会有期");
+  }
+
+  private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+  {
+      //MessageBox.Show("我就要离开了...");
+  }
+
+  private void hello_jiazaiwanbi_shijian(object sender, EventArgs e)
+  {
+      //MessageBox.Show("我已经准备好了");
+  }
+
+  private void Form1_Resize(object sender, EventArgs e)
+  {
+      var chicun = this.Size;
+      label1.Text = $"当前窗口的尺寸为: {chicun.Width} x {chicun.Height}";
+      label1.Font = new Font("楷体", chicun.Width / 25);
+  }
+
+  private void Form1_KeyDown(object sender, KeyEventArgs e)
+  {
+      if (e.KeyCode == Keys.A)
+      {
+          MessageBox.Show("你按到了 A");
+      }
+      else if (e.KeyCode == Keys.Enter)
+      {
+          label1.ForeColor = Co lor.Red;
+      }
+      else
+      {
+          MessageBox.Show("瞎乱按啥呢");
+      }
+  }
+
+  private void Form1_KeyUp(object sender, KeyEventArgs e)
+  {
+      if (e.KeyCode == Keys.Enter)
+      {
+          label1.ForeColor = SystemColors.ControlText;
+      }
+  }
+
+  private void Form1_Click(object sender, EventArgs e)
+  {
+      label1.Text = $"{label1.Text}!";
+  }
+
+  private void Form1_MouseEnter(object sender, EventArgs e)
+  {
+      this.Location = new Point(new Random().Next(500), this.Location.Y - 59);
+  }
+#+end_src
+
+** 2024-03-26 08:29:19
+
+窗体的属性:
+- 标题文字: Text
+- 位置: StartPosition/Location
+- 尺寸: Size/MinSize/MaxSize
+- 初始最大化最小化: WindowState
+- 定制边框和标题栏的样式: FormBorderStyle
+- 背景: BackgroundColor/BackgroundImage
+
+窗口的方法:
+- Activate
+- Close/Dispose/Hide
+- Show/ShowDialog
+
+** 2024-03-22 08:41:13
+
+项目类型:
+- CLI 命令行软件 (Command Line Interface)
+- GUI 带图形界面的软件 (Graphic User Interface)
+  + C#, Winform, WPF, MAUI
+  + C/C++, Qt/GTK
+
+创建完成，看到的界面:
+- 右上: 解决方案管理器
+- 中间: 界面设计器
+- 左侧: 工具箱
+- 右下: 属性窗口
+
+如果界面显示不是如此，那么两种方式:
+1. 从【菜单栏-视图】中找回相应的功能，通过拖拽方式恢复界面
+2. 从【菜单栏-窗口-重置窗口布局】的方式，恢复默认
+
+Form1.ShowDialog 是打开模态窗口的意思，即在最顶层
+
+一个窗体，实质就是定义了一个 C# 的 Form 类型。对应的是三个文件:
+1. Form1.cs
+2. Form1.Designer.cs (界面设计器)
+3. Form1.resx (资源文件)
+
+partial, 一部分。分部类 (课本第3页)
+
+参考代码:
+#+begin_src csx -n
+  private void button2_Click(object sender, EventArgs e)
+  {
+      string[] words = { "你喜欢我吗", "考虑一下做我朋友吧", "xxx", "yyy" };
+      for (int i = 0; i < 100; i++)
+      {
+          var form3 = new DiSanGeChuangTi();
+          //form3.Show();
+          form3.label1.Text = words[i % 4];
+          form3.ShowDialog();
+      }
+  }
+#+end_src
+
+** 2024-03-19 09:32:31
+
+翻转字符串，添加循环和退出，并优化效率。
+
+{{{details(参考实现)}}}
+#+begin_src csx -n
+  static void Main(string[] args)
+  {
+      while (true)
+      {
+          // 1. 用户输入字符串
+          Console.Write("请输入您要操作的字符串: ");
+          string input = Console.ReadLine();
+
+          // 判定是不是要结束
+          if (input == "退出" || input == "tuichu")
+          {
+              break;
+          }
+
+          // 2. 求取翻转的字符串
+          string output = ReverseString(input);
+
+          // 3. 输出字符串
+          Console.WriteLine($"翻转后的结果是: {output}");
+      }
+  }
+
+  static string ReverseString(string input)
+  {
+      // 最好不用直接用 string 进行拼接 (string vs StringBuilder)
+      StringBuilder result = new StringBuilder();
+      for (int i = input.Length - 1; i >= 0; i--)
+      {
+          result = result.Append(input[i]);
+      }
+      return result.ToString();
+  }
+#+end_src
+{{{details(/)}}}
+
+** 2024-03-15 14:52:53
+
+Winform练习题:
+1. 创建一个简单的登录窗体，包含用户名和密码的文本框，以及登录按钮。
+   当用户点击登录按钮时，检查用户名和密码是否正确，并显示相应的提示信息。 
+2. 创建一个计算器窗体，包含数字按钮和运算符按钮。当用户点击数字按钮时，在文本框中显示相应的数字。
+   当用户点击运算符按钮时，根据当前显示的数字和运算符进行计算，并在文本框中显示结果。 
+3. 创建一个列表窗体，用于显示学生的姓名和成绩。窗体中包含一个添加按钮和一个显示按钮。
+   当用户点击添加按钮时，弹出一个对话框，要求输入学生的姓名和成绩，并将其添加到列表中。当用户点击显示按钮时，在另一个窗体中显示所有学生的姓名和成绩。
+4. 创建一个简单的音乐播放器窗体，包含播放、暂停和停止按钮，以及显示当前播放状态的标签。
+   当用户点击播放按钮时，播放音乐；点击暂停按钮时，暂停音乐；点击停止按钮时，停止音乐。
+5. 创建一个简单的图片浏览器窗体，包含向前、向后按钮和显示当前图片的图片框。
+   当用户点击向前按钮时，显示上一张图片；点击向后按钮时，显示下一张图片。
+6. 创建一个简单的文本编辑器窗体，可以打开和保存文本文件。窗体包含一个文本框用于输入和编辑文本内容，以及打开和保存按钮。
+   当用户点击打开按钮时，弹出一个对话框选择要打开的文本文件，并将其内容显示在文本框中。当用户点击保存按钮时，将文本框中的内容保存到指定的文件中。
+7. 创建一个简单的倒计时器窗体，可以设置倒计时时间，并显示倒计时的剩余时间。
+   窗体包含一个输入框用于设置倒计时时间，一个开始按钮和一个显示剩余时间的标签。
+   当用户点击开始按钮时，开始倒计时，并在标签中显示剩余时间，直到倒计时结束。
+8. 创建一个简单的日历窗体，显示当前日期和时间，并允许用户选择日期。
+   窗体包含一个显示当前日期和时间的标签，以及一个选择日期的日历控件。
+9. 创建一个简单的笔记本应用程序窗体，可以创建、打开和保存笔记。
+   窗体包含一个文本框用于输入和编辑笔记内容，以及新建、打开和保存按钮。
+   当用户点击新建按钮时，清空文本框内容；当用户点击打开按钮时，弹出一个对话框选择要打开的笔记文件，并将其内容显示在文本框中；
+   当用户点击保存按钮时，将文本框中的内容保存到指定的文件中。
+10. 创建一个简单的待办事项列表窗体，可以添加、删除和完成待办事项。
+    窗体包含一个文本框用于输入待办事项，一个添加按钮和一个待办事项列表框。
+    当用户点击添加按钮时，将输入的待办事项添加到列表框中；
+    当用户选中列表框中的待办事项并点击删除按钮时，删除选中的待办事项；
+    当用户选中列表框中的待办事项并点击完成按钮时，将选中的待办事项标记为已完成。
+
+** 2024-03-15 08:30:49
+
+翻转字符串，参考代码：
+#+begin_src csx -n
+  static void Main(string[] args)
+  {
+      // 1. 用户输入字符串
+      Console.Write("请输入您要操作的字符串: ");
+      string input = Console.ReadLine();
+
+      // 2. 求取翻转的字符串
+      string output = ReverseString(input);
+
+      // 3. 输出字符串
+      Console.WriteLine($"翻转后的结果是: {output}");
+  }
+
+  static string ReverseString(string input)
+  {
+      // 最好不用直接用 string 进行拼接 (string vs StringBuilder)
+      string result = "";
+      foreach (char c in input)
+      {
+          result = c + result;
+      }
+
+      return result;
+  }
+#+end_src
+
+改进:
+1. 优化代码，让其更加高效合理 (stringbuilder)
+2. 在主程序中，增加逻辑，让代码一直执行。除非输入了【退出】，程序结束
+
+{{{details(参考答案)}}}
+
+优化效率:
+#+begin_src csx -n
+  StringBuilder result = new StringBuilder();
+  for (int i = input.Length - 1; i >= 0; i--)
+  {
+      result = result.Append(input[i]);
+  }
+  return result.ToString();
+#+end_src
+
+增加循环和退出:
+#+begin_src csx -n
+  while (true)
+  {
+      // 1. 用户输入字符串
+      Console.Write("请输入您要操作的字符串: ");
+      string input = Console.ReadLine();
+
+      // 判定是不是要结束
+      if (input == "退出" || input == "tuichu")
+      {
+          break;
+      }
+
+      // 2. 求取翻转的字符串
+      string output = ReverseString(input);
+
+      // 3. 输出字符串
+      Console.WriteLine($"翻转后的结果是: {output}");
+  }
+#+end_src
+{{{details(/)}}}
+
+** 2024-03-12 09:46:16
+
+99乘法表，实际上跟倒三角的题目是一样的:
+- 它是一个正向的三角排列
+- 它只不过将每个输出的 * 具体成了一个字符串
+
+** 2024-03-08 08:40:26
+
+要干啥:
+1. 课代表同学，请用手机，将班群里的那两个文件下载下来
+2. 课代表同学，请将下载的文件，复制给所有同学
+3. 请所有同学，练习上述代码，理解面向对象的概念，熟悉面向对象代码的写法
+4. 补充: 
+   - 有问题，请及时提问
+   - 请做好笔记，请准备好U盘
+   - 记住网址 https://freelazy.github.io/191
+   - 根据上述网址上的记录，对以前学习的代码: 练!练!!练!!!
+
+** 2024-01-15 (寒假作业)
+
+完成下面图示的题目:
+
+[[file:img/191-3338282.png]]
+
+补充:
+- 其中第 3 题的进阶题目是：请用循环的方式，输出 99 乘法表。有兴趣的同学请尝试
+- 请大家酌情预习 Winform 相关内容
+
+** 2024-01-15 (期末分数)
+
+# #+begin_src elisp :var tb=rs
+#   (cl-loop for i in tb
+#            for f1 = (if (numberp (nth 2 i)) (- 101 (nth 2 i)) 60)
+#            for f2 = (if (numberp (nth 3 i)) (- 101 (nth 3 i)) 60)
+#            for f3 = (if (numberp (nth 4 i)) (- 101 (nth 4 i)) 60)
+#            collect (list 0 (nth 1 i) f1 f2 f3 (round (/ (+ f1 f2 f3) 3.0))))
+# #+end_src
+
+| No. | Name  | Test1 | Test2 | Test3 | Final |
+|-----+-------+-------+-------+-------+-------|
+|   1 | 陈嘉鹏 |   100 |    99 |    99 |    99 |
+|   2 | 覃宇江 |    95 |    97 |    98 |    97 |
+|   3 | 唐瑞钦 |    94 |   100 |    93 |    96 |
+|   4 | 刘志豪 |    88 |    98 |   100 |    95 |
+|   5 | 韦海永 |    87 |    96 |    95 |    93 |
+|   6 | 曾世强 |    93 |    95 |    92 |    93 |
+|   7 | 刘宁   |    98 |    93 |    89 |    93 |
+|   8 | 吴志挥 |    84 |    91 |    97 |    91 |
+|   9 | 刘燃东 |    91 |    83 |    96 |    90 |
+|  10 | 黄佳鹏 |    96 |    87 |    87 |    90 |
+|  11 | 张翔宇 |    85 |    90 |    91 |    89 |
+|  12 | 魏智锋 |    92 |    88 |    86 |    89 |
+|  13 | 秦铭杉 |    97 |    86 |    84 |    89 |
+|  14 | 李境松 |    89 |    85 |    90 |    88 |
+|  15 | 叶子超 |    86 |    92 |    81 |    86 |
+|  16 | 陈述亮 |    90 |    84 |    79 |    84 |
+|  17 | 潘嘉豪 |    60 |    95 |    94 |    83 |
+|  18 | 廖哲   |    99 |    82 |    60 |    80 |
+|  19 | 曾凯   |    60 |    89 |    82 |    77 |
+|  20 | 刁扬春 |    82 |    60 |    83 |    75 |
+|  21 | 岑宇森 |    60 |    81 |    80 |    74 |
+|  22 | 陈子健 |    83 |    60 |    78 |    74 |
+|  23 | 林宝荣 |    60 |    60 |    88 |    69 |
+|  24 | 朱荣如 |    60 |    60 |    85 |    68 |
+
+
+
+
+** 2023-12-25 (任务)
+:PROPERTIES:
+:ID:       20240311T095828.107998
+:END:
+
+使用 Winform 实现一个 BMI 计算的应用。要求布局合理，美观大方
+
+** 2023-10-30 (任务)
+:PROPERTIES:
+:ID:       20240311T095853.809291
+:END:
+
+创建类 Device，描述设备的基本信息并添加基本控制
+
+** 2023-09-11 (任务)
+:PROPERTIES:
+:ID:       20240311T095840.898164
+:END:
+
+创建 helloworld、编译、运行，独立完成
+
+* 练习题
+** 循环和条件判断
+*** 打印从 1 到 1000 的所有数
+  
+{{{details(参考答案)}}}
+
+#+begin_src csx -n
+  for (int i = 1; i <= 1000; i++)
+  {
+      Console.WriteLine(i);
+  }
+#+end_src
+
+{{{details(/)}}}
+  
+*** 求取从 1 到 1000 的所有数的和
+  
+{{{details(参考答案)}}}
+
+#+begin_src csx -n
+  int sum = 0;
+  for (int i = 1; i <= 1000; i++)
+  {
+      sum = sum + i;
+  }
+  Console.WriteLine($"他们的和是 {sum}");
+#+end_src
+
+#+RESULTS:
+: 他们的和是 500500
+
+{{{details(/)}}}
+  
+*** 求取从 1 到 1000 的所有数的平均数
+  
+{{{details(参考答案)}}}
+
+#+begin_src csx -n
+  int sum = 0;
+  int n = 1000;
+
+  for (int i = 1; i <= 1000; i++)
+  {
+      sum = sum + i;
+  }
+
+  double avg = sum / (double)n; // 平均数 = 和 ÷ 个数
+  
+  Console.WriteLine($"他们的和是 {sum}, 平均数是 {avg}");
+#+end_src
+
+#+RESULTS:
+| 他们的和是 500500 | 平均数是 500.5 |
+
+{{{details(/)}}}
+  
+*** 求取 int[] numbers = {1,2,3,4,5,6,7,8,9,10} 的平均值
+  
+{{{details(参考答案)}}}
+
+#+begin_src csx -n
+  int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+  int sum = 0;
+  int n = numbers.Length;
+
+  foreach (int i in numbers)
+  {
+      sum = sum + i;
+  }
+
+  double avg = (double) sum / n; // 平均数 = 和 ÷ 个数
+
+  Console.WriteLine($"他们的和是 {sum}, 平均数是 {avg}");
+#+end_src
+
+{{{details(/)}}}
+
+*** 在控制台上，输出倒三角图案
+
+: *****
+: ****
+: ***
+: **
+: *
+
+实现思路:
+- 先写一个简单的循环，输出 N 行，每行一个 *
+- 尝试修改上述代码，输出 N 行，每行输出 M 个星
+- 再修改上述代码，让次循环中输出的星的个数跟当前行数关联
+
+{{{details(参考答案)}}}
+#+begin_src csx -n
+  for (int i = 0; i < 9; i++)
+  {
+      for (int j = 0; j < 9 - i; j++)
+      {
+          Console.Write("*");
+      }
+      Console.WriteLine();
+  }
+#+end_src
+{{{details(/)}}}
+
+*** 在控制台上，输出 99 乘法表
+
+: 1x1=1
+: 1x2=2 2x2=4
+: 1x3=3 2x3=6 3x3=9
+
+步骤:
+1. 九行星
+2. 正三角
+3. 99乘法表
+
+{{{details(参考答案)}}}
+#+begin_src csx -n
+  for (int i = 1; i <= 9; i++)
+  {
+      for (int j = 1; j <= i; j++)
+      {
+          //string r = $"{j}x{i}={j * i}\t";
+          Console.Write($"{j}x{i}={j * i}\t");
+      }
+      Console.WriteLine();
+  }
+#+end_src
+{{{details(/)}}}
+
+* 知识点
+** 字符串的拼接
+
+简而言之，字符串有如下 4 种常用的拼接方式。代码示例如下:
+#+begin_src csx -n
+  string a = "hello";
+  string b = "world";
+  string c = "!";
+
+  // 拼接起来
+  string r1 = a + b + c; // 语法简单自然
+  string r2 = new StringBuilder().Append(a).Append(b).Append(c).ToString(); // 效率更高 (✓)
+  string r3 = string.Format("{0}{1}{2}", a, b, c); // 结合了前面两种方式的优点
+  string r4 = $"{a}{b}{c}";                        // 是在 string.Format 基础上进一步优化语法 (✓)
+
+  Console.WriteLine(r1);
+  Console.WriteLine(r2);
+  Console.WriteLine(r3);
+  Console.WriteLine(r4);
+#+end_src
+
+String vs StringBuilder, 效率差别。请执行下面两段代码，进行观察。
+
+#+begin_src csx -n
+  string s = null;
+
+  for (int i = 0; i < 1000000; i++)
+  {
+      s = s + "hello.";
+  }
+
+  Console.WriteLine(s);
+#+end_src
+
+#+begin_src csx -n
+  StringBuilder s = new StringBuilder();
+
+  for (int i = 0; i < 1000000; i++)
+  {
+      s = s.Append("hello.");
+  }
+
+  Console.WriteLine(s);
+#+end_src
+
+* 任务结果
+
+#+NAME: rs
+| 组 | 姓名   | [[id:20240409T083448.281804][2024-04-09]] |
+|---+-------+------------|
+| 4 | 刘志豪 |            |
+| 2 | 陈嘉鹏 |            |
+| 4 | 覃宇江 |            |
+| 4 | 吴志挥 |            |
+| 3 | 刘燃东 |       1    |
+| 2 | 韦海永 |            |
+| 2 | 潘嘉豪 |            |
+| 3 | 唐瑞钦 |            |
+| 1 | 曾世强 |            |
+| 4 | 张翔宇 |            |
+| 2 | 李境松 |            |
+| 1 | 刘宁   |            |
+| 3 | 林宝荣 |            |
+| 2 | 黄佳鹏 |            |
+| 1 | 魏智锋 |            |
+| 3 | 朱荣如 |            |
+| 2 | 秦铭杉 |            |
+| 4 | 刁扬春 |            |
+| 1 | 曾凯   |            |
+| 1 | 叶子超 |            |
+| 3 | 岑宇森 |            |
+| 3 | 陈述亮 |            |
+| 1 | 陈子健 |            |
+| 2 | 廖哲   |            |
+
+
+{{{details(history score)}}}
+#+NAME: rs
+| 组 | 姓名   | [[id:20240311T095840.898164][2023-09-11]] | [[id:20240311T095853.809291][2023-10-30]] | [[id:20240311T095828.107998][2023-12-25]] |
+|---+-------+------------+------------+------------|
+| 4 | 刘志豪 |         13 |          3 |          1 |
+| 2 | 陈嘉鹏 |          1 |          2 |          2 |
+| 4 | 覃宇江 |          6 |          4 |          3 |
+| 4 | 吴志挥 |         17 |         10 |          4 |
+| 3 | 刘燃东 |         10 |         18 |          5 |
+| 2 | 韦海永 |         14 |          5 |          6 |
+| 2 | 潘嘉豪 |          - |          6 |          7 |
+| 3 | 唐瑞钦 |          7 |          1 |          8 |
+| 1 | 曾世强 |          8 |          6 |          9 |
+| 4 | 张翔宇 |         16 |         11 |         10 |
+| 2 | 李境松 |         12 |         16 |         11 |
+| 1 | 刘宁   |          3 |          8 |         12 |
+| 3 | 林宝荣 |            |            |         13 |
+| 2 | 黄佳鹏 |          5 |         14 |         14 |
+| 1 | 魏智锋 |          9 |         13 |         15 |
+| 3 | 朱荣如 |          - |            |         16 |
+| 2 | 秦铭杉 |          4 |         15 |         17 |
+| 4 | 刁扬春 |         19 |            |         18 |
+| 1 | 曾凯   |            |         12 |         19 |
+| 1 | 叶子超 |         15 |          9 |         20 |
+| 3 | 岑宇森 |            |         20 |         21 |
+| 3 | 陈述亮 |         11 |         17 |         22 |
+| 1 | 陈子健 |         18 |            |         23 |
+| 2 | 廖哲   |          2 |         19 |            |
+{{{details(/)}}}
