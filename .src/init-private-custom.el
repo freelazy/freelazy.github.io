@@ -85,7 +85,7 @@
                   ;;(gts-youdao-dict-engine)
                   ;;(gts-google-engine :parser (gts-google-parser))
                   )
-        :render (gts-buffer-render)))
+        :render (gts-buffer-render :prefix nil)))
 
  (global-set-key [f5] 'gts-do-translate)
  (define-key gts-prompt-taker-keymap [f5] #'exit-minibuffer)
