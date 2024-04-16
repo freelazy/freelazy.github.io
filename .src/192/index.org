@@ -5,6 +5,40 @@
 
   
 * 笔记
+** 2024-04-16 10:54:48
+
+#+begin_src csx -n
+  Point yuanlaidepianyi;
+  bool shibushianxiaqule = false;
+
+  private void Form1_MouseMove(object sender, MouseEventArgs e)
+  {
+      // MousePosition 是什么东西
+      // e.Location
+      if (shibushianxiaqule)
+      {
+          Location = new Point
+              (
+              MousePosition.X - yuanlaidepianyi.X,
+              MousePosition.Y - yuanlaidepianyi.Y
+              );
+      }
+  }
+
+
+  private void Form1_MouseDown(object sender, MouseEventArgs e)
+  {
+      shibushianxiaqule = true;
+      yuanlaidepianyi = e.Location;
+      //MessageBox.Show($"{MousePosition}, {e.Location}, {Location}");
+  }
+
+  private void Form1_MouseUp(object sender, MouseEventArgs e)
+  {
+      shibushianxiaqule = false;
+  }
+#+end_src
+
 ** 2024-04-10 09:15:42
 :PROPERTIES:
 :ID:       20240410T091613.104984
@@ -383,7 +417,6 @@ C/S架构编程，做完第一章所有的上机题:
 | 2 | 麦天河 |            |            |
 | 4 | 王海波 |            |            |
 | 3 | 饶展源 |            |            |
-| 4 | 谢晓中 |            |            |
 | 1 | 沈艺宏 |            |            |
 | 1 | 刘翔   |            |            |
 | 6 | 周永久 |            |            |
