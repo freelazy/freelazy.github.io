@@ -9,14 +9,26 @@
 
 #+begin_src csx -n
   Point yuanlaidepianyi;
-  bool shibushianxiaqule = false;
+  bool 鼠标按下去了吗 = false;
+
+  private void Form1_MouseDown(object sender, MouseEventArgs e)
+  {
+      鼠标按下去了吗 = true;
+      yuanlaidepianyi = e.Location;
+      //MessageBox.Show($"{MousePosition}, {e.Location}, {Location}");
+  }
+
+  private void Form1_MouseUp(object sender, MouseEventArgs e)
+  {
+      鼠标按下去了吗 = false;
+  }
 
   private void Form1_MouseMove(object sender, MouseEventArgs e)
   {
       // MousePosition 是什么东西
       // e.Location 是什么玩意
       // 他们跟 this.Location 是什么关系
-      if (shibushianxiaqule)
+      if (鼠标按下去了吗)
       {
           Location = new Point
               (
@@ -24,19 +36,6 @@
               MousePosition.Y - yuanlaidepianyi.Y
               );
       }
-  }
-
-
-  private void Form1_MouseDown(object sender, MouseEventArgs e)
-  {
-      shibushianxiaqule = true;
-      yuanlaidepianyi = e.Location;
-      //MessageBox.Show($"{MousePosition}, {e.Location}, {Location}");
-  }
-
-  private void Form1_MouseUp(object sender, MouseEventArgs e)
-  {
-      shibushianxiaqule = false;
   }
 #+end_src
 
