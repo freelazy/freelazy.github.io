@@ -14,7 +14,8 @@
   private void Form1_MouseMove(object sender, MouseEventArgs e)
   {
       // MousePosition 是什么东西
-      // e.Location
+      // e.Location 是什么玩意
+      // 他们跟 this.Location 是什么关系
       if (shibushianxiaqule)
       {
           Location = new Point

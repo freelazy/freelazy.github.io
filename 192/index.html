@@ -75,29 +75,30 @@
 <span class="linenr"> 4: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Form1_MouseMove</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">MouseEventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
 <span class="linenr"> 5: </span><span style="color: #000000;">{</span>
 <span class="linenr"> 6: </span>    <span style="color: #505050;">// </span><span style="color: #505050;">MousePosition &#26159;&#20160;&#20040;&#19996;&#35199;</span>
-<span class="linenr"> 7: </span>    <span style="color: #505050;">// </span><span style="color: #505050;">e.Location</span>
-<span class="linenr"> 8: </span>    <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>shibushianxiaqule<span style="color: #a8007f;">)</span>
-<span class="linenr"> 9: </span>    <span style="color: #a8007f;">{</span>
-<span class="linenr">10: </span>        Location = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Point</span>
-<span class="linenr">11: </span>            <span style="color: #005f88;">(</span>
-<span class="linenr">12: </span>            MousePosition.X - yuanlaidepianyi.X,
-<span class="linenr">13: </span>            MousePosition.Y - yuanlaidepianyi.Y
-<span class="linenr">14: </span>            <span style="color: #005f88;">)</span>;
-<span class="linenr">15: </span>    <span style="color: #a8007f;">}</span>
-<span class="linenr">16: </span><span style="color: #000000;">}</span>
-<span class="linenr">17: </span>
+<span class="linenr"> 7: </span>    <span style="color: #505050;">// </span><span style="color: #505050;">e.Location &#26159;&#20160;&#20040;&#29609;&#24847;</span>
+<span class="linenr"> 8: </span>    <span style="color: #505050;">// </span><span style="color: #505050;">&#20182;&#20204;&#36319; this.Location &#26159;&#20160;&#20040;&#20851;&#31995;</span>
+<span class="linenr"> 9: </span>    <span style="color: #5317ac;">if</span> <span style="color: #a8007f;">(</span>shibushianxiaqule<span style="color: #a8007f;">)</span>
+<span class="linenr">10: </span>    <span style="color: #a8007f;">{</span>
+<span class="linenr">11: </span>        Location = <span style="color: #5317ac;">new</span> <span style="color: #005a5f;">Point</span>
+<span class="linenr">12: </span>            <span style="color: #005f88;">(</span>
+<span class="linenr">13: </span>            MousePosition.X - yuanlaidepianyi.X,
+<span class="linenr">14: </span>            MousePosition.Y - yuanlaidepianyi.Y
+<span class="linenr">15: </span>            <span style="color: #005f88;">)</span>;
+<span class="linenr">16: </span>    <span style="color: #a8007f;">}</span>
+<span class="linenr">17: </span><span style="color: #000000;">}</span>
 <span class="linenr">18: </span>
-<span class="linenr">19: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Form1_MouseDown</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">MouseEventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
-<span class="linenr">20: </span><span style="color: #000000;">{</span>
-<span class="linenr">21: </span>    shibushianxiaqule = <span style="color: #0000c0;">true</span>;
-<span class="linenr">22: </span>    yuanlaidepianyi = e.Location;
-<span class="linenr">23: </span>    <span style="color: #505050;">//</span><span style="color: #505050;">MessageBox.Show($"{MousePosition}, {e.Location}, {Location}");</span>
-<span class="linenr">24: </span><span style="color: #000000;">}</span>
-<span class="linenr">25: </span>
-<span class="linenr">26: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Form1_MouseUp</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">MouseEventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
-<span class="linenr">27: </span><span style="color: #000000;">{</span>
-<span class="linenr">28: </span>    shibushianxiaqule = <span style="color: #0000c0;">false</span>;
-<span class="linenr">29: </span><span style="color: #000000;">}</span>
+<span class="linenr">19: </span>
+<span class="linenr">20: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Form1_MouseDown</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">MouseEventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr">21: </span><span style="color: #000000;">{</span>
+<span class="linenr">22: </span>    shibushianxiaqule = <span style="color: #0000c0;">true</span>;
+<span class="linenr">23: </span>    yuanlaidepianyi = e.Location;
+<span class="linenr">24: </span>    <span style="color: #505050;">//</span><span style="color: #505050;">MessageBox.Show($"{MousePosition}, {e.Location}, {Location}");</span>
+<span class="linenr">25: </span><span style="color: #000000;">}</span>
+<span class="linenr">26: </span>
+<span class="linenr">27: </span><span style="color: #5317ac;">private</span> <span style="color: #005a5f;">void</span> <span style="color: #721045;">Form1_MouseUp</span><span style="color: #000000;">(</span><span style="color: #005a5f;">object</span> <span style="color: #00538b;">sender</span>, <span style="color: #005a5f;">MouseEventArgs</span> <span style="color: #00538b;">e</span><span style="color: #000000;">)</span>
+<span class="linenr">28: </span><span style="color: #000000;">{</span>
+<span class="linenr">29: </span>    shibushianxiaqule = <span style="color: #0000c0;">false</span>;
+<span class="linenr">30: </span><span style="color: #000000;">}</span>
 </pre>
 </div>
 </div>
@@ -939,7 +940,7 @@ C/S架构编程，做完第一章所有的上机题:
 <section id="outline-container-org366482f" class="outline-2">
 <h2 id="org366482f"><span class="section-number-2">2.</span> 任务结果</h2>
 <div class="outline-text-2" id="text-2">
-<table id="orgc0e687b">
+<table id="org39c3128">
 
 
 <colgroup>
@@ -1259,7 +1260,7 @@ C/S架构编程，做完第一章所有的上机题:
 
 <details><summary>history score</summary>
 
-<table id="org39c3128">
+<table id="org13b800a">
 
 
 <colgroup>
