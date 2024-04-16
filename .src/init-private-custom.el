@@ -85,10 +85,10 @@
                   ;;(gts-youdao-dict-engine)
                   ;;(gts-google-engine :parser (gts-google-parser))
                   )
-        :render (gts-buffer-render :prefix nil)))
+        :render (gts-buffer-render :prefix "\n")))
 
  (global-set-key [f5] 'gts-do-translate)
- (define-key gts-prompt-taker-keymap [f5] #'exit-minibuffer)
+ (define-key gts-buffer-prompt-map [f5] #'exit-minibuffer)
  (global-hl-line-mode 1))
 
 
