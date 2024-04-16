@@ -77,9 +77,10 @@
 (with-over
  (require 'go-translate)
  (setq gts-cache-enable nil
+       gts-langs '(en zh ja ru fr)
        gts-default-translator
        (gts-translator
-        :taker (gts-taker :langs '(en zh ja ru fr) :text 'word)
+        :taker (gts-taker :text 'word)
         :engines (list
                   (gts-bing-engine)
                   ;;(gts-youdao-dict-engine)
