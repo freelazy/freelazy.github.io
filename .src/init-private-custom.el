@@ -76,20 +76,20 @@
 
 (with-over
  (require 'go-translate)
- (setq gts-cache-enable nil
-       gts-langs '(en zh ja ru fr)
-       gts-default-translator
-       (gts-translator
-        :taker (gts-taker :text 'word)
+ (setq gt-cache-enable nil
+       gt-langs '(en zh ja ru fr)
+       gt-default-translator
+       (gt-translator
+        :taker (gt-taker :text 'word)
         :engines (list
-                  (gts-bing-engine)
-                  ;;(gts-youdao-dict-engine)
-                  ;;(gts-google-engine :parser (gts-google-parser))
+                  (gt-bing-engine)
+                  ;;(gt-youdao-dict-engine)
+                  ;;(gt-google-engine :parser (gt-google-parser))
                   )
-        :render (gts-buffer-render :prefix "\n")))
+        :render (gt-buffer-render :prefix "\n")))
 
- (global-set-key [f5] 'gts-do-translate)
- (define-key gts-buffer-prompt-map [f5] #'exit-minibuffer)
+ (global-set-key [f5] 'gt-do-translate)
+ (define-key gt-buffer-prompt-map [f5] #'exit-minibuffer)
  (global-hl-line-mode 1))
 
 
