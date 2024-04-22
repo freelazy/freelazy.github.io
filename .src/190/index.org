@@ -6,6 +6,72 @@
 
 
 * 笔记
+** 2024-04-22 09:51:08
+
+猜数字的参考代码:
+
+#+begin_src csx -n
+  int cishu = 0;
+  int zhenzhengdeshuzi = new Random().Next(1, 20);
+
+  void skdjfksdjkf()
+  {
+      // 0. 计数
+      cishu = cishu + 1;
+
+      // 1. 提取用户输入，并转换为数字
+      int caideshuzi = int.Parse(shuziBox.Text);
+
+      // 2. 将用户输入的数字，跟上面的真正的数字进行比对。并输出
+      if (caideshuzi > zhenzhengdeshuzi)
+      {
+          BackColor = Color.Red;
+          jieguoLabel.Text = "高了";
+      }
+      else if (caideshuzi < zhenzhengdeshuzi)
+      {
+          BackColor = Color.Blue;
+          jieguoLabel.Text = "低了";
+      }
+      else
+      {
+          BackColor = Color.Green;
+          jieguoLabel.Text = $"恭喜你，你一共猜了 {cishu} 次";
+          //shuziBox.Enabled = false;
+          shuziBox.ReadOnly = true;
+      }
+
+      shuziBox.Focus();
+      shuziBox.SelectAll();
+  }
+
+  private void caiButton_Click(object sender, EventArgs e)
+  {
+      skdjfksdjkf();
+  }
+
+  private void shuziBox_KeyUp(object sender, KeyEventArgs e)
+  {
+      if (e.KeyCode == Keys.Enter)
+      {
+          skdjfksdjkf();
+      }
+  }
+
+  private void newBtn_Click(object sender, EventArgs e)
+  {
+      BackColor = SystemColors.Control;
+      jieguoLabel.Text = "";
+      shuziBox.ReadOnly = false;
+      shuziBox.Text = "";
+      zhenzhengdeshuzi = new Random().Next(1, 20);
+      cishu = 0;
+  }
+#+end_src
+
+优化空间:
+- 如果猜对了，不应该继续点击“猜一猜”
+
 ** 2024-04-22 09:05:41
 
 温度转换参考代码:
