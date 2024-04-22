@@ -76,6 +76,7 @@
 
 (with-over
  (require 'go-translate)
+ (setq gts-supress-warning t)
  (setq gt-cache-enable nil
        gt-langs '(en zh ja ru fr)
        gt-default-translator
@@ -88,7 +89,7 @@
                   )
         :render (gt-buffer-render :prefix "\n")))
 
- (global-set-key [f5] 'gt-do-translate)
+ (global-set-key [f5] 'go-translate)
  (define-key gt-buffer-prompt-map [f5] #'exit-minibuffer)
  (global-hl-line-mode 1))
 
