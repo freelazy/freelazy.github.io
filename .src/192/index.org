@@ -18,10 +18,10 @@
   public FrmGuess()
   {
       InitializeComponent();
-      初始化游戏();
+      初始化();
   }
 
-  void 初始化游戏 ()
+  void 初始化 ()
   {
       inBox.Text = "";
       outLabel.Text = $"请输入从 1 到 {zuidazhi} 之间的数字";
@@ -38,7 +38,7 @@
       if (cishu >= 最多能猜多少次)
       {
           MessageBox.Show("猜测次数过多，请不要继续了");
-          ChuShiHuaYouXi();
+          初始化();
           return;
       }
 
