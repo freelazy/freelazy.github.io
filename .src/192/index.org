@@ -5,6 +5,77 @@
 
   
 * 笔记
+** 2024-04-24 15:25:27
+
+猜数字的小游戏。代码仅供参考:
+
+#+begin_src csx -n
+  int zhenShuzi;
+  int zuidazhi = 15;
+  int cishu = 0;
+  int 最多能猜多少次 = 7;
+
+  public FrmGuess()
+  {
+      InitializeComponent();
+      ChuShiHuaYouXi();
+  }
+
+  void ChuShiHuaYouXi ()
+  {
+      inBox.Text = "";
+      outLabel.Text = $"请输入从 1 到 {zuidazhi} 之间的数字";
+      zhenShuzi = new Random().Next(1, zuidazhi);
+      inBox.ReadOnly = false;
+      cishu = 0;
+      BackColor = SystemColors.Control;
+  }
+
+  private void catBtn_Click(object sender, EventArgs e)
+  {
+      // 0. 更新
+      cishu = cishu + 1;
+      if (cishu >= 最多能猜多少次)
+      {
+          MessageBox.Show("猜测次数过多，请不要继续了");
+          ChuShiHuaYouXi();
+          return;
+      }
+
+      // 1. 获取用户猜测的数字
+      int n = int.Parse(inBox.Text);
+
+      // 2. 将这个数字，跟系统给出的一个隐藏数字进行比较
+      if (n > zhenShuzi)
+      {
+          // 3. 刷新界面
+          BackColor = Color.Red;
+          outLabel.Text = "高了";
+      } 
+      else if (n < zhenShuzi)
+      {
+          BackColor = Color.Blue;
+          outLabel.Text = "低了";
+      }
+      else
+      {
+          BackColor = Color.Green;
+          outLabel.Text = "恭喜你";
+          //inBox.Enabled = false;
+          inBox.ReadOnly = true;
+      }
+
+      outLabel.Text = $"{outLabel.Text} (猜测次数 {cishu})";
+      inBox.Focus();
+      inBox.SelectAll();
+  }
+
+  private void xinBtn_Click(object sender, EventArgs e)
+  {
+      ChuShiHuaYouXi();
+  }
+#+end_src
+
 ** 2024-04-24 09:03:30
 
 温度转换，代码示例:
@@ -13,7 +84,7 @@
   void xxxjkdsjfksjdkfjdsk ()
   {
       // 1. 获取用户输入，并转换为可计算的数字
-      double 华氏温度 = double.Parse(huashiwendｕBox.Text);
+      double 华氏温度 = double.Parse(huashiwenduBox.Text);
 
       // 2. 通过公式，计算出需要的结果 6/4=1 6%4=2
       double 摄氏温度 = (5.0 / 9) * (华氏温度 - 32);
@@ -22,8 +93,8 @@
       jieguoLabel.Text = $"摄氏温度: {摄氏温度:f2}";
 
       // 4. 优化用户体验
-      huashiwendｕBox.Focus();
-      huashiwendｕBox.SelectAll();
+      huashiwenduBox.Focus();
+      huashiwenduBox.SelectAll();
   }
 
   private void zhuanhuanBtn_Click(object sender, EventArgs e)
@@ -39,6 +110,8 @@
       }
   }
 #+end_src
+
+需要优化的地方：异常处理，不让程序崩溃。
 
 ** 2024-04-16 10:54:48
 
