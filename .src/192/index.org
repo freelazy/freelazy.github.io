@@ -77,7 +77,7 @@
 
   private void xinBtn_Click(object sender, EventArgs e)
   {
-      初始化游戏();
+      初始化();
   }
 #+end_src
 
