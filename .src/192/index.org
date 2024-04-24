@@ -5,6 +5,41 @@
 
   
 * 笔记
+** 2024-04-24 09:03:30
+
+温度转换，代码示例:
+
+#+begin_src csx -n
+  void xxxjkdsjfksjdkfjdsk ()
+  {
+      // 1. 获取用户输入，并转换为可计算的数字
+      double 华氏温度 = double.Parse(huashiwendｕBox.Text);
+
+      // 2. 通过公式，计算出需要的结果 6/4=1 6%4=2
+      double 摄氏温度 = (5.0 / 9) * (华氏温度 - 32);
+
+      // 3. 将结果显示到界面上
+      jieguoLabel.Text = $"摄氏温度: {摄氏温度:f2}";
+
+      // 4. 优化用户体验
+      huashiwendｕBox.Focus();
+      huashiwendｕBox.SelectAll();
+  }
+
+  private void zhuanhuanBtn_Click(object sender, EventArgs e)
+  {
+      xxxjkdsjfksjdkfjdsk();
+  }
+
+  private void huashiwendｕBox_KeyUp(object sender, KeyEventArgs e)
+  {
+      if (e.KeyCode == Keys.Enter)
+      {
+          xxxjkdsjfksjdkfjdsk();
+      }
+  }
+#+end_src
+
 ** 2024-04-16 10:54:48
 
 #+begin_src csx -n
