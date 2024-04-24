@@ -18,10 +18,10 @@
   public FrmGuess()
   {
       InitializeComponent();
-      ChuShiHuaYouXi();
+      初始化游戏();
   }
 
-  void ChuShiHuaYouXi ()
+  void 初始化游戏 ()
   {
       inBox.Text = "";
       outLabel.Text = $"请输入从 1 到 {zuidazhi} 之间的数字";
@@ -31,7 +31,7 @@
       BackColor = SystemColors.Control;
   }
 
-  private void catBtn_Click(object sender, EventArgs e)
+  void 猜一猜 ()
   {
       // 0. 更新
       cishu = cishu + 1;
@@ -70,9 +70,14 @@
       inBox.SelectAll();
   }
 
+  private void catBtn_Click(object sender, EventArgs e)
+  {
+      猜一猜();
+  }
+
   private void xinBtn_Click(object sender, EventArgs e)
   {
-      ChuShiHuaYouXi();
+      初始化游戏();
   }
 #+end_src
 
