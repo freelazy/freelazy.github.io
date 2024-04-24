@@ -70,7 +70,7 @@
       inBox.SelectAll();
   }
 
-  private void catBtn_Click(object sender, EventArgs e)
+  private void caiBtn_Click(object sender, EventArgs e)
   {
       猜一猜();
   }
