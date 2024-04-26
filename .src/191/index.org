@@ -5,6 +5,47 @@
 
 
 * 笔记
+** 2024-04-26 09:02:55
+
+温度转换的代码示例:
+#+begin_src csx -n
+  public FrmTrans()
+  {
+      InitializeComponent();
+
+      label1.Text = "请输入温度，然后点击按钮进行转换";
+  }
+
+  void kadjksjkfjskdjskjfksdjkfjsdfjkjdfjsdkfjksjfkjskjfsdjf()
+  {
+      // 1. 输入
+      double 华氏温度 = double.Parse(textBox1.Text);
+
+      // 2. 计算  7/5=1 7%5=2
+      double 摄氏温度 = (5 / 9.0) * (华氏温度 - 32);
+
+      // 3. 输出
+      label1.Text = $"摄氏温度: {摄氏温度:f2}";
+
+      // 其他
+      textBox1.Focus();
+      textBox1.SelectAll();
+  }
+
+  private void button1_Click(object sender, EventArgs e)
+  {
+      kadjksjkfjskdjskjfksdjkfjsdfjkjdfjsdkfjksjfkjskjfsdjf();
+  }
+
+  private void textBox1_KeyUp(object sender, KeyEventArgs e)
+  {
+      if (e.KeyCode == Keys.Enter)
+      {
+          kadjksjkfjskdjskjfksdjkfjsdfjkjdfjsdkfjksjfkjskjfsdjf();
+      }
+  }
+#+end_src
+
 ** 2024-04-19 08:34:36
 :PROPERTIES:
 :ID:       20240419T083451.065971
