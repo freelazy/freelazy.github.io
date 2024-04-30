@@ -5,6 +5,56 @@
 
 
 * 笔记
+** 2024-04-30 09:07:37
+
+红绿灯:
+
+#+begin_src csx -n
+  // 1 红 2 红变绿的黄 3 绿 4.绿变红的黄灯
+  // 1 红 2,3,4,5,6 黄 7 绿 8,9,10,11,12 黄
+  int shenmeDeng = 1; 
+
+  public Form1()
+  {
+      InitializeComponent();
+
+      redLabel.BackColor = Color.Red;
+      yellowLabel.BackColor = Color.Yellow;
+      greenLabel.BackColor = Color.Green;
+
+      timer1.Interval = 2000;
+      timer1.Tick += 变灯;
+      timer1.Enabled = true;
+  }
+
+  private void 变灯(object sender, EventArgs e)
+  {
+      if (shenmeDeng == 1)
+      {
+          redLabel.BackColor = Color.Red;
+          yellowLabel.BackColor = Color.Gray;
+          greenLabel.BackColor = Color.Gray;
+          timer1.Interval = 5000;
+      }
+      else if (shenmeDeng == 7)
+      {
+          redLabel.BackColor = Color.Gray;
+          yellowLabel.BackColor = Color.Gray;
+          greenLabel.BackColor = Color.Green;
+          timer1.Interval = 5000;
+      }
+      else
+      {
+          redLabel.BackColor = Color.Gray;
+          yellowLabel.BackColor = shenmeDeng % 2 == 0 ? Color.Yellow : Color.Gray;
+          greenLabel.BackColor = Color.Gray;
+          timer1.Interval = 500;
+      }
+
+      shenmeDeng = shenmeDeng + 1 > 12 ? 1 : shenmeDeng + 1;
+  }
+#+end_src
+
 ** 2024-04-26 09:02:55
 
 温度转换的代码示例:
